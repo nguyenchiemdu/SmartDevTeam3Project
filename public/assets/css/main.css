@@ -1,0 +1,862 @@
+* {
+    width: 100%;
+    height: 100%;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --main-background-color: #212121;
+    --main-color: #ffffff;
+    --style-color: #e40084;
+}
+a {
+    text-decoration: none !important;
+}
+/* header */
+header {
+    background-color: var(--main-background-color);
+    width: 100%;
+    height: 88px;
+    position: fixed;
+    z-index: 999;
+}
+header .container {
+    max-width: 1400px;
+}
+
+#logo {
+    width: 220px;
+    height: auto;
+    font-size: 16px;
+    text-transform: uppercase;
+    display: block;
+    letter-spacing: 3px;
+    color: var(--main-color);
+    margin-top: 21px;
+    transition: all 0.3s ease;
+}
+#logo:hover {
+    color: var(--style-color);
+}
+#logo img {
+    width: 50px;
+    height: 50px;
+    margin-top: -4px;
+}
+/* menu header-right */
+#menu {
+    width: 550px;
+    height: 30px;
+}
+#menu, .header-right {
+    margin-top: 28px;
+}
+#menu ul ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#menu li, .header-right li {
+    width: 120px;
+    height: auto;
+    display: inline-block;
+    line-height: 40px;
+    margin-left: -5px;
+    
+}
+#menu li:hover a, .header-right li:hover a {
+    color: var(--style-color);
+}
+#menu li a, .header-right li a {
+    color: var(--main-color);
+    display: flex;
+    transition: all 0.3s ease;
+}
+#menu li a h6, .header-right li a h6 {
+    float: left;
+    margin: 0 5px;
+}
+#menu li a i, .header-right li a i {
+    margin-top: 4px;
+}
+header .header-right {
+    margin-left: 250px;
+    z-index: 999;
+}
+
+/* Sign in */
+header .header-right .sign-in {
+    width: auto;
+    height: auto;
+}
+/* Logout */
+header .header-right a.log-out {
+    width: auto;
+    height: auto;
+    /* visibility: hidden; */
+}
+header .header-right a.log-out:hover {
+    color: var(--style-color);
+}
+
+/* try-free */
+/* header .try-free {
+    color: var(--main-color);
+    border: 1px solid;
+    padding: 8px 22px;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+header .try-free:hover {
+    color: var(--style-color);
+}
+header .menu-bar {
+    width: 0px;
+    height: 0px;
+    margin: 0;
+} */
+
+/* banner */
+section.banner {
+    padding-top: 88px;
+    width: 100%;
+    height: auto;
+    background-image: linear-gradient(to right, #e40084, #911bcc, indigo);
+}
+section.banner .container {
+    max-width: 1400px;
+}
+section.banner .banner-left {
+    height: auto;
+    width: auto;
+    padding-left: 30px;
+}
+section.banner .banner-left img {
+    width: 100%;
+    height: auto;
+    margin-top: 88px;
+}
+section.banner .banner-left .button-save {
+    margin: 80px 0;
+}
+section.banner .banner-left .button-save a {
+    padding: 15px 70px;
+    text-transform: uppercase;
+    background-color: #ffde17;
+    font-weight: bold;
+    color: #000;
+    transition: all 0.3s ease;
+}
+section.banner .banner-left .button-save a:hover {
+    box-shadow: 0px 10px 10px 5px #333;
+}
+
+/* Learning */
+section.learn {
+    background-color: #000;
+    width: auto;
+    height: auto;
+}
+section.learn .container {
+    max-width: 1400px;
+}
+section.learn .learn-left {
+    margin: 50px 0;
+    width: auto;
+    height: auto;
+}
+section.learn .khoi {
+    background-color:#333;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    border: 20px solid #000;
+    border-radius: 30px;
+    color: var(--main-color);
+}
+
+section.learn span {
+    text-transform: uppercase;
+    color: var(--style-color);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    height: auto;
+    width: auto;
+}
+section.learn img {
+    width: 80px;
+    height: 80px;
+    float: right;
+    /* display: inline-block; */
+
+}
+section.learn h5 {
+    color: var(--main-color);
+    font-size: 22px;
+    height: auto;
+    width: auto;
+
+}
+section.learn p {
+    color: #ddd;
+    height: auto;
+    width: auto;
+
+}
+section.learn h6 {
+    color: var(--main-color);
+    height: auto;
+    width: 100%;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+}
+section.learn .learn-right {
+    height: auto;
+    width: auto;
+    padding-left: 20px;
+    margin: auto 0;
+}
+section.learn .learn-right span {
+    font-size: 16px;
+}
+section.learn .learn-right h5 {
+    font-size: 30px;
+    font-weight: 800;
+    width: auto;
+    margin: 30px 0;
+}
+section.learn .learn-right p {
+    font-size: 16px;
+    font-weight: 600;
+    width: auto;
+}
+section.learn .learn-right h6 {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-bottom: 30px;
+}
+section.learn .learn-right a:hover i {
+    margin-left: 5px;
+}
+section.learn .learn-right i {
+    height: auto;
+    width: auto;
+    color: var(--style-color);
+    font-size: 22px;
+    transition: all 0.3s ease;
+}
+
+/* new */
+
+section.new {
+    height: auto;
+    width: 100%;
+    background-color: #181818;
+}
+section.new .container {
+    max-width: 1400px;
+}
+section.new span {
+    margin-left: 50px;
+    color: var(--style-color);
+    margin-top: 90px;
+    font-weight: bold;
+    height: auto;
+}
+section.new h5 {
+    color: var(--main-color);
+    font-size: 32px;
+    font-weight: bold;
+    margin: 20px 0;
+    margin-left: 50px;
+    height: auto;
+}
+section.new .new-left {
+    width: auto;
+    height: auto;
+    padding: 0 30px;
+    border-left: 30px solid #181818;
+    background-color: #212121;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: 30px;
+}
+section.new .new-left img{
+    margin-top: 50px;
+    height: 22px;
+    width: 115px;
+}
+section.new .new-left h6 {
+    color: var(--main-color);
+    height: auto;
+    margin-top: 10px;
+}
+section.new .new-left h5 {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--main-color);
+    height: auto;
+    margin: 20px 0;
+}
+section.new .new-left p {
+    color: var(--main-color);
+    height: auto;
+}
+section.new .new-left h6.learn-more {
+    color: var(--main-color);
+    height: auto;
+    width: auto;
+    float: left;
+    margin-bottom: 30px;
+}
+section.new .new-left a:hover i {
+    margin-left: 5px;
+}
+section.new .new-left i {
+    margin-top: 10px;
+    height: auto;
+    width: auto;
+    color: var(--style-color);
+    font-size: 22px;
+    transition: all 0.3s ease;
+}
+
+/* new-right */
+
+section.new .new-right img {
+    height: auto;
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+/* new-bottom */
+section.new-bottom {
+    background-color: #181818;
+    height: auto;
+    width: auto;
+    padding-left: 25px;
+}
+section.new-bottom .container {
+    max-width: 1400px;
+}
+section.new-bottom .khoi {
+    background-color: var(--main-background-color);
+    border-radius: 25px;
+    border: 15px solid #181818;
+    margin-bottom: 30px;
+    width: auto;
+    height: auto;
+}
+section.new-bottom img {
+    margin: 40px 10px 20px 30px;
+    width: auto;
+    height: auto;
+}
+section.new-bottom h5 {
+    margin: 10px 10px 20px 30px;
+    width: auto;
+    height: auto;
+    font-size: 33px;
+    font-weight: bold;
+    color: var(--main-color);
+}
+section.new-bottom p {
+    margin: 30px 10px 20px 30px;
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    color: var(--main-color);
+}
+section.new-bottom h6 {
+    margin: 30px 10px 20px 30px;
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    color: var(--main-color);
+    float: left;
+}
+section.new-bottom a:hover i {
+    margin-left: 5px;
+}
+section.new-bottom i {
+    margin-top: 30px;
+    height: auto;
+    width: auto;
+    color: var(--style-color);
+    font-size: 22px;
+    transition: all 0.3s ease;
+}
+
+/* update */
+section.update {
+    background-color: #000;
+    height: auto;
+}
+section.update .container {
+    max-width: 1400px;
+}
+section.update span {
+    color: var(--style-color);
+    margin-top: 80px;
+    margin-left: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: 100%;
+    height: auto;
+}
+section.update h5 {
+    color:var(--main-color);
+    margin: 20px 0;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 33px;
+    width: 100%;
+    height: auto;
+}
+section.update .khoi {
+    margin: 30px 0;
+
+}
+section.update img {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+section.update h6 {
+    margin: 15px 0;
+    color: #ffba0e;
+    width: 100%;
+    height: auto;
+}
+section.update p {
+    margin: 15px 0;
+    color: var(--main-color);
+    width: 100%;
+    height: auto;
+}
+
+/* banner-mid */
+section.banner-mid {
+    width: 100%;
+    height: auto;
+    background-color: #000;
+}
+section.banner-mid .container {
+    margin-left: 13px;
+    max-width: 100%;
+}
+section.banner-mid img.img-left {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    padding: 0;
+
+}
+section.banner-mid .banner-mid-right {
+    background: linear-gradient(100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+    width: 100%;
+    height: auto;
+    padding: 50px 20px;
+    margin-bottom: 30px;
+}
+section.banner-mid .banner-mid-right img {
+    width: 16%;
+    height: auto;
+}
+section.banner-mid .banner-mid-right h5 {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 30px;
+    margin: 25px 0;
+    width: auto;
+    height: auto;
+}
+section.banner-mid .banner-mid-right p {
+    color: var(--main-color);
+    font-weight: 400;
+    font-size: 18px;
+    margin: 25px 0;
+    width: auto;
+    height: auto;
+}
+section.banner-mid .button-how {
+    width: auto;
+    height: auto;
+    margin: 40px 0;
+}
+section.banner-mid .button-how a {
+    padding: 15px 70px;
+    text-transform: uppercase;
+    background-color: #000;
+    font-weight: bold;
+    color: var(--main-color);
+    transition: all 0.3s ease;
+}
+section.banner-mid .button-how  a:hover {
+    box-shadow: 0px 10px 10px 5px #333;
+}
+
+/* courses */
+section.courses {
+    height: auto;
+    background-color: rgb(39, 39, 39);
+    padding: 50px 0;
+}
+section.courses .container {
+    max-width: 1400px;
+}
+section.courses .course-title h1 {
+    height: auto;
+    margin-bottom: 10px;
+    color: var(--style-color);
+}
+section.courses p {
+    color: var(--main-color);
+    height: auto;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+}
+section.courses .course-title button {
+    width: auto;
+    background-color: transparent;
+    margin: 10px 12px;
+    border: none;
+    font-size: 18px;
+    color: rgb(168, 168, 168);
+    cursor: pointer;
+}
+section.courses .course-title button.active {
+    color: var(--style-color);
+}
+section.courses .course-main {
+    display: none;
+    padding: 50px 30px;
+    width: auto;
+    border: 1px solid rgb(150, 150, 150);
+}
+section.courses .course-main.active {
+    display: flex;
+    flex-wrap: wrap;
+}
+section.courses .course-main h2 {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 23px;
+}
+section.courses .course-main button.explore {
+    color: white;
+    font-size: 15px;
+    border: 1px solid var(--main-color);
+    width: auto;
+    background-color: transparent;
+    padding: 8px 25px;
+    transition: all 0.3s ease;
+}
+section.courses .course-main button:hover {
+    background-color: #333;
+}
+section.courses .course-main-title {
+    margin-bottom: 40px;
+}
+section.courses .course-main-slider .slider {
+    padding: 8px 8px;
+}
+section.courses .course-main-slider img {
+    width: 100%;
+    height: auto;
+}
+section.courses .course-main-slider h3 {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px;
+    color: var(--main-color);
+}
+section.courses .course-main-slider h4 {
+    margin-top: 5px;
+    font-size: 12px;
+    color: rgb(168, 168, 168);
+}
+section.courses .course-main-slider h6 {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-color);
+}
+/* courses-cart */
+section.courses .course-main-cart {
+    height: auto;
+    width: auto;
+    margin: 20px;
+}
+section.courses .course-main-cart img {
+    height: auto;
+    width: auto;
+    margin-right: 20px;
+    float: left;
+}
+section.courses .course-main-cart h3.cartH3 {
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+    color: var(--main-color);
+}
+section.courses .course-main-cart h4 {
+    width: 100%;
+    height: auto;
+    margin-top: 5px;
+    font-size: 12px;
+    color: rgb(168, 168, 168);
+}
+section.courses .course-main-cart h6 {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-color);
+}
+section.courses h2.total {
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--main-color);
+}
+section.courses h2.total span{
+    color: var(--style-color);
+    font-size: 16px;
+}
+
+/* skills */
+section.skills {
+    background-color: #000;
+    height: auto;
+    padding: 50px 0 150px 0;
+}
+section.skills .title {
+    text-align: center;
+    padding-bottom: 100px;
+}
+section.skills .title h6 {
+    color: var(--style-color);
+    height: auto;
+    padding: 20px 0;
+}
+section.skills .title h5 {
+    color: var(--main-color);
+    height: auto;
+    font-size: 35px;
+    font-weight: bold;
+}
+section.skills .container {
+    max-width: 1300px;
+    padding-left: 40px;
+}
+section.skills .slide-skill {
+    background-color: var(--main-color);
+    border-radius: 30px;
+    padding: 5px 15px 5px 15px;
+    border: 20px solid #000;
+}
+section.skills .slide-skill .top {
+    margin-top: 15px;
+    width: auto;
+}
+section.skills .slide-skill img {
+    width: auto;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 10px;
+}
+section.skills .slide-skill h6 {
+    width: auto;
+    font-weight: bold;
+    font-size: 14px;
+}
+section.skills .slide-skill span {
+    width: auto;
+    font-size: 14px;
+}
+section.skills .slide-skill p {
+    width: auto;
+    font-size: 14px;
+}
+section.skills .slide-skill .mid {
+    width: auto;
+    margin: 10px 0;
+}
+section.skills .slide-skill .bottom {
+    width: auto;
+    margin-bottom: 10px;
+}
+section.skills .slide-skill i {
+    font-size: 18px;
+    display: inline;
+    margin: 0 10px 0 0;
+}
+
+
+/* nonpro */
+section.nonpro {
+    background-image: url("../images/nonpro.jpg");
+    height: auto;
+}
+section.nonpro .container {
+    max-width: 1400px;
+}
+section.nonpro img {
+    /* width: 100%; */
+    height: auto;
+}
+section.nonpro .nonpro-left {
+    height: auto;
+    margin-left: 15px;
+}
+section.nonpro img {
+    margin: 50px 0 0 0;
+    width: 190px;
+    height: 130px;
+    height: auto;
+}
+section.nonpro h5 {
+    font-size: 40px;
+    color: var(--main-color);
+    font-weight: bold;
+    height: auto;
+}
+section.nonpro p {
+    font-size: 16px;
+    color: var(--main-color);
+    margin: 23px 0;
+    height: auto;
+}
+section.nonpro h6 {
+    font-size: 16px;
+    padding: 18px 70px;
+    border: 1px solid var(--main-color);
+    margin: 23px 0 100px 0;
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+section.nonpro a {
+    color: var(--main-color);
+    width: auto;  
+}
+section.nonpro a:hover h6, section.nonpro a:hover {
+    color: var(--style-color);
+    border: 1px solid var(--style-color);
+    transition: all 0.3s ease;
+}
+
+
+/* free */
+section.free {
+    width: 100%;
+    height: auto;
+    background-color: #000;
+}
+section.free .container {
+    max-width: 1600px;
+}
+section.free .free-left {
+    text-align: center;
+    padding-left: 15px;
+}
+section.free h5 {
+    color: var(--main-color);
+    font-size: 40px;
+    font-weight: bold;
+    padding-left: 15px;
+    margin: 115px 0;
+}
+section.free .free-right {
+    text-align: center;
+    margin: 130px 0;
+}
+section.free a {
+    color: var(--main-color);
+    font-size: 16px;
+    font-weight: bold;
+    padding: 16px 70px;
+    background: linear-gradient(100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
+    
+}
+section.free a:hover {
+    background: linear-gradient(100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+
+}
+
+/* footer */
+footer {
+    background-color: #181818;
+    height: auto;
+    width: auto;
+}
+footer .container {
+    max-width: 100%;
+}
+footer .khoi {
+    padding-left: 50px;
+    margin: 60px 0;
+}
+footer .khoi h5 {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
+    width: 100%;
+    height: auto;
+    margin: 30px 0;
+}
+footer .khoi a {
+    display: block;
+    color: #7c7c7d;
+    font-weight: 500;
+    font-size: 13px;
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+footer .khoi a:hover {
+    color: var(--main-color);
+}
+footer .footer-bottom {
+    padding: 20px 20px;
+    border-top: 1px solid #333;
+}
+footer .footer-bottom img {
+    margin: -14px 0px;
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+footer .footer-bottom p {
+    font-size: 12px;
+    font-weight: 700;
+    /* margin-top: 14px; */
+    color: #7c7c7d;
+    display: inline;
+}
+footer .footer-bottom-mid a {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 20px 10px;
+    color: var(--main-color);
+    display: inline;
+    height: 100%;
+}
+footer .footer-bottom-right a i {
+    font-size: 18px;
+    margin: 20px 10px;
+    color: var(--main-color);
+    display: inline;
+}

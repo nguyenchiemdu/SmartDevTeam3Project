@@ -1,0 +1,146 @@
+<section class="courses" style="padding-top: 88px;">
+    <div class="container">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 course-title">
+            <h1>A broad selection of courses</h1>
+            <p>Choose from 183,000 online video courses with new additions published every month</p>
+            <button class="course-button active" data-title="#python" title="Python">
+                Python
+            </button>
+            <button class="course-button " data-title="#excel" title="Excel">
+                Excel
+            </button>
+            <button class="course-button " data-title="#web" title="Web Development">
+                Web Development
+            </button>
+            <button class="course-button " data-title="#javascript" title="Javascript">
+                Javascript
+            </button>
+            <button class="course-button " data-title="#data" title="Data Science">
+                Data Science
+            </button>
+            <button class="course-button " data-title="#aws" title="AWS Certification">
+                AWS Certification
+            </button>
+            <button class="course-button " data-title="#drawing" title="Drawing">
+                Drawing
+            </button>
+            <button style="float: right;" class="course-button " data-title="#coursescart" title="CoursesCart">
+                CoursesCart
+            </button>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="course-main active" id="python">
+                <div class="course-main-title">
+                    <h2>Expand your career opportunities with Python</h2>
+                    <p>Whether you work in machine learning or finance, or are pursuing a career in web development
+                        or data
+                        science, Python is one of the most important skills you can learn. Python's simple syntax is
+                        especially suited for desktop, web, and business applications. Python's design philosophy
+                        emphasizes
+                        readability and usability. Python was</p>
+                    <button class="explore">Explore Python</button>
+                </div>
+                <div class="course-main-slider responsive ">
+
+                    <% courses.forEach(function(courses) { %>
+                        <a id="<%= courses.id %>" href="/courses/<%= courses.slug %>" class="slider">
+                            <img src="<%= courses.image %>" alt="">
+                            <h3><%= courses.name %></h3>
+                            <h4><%= courses.author %></h4>
+                            <h6>A$<%= courses.price %></h6>
+                        </a>
+                    <% }); %>
+                        
+                </div>
+            </div>
+            <div class="course-main " id="excel">
+                <div class="course-main-title">
+                    <h2>Analyze and visualize data with Excel</h2>
+                    <p>Regardless of the industry you work in, Microsoft Office Excel is an invaluable spreadsheet
+                        program for organizing and representing data. Excel offers functions, formulas, and pivot
+                        tables to help you aggregate and then analyze large sets of information. Excel first truly
+                        appeared on the scene way back in 1987, when a version</p>
+                    <button class="explore">Explore Execl</button>
+                </div>
+                <div class="course-main-slider responsive ">
+                    
+                    
+                </div>
+            </div>
+            <div class="course-main " id="web">
+                <div class="course-main-title">
+                    <h2>Build websites and applications with Web Development</h2>
+                    <p>The world of web development is as wide as the internet itself. Much of our social and
+                        vocational lives play out on the internet, which prompts new industries aimed at
+                        creating, managing, and debugging the websites and applications that we increasingly
+                        rely on.</p>
+                    <button class="explore">Explore Web Development</button>
+                </div>
+                <div class="course-main-slider responsive">
+                   
+                </div>
+            </div>
+            <div class="course-main " id="javascript">
+                <div class="course-main-title">
+                    <h2>Grow your software development skills with JavaScript</h2>
+                    <p>JavaScript is one of the most ubiquitous programming languages on the planet, mostly because
+                        it's the backbone of interactive web applications. On top of that, JavaScript is a great
+                        language for beginners because it gives them a chance to write code that does something
+                        visual, which is exciting and helpful when you're just</p>
+                    <button class="explore">Explore Javascript</button>
+                </div>
+                <div class="course-main-slider responsive">
+                   
+                </div>
+            </div>
+            <div class="course-main " id="data">
+                <div class="course-main-title">
+                    <h2>Lead data-driven decisions with Data Science</h2>
+                    <p>Data science is everywhere. Better data science practices are allowing corporations to cut
+                        unnecessary costs, automate computing, and analyze markets. Essentially, data science is the
+                        key to getting ahead in a competitive global climate.</p>
+                    <button class="explore">Explore Data Science</button>
+                </div>
+                <div class="course-main-slider responsive">
+                    
+                </div>
+            </div>
+            <div class="course-main " id="aws">
+                <div class="course-main-title">
+                    <h2>Become an expert in cloud computing with AWS Certification</h2>
+                    <p>Because Amazon Web Services is a constantly evolving cloud ecosystem, staying up with new AWS
+                        services and features can be a chore. That’s why earning an AWS certification is such a
+                        great IT career move. In the eyes of future employers, you are an AWS authority.</p>
+                    <button class="explore">Explore AWS Certification</button>
+                </div>
+                <div class="course-main-slider responsive">
+                    
+                </div>
+            </div>
+            <div class="course-main " id="drawing">
+                <div class="course-main-title">
+                    <h2>Expand your creative skillset with Drawing</h2>
+                    <p>Besides being the foundation upon which most art forms are built, drawing is also an
+                        excellent way to relieve stress and feed your inner creativity. Drawing teaches us how to be
+                        observant, develop an attention to detail, and express ourselves.</p>
+                    <button class="explore">Explore Drawing</button>
+                </div>
+                <div class="course-main-slider responsive">
+                   
+                </div>
+            </div>
+            <div class="course-main " id="coursescart">
+                <span style="color: #e40084; font-weight: bold; font-size: 20px; text-align: center;">No Courses !</span>
+                <!-- <div class="course-main-cart">
+                   <img src="./assets/images/course-web-11.jpg" alt="">
+                   <h3 class="cartH3">2022 Complete Python Bootcamp From Zero to Hero in Python</h3>
+                   <h4 class="cartH4">Jose Tina</h4>
+                   <h6 class="cartH6">31</h6>
+                </div> -->
+                <!-- <h2 class="total">
+                    <span>Tổng cộng: </span> $1000
+                </h2> -->
+            </div>
+        </div>
+    </div>
+</section>

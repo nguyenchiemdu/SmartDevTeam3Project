@@ -1,0 +1,28 @@
+{
+  "name": "codeeveryday",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --inspect src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trinhdoan2602/CodeEveryDay.git"
+  },
+  "author": "trinhdoan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trinhdoan2602/CodeEveryDay/issues"
+  },
+  "homepage": "https://github.com/trinhdoan2602/CodeEveryDay#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+  }
+}

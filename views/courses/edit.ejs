@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include ../elements/header %>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Update Course</h2>
+        <form class="mt-4" method="POST" action="/courses/<%= course._id %>?_method=PUT">
+            <div class="mb-3">
+              <label for="name" class="form-label">Course Name</label>
+              <input type="text" class="form-control" value="<%= course.name %>" id="name" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" value="<%= course.author %>" id="author" name="author">
+              </div>
+              <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" class="form-control" value="<%= course.price %>" id="price" name="price">
+              </div>
+              <div class="mb-3">
+                <label for="videoId" class="form-label">ID Video</label>
+                <input type="text" class="form-control" value="<%= course.videoId %>" id="videoId" name="videoId">
+              </div>
+            <button type="submit" class="btn btn-primary">Update Course</button>
+          </form>
+    </div>
+</body>
+
+</html>

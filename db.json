@@ -1,0 +1,91 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "img": "./assets/images/course-python-1.jpg",
+      "sliderH3": "2022 Complete Python Bootcamp From Zero to Hero in Python",
+      "sliderH4": "Jose Portilla",
+      "sliderH6": 19
+    },
+    {
+      "img": "./assets/images/course-python-2.jpg",
+      "sliderH3": "2022 Complete Python Bootcamp From Zero to Hero in Python",
+      "sliderH4": "Jose Portilla",
+      "sliderH6": 20,
+      "id": 2
+    },
+    {
+      "img": "./assets/images/course-python-3.jpg",
+      "sliderH3": "2022 Complete Python Bootcamp From Zero to Hero in Python",
+      "sliderH4": "Jose Portilla",
+      "sliderH6": 21,
+      "id": 3
+    },
+    {
+      "img": "./assets/images/course-python-4.jpg",
+      "sliderH3": "2022 Complete Python Bootcamp From Zero to Hero in Python",
+      "sliderH4": "Jose Portilla",
+      "sliderH6": 22,
+      "id": 4
+    },
+    {
+      "img": "./assets/images/course-python-5.jpg",
+      "sliderH3": "2022 Complete Python Bootcamp From Zero to Hero in Python",
+      "sliderH4": "Jose Portilla",
+      "sliderH6": 23,
+      "id": 5
+    },
+    {
+      "img": "./assets/images/course-python-6.jpg",
+      "sliderH3": "2022 Complete Python Bootcamp From Zero to Hero in Python",
+      "sliderH4": "Jose Portilla",
+      "sliderH6": 24,
+      "id": 6
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "img": "./assets/images/skill1.jpg",
+      "name": "Martin Therkelsen",
+      "twitter": "@Mracket",
+      "comment": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus modi iste unde esse veritatis impedit dolore aliquid omnis, asperiores est veniam sint magnam mollitia! Id voluptatem reprehenderit facilis facere! Omnis."
+    },
+    {
+      "img": "./assets/images/skill2.jpg",
+      "name": "Martin Therkelsen",
+      "twitter": "@Mracket",
+      "comment": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus modi iste unde esse veritatis impedit dolore aliquid omnis, asperiores est veniam sint magnam mollitia! Id voluptatem reprehenderit facilis facere! Omnis.",
+      "id": 2
+    },
+    {
+      "img": "./assets/images/skill3.jpg",
+      "name": "Judy",
+      "twitter": "@Judy_seyram",
+      "comment": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus modi iste unde esse veritatis impedit dolore aliquid omnis, asperiores est veniam sint magnam mollitia! Id voluptatem reprehenderit facilis facere! Omnis.",
+      "id": 3
+    },
+    {
+      "img": "./assets/images/skill4.jpg",
+      "name": "Skyler",
+      "twitter": "@SkylerDevops",
+      "comment": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus modi iste unde esse veritatis impedit dolore aliquid omnis, asperiores est veniam sint magnam mollitia! Id voluptatem reprehenderit facilis facere! Omnis.",
+      "id": 4
+    },
+    {
+      "img": "./assets/images/skill5.jpg",
+      "name": "Javier Montero",
+      "twitter": "@DataSlugger",
+      "comment": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus modi iste unde esse veritatis impedit dolore aliquid omnis, asperiores est veniam sint magnam mollitia! Id voluptatem reprehenderit facilis facere! Omnis.",
+      "id": 5
+    },
+    {
+      "img": "./assets/images/skill6.jpg",
+      "name": "Kayode Omotoye",
+      "twitter": "@Kontrepyd",
+      "comment": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus modi iste unde esse veritatis impedit dolore aliquid omnis, asperiores est veniam sint magnam mollitia! Id voluptatem reprehenderit facilis facere! Omnis.",
+      "id": 6
+    }
+  ],
+  "coursers": []
+}

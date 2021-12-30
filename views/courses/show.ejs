@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include ../elements/header %>
+</head>
+
+<body>
+    <div class="container">
+        <iframe width="840" height="472" src="https://www.youtube.com/embed/<%= course.videoId %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <h3><%= course.name %></h3>
+        <h4><%= course.author %></h4>
+        <h6>A$<%= course.price %></h6>
+    </div>
+</body>
+
+</html>
