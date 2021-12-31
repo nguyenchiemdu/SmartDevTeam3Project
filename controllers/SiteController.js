@@ -22,7 +22,7 @@ class SiteController {
     async courses(req, res, next) {
         try {
             var courses = await Course.find({})
-            res.render('index.ejs', {
+            res.render('courses-view.ejs', {
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {

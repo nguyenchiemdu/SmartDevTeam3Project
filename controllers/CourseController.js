@@ -8,7 +8,7 @@ class CourseController {
 
         try {
             var courses = await Course.findOne({ slug: req.params.slug })
-            res.render('courses/show', { course: mongooseToObject(course) })
+            res.render('courses/show', { course: mongooseToObject(courses) })
         } catch (e) {
             console.log(e)
             res.json(e)
