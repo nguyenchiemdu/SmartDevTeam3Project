@@ -7,6 +7,7 @@ const courseController = require('../controllers/CourseController');
 // siteController.index
 router.get('/', siteController.courses)
 
+// cho nay can sua lai
 router.get('/create', courseController.create)
 
 router.post('/store', courseController.store)

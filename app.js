@@ -11,10 +11,19 @@ const database = require('./database/seed');
 // Connect to DB
 database.connect();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var meRouter = require('./routes/me');
-var coursesRouter = require('./routes/courses');
+// lowdb  
+var low = require('lowdb');
+var FileSync = require('lowdb/adapters/FileSync');
+var adapter = new FileSync('db.json')
+db = low(adapter)
+// Set default data
+db.defaults({ coursers: []})
+  .write();
+
+var route = require('./routes/index');
+// var usersRouter = require('./routes/users');
+// var meRouter = require('./routes/me');
+// var coursesRouter = require('./routes/courses');
 
 
 var app = express();
@@ -29,13 +38,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'))
-app.use(bodyParser.json())
+app.use(methodOverride('_method'));
+app.use(bodyParser.json());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/me', meRouter);
-app.use('/courses', coursesRouter);
+route(app);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use('/me', meRouter);
+// app.use('/courses', coursesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
