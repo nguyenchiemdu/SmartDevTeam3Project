@@ -14,7 +14,6 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
-    "lowdb": "^1.0.0",
     "method-override": "^3.0.0",
     "mongodb": "^4.2.2",
     "mongoose": "^6.1.3",

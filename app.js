@@ -11,15 +11,6 @@ const database = require('./database/seed');
 // Connect to DB
 database.connect();
 
-// lowdb  
-var low = require('lowdb');
-var FileSync = require('lowdb/adapters/FileSync');
-var adapter = new FileSync('db.json')
-db = low(adapter)
-// Set default data
-db.defaults({ coursers: []})
-  .write();
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var meRouter = require('./routes/me');
