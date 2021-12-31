@@ -7,7 +7,7 @@ var methodOverride = require('method-override')
 var bodyParser = require('body-parser')
 
 //mongoDB
-const database = require('./database/seed');
+const database = require('./database');
 // Connect to DB
 database.connect();
 
