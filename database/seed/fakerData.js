@@ -2,7 +2,7 @@ const faker = require('faker')
 const Course = require('../../models/Course.js')
 const database = require('../index')
 database.connect()
-
+// 2 course 1 time
 for(let i = 0; i <2 ; i++){
     var courses = new Course({
         name: faker.commerce.productName(),
