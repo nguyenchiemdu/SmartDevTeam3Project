@@ -3,16 +3,17 @@ const { mutipleMongooseToObject } = require('../utilities/mongoose');
 
 class MeController {
     // [GET] /me/stored/courses
-    storedCourses(req, res, next) {
-        Course.find({})
-            .then(courses => res.render('me/stored-courses', {
-                courses: mutipleMongooseToObject(courses)
-            }))
-            .catch(next)
-        
-        
-    }
+    async storedCourses(req, res, next) {
 
+        try {
+            var courses = await Course.find({})
+            res.render('me/stored-courses', {
+                courses: mutipleMongooseToObject(courses)
+            })
+        } catch (e) {
+
+        }
+    }
 }
 
 module.exports = new MeController;
