@@ -4,9 +4,10 @@ var router = express.Router();
 const siteController = require('../controllers/SiteController');
 const courseController = require('../controllers/CourseController');
 
-siteController.index
-router.get('/', siteController.index)
+// siteController.index
+router.get('/', siteController.courses)
 
+// cho nay can sua lai
 router.get('/create', courseController.create)
 
 router.post('/store', courseController.store)
