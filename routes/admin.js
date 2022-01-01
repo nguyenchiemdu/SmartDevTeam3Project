@@ -1,24 +1,24 @@
 var express = require("express");
 var router = express.Router();
 
-const siteController = require("../controllers/SiteController");
-const courseController = require("../controllers/CourseController");
-const meController = require("../controllers/MeController");
+const tableController = require("../controllers/TableController");
+const adminController = require("../controllers/AdminController");
 
 // siteController.index
+router.get("/", adminController.show);
 
-router.get("/create", courseController.create);
+router.get("/:table", tableController.showTable);
 
-router.get("/stored/courses", meController.storedCourses);
+router.get("/:table/create", tableController.create);
 
-router.post("/store", courseController.store);
+router.post("/:table/store", tableController.store);
 
-router.get("/:id/edit", courseController.edit);
+router.get("/:table/:id", tableController.edit);
 
-router.put("/:id", courseController.update);
+router.put("/:table/:id", tableController.update);
 
-router.delete("/:id", courseController.destroy);
+router.delete("/:table/:id", tableController.destroy);
 
-router.get("/:slug", courseController.show);
+router.get("/:table/:slug", tableController.show);
 
 module.exports = router;

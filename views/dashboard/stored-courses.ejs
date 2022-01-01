@@ -37,7 +37,7 @@
                             <%= courses.createdAt %>
                         </td>
                         <td>
-                            <a href="/courses/<%= courses._id %>/edit" class="btn btn-primary">Update</a>
+                            <a href="/admin/courses/<%= courses._id %>" class="btn btn-primary">Update</a>
                             <a href="" type="button" class="btn btn-danger" data-toggle="modal" data-id="<%= courses._id %>" data-target="#delete-course-modal">Delete</a>
                         </td>
                     </tr>
@@ -69,7 +69,7 @@
         </div>
     </div>
     <div style="text-align: center;" class="add-course">
-        <a href="/courses/create" class="btn btn-info">
+        <a href="/admin/courses/create" class="btn btn-info">
             Thêm khóa học
         </a>
     </div>
@@ -78,7 +78,7 @@
             Xem tất cả khóa học
         </a>
     </div>
-   
+
     <% include ../elements/script %>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

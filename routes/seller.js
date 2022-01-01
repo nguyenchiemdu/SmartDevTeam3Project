@@ -2,18 +2,20 @@ var express = require("express");
 var router = express.Router();
 
 const siteController = require("../controllers/SiteController");
-const courseController = require("../controllers/CourseController");
+const tableController = require("../controllers/TableController");
 
 // siteController.index
+router.get("/", (req, res, next) => {
+  res.send("Info seller");
+});
+router.get("/courses/create", tableController.create);
 
-router.get("/create", courseController.create);
+router.get("/courses/:id", tableController.edit);
 
-router.get("/:id/edit", courseController.edit);
+router.put("/courses/:id", tableController.update);
 
-router.put("/:id", courseController.update);
+router.delete("/courses/:id", tableController.destroy);
 
-router.delete("/:id", courseController.destroy);
-
-router.get("/:slug", courseController.show);
+router.get("/courses/:slug", tableController.show);
 
 module.exports = router;

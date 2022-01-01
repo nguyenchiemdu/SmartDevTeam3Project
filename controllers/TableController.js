@@ -1,11 +1,20 @@
 const Course = require("../models/Course");
-const { mongooseToObject } = require("../utilities/mongoose");
+const User = require("../models/User");
+const listTable = {
+  users: User,
+  courses: Course,
+};
+const {
+  mongooseToObject,
+  mutipleMongooseToObject,
+} = require("../utilities/mongoose");
 
-class CourseController {
+class TableController {
   // [GET] /course/:slug
   async show(req, res, next) {
     try {
-      var courses = await Course.findOne({ slug: req.params.slug });
+      var targetTable = listTable[req.params.table];
+      var courses = await targetTable.findOne({ slug: req.params.slug });
       res.render("courses/show", { course: mongooseToObject(courses) });
     } catch (e) {
       console.log(e);
@@ -13,6 +22,16 @@ class CourseController {
     }
   }
 
+  async showTable(req, res, next) {
+    try {
+      var courses = await Course.find({});
+      res.render("dashboard/stored-courses", {
+        courses: mutipleMongooseToObject(courses),
+      });
+    } catch (e) {
+      res.send("error");
+    }
+  }
   // [GET] /course/create
   create(req, res, next) {
     res.render("courses/create");
@@ -26,7 +45,7 @@ class CourseController {
 
     try {
       await course.save();
-      res.redirect("/admin/stored/courses");
+      res.redirect("/admin/courses");
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -50,7 +69,7 @@ class CourseController {
   async update(req, res, next) {
     try {
       await Course.updateOne({ _id: req.params.id }, req.body);
-      res.redirect("/me/stored/courses");
+      res.redirect("/admin/courses");
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -69,4 +88,4 @@ class CourseController {
   }
 }
 
-module.exports = new CourseController();
+module.exports = new TableController();
