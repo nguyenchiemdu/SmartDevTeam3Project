@@ -1,0 +1,140 @@
+* {
+    width: 100%;
+    height: 100%;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --main-background-color: #212121;
+    --main-color: #ffffff;
+    --style-color: #e40084;
+}
+a {
+    text-decoration: none !important;
+}
+.course-content-top {
+    height: auto;
+    width: 100%;
+    background-color: #181818;
+}
+.course-left {
+    background-color: #181818;
+    height: auto;
+    width: auto;
+    color: var(--main-color);
+}
+.course-left iframe {
+    width: 100%;
+    height: 100%;
+}
+.course-right {
+    background-color: #181818;
+    height: auto;
+    color: var(--main-color);
+}
+.course-right h3.title {
+    text-align: center;
+    height: auto;
+    margin: 12px 0;
+    font-size: 23px;
+}
+.course-right h3.name {
+    height: auto;
+    font-size: 28px;
+}
+.course-right h4.author {
+    height: auto;
+    font-size: 20px;
+}
+.course-right h5.update {
+    height: auto;
+    font-size: 20px;
+}
+.course-right h4.author span, .course-right h6.price span, .course-right h5.update span {
+    color: rgb(155, 155, 155);
+}
+.course-right h6.price {
+    height: auto;
+    font-size: 20px;
+}
+.course-right button.udlite-btn {
+    margin: 20px 0;
+    color: var(--main-color);
+    text-align: center;
+    height: auto;
+    background-color: #ec008c;
+    border: none;
+    width: auto;
+    transition: all 0.3s ease;
+}
+.course-right button.udlite-btn:hover {
+    background: linear-gradient(
+100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
+}
+.course-right h6.this {
+    height: auto;
+}
+.course-right p {
+    height: auto;
+}
+.course-right p i {
+    margin-right: 15px;
+    width: auto;
+    height: auto;
+}
+
+.container.course-bottom {
+    margin-top: 50px;
+    width: auto;
+    height: auto;
+    max-width: 1400px;
+}
+/* you'll-learn */
+.youll-learn {
+    margin: 26px 0;
+    padding: 15px 20px;
+    height: auto;
+    width: auto;
+    color: var(--main-color);
+    border: 2px solid #000000;
+}
+.youll-learn .title, .companies .title  {
+    height: auto;
+    width: auto;
+    font-size: 23px;
+    font-weight: bold;
+}
+.youll-learn p, .companies p, .requirements p, .who-this-course p {
+    font-size: 14px;
+    height: auto;
+}
+.youll-learn p i {
+    color: green;
+    margin-right: 12px;
+    height: auto;
+    width: auto;
+}
+/* companies */
+.companies, .requirements, .who-this-course {
+    margin: 36px 0 0 0;
+    padding: 15px 20px;
+    height: auto;
+    width: auto;
+    color: var(--main-color);
+    border: 2px solid #000000;
+}
+.companies p a {
+    color: #e40084;
+}
+.companies img {
+    width: auto;
+    height: auto;
+    margin: 8px 12px;
+}
+.requirements p i, .who-this-course p i {
+    margin-right: 12px;
+    height: auto;
+    width: auto;
+}

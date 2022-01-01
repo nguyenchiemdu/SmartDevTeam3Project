@@ -3,16 +3,86 @@
 
 <head>
     <% include ../elements/header %>
+    <link rel="stylesheet" href="/assets/css/coursesDetails.css">
 </head>
 
 <body>
     <% include ../elements/navbar %>
-    <div class="container">
-        <iframe width="840" height="472" src="https://www.youtube.com/embed/<%= course.videoId %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <h3><%= course.name %></h3>
-        <h4><%= course.author %></h4>
-        <h6>A$<%= course.price %></h6>
+    <div style="padding-top:88px; height:auto" class="padding-navbar"></div>
+    <div class="course-content-top">
+        <div class="container-fluid">
+           <div class="row">
+               <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 course-left" >
+                    <iframe src="https://www.youtube.com/embed/<%= course.videoId %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+               </div>
+               <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 course-right" >
+                    <div class="info">
+                        <h3 class="title">Course info</h3>
+                        <h3 class="name"><%= course.name %></h3>
+                        <h4 class="author"><span>By </span><%= course.author %></h4>
+                        <h6 class="price" ><span>Price: </span>A$<%= course.price %></h6>
+                        <h5 class="update"><span>Update: </span>
+                            <%= course.updatedAt.getFullYear() %> -
+                            <%= course.updatedAt.getMonth()+1 %> -
+                            <%= course.updatedAt.getDate() %>
+                        </h5>
+                        <button type="button" class="udlite-btn btn">Add to Cart</button>
+                        <h6 class="this">This course includes:</h6>
+                        <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
+                        <p><i class='bx bx-file-blank' ></i>3 articles</p>
+                        <p><i class='bx bx-download' ></i>1 downloadable resource</p>
+                        <p><i class='bx bx-code-curly' ></i>52 coding exercises</p>
+                        <p><i class='bx bx-link-alt' ></i>Full lifetime access</p>
+                        <p><i class='bx bxs-videos'></i>Access on mobile and TV</p>
+                        <p><i class='bx bx-trophy' ></i></i>Certificate of completion</p>
+                    </div>
+                </div>
+           </div>
+        </div>
+        <div class="container course-bottom">
+            <div class="youll-learn">
+                <h3 class="title">What you'll learn</h3>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <p><i class='bx bx-check' ></i>Learn the core Java skills needed to apply for Java developer positions in just 14 hours.</p>
+                        <p><i class='bx bx-check' ></i>Be able to demonstrate your understanding of Java to future employers.</p>
+                        <p><i class='bx bx-check' ></i>Acquire essential java basics for transitioning to the Spring Framework, Java EE, Android development and more.</p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <p><i class='bx bx-check' ></i>Be able to sit for and pass the Oracle Java Certificate exam if you choose.</p>
+                        <p><i class='bx bx-check' ></i>Learn industry "best practices" in Java software development from a professional Java developer who has worked in the language for 18 years.</p>
+                        <p><i class='bx bx-check' ></i>Obtain proficiency in Java 8 and Java 11.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="companies">
+                <h3 class="title">Top companies offer this course to their employees</h3>
+                <p>This course was selected for our collection of top-rated courses trusted by businesses worldwide. <a href="#">Learn more</a></p>
+                <img src="/assets/images/courseDetails-companies1.svg" alt="">
+                <img src="/assets/images/courseDetails-companies2.svg" alt="">
+                <img src="/assets/images/courseDetails-companies3.svg" alt="">
+                <img src="/assets/images/courseDetails-companies4.svg" alt="">
+                <img src="/assets/images/courseDetails-companies5.svg" alt="">
+            </div>
+            <div class="requirements">
+                <h3 class="title">Requirements</h3>
+                <p><i class='bx bxs-circle'></i>A computer with either Windows, Mac or Linux to install all the free software and tools needed to build your new apps (I provide specific videos on installations for each platform).</p>
+                <p><i class='bx bxs-circle'></i>A strong work ethic, willingness to learn, and plenty of excitement about the awesome new programs you’re about to build.</p>
+                <p><i class='bx bxs-circle'></i>Nothing else! It’s just you, your computer and your hunger to get started today.</p>
+            </div>
+            <div class="who-this-course">
+                <h3 class="title">Who this course is for:</h3>
+                <p><i class='bx bxs-circle'></i>This course is perfect for absolute beginners with no previous coding experience, to intermediates looking to sharpen their skills to the expert level.</p>
+                <p><i class='bx bxs-circle'></i>Those looking to build creative and advanced Java apps for either personal use or for high-paying clients as a self-employed contractor.</p>
+                <p><i class='bx bxs-circle'></i>Those who love letting their own creative genius shine, whilst getting paid handsome amounts to do so.</p>
+            </div>
+        </div>
     </div>
+    
+    <% include ../elements/footer %>
+
+    <% include ../elements/script %>
 </body>
 
 </html>

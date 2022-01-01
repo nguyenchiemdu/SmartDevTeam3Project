@@ -83,11 +83,16 @@ header .container {
 }
 header .header-right {
     margin-left: 250px;
+    margin-top: 13px;
     z-index: 999;
 }
 
 /* Sign in */
 header .header-right .sign-in {
+    width: auto;
+    height: auto;
+}
+header .header-right .sign-in h6 {
     width: auto;
     height: auto;
 }
@@ -118,6 +123,16 @@ header .menu-bar {
     height: 0px;
     margin: 0;
 } */
+header .header-right a.cart {
+    height:auto;
+    width: auto;
+    
+}
+header .header-right .cart i {
+    width: auto;
+    margin-top: 5px;
+    font-size: 30px;
+}
 
 /* banner */
 section.banner {
