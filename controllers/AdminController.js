@@ -6,7 +6,10 @@ class AdminController {
     try {
       var courses = await Course.find({});
       res.render("admin/dashboard-admin");
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+      res.json(e)
+    }
   }
 }
 

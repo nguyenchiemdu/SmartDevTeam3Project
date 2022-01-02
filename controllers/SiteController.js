@@ -7,8 +7,6 @@ class SiteController {
     async home(req, res, next) {
         try {
             var courses = await Course.find({})
-            console.log(courses[0])
-            console.log(mutipleMongooseToObject(courses)[0])
             res.render('index.ejs', {
                 courses: mutipleMongooseToObject(courses)
             });
