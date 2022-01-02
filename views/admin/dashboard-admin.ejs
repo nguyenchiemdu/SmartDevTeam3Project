@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-6">
+          <div class="mb-4">
+            <h3>Welcome <strong>Admin</strong></h3>
+          </div>
+          <h4>Select table in SmartDev Database</h4>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <table
+        class="table table-bordered table-striped table-hover"
+        style="table-layout: fixed"
+      >
+        <thead class="table-dark">
+          <tr>
+            <th scope="col" class="text-truncate">#</th>
+            <th scope="col" class="text-truncate">Table</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="text-truncate">courses</td>
+            <td>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic mixed styles example"
+              >
+                <a type="button btn-primary" href="./courses/" class="btn btn-primary"
+                  >Go</a
+                >
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="text-truncate">users</td>
+            <td>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic mixed styles example"
+              >
+                <a
+                  type="button btn-primary"
+                  href="./users/"
+                  class="btn btn-primary"
+                  >Go</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="mt-5">
+        <a class="btn btn-danger" href="/"> Sign out </a>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -45,6 +45,10 @@ class SiteController {
     password(req, res, next) {
         res.render('password', { title: 'Password Page' });
     }
+    //GET /cart
+    cart(req,res,next){
+        res.json({"title": "this is cart page"})
+    }
 }
 
 module.exports = new SiteController;
