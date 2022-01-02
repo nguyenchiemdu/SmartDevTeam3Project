@@ -147,6 +147,7 @@ a {
     width: auto;
     height: auto;
     margin: 20px 0;
+    margin-right: 30px;
     display: inline-flex;
 }
 .bought .course h6 {
