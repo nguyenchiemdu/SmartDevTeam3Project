@@ -11,7 +11,7 @@ router.get("/:table", tableController.showTable);
 
 router.get("/:table/create", tableController.create);
 
-router.post("/:table/store", tableController.store);
+router.post("/:table/create", tableController.store);
 
 router.get("/:table/:id", tableController.edit);
 

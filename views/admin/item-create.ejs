@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include ../elements/header %>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <form method="POST">
+            <div class="row mb-5">
+                <div class="col-md-3">
+                    <a type="button" href="/admin/<%=tableName%>/" class="btn btn-secondary">Back</a>
+                </div>
+                <div class="col-md-9">
+                    <h3>Add data to  <strong>
+                            <%=tableName%>
+                        </strong></h3>
+                </div>
+            </div>
+            <% for (let key in itemData) {%>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">
+                        <%=key%>
+                    </label>
+                    <input class="form-control" <% if (!['_id','createdAt','updatedAt','__v','password'].includes(key)) {%> name='<%=key%>' <%}%>  value="<%= itemData[key]%>" <% if (['_id','createdAt','updatedAt','__v','password'].includes(key)) {%> readonly="readonly" <%}%>>
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                </div>
+                <%}%>
+                    
+                        <% if (notification.length >0) {%>
+                            <div class="alert alert-success" role="alert">
+                                <%= notification %>
+                            </div>
+                        <%}%>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

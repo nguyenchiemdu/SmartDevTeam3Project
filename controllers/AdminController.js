@@ -5,7 +5,7 @@ class AdminController {
   async show(req, res, next) {
     try {
       var courses = await Course.find({});
-      res.render("dashboard/dashboard-admin");
+      res.render("admin/dashboard-admin");
     } catch (e) {}
   }
 }
