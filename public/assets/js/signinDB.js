@@ -21,7 +21,7 @@ async function login(event) {
         console.log('Got the token: ', result.data);
         localStorage.setItem('token', result.data)
         alert('Success')
-        window.location.href = "/courses"
+        window.location.href = "/"
 
     } else {
         alert(result.error)
