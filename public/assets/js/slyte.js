@@ -65,17 +65,17 @@ $('.responsive1').slick({
 });
 
 // menu
-const menuBar = document.querySelector(".menu-bar")
-menuBar.addEventListener("click", function () {
-    menuBar.classList.toggle("active")
-    document.querySelector("#menu").classList.toggle("active")
-    document.querySelector(".header-right").classList.toggle("active")
-})
-// sign-in
-const signIn = document.querySelector(".sign-in")
-signIn.addEventListener("click", function () {
-    signIn.classList.toggle("active")
-})
+// const menuBar = document.querySelector(".menu-bar")
+// menuBar.addEventListener("click", function () {
+//     menuBar.classList.toggle("active")
+//     document.querySelector("#menu").classList.toggle("active")
+//     document.querySelector(".header-right").classList.toggle("active")
+// })
+// // sign-in
+// const signIn = document.querySelector(".sign-in")
+// signIn.addEventListener("click", function () {
+//     signIn.classList.toggle("active")
+// })
 
 //course menu
 // const courseTitle = document.querySelector(".course-title");
