@@ -1,5 +1,5 @@
 var siteRouter = require("./site");
-var usersRouter = require("./users");
+var authRouter = require("./auth");
 var adminRouter = require("./admin");
 var sellerRouter = require("./seller");
 
@@ -11,7 +11,7 @@ function redirect(req,res,next) {
 
 function route(app) {
   app.use("/", siteRouter);
-  app.use("/users", usersRouter);
+  app.use("/auth", authRouter);
   app.use("/admin",redirect, adminRouter);
   app.use("/seller", sellerRouter);
 }
