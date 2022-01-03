@@ -79,6 +79,7 @@ a.navbar-brand {
     color: var(--main-color) !important
 }
 .dropdown-menu.show{
+    
     color: #212529;
     background-color: #333 !important;
 }
@@ -95,6 +96,11 @@ a.navbar-brand {
 }
 .dropdown-divider {
     background-color: #333;
+}
+@media (min-width: 300px) {
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+        position: absolute;
+    }
 }
 
 
