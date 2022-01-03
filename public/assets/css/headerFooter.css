@@ -87,6 +87,11 @@ a.navbar-brand {
     color: white;
     width: auto;
     height: auto;
+    border-bottom: 1px solid rgb(185, 185, 185);
+    padding: 8px 12px;
+}
+.dropdown-item:last-child {
+    border-bottom: none;
 }
 .dropdown-divider {
     background-color: #333;
