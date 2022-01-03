@@ -62,7 +62,7 @@ class SiteController {
     }
     //GET /cart
     cart(req,res,next){
-        res.render("shopping-cart", { title: 'Register Page' });
+        res.render("shopping-cart", { title: "Register Page", username: null });
     }
 }
 
