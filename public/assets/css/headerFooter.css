@@ -79,7 +79,7 @@ a.navbar-brand {
     color: var(--main-color) !important
 }
 .dropdown-menu.show{
-    
+
     color: #212529;
     background-color: #333 !important;
 }
@@ -111,7 +111,7 @@ footer {
     width: auto;
 }
 footer .container {
-    max-width: 100%;
+    max-width: 1500px;
 }
 footer .khoi {
     padding-left: 50px;
