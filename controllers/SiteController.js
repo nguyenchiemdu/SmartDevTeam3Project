@@ -61,8 +61,8 @@ class SiteController {
         res.render('password', { title: 'Password Page' });
     }
     //GET /cart
-    cart(req, res, next) {
-        res.json({ "title": "this is cart page" })
+    cart(req,res,next){
+        res.render("shopping-cart", { title: 'Register Page' });
     }
 }
 

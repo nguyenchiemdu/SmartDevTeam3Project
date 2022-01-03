@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+.cart__title {
+}
+
+.cart__shopping {
+  display: flex;
+}
+.cart__list {
+  width: 70%;
+}
+.card {
+  padding: 10px;
+}
+
+.card-container {
+  display: flex;
+}
+
+.card__image {
+  width: 100px;
+  height: 100px;
+}
+.card__image img {
+  width: 100%;
+}
+
+.card-info {
+  padding-left: 10px;
+}
+
+.cart__total {
+  width: 30%;
+}
