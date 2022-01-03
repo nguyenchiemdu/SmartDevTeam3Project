@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="container">
+            <h2>Add Course</h2>
+            <form method="POST" action="/courses/store">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Course Name</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <input type="text" class="form-control" id="author" name="author">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="price">
+                </div>
+                <div class="mb-3">
+                    <label for="videoId" class="form-label">Image</label>
+                    <input type="text" class="form-control" id="imageId" name="imageId">
+                </div>
+                <div class="mb-3">
+                    <label for="videoId" class="form-label">ID Video</label>
+                    <input type="text" class="form-control" id="videoId" name="videoId">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Course</button>
+            </form>
+        </div>
+</body>
+
+</html>

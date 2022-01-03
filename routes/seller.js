@@ -8,7 +8,7 @@ const tableController = require("../controllers/TableController");
 router.get("/", (req, res, next) => {
   res.send("Info seller");
 });
-router.get("/courses/create", tableController.create);
+router.get("/courses/create", tableController.addCourses);
 
 router.get("/courses/:id", tableController.edit);
 
