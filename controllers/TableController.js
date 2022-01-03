@@ -15,7 +15,7 @@ class TableController {
       var targetTable = listTable[req.params.table];
       var tableData = await targetTable.find({});
       tableData = tableData.map(item => JSON.parse(JSON.stringify(item)));
-      res.render("admin/table-show", { tableData: tableData, tableName : req.params.table });
+      res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, username: null });
     } catch (e) {
       console.log(e);
       res.json(e);

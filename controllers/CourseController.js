@@ -6,7 +6,7 @@ class CourseController {
   async show(req, res, next) {
     try {
       var courses = await Course.findOne({ slug: req.params.slug });
-      res.render("courses/show", { course: mongooseToObject(courses) });
+      res.render("courses/show", { course: mongooseToObject(courses), username: null });
     } catch (e) {
       console.log(e);
       res.json(e);

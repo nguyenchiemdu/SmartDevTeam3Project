@@ -351,8 +351,8 @@ section.banner-mid {
     background-color: #000;
 }
 section.banner-mid .container {
-    margin-left: 13px;
-    max-width: 100%;
+    /* margin-left: 13px; */
+    max-width: 1950px;
 }
 section.banner-mid img.img-left {
     width: 100%;

@@ -10,7 +10,7 @@
 
 <body>
     <% include ../elements/navbar %>
-    <div class="container-fluid">
+    <div style="padding-top: 74px"  class="container-fluid">
         <div class="container mt-5">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-6 ">
@@ -100,12 +100,12 @@
     </div>
     <div style="text-align: center;" class="add-course">
         <a href="./create" class="btn btn-info">
-            Thêm khóa học
+            Thêm <%=tableName%>
         </a>
     </div>
     <div style="text-align: center; margin: 30px 0;" class="add-course">
         <a href="/courses" class="btn btn-warning">
-            Xem tất cả khóa học
+            Xem tất cả <%=tableName%>
         </a>
     </div>
     <% include ../elements/footer %>
