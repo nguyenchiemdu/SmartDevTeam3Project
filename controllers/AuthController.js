@@ -1,9 +1,8 @@
+require('dotenv').config()
 const User = require("../models/User");
 const { mongooseToObject } = require("../utilities/mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET =
-  "hfoiuvanrbfipsnmjoguhgiua87256345yY&^&%&87fhnonsofghnjfidhngjsfdhn";
 
 class UserController {
   // [POST] /users/password
@@ -22,7 +21,7 @@ class UserController {
       });
     }
     try {
-      const user = jwt.verify(token, JWT_SECRET);
+      const user = jwt.verify(token, process.env.JWT_SECRET);
 
       const _id = user.id;
       const password = await bcrypt.hash(plainTextPassword, 10);
@@ -42,26 +41,29 @@ class UserController {
   }
 
   async login(req, res) {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username }).lean();
-
-    if (!user) {
-      return res.json({ status: "error", error: "Invalid username/password" });
-    }
-
-    if (await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign(
+    try {
+      // Authentication 
+      const user = await User.findOne({ username: req.body.username })
+      if (!user) return res.sendStatus(401)
+      if (! await bcrypt.compare(req.body.password, user.password)) return  res.sendStatus(401)
+      //Create JWT
+      const accessToken = jwt.sign(
         {
           id: user._id,
           username: user.username,
         },
-        JWT_SECRET
+        process.env.JWT_SECRET
       );
-
-      return res.json({ status: "ok", data: token });
-    }
-
-    res.json({ status: "error", data: "Invalid username/password" });
+      res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          sameSite: "strict",
+      })
+      // redirect to home page
+      res.redirect('/')
+  } catch (e) {
+      console.log(e)
+      res.json(e)
+  }
   }
   async register(req, res) {
     // console.log(req.body);
@@ -100,6 +102,11 @@ class UserController {
 
     res.json({ status: "ok" });
   }
+  async signout (req,res,next) {
+    // Clear cookie 
+    res.clearCookie('accessToken')
+    res.redirect('/login')
+} 
 }
 
 module.exports = new UserController();
