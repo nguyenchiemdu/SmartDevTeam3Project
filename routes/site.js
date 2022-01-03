@@ -10,6 +10,9 @@ router.get('/register',siteController.register );
 
 router.get('/password', siteController.password);
 
+router.get('/learning', siteController.learning);
+
+router.get('/admin_home', siteController.admin_home);
 
 // router.get('stored/courses', function(req, res, next) {
 //   res.render('stored-courses', { title: 'stored-courses' });

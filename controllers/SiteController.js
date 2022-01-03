@@ -31,6 +31,31 @@ class SiteController {
         }
     }
 
+
+    async learning(req, res, next) {
+        try {
+            var courses = await Course.find({})
+            res.render('learning.ejs', {
+                courses: mutipleMongooseToObject(courses)
+            });
+        } catch (e) {
+            console.log(e)
+            res.json(e)
+        }
+    }
+    async admin_home(req, res, next) {
+        try {
+            var courses = await Course.find({})
+            res.render('admin-home.ejs', {
+                courses: mutipleMongooseToObject(courses)
+            });
+        } catch (e) {
+            console.log(e)
+            res.json(e)
+        }
+    }
+
+
     // [GET] / login
     login(req, res, next) {
         res.render('login', { title: 'Login Page' });
