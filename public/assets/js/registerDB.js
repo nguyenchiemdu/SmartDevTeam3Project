@@ -6,7 +6,7 @@ async function registerUser(event) {
     const username = document.getElementById('username').value
     const password = document.getElementById('password').value
 
-    const result = await fetch('users/api/register', {
+    const result = await fetch('auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ async function registerUser(event) {
             password
         })
     }).then((res) => res.json())
-    
+
     if(result.status === 'ok'){
         alert('Success')
         window.location.href = "/login"

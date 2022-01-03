@@ -14,7 +14,9 @@ a {
 
 /* header */
 
-
+.header-seller-home{
+    padding-top: 100px;
+}
 .create-your{
     align-items: center;
     gap: 24px;
@@ -46,7 +48,7 @@ a {
 .resources-title{
     text-align: center;
     margin: 40px auto;
-    font-size: 20px;
+    font-size:20px;
 }
 
 .instructor-dashboard--panel{

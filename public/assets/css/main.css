@@ -9,116 +9,11 @@ html, body {
 }
 :root {
     --main-background-color: #212121;
+    --main-background2-color: #000;
     --main-color: #ffffff;
     --style-color: #e40084;
 }
-a {
-    text-decoration: none !important;
-}
-/* header */
-header {
-    background-color: var(--main-background-color);
-    width: 100%;
-    height: 88px;
-    position: fixed;
-    z-index: 999;
-}
-header .container {
-    max-width: 1400px;
-}
-
-#logo {
-    width: 220px;
-    height: auto;
-    font-size: 16px;
-    text-transform: uppercase;
-    display: block;
-    letter-spacing: 3px;
-    color: var(--main-color);
-    margin-top: 21px;
-    transition: all 0.3s ease;
-}
-#logo:hover {
-    color: var(--style-color);
-}
-#logo img {
-    width: 50px;
-    height: 50px;
-    margin-top: -4px;
-}
-/* menu header-right */
-#menu {
-    width: 550px;
-    height: 30px;
-}
-#menu, .header-right {
-    margin-top: 28px;
-}
-#menu ul ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-#menu li, .header-right li {
-    width: 120px;
-    height: auto;
-    display: inline-block;
-    line-height: 40px;
-    margin-left: -5px;
-    
-}
-#menu li:hover a, .header-right li:hover a {
-    color: var(--style-color);
-}
-#menu li a, .header-right li a {
-    color: var(--main-color);
-    display: flex;
-    transition: all 0.3s ease;
-}
-#menu li a h6, .header-right li a h6 {
-    float: left;
-    margin: 0 5px;
-}
-#menu li a i, .header-right li a i {
-    margin-top: 4px;
-}
-header .header-right {
-    margin-left: 250px;
-    z-index: 999;
-}
-
-/* Sign in */
-header .header-right .sign-in {
-    width: auto;
-    height: auto;
-}
-/* Logout */
-header .header-right a.log-out {
-    width: auto;
-    height: auto;
-    /* visibility: hidden; */
-}
-header .header-right a.log-out:hover {
-    color: var(--style-color);
-}
-
-/* try-free */
-/* header .try-free {
-    color: var(--main-color);
-    border: 1px solid;
-    padding: 8px 22px;
-    text-transform: uppercase;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-header .try-free:hover {
-    color: var(--style-color);
-}
-header .menu-bar {
-    width: 0px;
-    height: 0px;
-    margin: 0;
-} */
+/* header css ở file headerFooter.css */
 
 /* banner */
 section.banner {
@@ -440,6 +335,15 @@ section.update p {
     width: 100%;
     height: auto;
 }
+@media (max-width: 1400px) {
+    /* banner-mid */
+    section.update span {
+        margin-left: 25px;
+    }
+    section.update h5 {
+        margin-left: 25px;
+    }
+}
 
 /* banner-mid */
 section.banner-mid {
@@ -500,6 +404,21 @@ section.banner-mid .button-how a {
 }
 section.banner-mid .button-how  a:hover {
     box-shadow: 0px 10px 10px 5px #333;
+}
+@media (max-width:600px) {
+    section.banner .banner-left .button-save {
+        margin: 50px 0;
+    }
+    section.banner .banner-left .button-save a {
+        padding: 15px 30px;
+    }
+    section.banner-mid .button-how a {
+        padding: 15px 20px;
+        font-size: 14px;
+    }
+    section.new-bottom img {
+        width: 180px;
+    }
 }
 
 /* courses */
@@ -794,70 +713,13 @@ section.free a:hover {
     background: linear-gradient(100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
 
 }
-
-/* footer */
-footer {
-    background-color: #181818;
-    height: auto;
-    width: auto;
+@media (max-width:767px) {
+        
+    section.free h5, section.free .free-right {
+        margin: 80px 0;
+    }
+    section.free a {
+        padding: 16px 30px;
+    }
 }
-footer .container {
-    max-width: 100%;
-}
-footer .khoi {
-    padding-left: 50px;
-    margin: 60px 0;
-}
-footer .khoi h5 {
-    color: var(--main-color);
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: 1px;
-    width: 100%;
-    height: auto;
-    margin: 30px 0;
-}
-footer .khoi a {
-    display: block;
-    color: #7c7c7d;
-    font-weight: 500;
-    font-size: 13px;
-    width: 100%;
-    height: auto;
-    margin: 15px 0;
-    transition: all 0.3s ease;
-}
-footer .khoi a:hover {
-    color: var(--main-color);
-}
-footer .footer-bottom {
-    padding: 20px 20px;
-    border-top: 1px solid #333;
-}
-footer .footer-bottom img {
-    margin: -14px 0px;
-    float: left;
-    width: 50px;
-    height: 50px;
-}
-footer .footer-bottom p {
-    font-size: 12px;
-    font-weight: 700;
-    /* margin-top: 14px; */
-    color: #7c7c7d;
-    display: inline;
-}
-footer .footer-bottom-mid a {
-    font-size: 12px;
-    font-weight: 700;
-    margin: 20px 10px;
-    color: var(--main-color);
-    display: inline;
-    height: 100%;
-}
-footer .footer-bottom-right a i {
-    font-size: 18px;
-    margin: 20px 10px;
-    color: var(--main-color);
-    display: inline;
-}
+/* footer css ở file headerFooter.css */

@@ -32,11 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(bodyParser.json());
 
+//Router
 route(app);
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-// app.use('/me', meRouter);
-// app.use('/courses', coursesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
