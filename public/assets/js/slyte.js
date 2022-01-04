@@ -64,6 +64,12 @@ $('.responsive1').slick({
     ]
 });
 
+// phân trang
+
+$('.pagination-inner a').on('click', function() {
+    $(this).siblings().removeClass('pagination-active');
+    $(this).addClass('pagination-active');
+})
 // menu
 // const menuBar = document.querySelector(".menu-bar")
 // menuBar.addEventListener("click", function () {
