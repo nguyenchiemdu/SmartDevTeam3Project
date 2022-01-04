@@ -107,6 +107,9 @@ class SiteController {
     cart(req, res, next) {
         res.render("shopping-cart", { title: "Register Page", username: null });
     }
+    checkout(req,res,next){
+        res.render("checkout", { title: "Check Out", username: null });
+    }
 }
 
 module.exports = new SiteController;
