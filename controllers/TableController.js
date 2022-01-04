@@ -98,26 +98,6 @@ class TableController {
       res.json(e);
     }
   }
-  
-  // add Course demo cua Trinh`
-  async addCourses(req, res, next) {
-    try {
-      // var targetTable = listTable[req.params.table];
-      // var itemData = await targetTable.findOne({});
-      // itemData =  JSON.parse(JSON.stringify(itemData));
-      // for (var key in itemData) itemData[key] = ''
-      // delete itemData._id;
-      res.render("seller/main", {
-
-        // itemData: (itemData),
-        // tableName : req.params.table,
-        // notification : ''
-      });
-    } catch (e) {
-      console.log(e);
-      res.json(e);
-    }
-  }
 }
 
 module.exports = new TableController();

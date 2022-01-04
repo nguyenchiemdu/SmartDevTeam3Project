@@ -8,7 +8,6 @@ const tableController = require("../controllers/TableController");
 router.get("/", (req, res, next) => {
   res.send("Info seller");
 });
-router.get("/courses/create", tableController.addCourses);
 
 router.get("/courses/:id", tableController.edit);
 
@@ -17,5 +16,8 @@ router.put("/courses/:id", tableController.update);
 router.delete("/courses/:id", tableController.destroy);
 
 router.get("/home",siteController.home_seller)
+
+
+router.get("/create", siteController.addCourses);
 
 module.exports = router;

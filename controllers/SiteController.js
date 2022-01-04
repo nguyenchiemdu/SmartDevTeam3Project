@@ -23,7 +23,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render('index.ejs', {
-                username : username,
+                username: username,
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -37,7 +37,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render('courses-view.ejs', {
-                username : null,
+                username: null,
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -51,7 +51,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render('learning.ejs', {
-                username : null,
+                username: null,
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -60,12 +60,12 @@ class SiteController {
         }
     }
 
-    
+
     async home_seller(req, res, next) {
         try {
             var courses = await Course.find({})
             res.render('seller/home.ejs', {
-                username : null,
+                username: null,
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -73,24 +73,38 @@ class SiteController {
             res.json(e)
         }
     }
+    // add Course demo cua Trinh`
+    async addCourses(req, res, next) {
+        try {
+            var courses = await Course.find({})
+            res.render("seller/create", {
+                username: null,
+                courses: mutipleMongooseToObject(courses)
+            });
+        } catch (e) {
+            console.log(e);
+            res.json(e);
+        }
+    }
+
 
     // [GET] / login
     login(req, res, next) {
-        res.render('login', { title: 'Login Page' ,username : null});
+        res.render('login', { title: 'Login Page', username: null });
     }
 
     //GET /register
     register(req, res, next) {
-        res.render('register', { title: 'Register Page',username: null });
+        res.render('register', { title: 'Register Page', username: null });
     }
-    
+
 
     //GET /password
     password(req, res, next) {
         res.render('password', { title: 'Password Page' });
     }
     //GET /cart
-    cart(req,res,next){
+    cart(req, res, next) {
         res.render("shopping-cart", { title: "Register Page", username: null });
     }
 }
