@@ -1,13 +1,13 @@
 <div class="checkout__wrapper">
   <div class="checkout__content">
     <div class="checkout__payment">
-      <h1>Check out</h1>
+      <h1 class="mb-5">Check out</h1>
       <p>Billing Address</p>
-      <div class="form-floating country-option">
+      <div class="form-floating w-100 country-option">
         <select class="form-select" id="floatingSelect">
           <option value="1" selected>Viet Nam</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="2">American</option>
+          <option value="3">China</option>
         </select>
         <label for="floatingSelect">Country</label>
         <div
@@ -62,7 +62,7 @@
                     <label for="validationDefaultUsername">MM/YY</label>
                     <div class="input-group">
                       <input
-                        type="text"
+                        type="datepicker"
                         class="form-control"
                         id="validationDefaultUsername"
                         placeholder="MM/YY"
@@ -135,12 +135,77 @@
             </div>
           </div>
         </div>
-        <div class="order-detai">
-          <h4>Order Details</h4>
+      </div>
+      <div class="order-detai">
+        <h4>Order Details</h4>
+      </div>
+      <div class="card-info">
+        <div class="card-image">
+          <img
+            src="https://img-c.udemycdn.com/course/100x100/3250670_4785.jpg"
+            alt="photo"
+          />
         </div>
-        l
+        <h6>Hacking Éthique : Apprendre à programmer en Python</h6>
+        <div>
+          <h6>$9.99</h6>
+          <p><del>$84.99</del></p>
+        </div>
+      </div>
+      <div class="card-info">
+        <div class="card-image">
+          <img
+            src="https://img-c.udemycdn.com/course/100x100/3250670_4785.jpg"
+            alt="photo"
+          />
+        </div>
+        <h6>Hacking Éthique : Apprendre à programmer en Python</h6>
+        <div>
+          <h6>$9.99</h6>
+          <p><del>$84.99</del></p>
+        </div>
+      </div>
+      <div class="card-info">
+        <div class="card-image">
+          <img
+            src="https://img-c.udemycdn.com/course/100x100/3250670_4785.jpg"
+            alt="photo"
+          />
+        </div>
+        <h6>Hacking Éthique : Apprendre à programmer en Python</h6>
+        <div>
+          <h6>$9.99</h6>
+          <p><del>$84.99</del></p>
+        </div>
       </div>
     </div>
-    <div class="checkout__summary"></div>
+    <div class="checkout__summary">
+      <h1>Summary</h1>
+      <div class="d-flex justify-content-between">
+        <p>Original price:</p>
+        <p>$169.98</p>
+      </div>
+      <div class="d-flex justify-content-between border-bottom border-dark">
+        <p>Coupon discounts:</p>
+        <p>-$150.00</p>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <h3>Total:</h3>
+        <h3>$19.98</h3>
+      </div>
+      <p>
+        <small>
+          Udemy is required by law to collect applicable transaction taxes for
+          purchases made in certain tax jurisdictions.
+        </small>
+      </p>
+      <p>
+        <small>
+          By completing your purchase you agree to these
+          <a href="#">Terms of Service</a>.
+        </small>
+      </p>
+      <button class="btn-violet">Process</button>
+    </div>
   </div>
 </div>

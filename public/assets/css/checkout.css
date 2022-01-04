@@ -9,10 +9,11 @@
 }
 
 .checkout__content {
+  position: relative;
   display: flex;
 }
 .checkout__payment {
-  width: 900px;
+  width: 60%;
 }
 
 .country-option {
@@ -20,4 +21,41 @@
 }
 .method-payment {
   margin: 30px auto;
+}
+.order-detai {
+  margin: 20px auto;
+}
+.card-info {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.card-image {
+  width: 40px;
+}
+.card-image img {
+  width: 100%;
+}
+.checkout__summary {
+  position: fixed;
+  right: 80px;
+  border: 1px solid #f7f9fa;
+  box-shadow: 0 0 1px 1px rgb(28 29 31 / 10%), 0 3px 1px 0 rgb(28 29 31 / 10%);
+  width: 400px;
+  max-height: 400px;
+  padding: 20px;
+  margin-left: 20px;
+}
+
+.btn-violet {
+  border: none;
+  font-weight: bold;
+  height: 50px;
+  width: 100%;
+  color: #fff;
+  background-color: #a435f0;
+}
+.btn-violet:hover {
+  color: #fff;
+  background-color: #7325a3;
 }
