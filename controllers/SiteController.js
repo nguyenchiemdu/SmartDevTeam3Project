@@ -46,6 +46,34 @@ class SiteController {
         }
     }
 
+
+    async learning(req, res, next) {
+        try {
+            var courses = await Course.find({})
+            res.render('learning.ejs', {
+                username : null,
+                courses: mutipleMongooseToObject(courses)
+            });
+        } catch (e) {
+            console.log(e)
+            res.json(e)
+        }
+    }
+
+    
+    async home_seller(req, res, next) {
+        try {
+            var courses = await Course.find({})
+            res.render('seller/home.ejs', {
+                username : null,
+                courses: mutipleMongooseToObject(courses)
+            });
+        } catch (e) {
+            console.log(e)
+            res.json(e)
+        }
+    }
+
     // [GET] / login
     login(req, res, next) {
         res.render('login', { title: 'Login Page' ,username : null});
@@ -55,6 +83,7 @@ class SiteController {
     register(req, res, next) {
         res.render('register', { title: 'Register Page',username: null });
     }
+    
 
     //GET /password
     password(req, res, next) {

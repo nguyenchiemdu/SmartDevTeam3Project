@@ -16,5 +16,6 @@ router.put("/courses/:id", tableController.update);
 
 router.delete("/courses/:id", tableController.destroy);
 
+router.get("/home",siteController.home_seller)
 
 module.exports = router;

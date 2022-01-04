@@ -340,6 +340,15 @@ section.update p {
     margin-left: 25px;
   }
 }
+@media (max-width: 1400px) {
+    /* banner-mid */
+    section.update span {
+        margin-left: 25px;
+    }
+    section.update h5 {
+        margin-left: 25px;
+    }
+}
 
 /* banner-mid */
 section.banner-mid {
@@ -418,6 +427,21 @@ section.banner-mid .button-how a:hover {
   section.new-bottom img {
     width: 180px;
   }
+}
+@media (max-width:600px) {
+    section.banner .banner-left .button-save {
+        margin: 50px 0;
+    }
+    section.banner .banner-left .button-save a {
+        padding: 15px 30px;
+    }
+    section.banner-mid .button-how a {
+        padding: 15px 20px;
+        font-size: 14px;
+    }
+    section.new-bottom img {
+        width: 180px;
+    }
 }
 
 /* courses */
