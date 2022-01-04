@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+.checkout__wrapper {
+  margin: 0 auto;
+  max-width: 1500px;
+  padding: 100px 100px;
+}
+
+.checkout__content {
+  display: flex;
+}
+.checkout__payment {
+  width: 900px;
+}
+
+.country-option {
+  width: 400px;
+}
+.method-payment {
+  margin: 30px auto;
+}
