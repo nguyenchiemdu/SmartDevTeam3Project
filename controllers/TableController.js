@@ -1,8 +1,10 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
+const Category = require("../models/Category");
 const listTable = {
   users: User,
   courses: Course,
+  categories: Category
 };
 const {
   mongooseToObject,
@@ -13,6 +15,7 @@ class TableController {
   async showTable(req, res, next) {
     try {
       var targetTable = listTable[req.params.table];
+      console.log(req);
       var tableData = await targetTable.find({});
       tableData = tableData.map(item => JSON.parse(JSON.stringify(item)));
       res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, username: null });
