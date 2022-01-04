@@ -12,14 +12,10 @@
     <% include ../elements/navbar %>
         <div style="padding-top:74px; height:auto" class="padding-navbar"></div>
         <div class="course-content-top">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 course-left">
-                        <iframe src="https://www.youtube.com/embed/<%= course.videoId %>" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-
+                        <img src="<%= course.image %>" alt="">
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 course-right">
                         <div class="info">
