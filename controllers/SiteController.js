@@ -79,6 +79,8 @@ class SiteController {
 
     // [GET] / login
     login(req, res, next) {
+        const userInfor = authMiddleware.userInfor(req);
+        if (userInfor.username != null) return res.redirect('/')
         res.render('login', { title: 'Login Page', ...authMiddleware.userInfor(req) });
     }
 
