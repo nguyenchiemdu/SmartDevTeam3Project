@@ -99,14 +99,16 @@
     margin: 0 auto;
     padding: 100px 30px;
   }
+  .checkout__content {
+    flex-direction: column-reverse;
+  }
   .checkout__summary {
-    display: none;
-    /* position: fixed;
-    bottom: 0;
+    margin-bottom: 20px;
+    position: initial;
     border: 1px solid #f7f9fa;
     box-shadow: 0 0 1px 1px rgb(28 29 31 / 10%), 0 3px 1px 0 rgb(28 29 31 / 10%);
     width: 100%;
     padding: 20px;
-    margin-left: 20px; */
+    margin-left: 0;
   }
 }
