@@ -18,9 +18,8 @@ async function registerUser(event) {
     }).then((res) => res.json())
 
     if(result.status === 'ok'){
-        alert('Success')
-        window.location.href = "/login"
+        window.location.href = "/success"
     } else {
-        alert(result.error)
+        document.querySelectorAll('.notification').innerHTML = result.error;
     }
 }

@@ -2,28 +2,17 @@ require('dotenv').config()
 const Course = require('../models/Course');
 const { mutipleMongooseToObject } = require('../utilities/mongoose');
 const jwt = require("jsonwebtoken");
-
+var authMiddleware = require("../middlerwares/auth.middleware")
 class SiteController {
 
     // GET /
     async home(req, res, next) {
-        //Check token
-        let payload
-        try {
-            payload = jwt.verify(req.cookies.accessToken, process.env.JWT_SECRET)
-
-        }
-        catch (e) {
-            console.log(e)
-            payload = null;
-        }
-        const username = payload == null ? null : payload.username
 
         //////////
         try {
             var courses = await Course.find({})
             res.render('index.ejs', {
-                username: username,
+                ...authMiddleware.userInfor(req),
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -37,7 +26,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render('courses-view.ejs', {
-                username: null,
+                ...authMiddleware.userInfor(req),
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -51,7 +40,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render('learning.ejs', {
-                username: null,
+                ...authMiddleware.userInfor(req),
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -65,7 +54,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render('seller/home.ejs', {
-                username: null,
+                ...authMiddleware.userInfor(req),
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -78,7 +67,7 @@ class SiteController {
         try {
             var courses = await Course.find({})
             res.render("seller/create", {
-                username: null,
+                ...authMiddleware.userInfor(req),
                 courses: mutipleMongooseToObject(courses)
             });
         } catch (e) {
@@ -90,25 +79,30 @@ class SiteController {
 
     // [GET] / login
     login(req, res, next) {
-        res.render('login', { title: 'Login Page', username: null });
+        res.render('login', { title: 'Login Page', ...authMiddleware.userInfor(req) });
     }
 
     //GET /register
     register(req, res, next) {
-        res.render('register', { title: 'Register Page', username: null });
+        res.render('register', { title: 'Register Page', ...authMiddleware.userInfor(req) });
+    }
+
+    //GET /success
+    success(req,res,next) {
+        res.render('register-success',{ title: 'Success', ...authMiddleware.userInfor(req) })
     }
 
 
     //GET /password
     password(req, res, next) {
-        res.render('password', { title: 'Password Page' });
+        res.render('password', { title: 'Password Page', ...authMiddleware.userInfor(req) });
     }
     //GET /cart
     cart(req, res, next) {
-        res.render("shopping-cart", { title: "Register Page", username: null });
+        res.render("shopping-cart", { title: "Cart", ...authMiddleware.userInfor(req) });
     }
-    checkout(req,res,next){
-        res.render("checkout", { title: "Check Out", username: null });
+    checkout(req, res, next) {
+        res.render("checkout", { title: "Check Out", ...authMiddleware.userInfor(req) });
     }
 }
 

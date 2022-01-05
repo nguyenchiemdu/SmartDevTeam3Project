@@ -9,6 +9,8 @@ router.get("/login", siteController.login);
 
 router.get("/register", siteController.register);
 
+router.get("/success",siteController.success)
+
 router.get("/courses/:slug", courseController.show);
 
 router.get("/courses", siteController.courses);
