@@ -52,7 +52,7 @@ class TableController {
 
     try {
       await itemData.save();
-      res.redirect("/admin/courses/");
+      res.redirect("/admin/");
     } catch (e) {
       console.log(e);
       res.json(e);
