@@ -6,6 +6,7 @@ const listTable = {
   courses: Course,
   categories: Category
 };
+var authMiddleware = require("../middlerwares/auth.middleware")
 const {
   mongooseToObject,
   mutipleMongooseToObject,
@@ -18,7 +19,7 @@ class TableController {
       console.log(req);
       var tableData = await targetTable.find({});
       tableData = tableData.map(item => JSON.parse(JSON.stringify(item)));
-      res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, username: null });
+      res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, ...authMiddleware.userInfor(req) });
     } catch (e) {
       console.log(e);
       res.json(e);
