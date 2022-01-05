@@ -102,7 +102,7 @@ p {
     rgb(236, 0, 139) 100%
   );
 }
-.btn-violet:focus {
+.btn-pink:focus {
   outline: none;
 }
 .btn-primary {
