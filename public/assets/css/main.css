@@ -177,6 +177,12 @@ section.courses .course-title button {
 section.courses .course-title button.active {
   color: var(--style-color);
 }
+section.courses .course-title .category-text{
+  text-align: center;
+  color: #ccc;
+  font-size: 1.3rem;
+  padding: 0.5rem;
+}
 section.courses .course-main {
   display: none;
   padding: 50px 30px;
