@@ -3,136 +3,118 @@
     <div class="checkout__payment">
       <h1 class="mb-5">Check out</h1>
       <p>Billing Address</p>
-      <div class="form-floating w-100 country-option">
-        <select class="form-select" id="floatingSelect">
+      <div class="form-floating country-option">
+        <select class="form-select mb-5" id="floatingSelect">
           <option value="1" selected>Viet Nam</option>
           <option value="2">American</option>
           <option value="3">China</option>
         </select>
         <label for="floatingSelect">Country</label>
-        <div
-          class="accordion accordion-flush method-payment"
-          id="accordionFlushExample"
-        >
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne"
-                aria-expanded="false"
-                aria-controls="flush-collapseOne"
-              >
-                Credit/Debit Cart
-              </button>
-            </h2>
-            <div
-              id="flush-collapseOne"
-              class="accordion-collapse collapse"
-              aria-labelledby="flush-headingOne"
-              data-bs-parent="#accordionFlushExample"
-            >
-              <form>
-                <div class="form-row">
-                  <div class="col mb-3">
-                    <label for="validationDefault01">Name on card</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationDefault01"
-                      placeholder="Name on card"
-                      required
-                    />
-                  </div>
-                  <div class="col-12 mb-3">
-                    <label for="validationDefault02">Card Number</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="validationDefault02"
-                      placeholder="Card Number"
-                      value="Otto"
-                      required
-                    />
-                  </div>
+        <div class="method-credit">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="method-payment"
+            id="option1"
+            value="cart"
+            checked="checked"
+            onchange="OptionChange()"
+          />
+          <label class="form-check-label" for="option1">
+            Credit/ Debit Cart
+          </label>
+        </div>
+        <div class="method-credit">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="method-payment"
+            id="option2"
+            value="paypal"
+            onchange="OptionChange()"
+          />
+          <label class="form-check-label" for="option2"> Paypal </label>
+        </div>
+        <div class="method-payment">
+          <div class="show" id="show-cart">
+            <form>
+              <div class="form-row">
+                <div class="col mb-3">
+                  <label for="validationDefault01">Name on card</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="validationDefault01"
+                    placeholder="Name on card"
+                    required
+                  />
                 </div>
-                <div class="form-row">
-                  <div class="col-6 mb-3">
-                    <label for="validationDefaultUsername">MM/YY</label>
-                    <div class="input-group">
-                      <input
-                        type="datepicker"
-                        class="form-control"
-                        id="validationDefaultUsername"
-                        placeholder="MM/YY"
-                        aria-describedby="inputGroupPrepend2"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-6 mb-3">
-                    <label for="validationDefault03">Security Code</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationDefault03"
-                      placeholder="Security Code"
-                      required
-                    />
-                  </div>
-                  <div class="col-6 mb-3">
-                    <label for="validationDefault05">Zip</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationDefault05"
-                      placeholder="Zip"
-                      required
-                    />
-                  </div>
+                <div class="col-12 mb-3">
+                  <label for="validationDefault02">Card Number</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="validationDefault02"
+                    placeholder="Card Number"
+                    value="Otto"
+                    required
+                  />
                 </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="invalidCheck2"
-                      required
-                    />
-                    <label class="form-check-label" for="invalidCheck2">
-                      Remember this card
-                    </label>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingTwo">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseTwo"
-                aria-expanded="false"
-                aria-controls="flush-collapseTwo"
-              >
-                PayPal
-              </button>
-            </h2>
-            <div
-              id="flush-collapseTwo"
-              class="accordion-collapse collapse"
-              aria-labelledby="flush-headingTwo"
-              data-bs-parent="#accordionFlushExample"
-            >
-              <div class="accordion-body">
-                In order to complete your transaction, we will transfer you over
-                to PayPal's secure servers.
               </div>
-            </div>
+              <div class="form-row">
+                <div class="col-6 mb-3">
+                  <label for="validationDefaultUsername">MM/YY</label>
+                  <div class="input-group">
+                    <input
+                      type="datepicker"
+                      class="form-control"
+                      id="validationDefaultUsername"
+                      placeholder="MM/YY"
+                      aria-describedby="inputGroupPrepend2"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="validationDefault03">Security Code</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="validationDefault03"
+                    placeholder="Security Code"
+                    required
+                  />
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="validationDefault05">Zip</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="validationDefault05"
+                    placeholder="Zip"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="invalidCheck2"
+                    required
+                  />
+                  <label class="form-check-label" for="invalidCheck2">
+                    Remember this card
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="show hidden" id="show-paypal">
+            In order to complete your transaction, we will transfer you over to
+            PayPal's secure servers.
           </div>
         </div>
       </div>
@@ -205,7 +187,7 @@
           <a href="#">Terms of Service</a>.
         </small>
       </p>
-      <button class="btn-violet">Process</button>
+      <button class="btn-pink" id="handlePayment">Process</button>
     </div>
   </div>
 </div>
