@@ -13,6 +13,10 @@ body {
   --main-color: #ffffff;
   --style-color: #e40084;
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
 /* header css ở file headerFooter.css */
 
 /* banner */
