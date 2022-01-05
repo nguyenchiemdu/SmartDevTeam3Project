@@ -83,20 +83,20 @@ $('.pagination-inner a').on('click', function() {
 //     signIn.classList.toggle("active")
 // })
 
-//course menu
-// const courseTitle = document.querySelector(".course-title");
-// courseTitle.addEventListener("click", function (x) {
-//     if (x.target.classList.contains("course-button")) {
-//         const Target = x.target.getAttribute("data-title");
-//         // console.log(Target)
-//         courseTitle.querySelector(".active").classList.remove("active");
-//         x.target.classList.add("active");
-//         const courseItem = document.querySelector(".courses");
-//         courseItem.querySelector(".course-main.active").classList.remove("active");
-//         courseItem.querySelector(Target).classList.add("active");
-//     }
+// course menu
+const courseTitle = document.querySelector(".course-title");
+courseTitle.addEventListener("click", function (x) {
+    if (x.target.classList.contains("course-button")) {
+        const Target = x.target.getAttribute("data-title");
+        // console.log(Target)
+        courseTitle.querySelector(".active").classList.remove("active");
+        x.target.classList.add("active");
+        const courseItem = document.querySelector(".courses");
+        courseItem.querySelector(".course-main.active").classList.remove("active");
+        courseItem.querySelector(Target).classList.add("active");
+    }
 
-// })
+})
 
 // const setUserName = () => {
 //     const changeName = document.querySelector('li a.sign-in h6')

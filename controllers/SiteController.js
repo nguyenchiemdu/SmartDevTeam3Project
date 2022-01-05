@@ -20,6 +20,23 @@ class SiteController {
         }
         const username = payload == null ? null : payload.username
 
+        var kq;
+        const test = async() =>{
+        const k = await Category.findOne({nameCategory: 'Business'})
+        kq = k._id;
+        // console.log(kq);    
+        }
+        // test();
+     
+        const fun = async() =>{
+            await test();
+            Course.find({categories_id: kq}).populate('categories_id').exec((err,course)=>{
+                    console.log(course);
+                }) 
+            
+        }
+        fun()
+        
         //////////
         try {
             var data = await Promise.all([Course.find({}),Category.find({})])
