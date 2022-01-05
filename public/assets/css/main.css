@@ -145,145 +145,139 @@ section.learn .learn-right i {
   transition: all 0.3s ease;
 }
 
-/* new */
-
-section.new {
+/* courses */
+section.courses {
   height: auto;
+  background-color: rgb(39, 39, 39);
+  padding: 50px 0;
+}
+section.courses .container {
+  max-width: 1400px;
+}
+section.courses .course-title h1 {
+  height: auto;
+  margin-bottom: 10px;
+  color: var(--style-color);
+}
+section.courses p {
+  color: var(--main-color);
+  height: auto;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+section.courses .course-title button {
+  width: auto;
+  background-color: transparent;
+  margin: 10px 12px;
+  border: none;
+  font-size: 18px;
+  color: rgb(168, 168, 168);
+  cursor: pointer;
+}
+section.courses .course-title button.active {
+  color: var(--style-color);
+}
+section.courses .course-main {
+  display: none;
+  padding: 50px 30px;
+  width: auto;
+  border: 1px solid rgb(150, 150, 150);
+}
+section.courses .course-main.active {
+  display: flex;
+  flex-wrap: wrap;
+}
+section.courses .course-main h2 {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 23px;
+}
+section.courses .course-main button.explore {
+  color: white;
+  font-size: 15px;
+  border: 1px solid var(--main-color);
+  width: auto;
+  background-color: transparent;
+  padding: 8px 25px;
+  transition: all 0.3s ease;
+}
+section.courses .course-main button:hover {
+  background-color: #333;
+}
+section.courses .course-main-title {
+  margin-bottom: 40px;
+}
+section.courses .course-main-slider .slider {
+  padding: 8px 8px;
+}
+section.courses .course-main-slider img {
   width: 100%;
-  background-color: #181818;
-}
-section.new .container {
-  max-width: 1400px;
-}
-section.new span {
-  margin-left: 50px;
-  color: var(--style-color);
-  margin-top: 90px;
-  font-weight: bold;
   height: auto;
 }
-section.new h5 {
-  color: var(--main-color);
-  font-size: 32px;
-  font-weight: bold;
-  margin: 20px 0;
-  margin-left: 50px;
-  height: auto;
-}
-section.new .new-left {
-  width: auto;
-  height: auto;
-  padding: 0 30px;
-  border-left: 30px solid #181818;
-  background-color: #212121;
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-  margin-bottom: 30px;
-}
-section.new .new-left img {
-  margin-top: 50px;
-  height: 22px;
-  width: 115px;
-}
-section.new .new-left h6 {
-  color: var(--main-color);
-  height: auto;
+section.courses .course-main-slider h3 {
+  width: 100%;
   margin-top: 10px;
+  font-size: 16px;
+  color: var(--main-color);
 }
-section.new .new-left h5 {
-  font-size: 30px;
+section.courses .course-main-slider h4 {
+  margin-top: 5px;
+  font-size: 12px;
+  color: rgb(168, 168, 168);
+}
+section.courses .course-main-slider h6 {
+  margin-top: 10px;
+  font-size: 16px;
   font-weight: bold;
   color: var(--main-color);
-  height: auto;
-  margin: 20px 0;
 }
-section.new .new-left p {
-  color: var(--main-color);
-  height: auto;
-}
-section.new .new-left h6.learn-more {
-  color: var(--main-color);
+/* courses-cart */
+section.courses .course-main-cart {
   height: auto;
   width: auto;
+  margin: 20px;
+}
+section.courses .course-main-cart img {
+  height: auto;
+  width: auto;
+  margin-right: 20px;
   float: left;
-  margin-bottom: 30px;
 }
-section.new .new-left a:hover i {
-  margin-left: 5px;
-}
-section.new .new-left i {
-  margin-top: 10px;
-  height: auto;
-  width: auto;
-  color: var(--style-color);
-  font-size: 22px;
-  transition: all 0.3s ease;
-}
-
-/* new-right */
-
-section.new .new-right img {
-  height: auto;
-  margin-bottom: 30px;
-  margin-left: 20px;
-}
-/* new-bottom */
-section.new-bottom {
-  background-color: #181818;
-  height: auto;
-  width: auto;
-  padding-left: 25px;
-}
-section.new-bottom .container {
-  max-width: 1400px;
-}
-section.new-bottom .khoi {
-  background-color: var(--main-background-color);
-  border-radius: 25px;
-  border: 15px solid #181818;
-  margin-bottom: 30px;
-  width: auto;
-  height: auto;
-}
-section.new-bottom img {
-  margin: 40px 10px 20px 30px;
-  width: auto;
-  height: auto;
-}
-section.new-bottom h5 {
-  margin: 10px 10px 20px 30px;
-  width: auto;
-  height: auto;
-  font-size: 33px;
-  font-weight: bold;
-  color: var(--main-color);
-}
-section.new-bottom p {
-  margin: 30px 10px 20px 30px;
-  width: auto;
+section.courses .course-main-cart h3.cartH3 {
+  width: 100%;
   height: auto;
   font-size: 18px;
   color: var(--main-color);
 }
-section.new-bottom h6 {
-  margin: 30px 10px 20px 30px;
-  width: auto;
+section.courses .course-main-cart h4 {
+  width: 100%;
   height: auto;
-  font-size: 18px;
+  margin-top: 5px;
+  font-size: 12px;
+  color: rgb(168, 168, 168);
+}
+section.courses .course-main-cart h6 {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
   color: var(--main-color);
-  float: left;
 }
-section.new-bottom a:hover i {
-  margin-left: 5px;
-}
-section.new-bottom i {
+section.courses h2.total {
+  width: 100%;
+  height: auto;
   margin-top: 30px;
-  height: auto;
-  width: auto;
-  color: var(--style-color);
-  font-size: 22px;
-  transition: all 0.3s ease;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--main-color);
 }
+section.courses h2.total span {
+  color: var(--style-color);
+  font-size: 16px;
+}
+
+
 
 /* update */
 section.update {
@@ -444,136 +438,144 @@ section.banner-mid .button-how a:hover {
     }
 }
 
-/* courses */
-section.courses {
+/* new */
+
+section.new {
   height: auto;
-  background-color: rgb(39, 39, 39);
-  padding: 50px 0;
+  width: 100%;
+  background-color: #181818;
 }
-section.courses .container {
+section.new .container {
   max-width: 1400px;
 }
-section.courses .course-title h1 {
-  height: auto;
-  margin-bottom: 10px;
+section.new span {
+  margin-left: 50px;
   color: var(--style-color);
-}
-section.courses p {
-  color: var(--main-color);
-  height: auto;
-  margin-bottom: 0;
-  padding-bottom: 20px;
-}
-section.courses .course-title button {
-  width: auto;
-  background-color: transparent;
-  margin: 10px 12px;
-  border: none;
-  font-size: 18px;
-  color: rgb(168, 168, 168);
-  cursor: pointer;
-}
-section.courses .course-title button.active {
-  color: var(--style-color);
-}
-section.courses .course-main {
-  display: none;
-  padding: 50px 30px;
-  width: auto;
-  border: 1px solid rgb(150, 150, 150);
-}
-section.courses .course-main.active {
-  display: flex;
-  flex-wrap: wrap;
-}
-section.courses .course-main h2 {
-  color: var(--main-color);
+  margin-top: 90px;
   font-weight: bold;
-  font-size: 23px;
+  height: auto;
 }
-section.courses .course-main button.explore {
-  color: white;
-  font-size: 15px;
-  border: 1px solid var(--main-color);
+section.new h5 {
+  color: var(--main-color);
+  font-size: 32px;
+  font-weight: bold;
+  margin: 20px 0;
+  margin-left: 50px;
+  height: auto;
+}
+section.new .new-left {
   width: auto;
-  background-color: transparent;
-  padding: 8px 25px;
+  height: auto;
+  padding: 0 30px;
+  border-left: 30px solid #181818;
+  background-color: #212121;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  margin-bottom: 30px;
+}
+section.new .new-left img {
+  margin-top: 50px;
+  height: 22px;
+  width: 115px;
+}
+section.new .new-left h6 {
+  color: var(--main-color);
+  height: auto;
+  margin-top: 10px;
+}
+section.new .new-left h5 {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--main-color);
+  height: auto;
+  margin: 20px 0;
+}
+section.new .new-left p {
+  color: var(--main-color);
+  height: auto;
+}
+section.new .new-left h6.learn-more {
+  color: var(--main-color);
+  height: auto;
+  width: auto;
+  float: left;
+  margin-bottom: 30px;
+}
+section.new .new-left a:hover i {
+  margin-left: 5px;
+}
+section.new .new-left i {
+  margin-top: 10px;
+  height: auto;
+  width: auto;
+  color: var(--style-color);
+  font-size: 22px;
   transition: all 0.3s ease;
 }
-section.courses .course-main button:hover {
-  background-color: #333;
+
+/* new-right */
+
+section.new .new-right img {
+  height: auto;
+  margin-bottom: 30px;
+  margin-left: 20px;
 }
-section.courses .course-main-title {
-  margin-bottom: 40px;
+/* new-bottom */
+section.new-bottom {
+  background-color: #181818;
+  height: auto;
+  width: auto;
+  padding-left: 25px;
 }
-section.courses .course-main-slider .slider {
-  padding: 8px 8px;
+section.new-bottom .container {
+  max-width: 1400px;
 }
-section.courses .course-main-slider img {
-  width: 100%;
+section.new-bottom .khoi {
+  background-color: var(--main-background-color);
+  border-radius: 25px;
+  border: 15px solid #181818;
+  margin-bottom: 30px;
+  width: auto;
   height: auto;
 }
-section.courses .course-main-slider h3 {
-  width: 100%;
-  margin-top: 10px;
-  font-size: 16px;
-  color: var(--main-color);
+section.new-bottom img {
+  margin: 40px 10px 20px 30px;
+  width: auto;
+  height: auto;
 }
-section.courses .course-main-slider h4 {
-  margin-top: 5px;
-  font-size: 12px;
-  color: rgb(168, 168, 168);
-}
-section.courses .course-main-slider h6 {
-  margin-top: 10px;
-  font-size: 16px;
+section.new-bottom h5 {
+  margin: 10px 10px 20px 30px;
+  width: auto;
+  height: auto;
+  font-size: 33px;
   font-weight: bold;
   color: var(--main-color);
 }
-/* courses-cart */
-section.courses .course-main-cart {
-  height: auto;
+section.new-bottom p {
+  margin: 30px 10px 20px 30px;
   width: auto;
-  margin: 20px;
-}
-section.courses .course-main-cart img {
-  height: auto;
-  width: auto;
-  margin-right: 20px;
-  float: left;
-}
-section.courses .course-main-cart h3.cartH3 {
-  width: 100%;
   height: auto;
   font-size: 18px;
   color: var(--main-color);
 }
-section.courses .course-main-cart h4 {
-  width: 100%;
+section.new-bottom h6 {
+  margin: 30px 10px 20px 30px;
+  width: auto;
   height: auto;
-  margin-top: 5px;
-  font-size: 12px;
-  color: rgb(168, 168, 168);
-}
-section.courses .course-main-cart h6 {
-  width: 100%;
-  height: auto;
-  margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
   color: var(--main-color);
+  float: left;
 }
-section.courses h2.total {
-  width: 100%;
-  height: auto;
+section.new-bottom a:hover i {
+  margin-left: 5px;
+}
+section.new-bottom i {
   margin-top: 30px;
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--main-color);
-}
-section.courses h2.total span {
+  height: auto;
+  width: auto;
   color: var(--style-color);
-  font-size: 16px;
+  font-size: 22px;
+  transition: all 0.3s ease;
 }
 
 /* skills */
