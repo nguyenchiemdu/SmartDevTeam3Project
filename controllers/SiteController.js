@@ -1,5 +1,6 @@
 require('dotenv').config()
 const Course = require('../models/Course');
+const Category = require('../models/Category');
 const { mutipleMongooseToObject } = require('../utilities/mongoose');
 const jwt = require("jsonwebtoken");
 
@@ -21,10 +22,12 @@ class SiteController {
 
         //////////
         try {
-            var courses = await Course.find({})
+            var data = await Promise.all([Course.find({}),Category.find({})])
+            // var courses = await Course.find({})
             res.render('index.ejs', {
                 username: username,
-                courses: mutipleMongooseToObject(courses)
+                courses: mutipleMongooseToObject(data[0]),
+                categories: mutipleMongooseToObject(data[1])
             });
         } catch (e) {
             console.log(e)
