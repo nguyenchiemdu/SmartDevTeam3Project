@@ -355,10 +355,10 @@ section.banner-mid {
   width: 100%;
   height: auto;
   background-color: #000;
+  padding-left: 20px;
 }
 section.banner-mid .container {
     margin-left: 13px;
-    max-width: 100%;
 }
 section.banner-mid img.img-left {
   width: 100%;
