@@ -37,11 +37,14 @@ p {
 }
 .card {
   padding: 10px;
+  border: 3px solid var(--main-background2-color) !important;
+  border-radius: 10px !important;
   background-color: var(--main-background-color) !important;
 }
 
 .card-container {
   display: flex;
+  margin: 12px 8px;
 }
 
 .card-image {
@@ -107,6 +110,9 @@ p {
 }
 .btn-link {
   color: #F4A460 !important;
+}
+.btn-link:hover {
+  color: var(--style-color) !important;
 }
 
 @media screen and (max-width: 992px) {

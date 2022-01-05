@@ -17,7 +17,6 @@ router.delete("/courses/:id", tableController.destroy);
 
 router.get("/home",siteController.home_seller)
 
-
 router.get("/create", siteController.addCourses);
 
 module.exports = router;

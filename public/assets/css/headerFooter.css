@@ -71,7 +71,7 @@ a.navbar-brand {
     color: var(--main-color) !important;
 }
 .navbar-brand img {
-    width: 30px;
+    width: 45px;
     height: auto;
 }
 .navbar-toggler-icon {
@@ -89,6 +89,13 @@ a.navbar-brand {
     height: auto;
     border-bottom: 1px solid rgb(185, 185, 185);
     padding: 8px 12px;
+}
+.dropdown-item:hover {
+    background: linear-gradient(
+    100.37deg,
+    rgb(236, 0, 139) 0%,
+    rgb(241, 90, 34) 100%
+  );
 }
 .dropdown-item:last-child {
     border-bottom: none;

@@ -4,6 +4,9 @@ html, body {
 }
 :root {
     --main-background-color: #212121;
+    --main-background2-color: #000;
+    --main-background3-color: rgb(39, 39, 39);
+    --main-background4-color: rgb(241, 90, 34);
     --main-color: #ffffff;
     --style-color: #e40084;
 }
@@ -66,9 +69,6 @@ a {
     width: 42%;
     height: 50%;
 }
-.instructor-dashboard--resource-image{
-    
-}
 .instructor-dashboard--resource-text{
     flex: 1;
     padding: 16px 0 0;
@@ -99,6 +99,29 @@ a {
     white-space: nowrap;
     margin-top: 20px;
 }
+
+/* seller-create */
+.add-course {
+    background-color: var(--main-background3-color);
+}
+.add-course h2 {
+    color: var(--main-color);  
+    margin-bottom: 20px; 
+}
+form label {
+    color: var(--style-color);
+}
+form button.btn-primary {
+    margin: 30px 0;
+    background-color: var(--style-color);
+    border-color: var(--style-color);
+    transition: all 0.3s ease;
+}
+form button.btn-primary:hover {
+    background-color: var(--main-background4-color);
+    border-color: var(--main-background4-color);
+}
+
 /* footer */
 /* footer */
 footer {
