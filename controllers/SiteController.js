@@ -2,7 +2,8 @@ require('dotenv').config()
 const Course = require('../models/Course');
 const { mutipleMongooseToObject } = require('../utilities/mongoose');
 const jwt = require("jsonwebtoken");
-var authMiddleware = require("../middlerwares/auth.middleware")
+var authMiddleware = require("../middlerwares/auth.middleware");
+const mongoose = require('mongoose');
 class SiteController {
 
     // GET /
@@ -90,8 +91,8 @@ class SiteController {
     }
 
     //GET /success
-    success(req,res,next) {
-        res.render('register-success',{ title: 'Success', ...authMiddleware.userInfor(req) })
+    success(req, res, next) {
+        res.render('register-success', { title: 'Success', ...authMiddleware.userInfor(req) })
     }
 
 
@@ -103,10 +104,29 @@ class SiteController {
     cart(req, res, next) {
         res.render("shopping-cart", { title: "Cart", ...authMiddleware.userInfor(req) });
     }
+    //POST /cart
+    async getCoursesFromId(req, res, next) {
+        console.log(req.body.cart[0]);
+        // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
+        // res.json('ok')
+        try {
+            var courses = await Course.find(
+                {
+                    '_id': {
+                        $in: req.body.cart.map(id => mongoose.Types.ObjectId(id))
+                    }
+                }
+            )
+            res.json(courses)
+        } catch (e) {
+            console.log(e)
+            res.json(e)
+        }
+    }
     checkout(req, res, next) {
         res.render("checkout", { title: "Check Out", ...authMiddleware.userInfor(req) });
     }
-    search(req,res,next){
+    search(req, res, next) {
         res.render("searchPage", { title: "Search", username: null });
     }
 }
