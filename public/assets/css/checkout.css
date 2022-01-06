@@ -78,6 +78,8 @@
   margin: 20px 0px;
   display: flex;
   justify-content: space-between;
+  padding: 12px 12px;
+  border: 1px solid rgb(241, 90, 34);
 }
 .card-info h5 {
   color: var(--main-color);

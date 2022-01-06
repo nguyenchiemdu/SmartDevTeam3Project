@@ -16,7 +16,9 @@ a {
 
 
 /* header */
-
+.seller__wrapper {
+    background-color: #333;
+}
 .header-seller-home{
     padding-top: 100px;
 }
@@ -31,6 +33,7 @@ a {
     justify-content: space-between;
 }
 .create-title {
+    color: var(--main-color);
     font-size: 20px;
     font-weight: 500;
 }
@@ -43,18 +46,23 @@ a {
     display: inline-flex;
     min-width: 8rem;
     padding: 10px 80px;
-    background-color: #a435f0;
+    background: linear-gradient( 100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
     color: var(--main-color);
     font-weight: 700;
     white-space: nowrap;
 }
+.btn-carete-your{
+    background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+}
 .resources-title{
+    color: var(--main-color);
     text-align: center;
     margin: 40px auto;
     font-size:20px;
 }
 
 .instructor-dashboard--panel{
+    color: var(--main-color);
     flex-basis: 100%;
     padding: 16px 48px;
     border: 1px solid #d1d7dc;
@@ -62,6 +70,15 @@ a {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+}
+.instructor-dashboard--panel h3{
+    color: var(--style-color);
+}
+.instructor-dashboard--panel a{
+    color: #17a2b8;
+}
+.instructor-dashboard--panel a:hover{
+    color: #00ddff;
 }
 
 .instructor-dashboard--resource{
@@ -74,6 +91,7 @@ a {
     padding: 16px 0 0;
 }
 .instructor-dashboard-footer{
+    color: var(--main-color);
     padding: 32px 48px 64px;
     text-align: center;
 }
@@ -93,11 +111,15 @@ a {
     display: inline-flex;
     min-width: 8rem;
     padding: 10px 60px;
-    background-color: #a435f0;
+    background: linear-gradient( 100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
     color: var(--main-color);
     font-weight: 700;
     white-space: nowrap;
     margin-top: 20px;
+}
+.instructor-dashboard-button:hover {
+    color: #000;
+    background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
 }
 
 /* seller-create */
