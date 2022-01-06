@@ -5,9 +5,8 @@ const siteController = require("../controllers/SiteController");
 const tableController = require("../controllers/TableController");
 
 // siteController.index
-router.get("/", (req, res, next) => {
-  res.send("Info seller");
-});
+router.get("/", siteController.home_seller);
+router.get("/courses/create", siteController.addCourses);
 
 router.get("/courses/:id", tableController.edit);
 
@@ -15,8 +14,6 @@ router.put("/courses/:id", tableController.update);
 
 router.delete("/courses/:id", tableController.destroy);
 
-router.get("/home",siteController.home_seller)
 
-router.get("/create", siteController.addCourses);
 
 module.exports = router;

@@ -32,7 +32,6 @@ class AuthMiddleware {
                 iat : null
             };
         }
-        console.log(payload)
         return payload;
     }
 }
