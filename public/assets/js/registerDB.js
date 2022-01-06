@@ -20,6 +20,6 @@ async function registerUser(event) {
     if(result.status === 'ok'){
         window.location.href = "/success"
     } else {
-        document.querySelectorAll('.notification').innerHTML = result.error;
+        document.querySelector('.notification').innerHTML = result.error;
     }
 }
