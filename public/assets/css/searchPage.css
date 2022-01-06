@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --main-background-color: #212121;
+  --main-background2-color: #000;
+  --main-color: #ffffff;
+  --style-color: #e40084;
+}
+a {
+  text-decoration: none !important;
+}
+p {
+  line-height: 0.6;
+  font-size: 14px;
+  color: var(--style-color);
+}
+h6 {
+  font-weight: initial;
+  color: #fff;
+}
+.container-fluid {
+  background-color: var(--main-background2-color);
+}
+.search__wrapper {
+  margin: 0 auto;
+  max-width: 1500px;
+  padding: 78px 100px;
+}
+.search__title {
+  margin: 50px 0px;
+  color: var(--main-color);
+}
+
+.search__shopping {
+  display: flex;
+}
+.search__list {
+  width: 100%;
+}
+.card {
+  padding: 10px;
+  border: 3px solid var(--main-background2-color) !important;
+  border-radius: 10px !important;
+  background-color: var(--main-background-color) !important;
+}
+
+.card-container {
+  display: flex;
+  margin: 12px 8px;
+}
+
+.card-image {
+  width: 100px;
+  height: 100px;
+}
+.card-image img {
+  width: 100%;
+}
+
+.card-info {
+  width: 80%;
+  padding-left: 10px;
+}
+.card-info h6 {
+  color: var(--main-color);
+  font-size: 20px;
+}
+
+.card-rating {
+  color: #f7a614;
+}
+
+.card-text {
+  font-weight: bold;
+  color: #40e0d0;
+}
+.card-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+.search__total {
+  margin-left: 20px;
+  width: 30%;
+  color: rgb(241, 90, 34);
+}
+.btn-pink {
+  border: none;
+  font-weight: bold;
+  height: 50px;
+  width: 100%;
+  color: #fff;
+  background: linear-gradient(
+    100.37deg,
+    rgb(236, 0, 139) 0%,
+    rgb(241, 90, 34) 100%
+  );
+}
+.btn-pink:hover {
+  color: #fff;
+  background: linear-gradient(
+    100.37deg,
+    rgb(241, 90, 34) 0%,
+    rgb(236, 0, 139) 100%
+  );
+}
+.btn-pink:focus {
+  outline: none;
+}
+.btn-primary {
+  background-color: var(--style-color) !important;
+}
+.btn-link {
+  color: #f4a460 !important;
+}
+.btn-link:hover {
+  color: var(--style-color) !important;
+}
+
+@media screen and (max-width: 992px) {
+  .search__wrapper {
+    padding: 50px 30px;
+  }
+  .search__shopping {
+    flex-direction: column-reverse;
+  }
+  .search__list {
+    width: 100%;
+  }
+  .search__title {
+    padding-top: 50px;
+  }
+  .search__total {
+    margin-left: 0px;
+    margin-top: 15px;
+    width: 100%;
+  }
+  .card-button {
+    display: none;
+  }
+  .card-price {
+    margin-left: 10px;
+  }
+}

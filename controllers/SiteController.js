@@ -106,6 +106,9 @@ class SiteController {
     checkout(req, res, next) {
         res.render("checkout", { title: "Check Out", ...authMiddleware.userInfor(req) });
     }
+    search(req,res,next){
+        res.render("searchPage", { title: "Search", username: null });
+    }
 }
 
 module.exports = new SiteController;
