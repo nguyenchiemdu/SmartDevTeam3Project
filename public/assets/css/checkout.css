@@ -104,6 +104,7 @@
   padding: 20px;
   margin-left: 20px;
   color: var(--main-color);
+  background-color: #000;
 }
 .checkout__summary h3 {
   color:var(--style-color);

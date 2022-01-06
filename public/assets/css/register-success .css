@@ -12,7 +12,7 @@ body {
 }
 
 .success__wrapper {
-    width: 200vh;
+    /* width: 200vh; */
     height: 100vh;
     background-color: rgb(39, 39, 39);
     background-image: linear-gradient(to right, #383838, #686868, #909090);
