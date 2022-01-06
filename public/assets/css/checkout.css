@@ -10,7 +10,7 @@
   --style-color: #e40084;
 }
 .checkout__full {
-  background-image: linear-gradient(to right, #A0A0A0, #686868, #A0A0A0);
+  background-color: rgb(39, 39, 39);
 }
 .checkout__wrapper {
   margin: 0 auto;
@@ -29,6 +29,10 @@
   font-size: 45px;
   color: var(--style-color);
 }
+.checkout__payment p {
+  color: var(--main-color);
+  font-size: 18px;
+}
 
 .country-option {
   margin-bottom: 20px;
@@ -41,8 +45,14 @@
   padding: 15px 32px;
   margin: 15px 0;
 }
+.method-credit label {
+  color: var(--main-color)
+}
 .method-payment {
   margin: 30px auto;
+}
+.method-payment label {
+  color: var(--main-color)
 }
 .form-check-input:checked {
   background-color: var(--style-color);
@@ -69,6 +79,9 @@
   display: flex;
   justify-content: space-between;
 }
+.card-info h5 {
+  color: var(--main-color);
+}
 .card-info h6 {
   color: var(--style-color);
 }
@@ -88,8 +101,11 @@
   max-height: 400px;
   padding: 20px;
   margin-left: 20px;
+  color: var(--main-color);
 }
-
+.checkout__summary h3 {
+  color:var(--style-color);
+}
 .btn-pink {
   border: none;
   font-weight: bold;
