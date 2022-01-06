@@ -81,6 +81,10 @@ p {
   margin-left: 20px;
   width: 30%;
   color:rgb(241, 90, 34);
+  border: 1px solid #333;
+  padding: 10px 20px;
+  background-color: var(--main-background-color);
+  border-radius: 5px;
 }
 .btn-pink {
   border: none;
@@ -127,7 +131,7 @@ p {
   }
   .cart__total {
     margin-left: 0px;
-    margin-top: 15px;
+    margin-top: 82px;
     width: 100%;
   }
   .cart__title {
