@@ -26,4 +26,5 @@ router.get("/learning", siteController.learning);
 //   res.render('stored-courses', { title: 'stored-courses' });
 // });
 router.get("/search", siteController.search);
+
 module.exports = router;
