@@ -31,6 +31,10 @@ a {
     display: flex;
     justify-content: space-between;
 }
+.create-your h1{
+    font-size: 28px;
+    color: tomato;
+}
 .create-title {
     color: var(--main-color);
     font-size: 20px;
@@ -45,13 +49,14 @@ a {
     display: inline-flex;
     min-width: 8rem;
     padding: 10px 80px;
-    background: linear-gradient( 100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
+    background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
     color: var(--main-color);
     font-weight: 700;
     white-space: nowrap;
 }
-.btn-carete-your{
-    background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+.btn-carete-your:hover{
+    background: linear-gradient( 100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
+    transition: all 0.3s ease;
 }
 .resources-title{
     color: var(--main-color);
