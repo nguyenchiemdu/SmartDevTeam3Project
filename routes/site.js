@@ -19,6 +19,8 @@ router.get("/password", siteController.password);
 
 router.get("/cart", siteController.cart);
 
+router.post("/cart",siteController.getCoursesFromId);
+
 router.get("/cart/checkout", siteController.checkout);
 
 router.get("/learning", siteController.learning);
