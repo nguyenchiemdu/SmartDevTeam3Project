@@ -1,6 +1,4 @@
-<section class="courses
-
-" style="padding-top: 82px;">
+<section class="courses" style="padding-top: 82px;">
     <div class="container">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 course-title">
             <h1>A broad selection of courses</h1>
@@ -8,108 +6,35 @@
             <button class="course-button active" data-title="#python" title="Python">
                 All courses
             </button>
-
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-6.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-5.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-4.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-3.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-2.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-1.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-7.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-8.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                <a id="1" href="#" class="slider">
-                    <img src="/assets/images/course-javascript-9.jpg" alt="">
-                    <h3>2022 Complete Python Bootcamp From Zero to</h3>
-                    <h4>Jose Portill</h4>
-                    <h6>A$15</h6>
-
-                </a>
-            </div>
-            
-        <div class="col-lg-12 d-flex justify-content-center">
-            <nav class="pagination-container">
-                <div class="pagination">
-                    <a class="pagination-newer" href="#">PREV</a>
-                    <span class="pagination-inner">
-                        <a href="#">1</a>
-                        <a class="pagination-active" href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                    </span>
-                    <a class="pagination-older" href="#">NEXT</a>
+            <% courses.forEach(function(courses) { %>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
+                        <a id="<%= courses.id %>" href="/courses/<%= courses.slug %>" class="slider">
+                            <img src="<%= courses.image %>" alt="">
+                            <h3><%= courses.name %></h3>
+                            <h4><%= courses.author %></h4>
+                            <h6>A$<%= courses.price %></h6>
+                        </a>
                 </div>
-            </nav>
+            <% }); %>
+            <div class="col-lg-12 d-flex justify-content-center">
+                <nav class="pagination-container">
+                    <div class="pagination">
+                        <a class="pagination-newer" href="#">PREV</a>
+                        <span class="pagination-inner">
+                            <a href="#">1</a>
+                            <a class="pagination-active" href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                        </span>
+                        <a class="pagination-older" href="#">NEXT</a>
+                    </div>
+                </nav>
+            </div>
         </div>
-        </div>
-        
+
     </div>
 </section>

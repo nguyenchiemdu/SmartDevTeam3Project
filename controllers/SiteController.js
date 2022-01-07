@@ -1,5 +1,6 @@
 require("dotenv").config();
 const Course = require("../models/Course");
+const Lesson = require("../models/Lesson");
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
 const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
@@ -35,10 +36,10 @@ class SiteController {
 
   async learning(req, res, next) {
     try {
-      var courses = await Course.find({});
+      var lessons = await Lesson.find({});
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+        lessons: mutipleMongooseToObject(lessons),
       });
     } catch (e) {
       console.log(e);
@@ -58,7 +59,6 @@ class SiteController {
           countSearch++;
         }
       });
-
       res.render("searchPage.ejs", {
         personSearch: mutipleMongooseToObject(personSearch),
         searchName: searchName,
@@ -83,6 +83,7 @@ class SiteController {
       res.json(e);
     }
   }
+  
   // add Course demo cua Trinh`
   async addCourses(req, res, next) {
     try {
