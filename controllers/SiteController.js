@@ -53,7 +53,7 @@ class SiteController {
       const personSearch = [];
       let countSearch = 0;
       courses.forEach((item) => {
-        if (item.name.toLowerCase().indexOf(searchName) !== -1) {
+        if ((item.name.toLowerCase().indexOf(searchName) !== -1) || (item.price.toLowerCase().indexOf(searchName) !== -1)){
           personSearch.push(item);
           countSearch++;
         }
