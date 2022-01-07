@@ -1,42 +1,42 @@
 <div class="container-fluid">
-  <div class="search__wrapper">
-    <h2 class="search__title">
-      <%= countSearch %> results for “<%= searchName %> ”
-    </h2>
-    <% personSearch.forEach(function(personSearch) { %>
-      <div class="search__shopping">
-        <div class="search__list">
-          <section class="card">
-            <div class="card-container">
-              <div class="card-image">
-                <img src="<%= personSearch.image %> " alt="photo" />
-              </div>
-              <div class="card-info">
-                <h6>
-                  <%= personSearch.name %>
-                </h6>
-                <p>
-                  <%= personSearch.author %>
-                </p>
-                <p class="card-rating">
-                  4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i><i class="fas fa-star"></i>
-                  <span>(1000 rating)</span>
-                </p>
-                <p style="line-height: 15px;">
-                  <%= personSearch.shortDescription %>
-                </p>
-              </div>
-              <div class="card-price">
-                <h5 class="card-text">
-                  <%= personSearch.price %> $
-                </h5>
-                <!-- <h6><del>$84.99</del></h6> -->
-              </div>
+    <div class="search__wrapper">
+        <h2 class="search__title">
+            <%= countSearch %> results for “<%= searchName %> ”
+        </h2>
+        <% personSearch.forEach(function(personSearch) { %>
+            <div class="search__shopping">
+                <a href="/courses/<%= personSearch.slug %>" class="search__list">
+                    <section class="card">
+                        <div class="card-container">
+                            <div class="card-image">
+                                <img src="<%= personSearch.image %> " alt="photo" />
+                            </div>
+                            <div class="card-info">
+                                <h6>
+                                    <%= personSearch.name %>
+                                </h6>
+                                <p>
+                                    <%= personSearch.author %>
+                                </p>
+                                <p class="card-rating">
+                                    4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    <span>(1000 rating)</span>
+                                </p>
+                                <p style="line-height: 15px;">
+                                    <%= personSearch.shortDescription %>
+                                </p>
+                            </div>
+                            <div class="card-price">
+                                <h5 class="card-text">
+                                    <%= personSearch.price %> $
+                                </h5>
+                                <!-- <h6><del>$84.99</del></h6> -->
+                            </div>
+                        </div>
+                    </section>
+                </a>
             </div>
-          </section>
-        </div>
-      </div>
-    <% }); %>
-  </div>
+            <% }); %>
+    </div>
 </div>

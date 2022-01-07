@@ -48,7 +48,7 @@ a {
     height: auto;
     font-size: 20px;
 }
-.course-right h4.author span, .course-right h6.price span, .course-right h5.update span {
+.course-right h4.author span, .course-right h6.price span, .course-right h5.update span, p.description span {
     color: rgb(155, 155, 155);
 }
 .course-right h6.price {
