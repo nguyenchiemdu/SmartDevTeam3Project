@@ -33,7 +33,7 @@
                                     <%= course.updatedAt.getMonth()+1 %> -
                                         <%= course.updatedAt.getDate() %>
                             </h5>
-                            <button type="button" class="udlite-btn btn">Add to Cart</button>
+                            <button  type="button" class="udlite-btn btn add-to-cart">Add to Cart</button>
                             <h6 class="this">This course includes:</h6>
                             <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
                             <p><i class='bx bx-file-blank'></i>3 articles</p>
@@ -168,7 +168,17 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            document.querySelector('.add-to-cart').addEventListener('click', function () {
+                var cart = JSON.parse(localStorage.getItem('cart'));
+                if (cart ==null) cart = [];
+                cart = new Set(cart)
+                cart.add('<%=course._id.toString()%>')
+                cart =  Array.from(cart)
+                localStorage.setItem('cart',JSON.stringify(cart))
+                window.location.href = "/cart"
+            })
+        </script>
         <% include ../elements/footer %>
 
             <% include ../elements/script %>

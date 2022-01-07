@@ -3,6 +3,7 @@ const Course = require("../models/Course");
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
 const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
+const mongoose = require('mongoose');
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -143,6 +144,36 @@ class SiteController {
     });
   }
 
+    //GET /password
+    password(req, res, next) {
+        res.render('password', { title: 'Password Page', ...authMiddleware.userInfor(req) });
+    }
+    //GET /cart
+    cart(req, res, next) {
+        res.render("shopping-cart", { title: "Cart", ...authMiddleware.userInfor(req) });
+    }
+    //POST /cart
+    async getCoursesFromId(req, res, next) {
+        console.log(req.body.cart[0]);
+        // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
+        // res.json('ok')
+        try {
+            var courses = await Course.find(
+                {
+                    '_id': {
+                        $in: req.body.cart.map(id => mongoose.Types.ObjectId(id))
+                    }
+                }
+            )
+            res.json(courses)
+        } catch (e) {
+            console.log(e)
+            res.json(e)
+        }
+    }
+    checkout(req, res, next) {
+        res.render("checkout", { title: "Check Out", ...authMiddleware.userInfor(req) });
+    }
 }
 
 module.exports = new SiteController();
