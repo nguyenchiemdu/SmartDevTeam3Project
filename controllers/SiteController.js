@@ -154,7 +154,7 @@ class SiteController {
     }
     //POST /cart
     async getCoursesFromId(req, res, next) {
-        console.log(req.body.cart[0]);
+        // console.log(req.body.cart[0]);
         // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
         // res.json('ok')
         try {

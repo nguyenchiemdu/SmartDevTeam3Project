@@ -17,6 +17,7 @@ async function registerUser() {
     }).then((res) => res.json())
 
     var listCart = ``;
+    var countCart = 0;
     result.forEach(item => {
         let cardHTML = `<section class="card">
                         <div class="card-container">
@@ -39,14 +40,15 @@ async function registerUser() {
                             </div>
                             <div class="card-price">
                                 <h5 class="card-text">$9.99<i class="fas fa-tag mx-2"></i></h5>
-                                <h6><del>$84.99</del></h6>
+                                <h6><del>$${item.price}</del></h6>
                             </div>
                         </div>
                     </section>`
         listCart += cardHTML;
+        countCart ++;
     });
     var listCartWrapper = `
-                        <p class="my-3">3 Courses in Cart</p>
+                        <p class="my-3">${countCart} Courses in Cart</p>
                         ${listCart}
                         `;
 
