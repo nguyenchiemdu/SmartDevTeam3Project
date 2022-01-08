@@ -6,7 +6,10 @@ const tableController = require("../controllers/TableController");
 
 // siteController.index
 router.get("/", siteController.home_seller);
+
 router.get("/courses/create", siteController.addCourses);
+
+router.post("/courses/create", siteController.sellerCreate);
 
 router.get("/courses/:id", tableController.edit);
 
