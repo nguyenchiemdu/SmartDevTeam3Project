@@ -3,7 +3,7 @@ const Course = require("../models/Course");
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
 const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -83,7 +83,7 @@ class SiteController {
       res.json(e);
     }
   }
-  // add Course demo cua Trinh`
+  // seller add course
   async addCourses(req, res, next) {
     try {
       var courses = await Course.find({});
@@ -100,26 +100,30 @@ class SiteController {
   // [POST] seller/course/create
   async sellerCreate(req, res, next) {
     const formData = req.body;
+    console.log(formData);
     try {
       console.log(formData);
-      res.send(formData);
-    } catch (e) {
-      console.log(e);
-      res.json(e);
-    }
-  }
-  async showAllSellerCourses(req, res, next) {
-    try {
-      var courses = await Course.find({});
-      res.render("courses-view.ejs", {
+      res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+        courses: (formData),
       });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
+  // async showAllSellerCourses(req, res, next) {
+  //   try {
+  //     var courses = await Course.find({});
+  //     res.render("seller", {
+  //       ...authMiddleware.userInfor(req),
+  //       courses: mutipleMongooseToObject(courses),
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //     res.json(e);
+  //   }
+  // }
   // [GET] / login
   login(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
