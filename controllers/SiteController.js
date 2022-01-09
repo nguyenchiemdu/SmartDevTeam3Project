@@ -3,9 +3,29 @@ const Course = require('../models/Course');
 const Category = require('../models/Category');
 const { mutipleMongooseToObject } = require('../utilities/mongoose');
 const jwt = require("jsonwebtoken");
-
+const { json } = require('express');
+var findCourseBySlug;
 class SiteController {
 
+    // [Post] localhost:8080/category
+    // Post slug to find ID Category
+    async category (req, res, next){
+        findCourseBySlug = req.body.slug;
+        res.json(findCourseBySlug);
+    }
+    // [Get] localhost:8080/category
+    // Get course filter by categories
+    async getCategory (req, res, next) {
+        const findCourse = async() =>{
+            const k = await Category.findOne({slug: findCourseBySlug})
+            Course.find({categories_id: k._id}).populate({
+                path: 'categories_id',
+            }).exec((err,course)=>{
+                res.json(course)
+            }) 
+        }
+        findCourse();
+    }
     // GET /
     async home(req, res, next) {
         //Check token
@@ -19,28 +39,9 @@ class SiteController {
             payload = null;
         }
         const username = payload == null ? null : payload.username
-
-        var kq;
-        const test = async() =>{
-        const k = await Category.findOne({nameCategory: 'Business'})
-        kq = k._id;
-        // console.log(kq);    
-        }
-        // test();
-     
-        const fun = async() =>{
-            await test();
-            Course.find({categories_id: kq}).populate('categories_id').exec((err,course)=>{
-                    console.log(course);
-                }) 
-            
-        }
-        fun()
-        
-        //////////
+      
         try {
             var data = await Promise.all([Course.find({}),Category.find({})])
-            // var courses = await Course.find({})
             res.render('index.ejs', {
                 username: username,
                 courses: mutipleMongooseToObject(data[0]),
@@ -50,6 +51,7 @@ class SiteController {
             console.log(e)
             res.render(e)
         }
+
 
     }
     // [GET] /courses
