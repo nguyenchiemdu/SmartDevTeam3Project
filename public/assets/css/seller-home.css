@@ -124,16 +124,32 @@ a {
     color: var(--main-color);  
     margin-bottom: 20px; 
 }
-form label {
+.add-course form label {
     color: var(--style-color);
 }
-form button.btn-primary {
+.add-course form button.btn-primary {
     margin: 30px 0;
     background-color: var(--style-color);
     border-color: var(--style-color);
     transition: all 0.3s ease;
 }
-form button.btn-primary:hover {
+.add-course form button.btn-primary:hover {
+    background-color: var(--main-background4-color);
+    border-color: var(--main-background4-color);
+}
+
+/* seller-edit */
+.edit-course {
+    background-color: var(--main-background3-color);
+}
+.edit-course h2 {
+    color: var(--main-color);  
+    margin-bottom: 20px; 
+}
+.edit-course form label {
+    color: var(--style-color);
+}   
+.edit-course form button.btn-primary:hover {
     background-color: var(--main-background4-color);
     border-color: var(--main-background4-color);
 }

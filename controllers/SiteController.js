@@ -112,6 +112,20 @@ class SiteController {
     }
   }
 
+  // edit Course demo
+  async editCourses(req, res, next) {
+    try {
+      var courses = await Course.find({});
+      res.render("seller/edit", {
+        ...authMiddleware.userInfor(req),
+        courses: mutipleMongooseToObject(courses),
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
   // [GET] / login
   login(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
