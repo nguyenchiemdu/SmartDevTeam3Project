@@ -44,7 +44,7 @@
                 </div>
                 <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
             </div>
-            <% courses  %>
+            <% courses %>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
@@ -54,12 +54,10 @@
                     <div class="instructor-dashboard--resource-text">
                         <h3 class="dashboard--resource-title"><%= courses.name %>
                         </h3>
-                        <h4><%= courses.price %></h4>
-                        <p class="instructor-dashboard--resource-text"><%= courses.author %></p>
-                        <p class="instructor-dashboard--resource-text"><%= courses.category %></p>
+                        <h6>Giá: <%= courses.price %></h6>
+                        <p class="instructor-dashboard--resource-text">Tác giả: <%= courses.author %></p>
+                        <p class="instructor-dashboard--resource-text">Category: <%= courses.category %></p>
                         <a class="instructor-dashboard--resource-link" href="">Get Started
-                            <!-- <span class="udlite-sr-only"> Create an Engaging
-                                Course</span> -->
                         </a>
                     </div>
                 </div>
