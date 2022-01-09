@@ -129,15 +129,30 @@ class SiteController {
   // [POST] seller/course/create
   async sellerCreate(req, res, next) {
     const formData = req.body;
+    console.log(formData);
     try {
       console.log(formData);
-      res.send(formData);
+      res.render("seller/home.ejs", {
+        ...authMiddleware.userInfor(req),
+        courses: (formData),
+      });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
-
+  // async showAllSellerCourses(req, res, next) {
+  //   try {
+  //     var courses = await Course.find({});
+  //     res.render("seller", {
+  //       ...authMiddleware.userInfor(req),
+  //       courses: mutipleMongooseToObject(courses),
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //     res.json(e);
+  //   }
+  // }
   // [GET] / login
   login(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
