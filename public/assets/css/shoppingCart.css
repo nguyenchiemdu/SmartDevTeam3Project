@@ -44,6 +44,8 @@ p {
 
 .card-container {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 12px 8px;
 }
 
@@ -69,7 +71,7 @@ p {
 
 .card-price {
   font-weight: bold;
-  color: #40E0D0;
+  color: #40e0d0;
 }
 .card-button {
   display: flex;
@@ -80,7 +82,7 @@ p {
 .cart__total {
   margin-left: 20px;
   width: 30%;
-  color:rgb(241, 90, 34);
+  color: rgb(241, 90, 34);
   border: 1px solid #333;
   padding: 10px 20px;
   background-color: var(--main-background-color);
@@ -113,7 +115,7 @@ p {
   background-color: var(--style-color) !important;
 }
 .btn-link {
-  color: #F4A460 !important;
+  color: #f4a460 !important;
 }
 .btn-link:hover {
   color: var(--style-color) !important;

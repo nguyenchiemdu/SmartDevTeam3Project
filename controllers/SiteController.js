@@ -132,12 +132,20 @@ class SiteController {
     const formData = req.body;
     console.log(formData);
     try {
-      const k = await Category.findOne({ nameCategory: formData.nameCategory });
-      console.log("k==", k._id);
-      res.render("seller/home.ejs", {
-        ...authMiddleware.userInfor(req),
-        courses: courses,
+      const category = await Category.findOne({
+        nameCategory: formData.nameCategory,
       });
+      console.log("category==", category._id);
+      var courses = await Course.find({ categories_id: category._id });
+      console.log("courses====", courses);
+      courses.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+      // res.render("seller/home.ejs", {
+      //   ...authMiddleware.userInfor(req),
+      // });
     } catch (e) {
       console.log(e);
       res.json(e);
