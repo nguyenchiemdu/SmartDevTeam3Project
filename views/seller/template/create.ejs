@@ -1,7 +1,7 @@
 <div class="add-course">
     <div style="padding-top: 74px; padding-bottom:74px;" class="container mt-5">
         <h2>Add Course</h2>
-        <form method="POST" action="/courses/store">
+        <form method="POST" action="/seller/courses/create">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <label for="name" class="form-label">Course Name</label>
@@ -23,9 +23,18 @@
                     <label for="videoId" class="form-label">ID Video</label>
                     <input type="text" class="form-control" id="videoId" name="videoId" placeholder="ID Video">
                 </div>
-            </div>
-           
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                        <label for="categoryID" class="form-label">Category</label>
+                        <select class="form-control" aria-label="Default select example" name="nameCategory" id="categoryID">
+                            <option selected>Design</option>
+                            <option value="Development">Development</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="IT and Software">IT and Software</option>
+                            <option value="Personal Development">Personal Development</option>
+                            <option value="Business">Business</option>
+                        </select>
+                </div>
             <button type="submit" class="btn btn-primary">Create Course</button>
         </form>
-    </div>  
-</div>
+    </div>
+</div>  
