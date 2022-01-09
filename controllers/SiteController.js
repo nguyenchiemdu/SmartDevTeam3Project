@@ -83,8 +83,22 @@ class SiteController {
       res.json(e);
     }
   }
+
+  //Show courses of seller
+  async show(req, res, next) {
+    try {
+      var courses = await Course.find({});
+      res.render("seller/courses.ejs", {
+        ...authMiddleware.userInfor(req),
+        courses: mutipleMongooseToObject(courses),
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
   
-  // add Course demo cua Trinh`
+  // add Course demo
   async addCourses(req, res, next) {
     try {
       var courses = await Course.find({});
