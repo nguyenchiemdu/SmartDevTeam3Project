@@ -5,6 +5,7 @@ const { mutipleMongooseToObject } = require("../utilities/mongoose");
 const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
 const mongoose = require("mongoose");
+const Category = require("../models/Category");
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -131,10 +132,11 @@ class SiteController {
     const formData = req.body;
     console.log(formData);
     try {
-      console.log(formData);
+      const k = await Category.findOne({ nameCategory: formData.nameCategory });
+      console.log("k==", k._id);
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: (formData),
+        courses: courses,
       });
     } catch (e) {
       console.log(e);
