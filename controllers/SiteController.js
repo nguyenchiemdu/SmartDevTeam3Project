@@ -4,7 +4,8 @@ const Lesson = require("../models/Lesson");
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
 const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const Category = require("../models/Category");
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -54,7 +55,10 @@ class SiteController {
       const personSearch = [];
       let countSearch = 0;
       courses.forEach((item) => {
-        if ((item.name.toLowerCase().indexOf(searchName) !== -1) || (item.price.toLowerCase().indexOf(searchName) !== -1)){
+        if (
+          item.name.toLowerCase().indexOf(searchName) !== -1 ||
+          item.price.toLowerCase().indexOf(searchName) !== -1
+        ) {
           personSearch.push(item);
           countSearch++;
         }
@@ -97,7 +101,7 @@ class SiteController {
       res.json(e);
     }
   }
-  
+
   // add Course demo
   async addCourses(req, res, next) {
     try {
@@ -116,16 +120,37 @@ class SiteController {
   async editCourses(req, res, next) {
     try {
       var courses = await Course.find({});
-      res.render("seller/edit", {
-        ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+      res.render("seller/edit");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // create courses of seller
+  // [POST] seller/course/create
+  async sellerCreate(req, res, next) {
+    const formData = req.body;
+    console.log(formData);
+    try {
+      const category = await Category.findOne({
+        nameCategory: formData.nameCategory,
       });
+      console.log("category==", category._id);
+      var courses = await Course.find({ categories_id: category._id });
+      console.log("courses====", courses);
+      courses.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+      // res.render("seller/home.ejs", {
+      //   ...authMiddleware.userInfor(req),
+      // });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
-
   // [GET] / login
   login(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
@@ -173,36 +198,43 @@ class SiteController {
     });
   }
 
-    //GET /password
-    password(req, res, next) {
-        res.render('password', { title: 'Password Page', ...authMiddleware.userInfor(req) });
+  //GET /password
+  password(req, res, next) {
+    res.render("password", {
+      title: "Password Page",
+      ...authMiddleware.userInfor(req),
+    });
+  }
+  //GET /cart
+  cart(req, res, next) {
+    res.render("shopping-cart", {
+      title: "Cart",
+      ...authMiddleware.userInfor(req),
+    });
+  }
+  //POST /cart
+  async getCoursesFromId(req, res, next) {
+    // console.log(req.body.cart[0]);
+    // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
+    // res.json('ok')
+    try {
+      var courses = await Course.find({
+        _id: {
+          $in: req.body.cart.map((id) => mongoose.Types.ObjectId(id)),
+        },
+      });
+      res.json(courses);
+    } catch (e) {
+      console.log(e);
+      res.json(e);
     }
-    //GET /cart
-    cart(req, res, next) {
-        res.render("shopping-cart", { title: "Cart", ...authMiddleware.userInfor(req) });
-    }
-    //POST /cart
-    async getCoursesFromId(req, res, next) {
-        // console.log(req.body.cart[0]);
-        // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
-        // res.json('ok')
-        try {
-            var courses = await Course.find(
-                {
-                    '_id': {
-                        $in: req.body.cart.map(id => mongoose.Types.ObjectId(id))
-                    }
-                }
-            )
-            res.json(courses)
-        } catch (e) {
-            console.log(e)
-            res.json(e)
-        }
-    }
-    checkout(req, res, next) {
-        res.render("checkout", { title: "Check Out", ...authMiddleware.userInfor(req) });
-    }
+  }
+  checkout(req, res, next) {
+    res.render("checkout", {
+      title: "Check Out",
+      ...authMiddleware.userInfor(req),
+    });
+  }
 }
 
 module.exports = new SiteController();
