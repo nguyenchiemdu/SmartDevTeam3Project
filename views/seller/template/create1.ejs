@@ -25,13 +25,16 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                         <label for="categoryID" class="form-label">Category</label>
-                        <select class="form-control" aria-label="Default select example" name="nameCategory" id="categoryID">
-                            <option selected>Design</option>
+                        <select class="form-control" aria-label="Default select example" name="categories_id" id="categoryID">
+                            <% categories.forEach(function(category)  { %>
+                                <option value="<%= category._id %>"><%= category.nameCategory %></option>
+                            <!-- <option selected>Design</option>
                             <option value="Development">Development</option>
                             <option value="Marketing">Marketing</option>
                             <option value="IT and Software">IT and Software</option>
                             <option value="Personal Development">Personal Development</option>
-                            <option value="Business">Business</option>
+                            <option value="Business">Business</option> -->
+                            <% }); %>
                         </select>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
@@ -41,14 +44,6 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <label for="description" class="form-label">Description</label>
                     <input type="text" class="form-control" id="description" name="Description" placeholder="Description">
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <label for="createdAt" class="form-label">createdAt</label>
-                    <input type="text" class="form-control" id="createdAt" name="createdAt" readonly>
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <label for="updatedAt" class="form-label">updatedAt</label>
-                    <input type="text" class="form-control" id="updatedAt" name="updatedAt" readonly>
                 </div>
             <button type="submit" class="btn btn-primary">Create Course</button>
         </form>
