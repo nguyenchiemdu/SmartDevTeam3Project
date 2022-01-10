@@ -47,27 +47,8 @@
 
                 <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
             </div>
-            <% courses %>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row instructor-dashboard--panel">
-                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 instructor-dashboard--resource">
-                        <img alt="" class="instructor-dashboard--resource-image"
-                            src="https://s.udemycdn.com/instructor/dashboard/engaging-course.jpg">
-                    </div>
-                    <div class="instructor-dashboard--resource-text">
-                        <h3 class="dashboard--resource-title"><%= courses.name %>
-                        </h3>
-                        <h6>Giá: <%= courses.price %></h6>
-                        <p class="instructor-dashboard--resource-text">Tác giả: <%= courses.author %></p>
-                        <p class="instructor-dashboard--resource-text">Category: <%= courses.category_id %></p>
-                        <a class="instructor-dashboard--resource-link" href="">Get Started
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <% ; %>
-            <!-- <div class="col-lg-12">
-                <div class="instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
                             class="instructor-dashboard--resource-image"
                             src="https://s.udemycdn.com/instructor/dashboard/engaging-course.jpg">
@@ -80,13 +61,28 @@
                             best
                             practices to help you get to the next level, no matter where you're starting.</p>
                         <a class="instructor-dashboard--resource-link" href="">Get Started
-                            <span class="udlite-sr-only"> Create an Engaging
-                                Course</span>
                         </a>
-
                     </div>
                 </div>
-            </div> -->
+            </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row instructor-dashboard--panel">
+                    <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
+                            class="instructor-dashboard--resource-image"
+                            src="https://s.udemycdn.com/instructor/dashboard/engaging-course.jpg">
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12 instructor-dashboard--resource-text">
+                        <h3 class="dashboard--resource-title">Create an Engaging Course
+                        </h3>
+                        <p class="instructor-dashboard--resource-text">Whether you've been teaching for years or are
+                            teaching for the first time, you can make an engaging course. We've compiled resources and
+                            best
+                            practices to help you get to the next level, no matter where you're starting.</p>
+                        <a class="instructor-dashboard--resource-link" href="">Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-12">
                 <div class="instructor-dashboard-footer">
                     <h2 class="instructor-dashboard--footer-title">Are You Ready to Begin?</h2>
