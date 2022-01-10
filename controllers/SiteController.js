@@ -80,7 +80,7 @@ class SiteController {
       var courses = await Course.find({});
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+        courses: courses,
       });
     } catch (e) {
       console.log(e);
@@ -105,8 +105,24 @@ class SiteController {
   // add Course demo
   async addCourses(req, res, next) {
     try {
-      var courses = await Course.find({});
+      const category = await Category.find({});
+      // var courses = await Course.find({});
       res.render("seller/create", {
+        ...authMiddleware.userInfor(req),
+        categories: category,
+        // courses: mutipleMongooseToObject(courses),
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
+  // add Course demo
+  async addCourses2(req, res, next) {
+    try {
+      var courses = await Course.find({});
+      res.render("seller/create2", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(courses),
       });
@@ -115,20 +131,6 @@ class SiteController {
       res.json(e);
     }
   }
-
-    // add Course demo
-    async addCourses2(req, res, next) {
-      try {
-        var courses = await Course.find({});
-        res.render("seller/create2", {
-          ...authMiddleware.userInfor(req),
-          courses: mutipleMongooseToObject(courses),
-        });
-      } catch (e) {
-        console.log(e);
-        res.json(e);
-      }
-    }
 
   // edit Course demo
   async editCourses(req, res, next) {
@@ -146,20 +148,29 @@ class SiteController {
     const formData = req.body;
     console.log(formData);
     try {
-      const category = await Category.findOne({
-        nameCategory: formData.nameCategory,
+
+      var newCourses = new Course({
+        categories_id: formData.categories_id,
+        user_id: "61d3107da1f75879d162128a",
+        name: formData.name,
+        image: formData.imageId,
+        shortDescription: formData.shortDescription,
+        description: formData.Description,
+        price: formData.price,
+        isValidated: 0,
       });
-      console.log("category==", category._id);
-      var courses = await Course.find({ categories_id: category._id });
-      console.log("courses====", courses);
-      courses.save((err, data) => {
-        if (err) {
-          console.log(err);
+      // res.json(newCourses);
+      await newCourses.save((err, data) => {
+        console.log({ err, data });
+      });
+      Course.find({}, (err, data) => {
+        if (!err) {
+          res.render("seller/create2.ejs", {
+            ...authMiddleware.userInfor(req),
+            courses: data,
+          });
         }
       });
-      // res.render("seller/home.ejs", {
-      //   ...authMiddleware.userInfor(req),
-      // });
     } catch (e) {
       console.log(e);
       res.json(e);
