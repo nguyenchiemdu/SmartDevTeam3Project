@@ -103,11 +103,12 @@ class SiteController {
   }
 
   // add Course demo
-  async addCourses(req, res, next) {
+  async addCourses1(req, res, next) {
     try {
       const category = await Category.find({});
       // var courses = await Course.find({});
-      res.render("seller/create", {
+      var courses = await Course.find({});
+      res.render("seller/create1", {
         ...authMiddleware.userInfor(req),
         categories: category,
         // courses: mutipleMongooseToObject(courses),
