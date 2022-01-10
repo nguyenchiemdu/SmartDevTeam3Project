@@ -103,10 +103,10 @@ class SiteController {
   }
 
   // add Course demo
-  async addCourses(req, res, next) {
+  async addCourses1(req, res, next) {
     try {
       var courses = await Course.find({});
-      res.render("seller/create", {
+      res.render("seller/create1", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(courses),
       });
@@ -115,6 +115,20 @@ class SiteController {
       res.json(e);
     }
   }
+
+    // add Course demo
+    async addCourses2(req, res, next) {
+      try {
+        var courses = await Course.find({});
+        res.render("seller/create2", {
+          ...authMiddleware.userInfor(req),
+          courses: mutipleMongooseToObject(courses),
+        });
+      } catch (e) {
+        console.log(e);
+        res.json(e);
+      }
+    }
 
   // edit Course demo
   async editCourses(req, res, next) {
