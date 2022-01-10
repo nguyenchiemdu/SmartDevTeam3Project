@@ -11,6 +11,8 @@ router.get("/courses", siteController.show);
 
 router.get("/courses/create", siteController.addCourses);
 
+router.get("/courses/create/2", siteController.addCourses2);
+
 router.post("/courses/create", siteController.sellerCreate);
 
 router.get("/courses/edit", siteController.editCourses);

@@ -116,6 +116,20 @@ class SiteController {
     }
   }
 
+    // add Course demo
+    async addCourses2(req, res, next) {
+      try {
+        var courses = await Course.find({});
+        res.render("seller/create2", {
+          ...authMiddleware.userInfor(req),
+          courses: mutipleMongooseToObject(courses),
+        });
+      } catch (e) {
+        console.log(e);
+        res.json(e);
+      }
+    }
+
   // edit Course demo
   async editCourses(req, res, next) {
     try {
