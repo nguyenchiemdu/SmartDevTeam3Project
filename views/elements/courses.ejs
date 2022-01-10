@@ -50,25 +50,12 @@
                         </p>
                         <button class="explore">Explore <%- category.nameCategory%></button>
                     </div>
-                    <div id="renderCourse" class="course-main-slider responsive ">
-                        <% courses.forEach(function(courses) { %>
-                            <a id="<%= courses._id %>" href="/courses/<%= courses.slug %>" class="slider">
-                                <img src="<%= courses.image %>" alt="">
-                                <h3>
-                                    <%= courses.name %>
-                                </h3>
-                                <h4>
-                                    <%= courses.author %>
-                                </h4>
-                                <h6>A$<%= courses.price %>
-                                </h6>
-                            </a>
-                            <% }); %>
+                    <div class="swiper-container review-slider">
+                        <div class="swiper-wrapper renderCourse course-main-slider" >
+                        
+                        </div>
                     </div>
-    
                 </div>
-
-                
             <%}); %>
 
             <!-- <div class="course-main " id="coursescart">

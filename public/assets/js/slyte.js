@@ -1,70 +1,3 @@
-
-// slider - slick
-$('.responsive').slick({
-    infinite: true,
-    speed: 300,
-    rows: 2,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    responsive: [
-        {
-            breakpoint: 1424,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                infinite: true
-            }
-        },
-        {
-            breakpoint: 1124,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                infinite: true
-            }
-        },
-        {
-            breakpoint: 874,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1
-            }
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-    ]
-});
-$('.responsive1').slick({
-    infinite: true,
-    speed: 300,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                infinite: true
-            }
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-    ]
-});
-
 // phân trang
 
 $('.pagination-inner a').on('click', function() {
@@ -92,7 +25,7 @@ async function postData(url = '', data = {}) {
 // Filter Course by Categories
 var valueSlug,slug;
 const courseCategory = "http://localhost:8080/category";
-const renderCourse = document.getElementById("renderCourse");
+const renderCourse = document.querySelectorAll(".renderCourse");
 // Fetch api method get to get courses which filter by category
 const getCourses = async (data) => {
     await fetch(courseCategory)
@@ -107,23 +40,21 @@ const getSlug = (value) =>{
 const renderCourses = (courses) => {
     var htmls = courses.map(function (course) {
         return `
-        <div class="course-main-slider responsive">
+        <div class="swiper-slide">
             <a id="${course._id}" href="/courses/${course.slug}" class="slider">
                 <img src="${course.image}" alt="">
                 <h3>${course.name}</h3>
-                <h3>${course.categories_id}</h3>
-                <h4>${course.user_id}</h4>
                 <h6>A$${course.price}</h6>
             </a>
-                
         </div>
         `;
     });
-    renderCourse.innerHTML = htmls.join('');
+    Array.prototype.map.call(renderCourse, function(render){render.innerHTML = htmls.join('')});
+
 }
-const filterCourse = () => {
+const filterCourse = async () => {
     getCourses((courses) => {
-    renderCourses(courses);
+      renderCourses(courses);
     });
 }
     
@@ -141,7 +72,7 @@ courseTitle.addEventListener("click", async function (x) {
         const courseItem = document.querySelector(".courses");
         courseItem.querySelector(".course-main.active").classList.remove("active");
         courseItem.querySelector(Target).classList.add("active");
-        postData('http://localhost:8080/category', { slug })
+        await postData('http://localhost:8080/category', { slug })
         filterCourse();
     }
 })
