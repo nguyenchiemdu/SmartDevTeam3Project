@@ -68,12 +68,11 @@ $('.responsive1').slick({
 // Swiper review
 var swiper = new Swiper(".review-slider", {
     spaceBetween: 20,
-    loop: true,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-      resistanceRatio: 0,
-    },
+    // autoplay: {
+    //   delay: 2500,
+    //   disableOnInteraction: false,
+    //   resistanceRatio: 0,
+    // },
     breakpoints: {
       640: {
         slidesPerView: 1,

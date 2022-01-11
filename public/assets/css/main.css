@@ -283,8 +283,13 @@ section.courses h2.total span {
   font-size: 16px;
 }
 
-
-
+.swiper-wrapper{
+  flex-wrap: wrap!important;
+}
+.swiper-slide{
+  width: 240px!important;
+  margin: -10px 0 0 -10px;
+}
 /* update */
 section.update {
   background-color: #000;
