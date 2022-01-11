@@ -398,6 +398,13 @@ class SiteController {
       ...authMiddleware.userInfor(req),
     });
   }
+  payment_success(req, res, next) {
+    res.render("payment_success", {
+      title: "Payment Success",
+      ...authMiddleware.userInfor(req),
+    });
+  }
+
 }
 
 module.exports = new SiteController();

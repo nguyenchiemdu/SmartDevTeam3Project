@@ -29,10 +29,10 @@ router.get("/usercart",siteController.getUserCart)
 
 router.get("/cart/checkout", siteController.checkout);
 
+router.get("/result", siteController.payment_success);
+
 router.get("/learning", siteController.learning);
-// router.get('stored/courses', function(req, res, next) {
-//   res.render('stored-courses', { title: 'stored-courses' });
-// });
+
 router.get("/search", siteController.search);
 
 module.exports = router;
