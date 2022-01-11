@@ -151,10 +151,12 @@ class SiteController {
   // add Course demo
   async addCourses2(req, res, next) {
     try {
+      var lessons = await Lesson.find({});
       var courses = await Course.find({});
       res.render("seller/create2", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+        lessons: lessons,
+        // courses: mutipleMongooseToObject(courses),
       });
     } catch (e) {
       console.log(e);
@@ -191,8 +193,8 @@ class SiteController {
   }
 
   // create courses of seller
-  // [POST] seller/course/create
-  async sellerCreate(req, res, next) {
+  // [POST] seller/course/create1
+  async sellerCreate1(req, res, next) {
     const formData = req.body;
     // console.log(formData);
     try {
@@ -211,6 +213,34 @@ class SiteController {
         console.log({ err, data });
       });
       Course.find({}, (err, data) => {
+        if (!err) {
+          res.redirect("/seller/courses/create/2");
+        }
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
+  // [POST] seller/course/create2
+  async sellerCreate2(req, res, next) {
+    const formData = req.body;
+    // console.log(formData);
+    try {
+      var newLessons = new Lesson({
+        course_id: "61dd046df975c97a5b4fdcfa",
+        urlVideo: formData.urlVideo,
+        title: formData.title,
+        image: "http://placeimg.com/640/480",
+        description: "Ab violet issus nisi ut nihil. Fugit et est aut aperiam nisi deleniti p.",
+
+      });
+      // res.json(newLessons);
+      await newLessons.save((err, data) => {
+        console.log({ err, data });
+      });
+      Lesson.find({}, (err, data) => {
         if (!err) {
           res.redirect("/seller/courses/create/2");
         }
