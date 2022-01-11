@@ -1,12 +1,7 @@
-// localStorage.setItem('cart',JSON.stringify(['123123412']))
-// console.log(JSON.parse(localStorage.getItem('cart')))
-// localStorage.setItem('cart',JSON.stringify(JSON.parse(localStorage.getItem('cart')).push("5555")))
+const cart = JSON.parse(localStorage.getItem('cart'))
 
-
-
-async function registerUser() {
-    const cart = JSON.parse(localStorage.getItem('cart'))
-    const result = await fetch('cart', {
+async function getLocalCart() {
+    const result = await fetch('coursesid', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -15,9 +10,9 @@ async function registerUser() {
             cart
         })
     }).then((res) => res.json())
-
     var listCart = ``;
     var countCart = 0;
+    var countSumPrice = 0;
     result.forEach(item => {
         let cardHTML = `<section class="card">
                         <div class="card-container">
@@ -39,13 +34,14 @@ async function registerUser() {
                                 <button class="btn btn-link">Move to Wishlist</button>
                             </div>
                             <div class="card-price">
-                                <h5 class="card-text">$9.99<i class="fas fa-tag mx-2"></i></h5>
+                                <h5 class="card-text">$${item.price}<i class="fas fa-tag mx-2"></i></h5>
                                 <h6><del>$${item.price}</del></h6>
                             </div>
                         </div>
                     </section>`
         listCart += cardHTML;
-        countCart ++;
+        countCart++;
+        countSumPrice += parseFloat(item.price);
     });
     var listCartWrapper = `
                         <p class="my-3">${countCart} Courses in Cart</p>
@@ -61,10 +57,36 @@ async function registerUser() {
         cart = Array.from(cart)
         localStorage.setItem('cart', JSON.stringify(cart))
         window.location.href = "/cart"
-    }))
-    console.log(result);
+    }));
+    document.querySelectorAll('.total_price').forEach(element => element.innerHTML = "$" + countSumPrice)
+    // console.log(result);
+}
+function addEventRemoveOnServer() {
+    document.querySelectorAll('.btn-remove').forEach(button => button.addEventListener('click', async (e) => {
+        console.log(e.target.id);
+        const result = await fetch('cart', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                course_id: e.target.id
+            })
+        }).then(res => res.json());
+        // console.log(result);
+        window.location.href = "/cart";
+    }));
 }
 
-registerUser();
+
+async function renderUserCart() {
+    const result = await fetch('usercart', {
+        method: 'GET',
+    }).then((res) => res.json());
+    if (result.status == 'failed') getLocalCart()
+    else addEventRemoveOnServer()
+
+}
+renderUserCart();
 
 
