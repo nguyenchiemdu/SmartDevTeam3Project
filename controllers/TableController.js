@@ -1,10 +1,12 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
 const Category = require("../models/Category");
+const UserCart = require("../models/UserCart");
 const listTable = {
   users: User,
   courses: Course,
-  categories: Category
+  categories: Category,
+  usercarts : UserCart,
 };
 var authMiddleware = require("../middlerwares/auth.middleware")
 const {

@@ -315,7 +315,7 @@ class SiteController {
     try {
       var coursesInCart =
         userInfor.username == null ? [] :
-          await UserCart.find({})
+          await UserCart.find({user_id : userInfor.id})
             .populate('course_id')
             .exec()
             .then((userCart) => {

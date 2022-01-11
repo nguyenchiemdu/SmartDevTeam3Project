@@ -20,7 +20,7 @@ async function getLocalCart() {
                                 <img src="${item.image}" alt="photo">
                             </div>
                             <div class="card-info">
-                                <h6>${item.name}</h6>
+                            <h6><a style="color: white;" href="/courses/${item.slug}">${item.name}</a></h6>
                                 <p>${item.author}</p>
                                 <p class="card-rating">
                                     4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
