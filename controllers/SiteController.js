@@ -165,9 +165,8 @@ class SiteController {
   // [POST] seller/course/create
   async sellerCreate(req, res, next) {
     const formData = req.body;
-    console.log(formData);
+    // console.log(formData);
     try {
-
       var newCourses = new Course({
         categories_id: formData.categories_id,
         user_id: "61d3107da1f75879d162128a",
@@ -184,10 +183,7 @@ class SiteController {
       });
       Course.find({}, (err, data) => {
         if (!err) {
-          res.render("seller/create2.ejs", {
-            ...authMiddleware.userInfor(req),
-            courses: data,
-          });
+          res.redirect("/seller/courses/create/2");
         }
       });
     } catch (e) {

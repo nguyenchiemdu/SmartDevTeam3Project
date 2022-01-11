@@ -11,9 +11,11 @@ router.get("/courses", siteController.show);
 
 router.get("/courses/create/1", siteController.addCourses1);
 
+router.post("/courses/create/1", siteController.sellerCreate);
+
 router.get("/courses/create/2", siteController.addCourses2);
 
-router.post("/courses/create", siteController.sellerCreate);
+router.post("/courses/create/2");
 
 router.get("/courses/bill", siteController.billCourses);
 
