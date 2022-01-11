@@ -47,18 +47,18 @@
 
                 <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
             </div>
+            <% courses.forEach(function(courses) { %>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
                             class="instructor-dashboard--resource-image"
-                            src="https://s.udemycdn.com/instructor/dashboard/engaging-course.jpg">
+                            src="<%= courses.image %>">
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 instructor-dashboard--resource-text">
-                        <h3 class="name-course">Nodejs and ExpressJs</h3>
-                        <h4 class="price"><span>Price:</span> A$988</h4>
-                        <h5 class="date-create"><span>Create:</span> 2021 - 12 - 31</h5>
-                        <p class="description"><span>Description:</span> Assumenda occaecati debitis repudiandae. Voluptatem laudantium similique
-                            amet porro voluptate suscipit. Qui quidem est ad qui. </p>
+                        <h3 class="name-course"><%= courses.name %></h3>
+                        <h4 class="price"><span>Price: </span>A$<%= courses.price %></h4>
+                        <h5 class="date-create"><span>Create: </span> 2021 - 12 - 31</h5>
+                        <p class="description"><span>Description: </span><%= courses.shortDescription %></p>
                     </div>
                     <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 button-right">
                         <button onclick="location.href='/seller/courses/id/edit'" type="edit" class="btn btn-info edit">Edit</button>
@@ -66,7 +66,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <% }); %>
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
                             class="instructor-dashboard--resource-image"
@@ -84,7 +85,7 @@
                         <button type="detail" class="btn btn-primary detail">Detail</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-lg-12">
                 <div class="instructor-dashboard-footer">
                     <h2 class="instructor-dashboard--footer-title">Are You Ready to Begin?</h2>
