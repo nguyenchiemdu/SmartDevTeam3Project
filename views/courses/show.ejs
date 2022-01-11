@@ -34,7 +34,9 @@
                             <%= course.updatedAt.getDate() %>
                         </h5>
                         <p class="description"><span>Description: </span><%= course.shortDescription %></p>
-                        <button type="button" class="udlite-btn btn add-to-cart">Add to Cart</button>
+                        <button course_id="<%= course._id %>" type="button"
+                            class="udlite-btn btn add-to-cart"><% if (isInCart && username) {%>Go to Cart
+                            <%} else {%> Add to Cart <%}%></button>
                         <h6 class="this">This course includes:</h6>
                         <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
                         <p><i class='bx bx-file-blank'></i>3 articles</p>
@@ -180,33 +182,51 @@
             window.location.href = "/cart"
         }
         async function addToUserCart() {
-            const result = await fetch('/cart', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    course_id: '<%=course._id.toString()%>'
-                })
-            }).then((res) => res.json());
+            if (<%= !isInCart %>) {
+                const result = await fetch('/cart', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        course_id: '<%=course._id.toString()%>'
+                    })
+                }).then((res) => res.json());
+            }
             // console.log(result);
             window.location.href = "/cart"
         }
         var addToCartButton = document.querySelector('.add-to-cart');
 
     </script>
-    <% if (!username) { %>
-    <script>
-        addToCartButton.addEventListener('click', addToCartLocal)
-    </script>
-    <%} else {%>
-    <script>
-        addToCartButton.addEventListener('click', addToUserCart)
-    </script>
-    <%}%>    
+                            <% if (!username) { %>
+                            <script>
+                                addToCartButton.addEventListener('click', addToCartLocal)
+                            </script>
+                            <%} else {%>
+                            <script>
+                                addToCartButton.addEventListener('click', addToUserCart)
+                            </script>
+                            <%}%>    
         <% include ../elements/footer %>
 
-    <% include ../elements/script %>
+                            <% include ../elements/script %>
+                            <script>
+                                async function checkUserCart() {
+                                    const result = await fetch('/usercart', {
+                                        method: 'GET',
+                                    }).then((res) => res.json());
+                                    console.log(result.status);
+                                    if (result.status == 'failed') {
+                                        let addToCartButton = document.querySelector('.add-to-cart');
+                                        let course_id = addToCartButton.getAttribute('course_id');
+                                        var cart = JSON.parse(localStorage.getItem('cart'));
+                                        if (cart.includes(course_id)) addToCartButton.innerHTML = 'Go to Cart';
+                                    }
+
+                                }
+                                checkUserCart();
+                            </script>
 </body>
 
 </html>
