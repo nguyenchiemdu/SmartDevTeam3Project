@@ -7,21 +7,24 @@ var authMiddleware = require("../middlerwares/auth.middleware");
 const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const UserCart = require("../models/UserCart");
+var findCourseBySlug;
 class SiteController {
   // GET /
   async home(req, res, next) {
     //////////
     try {
-      var courses = await Course.find({});
+      var data = await Promise.all([Course.find({}),Category.find({})])
       res.render("index.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+        courses: mutipleMongooseToObject(data[0]),
+        categories: mutipleMongooseToObject(data[1])
       });
     } catch (e) {
       console.log(e);
       res.render(e);
     }
   }
+
   // [GET] /courses
   async courses(req, res, next) {
     const pageSize = 4;
@@ -63,6 +66,26 @@ class SiteController {
       res.json(e);
     }
   }
+  // [Post] localhost:8080/category
+  // Post slug to find ID Category
+  async category (req, res, next){
+      findCourseBySlug = req.body.slug;
+      res.json(findCourseBySlug);
+  }
+  // [Get] localhost:8080/category
+  // Get course filter by categories
+  async getCategory (req, res, next) {
+      const findCourse = async() =>{
+          const k = await Category.findOne({slug: findCourseBySlug})
+          Course.find({categories_id: k._id}).populate({
+              path: 'categories_id',
+          }).exec((err,course)=>{
+              res.json(course)
+          }) 
+      }
+      findCourse();
+  }
+   
 
   async learning(req, res, next) {
     try {
@@ -114,6 +137,8 @@ class SiteController {
     } catch (e) {
       console.log(e);
       res.json(e);
+    
+
     }
   }
 

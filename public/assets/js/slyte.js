@@ -1,71 +1,7 @@
 
-// slider - slick
-$('.responsive').slick({
-    infinite: true,
-    speed: 300,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    responsive: [
-        {
-            breakpoint: 1424,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                infinite: true
-            }
-        },
-        {
-            breakpoint: 1124,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                infinite: true
-            }
-        },
-        {
-            breakpoint: 874,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1
-            }
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-    ]
-});
-$('.responsive1').slick({
-    infinite: true,
-    speed: 300,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                infinite: true
-            }
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-    ]
-});
-
 //panigation
-$('#paging').pagination({
+var paging = $('#paging');
+if(!paging) paging.pagination({
     dataSource: [1, 2, 3, 4, 5, 6, 7,8,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
     pageSize:2,
     afterPageOnClick : function(event , pageNumber){
@@ -122,6 +58,95 @@ function loadPage(page){
 
 
 
+// Filter Course by Categories
+// Start filter course
+// Fetch API method Post and
+async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
+var valueSlug,slug;
+const courseCategory = "http://localhost:8080/category";
+const renderCourse = document.querySelectorAll(".renderCourse");
+// Fetch api method get to get courses which filter by category
+const getCourses = async (data) => {
+    await fetch(courseCategory)
+    .then(res => res.json())
+    .then(data);
+}
+// Get slug from button on click to know which category want to filter course
+const getSlug = (value) =>{
+    return value;
+}
+// Render course data
+const renderCourses = (courses) => {
+    var htmls = courses.map(function (course) {
+        return `
+        <div class="swiper-slide">
+            <a id="${course._id}" href="/courses/${course.slug}" class="slider">
+                <img src="${course.image}" alt="">
+                <h3>${course.name}</h3>
+                <h6>A$${course.price}</h6>
+            </a>
+        </div>
+        `;
+    });
+    Array.prototype.map.call(renderCourse, function(render){render.innerHTML = htmls.join('')});
+
+}
+const filterCourse = async () => {
+    getCourses((courses) => {
+      renderCourses(courses);
+    });
+}
+    
+const courseTitle = document.querySelector(".course-title");
+const form = document.getElementById('btn-categories')
+
+courseTitle.addEventListener("click", async function (x) {
+    if (x.target.classList.contains("course-button")) {
+        const Target = x.target.getAttribute("data-title");
+        console.log(Target.slice(1));
+        valueSlug = await Target.slice(1); 
+        slug = await getSlug(valueSlug);
+        courseTitle.querySelector(".active").classList.remove("active");
+        x.target.classList.add("active");
+        const courseItem = document.querySelector(".courses");
+        courseItem.querySelector(".course-main.active").classList.remove("active");
+        courseItem.querySelector(Target).classList.add("active");
+        await postData('http://localhost:8080/category', { slug })
+        filterCourse();
+    }
+})
+
+// End filter Course by Categories
+
+// menu
+// const menuBar = document.querySelector(".menu-bar")
+// menuBar.addEventListener("click", function () {
+//     menuBar.classList.toggle("active")
+//     document.querySelector("#menu").classList.toggle("active")
+//     document.querySelector(".header-right").classList.toggle("active")
+// })
+// // sign-in
+// const signIn = document.querySelector(".sign-in")
+// signIn.addEventListener("click", function () {
+//     signIn.classList.toggle("active")
+// })
+
+// course menu
+
 // function loadPageSearch(page){
 //     $.ajax({
 //         url: "/search?page=" + page
@@ -175,6 +200,8 @@ function loadPage(page){
 //     })
 
 // }
+
+// setUserName()
 
 
 //Cart
