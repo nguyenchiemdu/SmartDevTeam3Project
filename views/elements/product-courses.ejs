@@ -7,34 +7,33 @@
                 All courses
             </button>
         </div>
-        <div class="row">
+        <div class="row" id="content">
+
             <% courses.forEach(function(courses) { %>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider ">
-                        <a id="<%= courses.id %>" href="/courses/<%= courses.slug %>" class="slider">
-                            <img src="<%= courses.image %>" alt="">
-                            <h3><%= courses.name %></h3>
-                            <h4><%= courses.author %></h4>
-                            <h6>A$<%= courses.price %></h6>
-                        </a>
+                    <a id="<%= courses.id %>" href="/courses/<%= courses.slug %>" class="slider">
+                        <img src="<%= courses.image %>" alt="">
+                        <h3>
+                            <%= courses.name %>
+                        </h3>
+                        <h4>
+                            <%= courses.author %>
+                        </h4>
+                        <h6>A$<%= courses.price %>
+                        </h6>
+                    </a>
                 </div>
-            <% }); %>
-            <div class="col-lg-12 d-flex justify-content-center">
-                <nav class="pagination-container">
-                    <div class="pagination">
-                        <a class="pagination-newer" href="#">PREV</a>
-                        <span class="pagination-inner">
-                            <a href="#">1</a>
-                            <a class="pagination-active" href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                        </span>
-                        <a class="pagination-older" href="#">NEXT</a>
-                    </div>
-                </nav>
-            </div>
+                <% }); %>
         </div>
+        <div class="col-lg-12 d-flex justify-content-center">
+
+
+            <div id="paging">
+
+            </div>
+
+        </div>
+
 
     </div>
 </section>

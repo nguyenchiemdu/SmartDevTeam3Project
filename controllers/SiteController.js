@@ -24,12 +24,40 @@ class SiteController {
   }
   // [GET] /courses
   async courses(req, res, next) {
+    const pageSize = 4;
     try {
-      var courses = await Course.find({});
-      res.render("courses-view.ejs", {
+      let page = req.query.page;
+     
+      if (page) {
+        page = parseInt(page);
+        if (page < 1){
+          page = 1
+        }
+        let skips = (page - 1) * pageSize;
+
+        Course.find({})
+          .skip(skips)
+          .limit(pageSize)
+          .then((courses) => {
+            res.json(courses);
+            // res.render("courses-view.ejs", {
+            //   ...authMiddleware.userInfor(req),
+            //   courses: mutipleMongooseToObject(courses),
+            // });
+          })
+          .catch((err) => {
+            console.log(e);
+            res.json(e);
+          });
+      } else {
+        // res.redirect("/courses?page=1")
+        var courses = await Course.find().skip(0).limit(pageSize);
+        // res.json(courses);
+         res.render("courses-view.ejs", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(courses),
       });
+      }
     } catch (e) {
       console.log(e);
       res.json(e);

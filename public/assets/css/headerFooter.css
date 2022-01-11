@@ -184,3 +184,87 @@ footer .footer-bottom-right a i {
     color: var(--main-color);
     display: inline;
 }
+
+
+
+#paging ul {
+    list-style: none;
+    display: flex;
+    color: var(--main-color);
+  }
+  #paging .paginationjs-page ,
+  #paging .paginationjs-ellipsis,
+  #paging .paginationjs-prev,
+  #paging .paginationjs-next
+  {
+    position: relative;
+    display: inline-block;
+    color: var(--main-color);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 16px 10px;
+    font-weight: 500;
+  }
+  #paging .paginationjs-page a,
+  #paging .paginationjs-ellipsis a,
+  #paging .paginationjs-prev a,
+  #paging .paginationjs-next a{
+   color: var(--main-color); 
+  }
+  #paging .active{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+  }
+  #paging .paginationjs-page:hover ,
+  #paging .paginationjs-ellipsis:hover,
+  #paging .paginationjs-prev:hover,
+  #paging .paginationjs-next:hover{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+  
+  
+
+/* paging_search */
+#paging_search ul {
+    list-style: none;
+    display: flex;
+    color: var(--main-color);
+  }
+  #paging_search .paginationjs-page ,
+  #paging_search .paginationjs-ellipsis,
+  #paging_search .paginationjs-prev,
+  #paging_search .paginationjs-next
+  {
+    position: relative;
+    display: inline-block;
+    color: var(--main-color);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 16px 10px;
+    font-weight: 500;
+  }
+  #paging_search .paginationjs-page a,
+  #paging_search .paginationjs-ellipsis a,
+  #paging_search .paginationjs-prev a,
+  #paging_search .paginationjs-next a{
+   color: var(--main-color); 
+  }
+  #paging_search .active{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+  }
+  #paging_search .paginationjs-page:hover ,
+  #paging_search .paginationjs-ellipsis:hover,
+  #paging_search .paginationjs-prev:hover,
+  #paging_search .paginationjs-next:hover{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+  
