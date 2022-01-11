@@ -19,7 +19,13 @@ router.get("/password", siteController.password);
 
 router.get("/cart", siteController.cart);
 
-router.post("/cart",siteController.getCoursesFromId);
+router.put("/cart",siteController.addCoursesToUserCart);
+
+router.delete("/cart",siteController.deleteCourseToUserCart);
+
+router.post("/coursesid",siteController.getCoursesFromId);
+
+router.get("/usercart",siteController.getUserCart)
 
 router.get("/cart/checkout", siteController.checkout);
 
