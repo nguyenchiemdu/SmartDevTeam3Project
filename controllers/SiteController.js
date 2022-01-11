@@ -76,6 +76,17 @@ class SiteController {
       res.json(e);
     }
   }
+  async userLearning(req, res, next) {
+    try {
+      var lessons = await Lesson.find({});
+      res.render("userLearning/user-learning.ejs", {
+        ...authMiddleware.userInfor(req),
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
 
   async search(req, res, next) {
     try {
@@ -183,7 +194,7 @@ class SiteController {
     try {
       const category = await Category.find({});
       var courses = await Course.find({});
-      res.render("seller/edit", { 
+      res.render("seller/edit", {
         ...authMiddleware.userInfor(req),
         categories: category,
       });

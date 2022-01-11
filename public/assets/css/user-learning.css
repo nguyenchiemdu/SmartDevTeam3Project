@@ -1,0 +1,60 @@
+:root {
+  --main-background-color: #212121;
+  --main-color: #ffffff;
+  --style-color: #e40084;
+}
+* {
+  box-sizing: border-box;
+}
+p {
+  margin-bottom: 0px;
+}
+ol {
+  margin-bottom: 0px;
+}
+a {
+  text-decoration: none !important;
+}
+.content__left {
+}
+
+.content__right {
+  overflow: auto;
+  -ms-overflow-style: none;
+  height: 100vh;
+}
+.content__right::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
+
+.lesson-description {
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  padding-left: 10px;
+}
+.lesson-time {
+  color: rgb(143, 140, 140);
+}
+.playlist-button:focus {
+  outline: none;
+}
+.lesson-description:hover {
+  background-color: #e7e7e7;
+}
+.check {
+  font-size: 20px;
+  color: green;
+}
+.lock {
+  font-size: 20px;
+  color: #ccc;
+}
+.lock-lesson {
+  background-color: #e7e7e7;
+  cursor: initial;
+}
+.content-tab {
+  margin: 20px 50px;
+}
