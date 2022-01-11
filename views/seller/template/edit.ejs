@@ -1,7 +1,7 @@
 <div class="edit-course">
     <div style="padding-top: 74px; padding-bottom:74px;" class="container mt-5">
         <h2>Edit Course</h2>
-        <form method="POST" action="/courses/store">
+        <form method="POST" action="/seller/courses/id/edit">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <label for="name" class="form-label">Course Name</label>
@@ -23,10 +23,105 @@
                     <label for="videoId" class="form-label">ID Video</label>
                     <input type="text" class="form-control" id="videoId" name="videoId" placeholder="ID Video">
                 </div>
-            </div>
-           
-            <button type="submit" class="btn btn-danger delete">Delete</button>
-            <button type="submit" class="btn btn-primary save">Save</button>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                    <label for="categoryID" class="form-label">Category</label>
+                    <select class="form-control" aria-label="Default select example" name="categories_id"
+                        id="categoryID">
+                        <% categories.forEach(function(category) { %>
+                            <option value="<%= category._id %>">
+                                <%= category.nameCategory %>
+                            </option>
+                            <!-- <option selected>Design</option>
+                            <option value="Development">Development</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="IT and Software">IT and Software</option>
+                            <option value="Personal Development">Personal Development</option>
+                            <option value="Business">Business</option> -->
+                            <% }); %>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                    <label for="shortDescription" class="form-label">Short Description</label>
+                    <input type="text" class="form-control" id="shortDescription" name="shortDescription"
+                        placeholder="Short Description">
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description" name="Description"
+                        placeholder="Description">
+                </div>
+                <button type="submit" class="btn btn-primary btn-save">Save</button>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                    <div class="row course-container">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <iframe width="220" height="100" src="https://www.youtube.com/embed/LnTPJcUQdNU"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <h3 class="title">Title</h3>
+                        </div>
+                        <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
+                            <button type="edit" class="btn btn-success edit">Edit</button>
+                            <button type="delete" class="btn btn-danger delete">
+                                Delete
+                            </button>
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-6 col-xs-6">
+                            <button class="up-down">
+                                <i class="bx bxs-up-arrow"></i>
+                            </button>
+                            <button class="up-down">
+                                <i class="bx bxs-down-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row course-container">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <iframe width="220" height="100" src="https://www.youtube.com/embed/LnTPJcUQdNU"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <h3 class="title">Title</h3>
+                        </div>
+                        <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
+                            <button type="edit" class="btn btn-success edit">Edit</button>
+                            <button type="delete" class="btn btn-danger delete">
+                                Delete
+                            </button>
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-6 col-xs-6">
+                            <button class="up-down">
+                                <i class="bx bxs-up-arrow"></i>
+                            </button>
+                            <button class="up-down" disabled>
+                                <i class="bx bxs-down-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <input type="text" class="form-control" id="url" name="url" placeholder="URL" />
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Course Name" />
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-secondary mt-3">Back</button>
+                        </div>
+                    </div>
+                </div>
         </form>
-    </div>  
+    </div>
 </div>

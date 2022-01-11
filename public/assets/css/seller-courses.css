@@ -140,13 +140,13 @@ a .instructor-dashboard--resource-text h6{
 form label {
     color: var(--style-color);
 }
-form button.btn-primary {
+form button.btn-save {
     margin: 30px 0;
     background-color: var(--style-color);
     border-color: var(--style-color);
     transition: all 0.3s ease;
 }
-form button.btn-primary:hover {
+form button.btn-save:hover {
     background-color: var(--main-background4-color);
     border-color: var(--main-background4-color);
 }

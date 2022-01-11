@@ -17,7 +17,7 @@ router.post("/courses/create", siteController.sellerCreate);
 
 router.get("/courses/bill", siteController.billCourses);
 
-router.get("/courses/edit", siteController.editCourses);
+router.get("/courses/id/edit", siteController.editCourses);
 
 router.get("/courses/:id", tableController.edit);
 

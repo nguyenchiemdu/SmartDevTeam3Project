@@ -150,8 +150,12 @@ class SiteController {
   // edit Course demo
   async editCourses(req, res, next) {
     try {
+      const category = await Category.find({});
       var courses = await Course.find({});
-      res.render("seller/edit");
+      res.render("seller/edit", { 
+        ...authMiddleware.userInfor(req),
+        categories: category,
+      });
     } catch (err) {
       console.log(err);
     }

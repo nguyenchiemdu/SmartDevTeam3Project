@@ -37,7 +37,7 @@ a {
     color: tomato;
 }
 
-.create-title {
+.create-title    {
     color: var(--main-color);
     font-size: 20px;
     font-weight: 500;
@@ -130,16 +130,16 @@ a {
     color: var(--main-color);  
     margin-bottom: 20px; 
 }
-.add-course form label {
+.add-course form label, .edit-course form label {
     color: var(--style-color);
 }
-.add-course form button.btn-primary {
+.add-course form button.btn-save {
     margin: 30px 0;
     background-color: var(--style-color);
     border-color: var(--style-color);
     transition: all 0.3s ease;
 }
-.add-course form button.btn-primary:hover {
+.add-course form button.btn-save:hover {
     background-color: var(--main-background4-color);
     border-color: var(--main-background4-color);
 }
@@ -155,7 +155,7 @@ a {
 .edit-course form label {
     color: var(--style-color);
 }   
-.edit-course form button.btn-primary:hover {
+.edit-course form button.btn-save:hover {
     background-color: var(--main-background4-color);
     border-color: var(--main-background4-color);
 }
@@ -166,14 +166,7 @@ a {
     border-radius: 5px;
     padding: 20px;
 }
-.bill-wrapper h6 {
-    color: var(--main-color);
-}
-.bill-wrapper h6 span {
-    color: var(--style-color);
-    font-weight: bold;
-    font-size: 18px;
-}
+
 
 /* footer */
 /* footer */
