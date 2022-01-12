@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const UserCart = require("../models/UserCart");
 var findCourseBySlug;
+const { copy } = require("../app");
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -176,11 +177,14 @@ class SiteController {
   // add Course demo
   async addCourses2(req, res, next) {
     try {
-      var lessons = await Lesson.find({});
-      var courses = await Course.find({});
+      var course = await Course.find({_id : req.params.id});
+      // console.log(course);
+      var lessons = await Lesson.find({course_id: req.params.id});
+      // console.log(lessons);
       res.render("seller/create2", {
         ...authMiddleware.userInfor(req),
         lessons: lessons,
+        course: course
         // courses: mutipleMongooseToObject(courses),
       });
     } catch (e) {
@@ -235,11 +239,12 @@ class SiteController {
       });
       // res.json(newCourses);
       await newCourses.save((err, data) => {
-        console.log({ err, data });
+        console.log({ err});  
       });
+      const id = await newCourses._id
       Course.find({}, (err, data) => {
         if (!err) {
-          res.redirect("/seller/courses/create/2");
+          res.redirect(`/seller/courses/create/2/${id}`);
         }
       });
     } catch (e) {
@@ -251,10 +256,10 @@ class SiteController {
   // [POST] seller/course/create2
   async sellerCreate2(req, res, next) {
     const formData = req.body;
-    // console.log(formData);
+    // console.log("post", req.params.id);
     try {
       var newLessons = new Lesson({
-        course_id: "61dd046df975c97a5b4fdcfa",
+        course_id: req.params.id,
         urlVideo: formData.urlVideo,
         title: formData.title,
         image: "http://placeimg.com/640/480",
@@ -263,11 +268,11 @@ class SiteController {
       });
       // res.json(newLessons);
       await newLessons.save((err, data) => {
-        console.log({ err, data });
+        console.log({ err });
       });
       Lesson.find({}, (err, data) => {
         if (!err) {
-          res.redirect("/seller/courses/create/2");
+          res.redirect(`/seller/courses/create/2/${ req.params.id}`);
         }
       });
     } catch (e) {
@@ -403,7 +408,7 @@ class SiteController {
   async deleteCourseToUserCart(req,res,next) {
     const userInfor = authMiddleware.userInfor(req);
     if (!userInfor.username) return res.sendStatus(401);
-    console.log({ user_id: userInfor.id, course_id: req.body.course_id });
+    // console.log({ user_id: userInfor.id, course_id: req.body.course_id });
     try {
       const result = await UserCart.deleteOne({ user_id: userInfor.id, course_id: req.body.course_id });
       console.log(result);
