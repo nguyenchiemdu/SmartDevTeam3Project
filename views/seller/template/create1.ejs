@@ -20,10 +20,13 @@
                     <input type="text" class="form-control" id="imageId" name="imageId" placeholder="Image">
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
-                        <label for="categoryID" class="form-label">Category</label>
-                        <select class="form-control" aria-label="Default select example" name="categories_id" id="categoryID">
-                            <% categories.forEach(function(category)  { %>
-                                <option value="<%= category._id %>"><%= category.nameCategory %></option>
+                    <label for="categoryID" class="form-label">Category</label>
+                    <select class="form-control" aria-label="Default select example" name="categories_id"
+                        id="categoryID">
+                        <% categories.forEach(function(category) { %>
+                            <option value="<%= category._id %>">
+                                <%= category.nameCategory %>
+                            </option>
                             <!-- <option selected>Design</option>
                             <option value="Development">Development</option>
                             <option value="Marketing">Marketing</option>
@@ -31,20 +34,22 @@
                             <option value="Personal Development">Personal Development</option>
                             <option value="Business">Business</option> -->
                             <% }); %>
-                        </select>
+                    </select>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <label for="shortDescription" class="form-label">Short Description</label>
-                    <input type="text" class="form-control" id="shortDescription" name="shortDescription" placeholder="Short Description">
+                    <input type="text" class="form-control" id="shortDescription" name="shortDescription"
+                        placeholder="Short Description">
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="description" name="Description" placeholder="Description">
+                    <input type="text" class="form-control" id="description" name="Description"
+                        placeholder="Description">
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <button type="submit" class="btn btn-primary btn-save">Create Course</button>
                 </div>
-
+            </div>
         </form>
     </div>
 </div>

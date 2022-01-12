@@ -250,7 +250,7 @@ class SiteController {
     const formData = req.body;
     const userInfor = authMiddleware.userInfor(req);
     try {
-      if (userInfo.id == null)
+      if (userInfor.id == null)
       throw "Bạn phải đăng nhập trước!"
       var newCourses = new Course({
         categories_id: formData.categories_id,
@@ -450,6 +450,23 @@ class SiteController {
       res.json(e);
     }
   }
+
+   // [DELETE] /seller/course/create/2/:id
+  //  async destroy(req, res, next) {
+  //   try {
+  //     console.log(req)
+  //     await destroyLessons.deleteOne({ 
+  //       _id: req.params.id,
+  //       urlVideo: req.body.urlVideo,
+  //       title: req.body.title,
+  //       isFinish: false,
+  //     });
+  //     res.redirect(`/seller/course/create/2/${req.params.id}`);
+  //   } catch (e) {
+  //     console.log(e);
+  //     res.json(e);
+  //   }
+  // }
 
   checkout(req, res, next) {
     res.render("checkout", {
