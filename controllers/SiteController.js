@@ -15,7 +15,7 @@ class SiteController {
   async home(req, res, next) {
     //////////
     try {
-      var data = await Promise.all([Course.find({}),Category.find({})])
+      var data = await Promise.all([Course.find({}), Category.find({})])
       res.render("index.ejs", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(data[0]),
@@ -32,10 +32,10 @@ class SiteController {
     const pageSize = 4;
     try {
       let page = req.query.page;
-     
+
       if (page) {
         page = parseInt(page);
-        if (page < 1){
+        if (page < 1) {
           page = 1
         }
         let skips = (page - 1) * pageSize;
@@ -58,10 +58,10 @@ class SiteController {
         // res.redirect("/courses?page=1")
         var courses = await Course.find().skip(0).limit(pageSize);
         // res.json(courses);
-         res.render("courses-view.ejs", {
-        ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
-      });
+        res.render("courses-view.ejs", {
+          ...authMiddleware.userInfor(req),
+          courses: mutipleMongooseToObject(courses),
+        });
       }
     } catch (e) {
       console.log(e);
@@ -70,25 +70,26 @@ class SiteController {
   }
   // [Post] localhost:8080/category
   // Post slug to find ID Category
-  async category (req, res, next){
-      findCourseBySlug = req.body.slug;
-      res.json(findCourseBySlug);
+  async category(req, res, next) {
+    findCourseBySlug = req.body.slug;
+    res.json(findCourseBySlug);
   }
   // [Get] localhost:8080/category
   // Get course filter by categories
-  async getCategory (req, res, next) {
-      const findCourse = async() =>{
-          const k = await Category.findOne({slug: findCourseBySlug})
-          if(k!== null){
-          Course.find({categories_id: k._id}).populate({
-              path: 'categories_id',
-          }).exec((err,course)=>{
-              res.json(course)
-          }) 
-      }}
-      findCourse();
+  async getCategory(req, res, next) {
+    const findCourse = async () => {
+      const k = await Category.findOne({ slug: findCourseBySlug })
+      if (k !== null) {
+        Course.find({ categories_id: k._id }).populate({
+          path: 'categories_id',
+        }).exec((err, course) => {
+          res.json(course)
+        })
+      }
+    }
+    findCourse();
   }
-   
+
 
   async learning(req, res, next) {
     try {
@@ -151,7 +152,7 @@ class SiteController {
     } catch (e) {
       console.log(e);
       res.json(e);
-    
+
 
     }
   }
@@ -190,9 +191,9 @@ class SiteController {
   // add Course demo
   async addCourses2(req, res, next) {
     try {
-      var course = await Course.find({_id : req.params.id});
+      var course = await Course.find({ _id: req.params.id });
       // console.log(course);
-      var lessons = await Lesson.find({course_id: req.params.id});
+      var lessons = await Lesson.find({ course_id: req.params.id });
       // console.log(lessons);
       res.render("seller/create2", {
         ...authMiddleware.userInfor(req),
@@ -210,15 +211,15 @@ class SiteController {
   async billCourses(req, res, next) {
     try {
       let courseId = req.params.id;
-      let invoices = await Invoice.find({course_id:courseId})
-      .populate("user_id")
-      .exec()
-      .then(invoices=>{
-        return invoices
-      })
+      let invoices = await Invoice.find({ course_id: courseId })
+        .populate("user_id")
+        .exec()
+        .then(invoices => {
+          return invoices
+        })
       console.log(invoices);
 
-      let course = await Course.findOne({_id:courseId})
+      let course = await Course.findOne({ _id: courseId })
 
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
@@ -263,7 +264,7 @@ class SiteController {
       });
       // res.json(newCourses);
       await newCourses.save((err, data) => {
-        console.log({ err});  
+        console.log({ err });
       });
       const id = await newCourses._id
       Course.find({}, (err, data) => {
@@ -296,7 +297,7 @@ class SiteController {
       });
       Lesson.find({}, (err, data) => {
         if (!err) {
-          res.redirect(`/seller/courses/create/2/${ req.params.id}`);
+          res.redirect(`/seller/courses/create/2/${req.params.id}`);
         }
       });
     } catch (e) {
@@ -344,7 +345,7 @@ class SiteController {
     try {
       var coursesInCart =
         userInfor.username == null ? [] :
-          await UserCart.find({user_id : userInfor.id})
+          await UserCart.find({ user_id: userInfor.id })
             .populate('course_id')
             .exec()
             .then((userCart) => {
@@ -364,11 +365,36 @@ class SiteController {
     }
 
   }
-  checkout(req, res, next) {
-    res.render("checkout", {
-      title: "Check Out",
-      ...authMiddleware.userInfor(req),
-    });
+  async checkout(req, res, next) {
+    const userInfor = authMiddleware.userInfor(req);
+    try {
+      var sumPrice =
+        userInfor.username == null ? null :
+          await UserCart.find({ user_id: userInfor.id })
+            .populate('course_id')
+            .exec()
+            .then((userCart) => {
+              let sum =0;
+              userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
+              return sum;
+            })
+            .catch(e => console.log(e));
+      if (sumPrice != null)
+      return res.render("checkout", {
+        sumPrice,
+        title: "Check Out",
+        ...authMiddleware.userInfor(req),
+      });
+
+      res.json({
+        error : 'You have to login first'
+      })
+    } catch (e) {
+      res.json(e);
+      console.log(e);
+
+    }
+
   }
 
   //GET /password
@@ -404,7 +430,7 @@ class SiteController {
           status: 'failed'
         })
       else res.json({
-        status : 'success'
+        status: 'success'
       })
     } catch (e) {
       console(e)
@@ -420,7 +446,7 @@ class SiteController {
     try {
       await itemData.save();
       res.json({
-        status : 'success'
+        status: 'success'
       });
     } catch (e) {
       res.json(e);
@@ -429,7 +455,7 @@ class SiteController {
     // res.json(req.body.course_id)
   }
   //DELETE /cart
-  async deleteCourseToUserCart(req,res,next) {
+  async deleteCourseToUserCart(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     if (!userInfor.username) return res.sendStatus(401);
     // console.log({ user_id: userInfor.id, course_id: req.body.course_id });
@@ -437,7 +463,7 @@ class SiteController {
       const result = await UserCart.deleteOne({ user_id: userInfor.id, course_id: req.body.course_id });
       console.log(result);
       res.json({
-        status : 'success'
+        status: 'success'
       })
     } catch (e) {
       console.log(e);
@@ -446,12 +472,7 @@ class SiteController {
   }
 
 
-  checkout(req, res, next) {
-    res.render("checkout", {
-      title: "Check Out",
-      ...authMiddleware.userInfor(req),
-    });
-  }
+
   payment_success(req, res, next) {
     res.render("payment_success", {
       title: "Payment Success",
