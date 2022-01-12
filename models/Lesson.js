@@ -6,10 +6,8 @@ const Lesson = new Schema({
     course_id : { type: Schema.Types.ObjectId, ref: 'Course' },
     urlVideo: { type: String, required: true, },
     title: { type: String, required: true, },
-    image: { type: String, required: true, },
-    description: { type: String, required: true},
     // order: { type: String, required: true},
-    // isFinish: { type: Boolean, required: true}
+    isFinish: { type: Boolean, required: true}
 }, {
     timestamps: true,
 });
