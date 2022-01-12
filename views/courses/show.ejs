@@ -29,9 +29,9 @@
                         <h6 class="price"><span>Price: </span>A$<%= course.price %>
                         </h6>
                         <h5 class="update"><span>Update: </span>
-                            <%= course.updatedAt.getFullYear() %> -
+                            <%= course.updatedAt.getDate() %> -
                             <%= course.updatedAt.getMonth()+1 %> -
-                            <%= course.updatedAt.getDate() %>
+                            <%= course.updatedAt.getFullYear() %> 
                         </h5>
                         <p class="description"><span>Description: </span><%= course.shortDescription %></p>
                         <button course_id="<%= course._id %>" type="button"

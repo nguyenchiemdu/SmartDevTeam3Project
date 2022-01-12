@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
 const mongoose = require("mongoose");
 const Category = require("../models/Category");
+const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
 var findCourseBySlug;
 const { copy } = require("../app");
@@ -196,10 +197,21 @@ class SiteController {
   // bill Course demo
   async billCourses(req, res, next) {
     try {
-      var courses = await Course.find({});
+      let courseId = req.params.id;
+      let invoices = await Invoice.find({course_id:courseId})
+      .populate("user_id")
+      .exec()
+      .then(invoices=>{
+        return invoices
+      })
+      console.log(invoices);
+
+      let course = await Course.findOne({_id:courseId})
+
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
+        invoices,
+        course,
       });
     } catch (e) {
       console.log(e);

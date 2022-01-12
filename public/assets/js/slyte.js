@@ -1,7 +1,7 @@
 
 //panigation
 var paging = $('#paging');
-if(!paging) paging.pagination({
+if(paging != null) paging.pagination({
     dataSource: [1, 2, 3, 4, 5, 6, 7,8,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
     pageSize:2,
     afterPageOnClick : function(event , pageNumber){
