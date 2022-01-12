@@ -239,10 +239,13 @@ class SiteController {
   async sellerCreate1(req, res, next) {
     const formData = req.body;
     // console.log(formData);
+    const userInfo = authMiddleware.userInfor(req);
     try {
+      if (userInfo.id == null)
+      throw "Bạn phải đăng nhập trước!"
       var newCourses = new Course({
         categories_id: formData.categories_id,
-        user_id: "61d3107da1f75879d162128a",
+        user_id: userInfo.id,
         name: formData.name,
         image: formData.imageId,
         shortDescription: formData.shortDescription,
@@ -275,9 +278,8 @@ class SiteController {
         course_id: req.params.id,
         urlVideo: formData.urlVideo,
         title: formData.title,
-        image: "http://placeimg.com/640/480",
-        description: "Ab violet issus nisi ut nihil. Fugit et est aut aperiam nisi deleniti p.",
-
+        // order: 
+        isFinish: false,
       });
       // res.json(newLessons);
       await newLessons.save((err, data) => {
