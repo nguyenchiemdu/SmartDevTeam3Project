@@ -3,6 +3,8 @@ const User = require("../models/User");
 const { mongooseToObject } = require("../utilities/mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const UserCart = require('../models/UserCart');
+const { resolveInclude } = require('ejs');
 
 class UserController {
   // [POST] /users/password
@@ -44,8 +46,24 @@ class UserController {
     try {
       // Authentication 
       const user = await User.findOne({ username: req.body.username })
-      if (!user) return res.sendStatus(401)
-      if (! await bcrypt.compare(req.body.password, user.password)) return  res.sendStatus(401)
+      if (!user) return res.json({ status: 'failed' })
+      if (! await bcrypt.compare(req.body.password, user.password)) return res.json({ status: 'failed' })
+
+      //add local Cart to user Cart
+      const cart = req.body.cart;
+      cart.forEach(async course_id => {
+        try {
+          const result = await UserCart.findOne({ user_id: user._id, course_id: course_id });
+          const isExisted = result ? true : false;
+          if (!isExisted) {
+            const itemData = new UserCart({ user_id: user._id, course_id: course_id });
+            await itemData.save();
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      });
+
       //Create JWT
       const accessToken = jwt.sign(
         {
@@ -55,15 +73,16 @@ class UserController {
         process.env.JWT_SECRET
       );
       res.cookie("accessToken", accessToken, {
-          httpOnly: true,
-          sameSite: "strict",
+        httpOnly: true,
+        sameSite: "strict",
       })
+      res.json({ status: 'success' })
       // redirect to home page
-      res.redirect('/')
-  } catch (e) {
+      // res.redirect('/')
+    } catch (e) {
       console.log(e)
       res.json(e)
-  }
+    }
   }
   async register(req, res) {
     // console.log(req.body);
@@ -102,11 +121,11 @@ class UserController {
 
     res.json({ status: "ok" });
   }
-  async signout (req,res,next) {
+  async signout(req, res, next) {
     // Clear cookie 
     res.clearCookie('accessToken')
     res.redirect('/login')
-} 
+  }
 }
 
 module.exports = new UserController();
