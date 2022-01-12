@@ -7,6 +7,9 @@ var authMiddleware = require("../middlerwares/auth.middleware");
 const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const UserCart = require("../models/UserCart");
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
 var findCourseBySlug;
 class SiteController {
   // GET /
@@ -423,6 +426,19 @@ class SiteController {
       ...authMiddleware.userInfor(req),
     });
   }
+
+  async payment(req, res, next) {
+    const { email, price } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: parseFloat(price)*100,
+        currency: 'usd',
+        // Verify your integration in this guide by including this parameter
+        metadata: { integration_check: 'accept_a_payment' },
+        receipt_email: email
+    });
+    res.json({ 'client_secret': paymentIntent['client_secret'] })
+  }
+
   payment_success(req, res, next) {
     res.render("payment_success", {
       title: "Payment Success",
