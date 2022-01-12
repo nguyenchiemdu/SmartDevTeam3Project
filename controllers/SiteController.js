@@ -79,12 +79,13 @@ class SiteController {
   async getCategory (req, res, next) {
       const findCourse = async() =>{
           const k = await Category.findOne({slug: findCourseBySlug})
+          if(k!== null){
           Course.find({categories_id: k._id}).populate({
               path: 'categories_id',
           }).exec((err,course)=>{
               res.json(course)
           }) 
-      }
+      }}
       findCourse();
   }
    
