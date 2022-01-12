@@ -16,9 +16,10 @@
               </tr>
             </thead>
             <tbody>
+              <% let id = 1 %>
               <% invoices.forEach(invoice=>{%>
                 <tr>
-                  <th scope="row">1</th>
+                  <th scope="row"><%=id++%></th>
                   <td>
                     <%= invoice.user_id.username %>
                   </td>
