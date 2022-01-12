@@ -9,6 +9,8 @@ router.get("/", siteController.home_seller);
 
 router.get("/courses", siteController.show);
 
+router.get("/courses/:id", siteController.billCourses);
+
 router.get("/courses/create/1", siteController.addCourses1);
 
 router.post("/courses/create/1", siteController.sellerCreate1);
@@ -17,7 +19,6 @@ router.get("/courses/create/2/:id", siteController.addCourses2);
 
 router.post("/courses/create/2/:id", siteController.sellerCreate2);
 
-router.get("/courses/bill", siteController.billCourses);
 
 router.get("/courses/id/edit", siteController.editCourses);
 
