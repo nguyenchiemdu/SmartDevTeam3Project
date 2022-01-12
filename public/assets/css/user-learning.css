@@ -15,7 +15,9 @@ ol {
 a {
   text-decoration: none !important;
 }
-.content__left {
+.wrapper {
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 .content__right {
@@ -27,7 +29,10 @@ a {
   width: 0 !important;
   display: none;
 }
-
+.video-lesson {
+  max-width: 950px;
+  height: 500px;
+}
 .lesson-description {
   cursor: pointer;
   width: 100%;
