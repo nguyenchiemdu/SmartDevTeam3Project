@@ -15,11 +15,11 @@ class SiteController {
   async home(req, res, next) {
     //////////
     try {
-      var data = await Promise.all([Course.find({}),Category.find({})])
+      var data = await Promise.all([Course.find({}), Category.find({})]);
       res.render("index.ejs", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(data[0]),
-        categories: mutipleMongooseToObject(data[1])
+        categories: mutipleMongooseToObject(data[1]),
       });
     } catch (e) {
       console.log(e);
@@ -32,11 +32,11 @@ class SiteController {
     const pageSize = 4;
     try {
       let page = req.query.page;
-     
+
       if (page) {
         page = parseInt(page);
-        if (page < 1){
-          page = 1
+        if (page < 1) {
+          page = 1;
         }
         let skips = (page - 1) * pageSize;
 
@@ -58,10 +58,10 @@ class SiteController {
         // res.redirect("/courses?page=1")
         var courses = await Course.find().skip(0).limit(pageSize);
         // res.json(courses);
-         res.render("courses-view.ejs", {
-        ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(courses),
-      });
+        res.render("courses-view.ejs", {
+          ...authMiddleware.userInfor(req),
+          courses: mutipleMongooseToObject(courses),
+        });
       }
     } catch (e) {
       console.log(e);
@@ -70,25 +70,27 @@ class SiteController {
   }
   // [Post] localhost:8080/category
   // Post slug to find ID Category
-  async category (req, res, next){
-      findCourseBySlug = req.body.slug;
-      res.json(findCourseBySlug);
+  async category(req, res, next) {
+    findCourseBySlug = req.body.slug;
+    res.json(findCourseBySlug);
   }
   // [Get] localhost:8080/category
   // Get course filter by categories
-  async getCategory (req, res, next) {
-      const findCourse = async() =>{
-          const k = await Category.findOne({slug: findCourseBySlug})
-          if(k!== null){
-          Course.find({categories_id: k._id}).populate({
-              path: 'categories_id',
-          }).exec((err,course)=>{
-              res.json(course)
-          }) 
-      }}
-      findCourse();
+  async getCategory(req, res, next) {
+    const findCourse = async () => {
+      const k = await Category.findOne({ slug: findCourseBySlug });
+      if (k !== null) {
+        Course.find({ categories_id: k._id })
+          .populate({
+            path: "categories_id",
+          })
+          .exec((err, course) => {
+            res.json(course);
+          });
+      }
+    };
+    findCourse();
   }
-   
 
   async learning(req, res, next) {
     try {
@@ -142,17 +144,16 @@ class SiteController {
   }
 
   async home_seller(req, res, next) {
+    const userInfor = authMiddleware.userInfor(req);
     try {
-      var courses = await Course.find({});
+      var courses = await Course.find({ user_id: userInfor.id });
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: courses,
+        courses,
       });
     } catch (e) {
       console.log(e);
       res.json(e);
-    
-
     }
   }
 
@@ -174,12 +175,10 @@ class SiteController {
   async addCourses1(req, res, next) {
     try {
       const category = await Category.find({});
-      // var courses = await Course.find({});
       var courses = await Course.find({});
       res.render("seller/create1", {
         ...authMiddleware.userInfor(req),
         categories: category,
-        // courses: mutipleMongooseToObject(courses),
       });
     } catch (e) {
       console.log(e);
@@ -190,14 +189,14 @@ class SiteController {
   // add Course demo
   async addCourses2(req, res, next) {
     try {
-      var course = await Course.find({_id : req.params.id});
+      var course = await Course.find({ _id: req.params.id });
       // console.log(course);
-      var lessons = await Lesson.find({course_id: req.params.id});
+      var lessons = await Lesson.find({ course_id: req.params.id });
       // console.log(lessons);
       res.render("seller/create2", {
         ...authMiddleware.userInfor(req),
         lessons: lessons,
-        course: course
+        course: course,
         // courses: mutipleMongooseToObject(courses),
       });
     } catch (e) {
@@ -210,15 +209,15 @@ class SiteController {
   async billCourses(req, res, next) {
     try {
       let courseId = req.params.id;
-      let invoices = await Invoice.find({course_id:courseId})
-      .populate("user_id")
-      .exec()
-      .then(invoices=>{
-        return invoices
-      })
+      let invoices = await Invoice.find({ course_id: courseId })
+        .populate("user_id")
+        .exec()
+        .then((invoices) => {
+          return invoices;
+        });
       console.log(invoices);
 
-      let course = await Course.findOne({_id:courseId})
+      let course = await Course.findOne({ _id: courseId });
 
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
@@ -249,23 +248,23 @@ class SiteController {
   // [POST] seller/course/create1
   async sellerCreate1(req, res, next) {
     const formData = req.body;
-    // console.log(formData);
+    const userInfor = authMiddleware.userInfor(req);
     try {
       var newCourses = new Course({
         categories_id: formData.categories_id,
-        user_id: "61d3107da1f75879d162128a",
+        user_id: userInfor.id,
         name: formData.name,
         image: formData.imageId,
         shortDescription: formData.shortDescription,
         description: formData.Description,
         price: formData.price,
-        isValidated: 0,
+        isValidated: false,
       });
       // res.json(newCourses);
       await newCourses.save((err, data) => {
-        console.log({ err});  
+        console.log({ err });
       });
-      const id = await newCourses._id
+      const id = await newCourses._id;
       Course.find({}, (err, data) => {
         if (!err) {
           res.redirect(`/seller/courses/create/2/${id}`);
@@ -287,8 +286,8 @@ class SiteController {
         urlVideo: formData.urlVideo,
         title: formData.title,
         image: "http://placeimg.com/640/480",
-        description: "Ab violet issus nisi ut nihil. Fugit et est aut aperiam nisi deleniti p.",
-
+        description:
+          "Ab violet issus nisi ut nihil. Fugit et est aut aperiam nisi deleniti p.",
       });
       // res.json(newLessons);
       await newLessons.save((err, data) => {
@@ -296,7 +295,7 @@ class SiteController {
       });
       Lesson.find({}, (err, data) => {
         if (!err) {
-          res.redirect(`/seller/courses/create/2/${ req.params.id}`);
+          res.redirect(`/seller/courses/create/2/${req.params.id}`);
         }
       });
     } catch (e) {
@@ -343,15 +342,16 @@ class SiteController {
     // console.log(userInfor)
     try {
       var coursesInCart =
-        userInfor.username == null ? [] :
-          await UserCart.find({user_id : userInfor.id})
-            .populate('course_id')
-            .exec()
-            .then((userCart) => {
-              let courses = userCart.map(course => course.course_id);
-              return courses;
-            })
-            .catch(e => console.log(e));
+        userInfor.username == null
+          ? []
+          : await UserCart.find({ user_id: userInfor.id })
+              .populate("course_id")
+              .exec()
+              .then((userCart) => {
+                let courses = userCart.map((course) => course.course_id);
+                return courses;
+              })
+              .catch((e) => console.log(e));
       res.render("shopping-cart", {
         title: "Cart",
         ...userInfor,
@@ -360,9 +360,7 @@ class SiteController {
     } catch (e) {
       res.json(e);
       console.log(e);
-
     }
-
   }
   checkout(req, res, next) {
     res.render("checkout", {
@@ -401,14 +399,15 @@ class SiteController {
       const userInfor = authMiddleware.userInfor(req);
       if (!userInfor.username)
         res.json({
-          status: 'failed'
-        })
-      else res.json({
-        status : 'success'
-      })
+          status: "failed",
+        });
+      else
+        res.json({
+          status: "success",
+        });
     } catch (e) {
-      console(e)
-      res.json(e)
+      console(e);
+      res.json(e);
     }
   }
   //PUT /cart
@@ -416,11 +415,14 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     if (!userInfor.username) return res.sendStatus(401);
 
-    const itemData = new UserCart({ user_id: userInfor.id, course_id: req.body.course_id });
+    const itemData = new UserCart({
+      user_id: userInfor.id,
+      course_id: req.body.course_id,
+    });
     try {
       await itemData.save();
       res.json({
-        status : 'success'
+        status: "success",
       });
     } catch (e) {
       res.json(e);
@@ -429,22 +431,24 @@ class SiteController {
     // res.json(req.body.course_id)
   }
   //DELETE /cart
-  async deleteCourseToUserCart(req,res,next) {
+  async deleteCourseToUserCart(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     if (!userInfor.username) return res.sendStatus(401);
     // console.log({ user_id: userInfor.id, course_id: req.body.course_id });
     try {
-      const result = await UserCart.deleteOne({ user_id: userInfor.id, course_id: req.body.course_id });
+      const result = await UserCart.deleteOne({
+        user_id: userInfor.id,
+        course_id: req.body.course_id,
+      });
       console.log(result);
       res.json({
-        status : 'success'
-      })
+        status: "success",
+      });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
-
 
   checkout(req, res, next) {
     res.render("checkout", {
@@ -458,7 +462,6 @@ class SiteController {
       ...authMiddleware.userInfor(req),
     });
   }
-
 }
 
 module.exports = new SiteController();
