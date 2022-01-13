@@ -21,6 +21,7 @@
     margin-bottom: 30px;
 }
 .course-container {
+    width: 100%;
     margin: 15px;
     border: 1px solid rgb(158, 158, 158);
     border-radius: 5px;
