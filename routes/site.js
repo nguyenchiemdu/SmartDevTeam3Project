@@ -39,7 +39,8 @@ router.get("/result", siteController.payment_success);
 
 router.get("/learning", siteController.learning);
 
-router.get("/learning/id", siteController.userLearning);
+router.get("/learning/:id", siteController.userLearning);
+router.post("/learning/lesson/:lessonid", siteController.trackUser);
 // router.get('stored/courses', function(req, res, next) {
 //   res.render('stored-courses', { title: 'stored-courses' });
 // });
