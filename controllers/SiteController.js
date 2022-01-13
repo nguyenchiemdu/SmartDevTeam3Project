@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
+const UserCourse = require("../models/UserCourse");
+
 var findCourseBySlug;
 const { copy } = require("../app");
 class SiteController {
@@ -94,10 +96,21 @@ class SiteController {
 
   async learning(req, res, next) {
     try {
-      var lessons = await Lesson.find({});
+      let userInfor = authMiddleware.userInfor(req);
+      let  userCourses = await UserCourse.find({user_id:userInfor.id})
+      .populate("course_id")
+      .exec()
+      .then((userCourses) => {
+
+
+        let courses = userCourses.length<1 ? [] : userCourses.map(course =>course.course_id);
+        return courses;
+      })
+
+      // console.log(userCourses);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        lessons: mutipleMongooseToObject(lessons),
+        courses: mutipleMongooseToObject(userCourses),
       });
     } catch (e) {
       console.log(e);
@@ -105,9 +118,35 @@ class SiteController {
     }
   }
   async userLearning(req, res, next) {
+    let courseId = req.params.id;
+    let videoId = req.query.videos; 
+
+    if(videoId == null){
+      var lesson = await Lesson.findOne({ course_id: courseId})
+      return res.redirect(`/learning/${req.params.id}?videos=${lesson._id}`)
+    }   
+
     try {
-      var lessons = await Lesson.find({});
+
+      let courseId = req.params.id;
+      console.log(courseId);
+      var lessons = await Lesson.find({ course_id: courseId})
+
+      let course = await Course.findOne({_id:courseId})
+      let currentLesson;
+       lessons.forEach(lesson => {
+        if(lesson._id == videoId){
+          currentLesson = lesson;
+      
+        }
+       })
+
+      console.log(currentLesson);
+
       res.render("userLearning/user-learning.ejs", {
+        lessons,
+        currentLesson,
+        course,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
@@ -208,6 +247,7 @@ class SiteController {
   // bill Course demo
   async billCourses(req, res, next) {
     try {
+     
       let courseId = req.params.id;
       let invoices = await Invoice.find({ course_id: courseId })
         .populate("user_id")
@@ -250,7 +290,7 @@ class SiteController {
     const formData = req.body;
     const userInfor = authMiddleware.userInfor(req);
     try {
-      if (userInfor.id == null)
+      if (userInfo.id == null)
       throw "Bạn phải đăng nhập trước!"
       var newCourses = new Course({
         categories_id: formData.categories_id,
@@ -450,23 +490,6 @@ class SiteController {
       res.json(e);
     }
   }
-
-   // [DELETE] /seller/course/create/2/:id
-  //  async destroy(req, res, next) {
-  //   try {
-  //     console.log(req)
-  //     await destroyLessons.deleteOne({ 
-  //       _id: req.params.id,
-  //       urlVideo: req.body.urlVideo,
-  //       title: req.body.title,
-  //       isFinish: false,
-  //     });
-  //     res.redirect(`/seller/course/create/2/${req.params.id}`);
-  //   } catch (e) {
-  //     console.log(e);
-  //     res.json(e);
-  //   }
-  // }
 
   checkout(req, res, next) {
     res.render("checkout", {
