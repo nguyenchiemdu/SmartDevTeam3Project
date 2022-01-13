@@ -25,36 +25,43 @@
                     </div>
                     <div class="method-payment">
                         <div class="show" id="show-cart">
-                            <form>
+                            <form action = "/cart/payment" method="post" id = "cartForm">
                                 <div class="form-row">
                                     <div class="col mb-3">
                                         <label for="validationDefault01">Name on card</label>
                                         <input type="text" class="form-control" id="validationDefault01"
-                                            placeholder="Name on card" required />
+                                            placeholder="Name on card" name = "nameCard" required />
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="validationDefault02">Card Number</label>
                                         <input type="number" class="form-control" id="validationDefault02"
-                                            placeholder="Card Number" value="Otto" required />
+                                            placeholder="Card Number" value="Otto" name = "number"required />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-6 mb-3">
-                                        <label for="validationDefaultUsername">MM/YY</label>
+                                        <label for="validationDefaultUsername">Month</label>
                                         <div class="input-group">
-                                            <input type="datepicker" class="form-control" id="validationDefaultUsername"
-                                                placeholder="MM/YY" aria-describedby="inputGroupPrepend2" required />
+                                            <input type="datepicker" class="form-control" name = "exp_month"
+                                                placeholder="MM" aria-describedby="inputGroupPrepend2" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="validationDefaultUsername">Year</label>
+                                        <div class="input-group">
+                                            <input type="datepicker" class="form-control" name = "exp_year"
+                                                placeholder="YY" aria-describedby="inputGroupPrepend2" required />
                                         </div>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="validationDefault03">Security Code</label>
                                         <input type="text" class="form-control" id="validationDefault03"
-                                            placeholder="Security Code" required />
+                                            placeholder="Security Code" name = "cvc" required />
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="validationDefault05">Zip</label>
                                         <input type="text" class="form-control" id="validationDefault05" placeholder="Zip"
-                                            required />
+                                        name =  "zipCard"   required />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -66,6 +73,8 @@
                                         </label>
                                     </div>
                                 </div>
+                                <input value="<%- sumPrice%>" name = "price" id ="price" hidden />
+                                <input value="<%- email%>" name = "email" id = "email" hidden />
                             </form>
                         </div>
                         <div class="show hidden" id="show-paypal">
@@ -134,7 +143,7 @@
                         <a href="#">Terms of Service</a>.
                     </small>
                 </p>
-                <button class="btn-pink" id="handlePayment">Process</button>
+                <button class="btn-pink" id="handlePayment" type ="submit">Process</button>
             </div>
         </div>
     </div>

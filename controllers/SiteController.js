@@ -8,7 +8,9 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
-var findCourseBySlug;
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+var findCourseBySlug, emailClient;
 const { copy } = require("../app");
 class SiteController {
   // GET /
@@ -382,6 +384,7 @@ class SiteController {
       if (sumPrice != null)
       return res.render("checkout", {
         sumPrice,
+        email: userInfor.username,
         title: "Check Out",
         ...authMiddleware.userInfor(req),
       });
@@ -396,6 +399,49 @@ class SiteController {
     }
 
   }
+
+
+  async payment(req, res, next) {
+    try{
+      const { email, price, number,exp_month,exp_year,cvc } = req.body;
+      await stripe.tokens.create({
+        card: {
+          number,
+          exp_month,
+          exp_year,
+          cvc,
+        },
+      });
+      const paymentIntent = await stripe.paymentIntents.create({
+          amount: parseFloat(price)*100,
+          currency: 'usd',
+          // Verify your integration in this guide by including this parameter
+          metadata: { integration_check: 'accept_a_payment' },
+          payment_method_types: ['card'],
+          receipt_email: email
+      });
+      if(paymentIntent.client_secret!==null){
+          stripe.paymentIntents.confirm(
+          paymentIntent.id,
+          {payment_method: 'pm_card_visa'}
+        )
+        // .then(async (result) => {
+        //     await stripe.charges.update(
+        //       result.charges.data[0].id,
+        //       {billing_details: {email: email}}
+        //     );
+        // })
+      }
+      res.redirect('/result');
+    }
+    catch (err){
+      res.json({err});
+    }
+  
+  }
+
+
+
 
   //GET /password
   password(req, res, next) {

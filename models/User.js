@@ -6,7 +6,7 @@ const User = new Schema({
     role_id : { type: Schema.Types.ObjectId, ref: 'Role' },
     username: { type: String, required: true, },
     password: { type: String, required: true, },
-    email: { type: String, required: true, },
+    email: { type: String},
 }, {
     timestamps: true,
 }, { collection: 'users' }
