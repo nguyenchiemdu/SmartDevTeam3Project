@@ -40,10 +40,17 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-6 mb-3">
-                                        <label for="validationDefaultUsername">MM/YY</label>
+                                        <label for="validationDefaultUsername">Month</label>
                                         <div class="input-group">
-                                            <input type="datepicker" class="form-control" id="validationDefaultUsername"
-                                                placeholder="MM/YY" aria-describedby="inputGroupPrepend2" required />
+                                            <input type="datepicker" class="form-control" name = "mmCard"
+                                                placeholder="MM" aria-describedby="inputGroupPrepend2" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="validationDefaultUsername">Year</label>
+                                        <div class="input-group">
+                                            <input type="datepicker" class="form-control" name = "yearCard"
+                                                placeholder="YY" aria-describedby="inputGroupPrepend2" required />
                                         </div>
                                     </div>
                                     <div class="col-6 mb-3">
@@ -54,7 +61,7 @@
                                     <div class="col-6 mb-3">
                                         <label for="validationDefault05">Zip</label>
                                         <input type="text" class="form-control" id="validationDefault05" placeholder="Zip"
-                                        name =     required />
+                                        name =  "zipCard"   required />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -66,8 +73,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <input value="22.58" name = "price" hidden />
-                                <input value="bin@gmail.com" name = "email" hidden />
+                                <input value="22.58" name = "price" id ="price" hidden />
+                                <input value="bin@gmail.com" name = "email" id = "email" hidden />
                             </form>
                         </div>
                         <div class="show hidden" id="show-paypal">

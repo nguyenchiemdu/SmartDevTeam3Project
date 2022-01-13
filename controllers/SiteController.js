@@ -10,7 +10,7 @@ const UserCart = require("../models/UserCart");
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-var findCourseBySlug;
+var findCourseBySlug, emailClient;
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -426,18 +426,39 @@ class SiteController {
       ...authMiddleware.userInfor(req),
     });
   }
-
+  
   async payment(req, res, next) {
-    const { email, price } = req.body;
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: parseFloat(price)*100,
-        currency: 'usd',
-        // Verify your integration in this guide by including this parameter
-        metadata: { integration_check: 'accept_a_payment' },
-        receipt_email: email
-    });
-    res.json({ 'client_secret': paymentIntent['client_secret'] })
+    try{
+      await stripe.tokens.create({
+        card: {
+          number: req.body.numberCard,
+          exp_month: 1,
+          exp_year: 2023,
+          cvc: req.body.securityCode,
+        },
+      });
+      const { email, price } = req.body;
+      const paymentIntent = await stripe.paymentIntents.create({
+          amount: parseFloat(price)*100,
+          currency: 'usd',
+          // Verify your integration in this guide by including this parameter
+          metadata: { integration_check: 'accept_a_payment' },
+          receipt_email: email
+      });
+      if(paymentIntent.client_secret!==null){
+        stripe.paymentIntents.confirm(
+          paymentIntent.id,
+          {payment_method: 'pm_card_visa'}
+        );
+      }
+      res.redirect('/result');
+    }
+    catch (err){
+      res.json({kq:"Thông tin thẻ sai"});
+    }
+  
   }
+
 
   payment_success(req, res, next) {
     res.render("payment_success", {
