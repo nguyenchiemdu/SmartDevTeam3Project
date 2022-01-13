@@ -1,5 +1,8 @@
 :root {
   --main-background-color: #212121;
+  --main-background2-color: #000;
+  --main-background3-color: rgb(39, 39, 39);
+  --main-background4-color: rgb(241, 90, 34);
   --main-color: #ffffff;
   --style-color: #e40084;
 }
@@ -16,8 +19,33 @@ a {
   text-decoration: none !important;
 }
 .wrapper {
-  max-width: 1500px;
+  /* max-width: 1300px; */
   margin: 0 auto;
+  color: var(--main-color);
+  background-color: var(--main-background-color);
+}
+.nav__header {
+  height: 50px;
+  width: 100%;
+  background-color: #29303b;
+}
+.nav__header a {
+  color: var(--style-color);
+}
+.nav__header .container {
+  max-width: 1500px;
+}
+.nav__header img {
+  height: 50px;
+  width: auto;
+}
+.container-fluid {
+  padding: 0;
+}
+.content__left iframe {
+  width: 100%;
+  height: 100%;
+  background-color: #1c1d1f;
 }
 
 .content__right {
@@ -25,19 +53,67 @@ a {
   -ms-overflow-style: none;
   height: 100vh;
 }
+@media (max-width: 991px) {
+  .content__right {
+    padding-top: 200px;
+  }
+}
+.content__right .p-3 h6 {
+  font-size: 28px;
+  color: var(--style-color);
+}
+  .content__right .p-3 p {
+  color: var(--main-background4-color );
+}
 .content__right::-webkit-scrollbar {
   width: 0 !important;
   display: none;
 }
-.video-lesson {
-  max-width: 950px;
-  height: 500px;
+.accordion-button {
+  font-weight: bold;
+  color: var(--main-color);
+  background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+}
+.accordion-button:not(.collapsed) {
+  color: var(--main-color) !important;
+}
+.accordion-button:not(.collapsed) {
+  color: #0c63e4;
+  background: none;
+  background-color: rgb(26, 22, 22);
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+.accordion-item {
+  background-color: var(--main-background3-color);
+  border: 1px solid rgba(0,0,0,.125);
+}
+  .video-lesson {
+    width: auto !important;
+  height: 70%;
 }
 .lesson-description {
   cursor: pointer;
   width: 100%;
   height: 50px;
+  margin: 10px 6px; 
   padding-left: 10px;
+}
+.lesson-description:hover a {
+  font-weight: bold;
+  color: rgb(238, 31, 176);
+}
+.lesson-description:hover p {
+  font-weight: bold;
+  color: rgb(199, 77, 6);
+}
+.lesson-description a {
+  color: rgb(1, 235, 252);
+}
+.lesson-description p {
+  color: rgb(141, 112, 146);
+}
+.lesson-description:first-child {
+  margin-top: 15px; 
 }
 .lesson-time {
   color: rgb(143, 140, 140);
@@ -48,9 +124,28 @@ a {
 .lesson-description:hover {
   background-color: #e7e7e7;
 }
+.nav-tabs {
+  padding: 0 50px;
+}
+.nav-tabs button.nav-link {
+  color: var(--style-color);
+  font-size: 16px;
+}
+.nav-tabs button.nav-link.active {
+  background-color: var(--style-color);
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 18px;
+}
+.justify-content-between .my-3 {
+  font-size: 25px;;
+}
+.justify-content-between .share {
+  text-align: right;
+}
 .check {
   font-size: 20px;
-  color: green;
+  color: gray;
 }
 .lock {
   font-size: 20px;
@@ -61,15 +156,30 @@ a {
   cursor: initial;
 }
 .tab-content {
-  margin: 20px 50px;
+  background-color: var(--main-background3-color);
+  padding: 20px 50px;
+  height: auto;
 }
 .user-comment {
   margin-top: 15px;
   width: 200px;
 }
+.user-comment .comment__user {
+  color: var(--main-color);
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: #212121;
+}
+.user-comment .comment__user h6 {
+  font-size: 18px;
+}
+.user-comment .comment__user p {
+  font-size: 16px;
+}
 .user-avt {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   padding-right: 20px;
 }
 .user-avt img {
