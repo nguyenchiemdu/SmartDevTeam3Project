@@ -13,7 +13,7 @@
     <div class="container-xxl row">
       <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 content__left">
         <div class="video-lesson">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/<%= currentLesson.urlVideo%> "
+          <iframe  id="player" width="100%" height="100%" src="https://www.youtube.com/embed/<%= currentLesson.urlVideo%>?enablejsapi=1"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
@@ -140,6 +140,65 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
+      <script>
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+    
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var player, timer, timeSpent = [], display = document.getElementById('display');
+        var highestPercent  = 0;
+        function onYouTubeIframeAPIReady() {
+    
+          player = new YT.Player('player', {
+            events: { 'onStateChange': onPlayerStateChange, 'onReady': ()=>{player.seekTo(player.getDuration()/100*<%=progress%>);} }
+          });
+          // console.log(player);
+          
+        }
+    
+        function onPlayerStateChange(event) {
+          if (event.data === 1) { // Started playing
+    
+            if (!timeSpent.length) {
+              for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+            }
+            timer = setInterval(record, 100);
+          } else {
+            clearInterval(timer);
+          }
+        }
+    
+        function record() {
+          timeSpent[parseInt(player.getCurrentTime())] = true;
+          showPercentage();
+        }
+    
+        function showPercentage() {
+          var percent = 0;
+          for (var i = 0, l = timeSpent.length; i < l; i++) {
+            if (timeSpent[i]) percent++;
+          }
+          percent = Math.round(percent / timeSpent.length * 100);
+          highestPercent = Math.max(highestPercent,(player.getCurrentTime() / player.getDuration() * 100));
+          // display.innerHTML = (player.getCurrentTime() / player.getDuration() * 100) + "%";
+        }
+        window.addEventListener('beforeunload', function () {
+          fetch('/learning/lesson/<%= currentLesson._id%>', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              progress : (player.getCurrentTime() / player.getDuration() * 100),
+              highestPercent
+            })
+          }).then((res) => res.json());
+          return
+        })
+    
+      </script>
 </body>
 
 </html>

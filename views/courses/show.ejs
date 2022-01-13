@@ -36,7 +36,7 @@
                         <p class="description"><span>Description: </span><%= course.shortDescription %></p>
                         <button course_id="<%= course._id %>" type="button"
                             class="udlite-btn btn add-to-cart"><% if (isInCart && username) {%>Go to Cart
-                            <%} else {%> Add to Cart <%}%></button>
+                            <%} if (!isCheckedOut) {%> Add to Cart <%} if (isCheckedOut){%>Learn now <%}%></button>
                         <h6 class="this">This course includes:</h6>
                         <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
                         <p><i class='bx bx-file-blank'></i>3 articles</p>
@@ -182,7 +182,7 @@
             window.location.href = "/cart"
         }
         async function addToUserCart() {
-            if (<%= !isInCart %>) {
+            if (<%= !isInCart %> && <%= !isCheckedOut %>) {
                 const result = await fetch('/cart', {
                     method: 'PUT',
                     headers: {
@@ -193,6 +193,7 @@
                     })
                 }).then((res) => res.json());
             }
+            else { return window.location.href = "/learning"}
             // console.log(result);
             window.location.href = "/cart"
         }
