@@ -10,7 +10,7 @@ const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-var findCourseBySlug;
+var findCourseBySlug,resultPayment;
 const { copy } = require("../app");
 class SiteController {
   // GET /
@@ -485,7 +485,9 @@ class SiteController {
       res.redirect('/result');
     }
     catch (err){
-      res.json({err});
+      // res.json(err.raw.message);
+      resultPayment = err.raw.message;
+      res.redirect('/error');
     }
   
   }
@@ -620,6 +622,14 @@ class SiteController {
   payment_success(req, res, next) {
     res.render("payment_success", {
       title: "Payment Success",
+      ...authMiddleware.userInfor(req),
+    });
+  }
+
+  payment_error(req, res, next) {
+    res.render("payment_error", {
+      title: "Payment Error",
+      error: resultPayment,
       ...authMiddleware.userInfor(req),
     });
   }
