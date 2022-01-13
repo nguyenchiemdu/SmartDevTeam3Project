@@ -19,7 +19,9 @@ router.get("/courses/create/2/:id", siteController.addCourses2);
 
 router.post("/courses/create/2/:id", siteController.sellerCreate2);
 
-router.get("/courses/id/edit", siteController.editCourses);
+router.get("/courses/:id/edit", siteController.editCourses);
+
+router.patch("/courses/:id", siteController.updateCoursesOfSeller);
 
 // router.delete("/seller/course/create/2/:id", siteController.destroy);
 

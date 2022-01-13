@@ -232,15 +232,54 @@ class SiteController {
 
   // edit Course demo
   async editCourses(req, res, next) {
+    let CourseId = req.params.id;
     try {
       const category = await Category.find({});
-      var courses = await Course.find({});
+      var course = await Course.find({ _id: CourseId });
+      const lessons = await Lesson.find({ course_id: course[0]._id });
       res.render("seller/edit", {
         ...authMiddleware.userInfor(req),
         categories: category,
+        course: course[0],
+        lessons: lessons,
       });
     } catch (err) {
       console.log(err);
+    }
+  }
+  async updateCoursesOfSeller(req, res, next) {
+    const formData = req.body;
+    const userInfor = authMiddleware.userInfor(req);
+    try {
+      if (userInfor.id == null) throw "Bạn phải đăng nhập trước!";
+      await Course.updateOne({ _id: req.params.id }, formData);
+      res.redirect("/seller/")
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async addLessonOfSeller(req, res, next) {
+    const formData = req.body;
+    try {
+      var newLessons = new Lesson({
+        course_id: req.params.id,
+        urlVideo: formData.urlVideo,
+        title: formData.title,
+        // order:
+        isFinish: false,
+      });
+      // res.json(newLessons);
+      await newLessons.save((err, data) => {
+        console.log({ err });
+      });
+      Lesson.find({}, (err, data) => {
+        if (!err) {
+          res.redirect(`/seller/courses/create/2/${req.params.id}`);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
     }
   }
 
@@ -250,8 +289,7 @@ class SiteController {
     const formData = req.body;
     const userInfor = authMiddleware.userInfor(req);
     try {
-      if (userInfor.id == null)
-      throw "Bạn phải đăng nhập trước!"
+      if (userInfor.id == null) throw "Bạn phải đăng nhập trước!";
       var newCourses = new Course({
         categories_id: formData.categories_id,
         user_id: userInfor.id,
@@ -281,13 +319,12 @@ class SiteController {
   // [POST] seller/course/create2
   async sellerCreate2(req, res, next) {
     const formData = req.body;
-    // console.log("post", req.params.id);
     try {
       var newLessons = new Lesson({
         course_id: req.params.id,
         urlVideo: formData.urlVideo,
         title: formData.title,
-        // order: 
+        // order:
         isFinish: false,
       });
       // res.json(newLessons);
@@ -295,7 +332,10 @@ class SiteController {
         console.log({ err });
       });
       Lesson.find({}, (err, data) => {
-        if (!err) {
+        if (!err && formData?.isEdit) {
+          res.redirect(`/seller/courses/${req.params.id}/edit`);
+        }
+        if (!formData?.isEdit) {
           res.redirect(`/seller/courses/create/2/${req.params.id}`);
         }
       });
@@ -451,11 +491,11 @@ class SiteController {
     }
   }
 
-   // [DELETE] /seller/course/create/2/:id
+  // [DELETE] /seller/course/create/2/:id
   //  async destroy(req, res, next) {
   //   try {
   //     console.log(req)
-  //     await destroyLessons.deleteOne({ 
+  //     await destroyLessons.deleteOne({
   //       _id: req.params.id,
   //       urlVideo: req.body.urlVideo,
   //       title: req.body.title,
