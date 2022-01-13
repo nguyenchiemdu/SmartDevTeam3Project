@@ -402,8 +402,20 @@ class SiteController {
 
 
   async payment(req, res, next) {
+    const userInfor = authMiddleware.userInfor(req);
+    var sumPrice =
+    userInfor.username == null ? null :
+      await UserCart.find({ user_id: userInfor.id })
+        .populate('course_id')
+        .exec()
+        .then((userCart) => {
+          let sum =0;
+          userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
+          return sum;
+        })
+        .catch(e => console.log(e));
     try{
-      const { email, price, number,exp_month,exp_year,cvc } = req.body;
+      const { email, number,exp_month,exp_year,cvc } = req.body;
       await stripe.tokens.create({
         card: {
           number,
@@ -413,7 +425,7 @@ class SiteController {
         },
       });
       const paymentIntent = await stripe.paymentIntents.create({
-          amount: parseFloat(price)*100,
+          amount: parseFloat(sumPrice)*100,
           currency: 'usd',
           // Verify your integration in this guide by including this parameter
           metadata: { integration_check: 'accept_a_payment' },
