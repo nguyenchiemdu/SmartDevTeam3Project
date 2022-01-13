@@ -8,7 +8,7 @@
             <% lessons.forEach(function(lessons) { %>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6  course-main-slider ">
                 <a id="<%= lessons.course_id %>" href="#" class="slider">
-                    <img src="<%= lessons.image %>" alt="">
+                    <img src="http://img.youtube.com/vi/<%= lessons.urlVideo %>/sddefault.jpg" alt="">
                     <h3><%= lessons.title %></h3>
                     <h4><%= lessons.description %></h4>
                 </a>
