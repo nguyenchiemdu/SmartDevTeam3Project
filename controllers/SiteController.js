@@ -251,7 +251,7 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     try {
       if (userInfor.id == null)
-      throw "Bạn phải đăng nhập trước!"
+        throw "Bạn phải đăng nhập trước!"
       var newCourses = new Course({
         categories_id: formData.categories_id,
         user_id: userInfor.id,
@@ -291,14 +291,9 @@ class SiteController {
         isFinish: false,
       });
       // res.json(newLessons);
-      await newLessons.save((err, data) => {
-        console.log({ err });
-      });
-      Lesson.find({}, (err, data) => {
-        if (!err) {
-          res.redirect(`/seller/courses/create/2/${req.params.id}`);
-        }
-      });
+      await newLessons.save();
+      
+      res.redirect(`/seller/courses/create/2/${req.params.id}`);
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -346,13 +341,13 @@ class SiteController {
         userInfor.username == null
           ? []
           : await UserCart.find({ user_id: userInfor.id })
-              .populate("course_id")
-              .exec()
-              .then((userCart) => {
-                let courses = userCart.map((course) => course.course_id);
-                return courses;
-              })
-              .catch((e) => console.log(e));
+            .populate("course_id")
+            .exec()
+            .then((userCart) => {
+              let courses = userCart.map((course) => course.course_id);
+              return courses;
+            })
+            .catch((e) => console.log(e));
       res.render("shopping-cart", {
         title: "Cart",
         ...userInfor,
@@ -451,22 +446,50 @@ class SiteController {
     }
   }
 
-   // [DELETE] /seller/course/create/2/:id
-  //  async destroy(req, res, next) {
-  //   try {
-  //     console.log(req)
-  //     await destroyLessons.deleteOne({ 
-  //       _id: req.params.id,
-  //       urlVideo: req.body.urlVideo,
-  //       title: req.body.title,
-  //       isFinish: false,
-  //     });
-  //     res.redirect(`/seller/course/create/2/${req.params.id}`);
-  //   } catch (e) {
-  //     console.log(e);
-  //     res.json(e);
-  //   }
-  // }
+  // [GET] /seller/course/create/2/:id/edit
+  async editVideo(req, res, next) {
+    try {
+      var lessons = await Lesson.find({ _id: req.params.id });
+      res.render('seller/edit2.ejs', {
+        ...authMiddleware.userInfor(req),
+        lessons: lessons
+      });
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+  // [PUT] /seller/course/create/2/:id
+  async updateVideo(req, res, next) {
+    try {
+      const lessons = await Lesson.find({ _id: req.params.id });
+      const { title, urlVideo } = req.body
+      await Lesson.findOneAndUpdate({ _id: Number(req.params.id) }, { urlVideo, title, isFinish: false })
+      lessons.map(les => {
+        const id = les.course_id
+        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`)
+      })
+
+    } catch (e) {
+      console.log(e.message);
+      // res.json(e);
+    }
+  }
+
+  // [DELETE] /seller/course/create/2/:id
+  async destroy(req, res, next) {
+    try {
+      const lessons = await Lesson.find({ _id: req.params.id });
+      await Lesson.findByIdAndDelete({ _id: req.params.id })
+      lessons.map(les => {
+        const id = les.course_id
+        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`)
+      })
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
 
   checkout(req, res, next) {
     res.render("checkout", {
