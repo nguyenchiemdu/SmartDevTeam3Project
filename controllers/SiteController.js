@@ -459,6 +459,7 @@ class SiteController {
       res.json(e);
     }
   }
+  
   // [PUT] /seller/course/create/2/:id
   async updateVideo(req, res, next) {
     try {
