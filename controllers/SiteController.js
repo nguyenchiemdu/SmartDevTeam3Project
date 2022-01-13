@@ -401,9 +401,7 @@ class SiteController {
         isFinish: false,
       });
       // res.json(newLessons);
-      await newLessons.save((err, data) => {
-        console.log({ err });
-      });
+      await newLessons.save();
       Lesson.find({}, (err, data) => {
         if (!err) {
           res.redirect(`/seller/courses/create/2/${req.params.id}`);

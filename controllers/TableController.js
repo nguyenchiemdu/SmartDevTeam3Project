@@ -2,11 +2,16 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const Category = require("../models/Category");
 const UserCart = require("../models/UserCart");
+const UserCourse = require("../models/UserCourse");
+const Lesson = require("../models/Lesson");
+
 const listTable = {
   users: User,
   courses: Course,
   categories: Category,
   usercarts : UserCart,
+  usercourses : UserCourse,
+  lessons : Lesson
 };
 var authMiddleware = require("../middlerwares/auth.middleware")
 const {
@@ -18,7 +23,6 @@ class TableController {
   async showTable(req, res, next) {
     try {
       var targetTable = listTable[req.params.table];
-      console.log(req);
       var tableData = await targetTable.find({});
       tableData = tableData.map(item => JSON.parse(JSON.stringify(item)));
       res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, ...authMiddleware.userInfor(req) });

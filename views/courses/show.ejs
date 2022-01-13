@@ -36,7 +36,7 @@
                         <p class="description"><span>Description: </span><%= course.shortDescription %></p>
                         <button course_id="<%= course._id %>" type="button"
                             class="udlite-btn btn add-to-cart"><% if (isInCart && username) {%>Go to Cart
-                            <%} if (!isCheckedOut) {%> Add to Cart <%} if (isCheckedOut){%>Learn now <%}%></button>
+                            <%}else { if (!isCheckedOut) {%> Add to Cart <%} if (isCheckedOut){%>Learn now <%}}%></button>
                         <h6 class="this">This course includes:</h6>
                         <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
                         <p><i class='bx bx-file-blank'></i>3 articles</p>

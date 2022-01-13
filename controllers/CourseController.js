@@ -9,11 +9,12 @@ class CourseController {
     try {
       var userInfor = authMiddleware.userInfor(req);
       var courses = await Course.findOne({ slug: req.params.slug });
-      var myCourse = await UserCourse.findOne({course_id : courses._id});
+      var myCourse = await UserCourse.findOne({course_id : courses._id, user_id : userInfor.id});
       const isCheckedOut = myCourse ? true : false;
       var coursesInCart = await UserCart.findOne({course_id : courses._id.toString(),user_id : userInfor.id})
       const isInCart = coursesInCart ? true : false;
-      console.log(coursesInCart);
+      console.log(isInCart);
+      console.log(isCheckedOut);
       res.render("courses/show", { course: mongooseToObject(courses), ...authMiddleware.userInfor(req),isInCart,isCheckedOut });
     } catch (e) {
       console.log(e);
