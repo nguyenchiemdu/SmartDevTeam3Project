@@ -13,7 +13,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
 
-var findCourseBySlug;
+var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 class SiteController {
@@ -552,7 +552,8 @@ class SiteController {
       res.redirect('/result');
     }
     catch (err){
-      res.json({err});
+      resultPayment = err.raw.message;
+      res.redirect('/error');
     }
   
   }
@@ -693,6 +694,14 @@ class SiteController {
   payment_success(req, res, next) {
     res.render("payment_success", {
       title: "Payment Success",
+      ...authMiddleware.userInfor(req),
+    });
+  }
+  
+  payment_error(req, res, next) {
+    res.render("payment_error", {
+      title: "Payment Error",
+      error: resultPayment,
       ...authMiddleware.userInfor(req),
     });
   }
