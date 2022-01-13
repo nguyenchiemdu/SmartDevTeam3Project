@@ -402,19 +402,19 @@ class SiteController {
 
 
   async payment(req, res, next) {
-    const userInfor = authMiddleware.userInfor(req);
-    var sumPrice =
-    userInfor.username == null ? null :
-      await UserCart.find({ user_id: userInfor.id })
-        .populate('course_id')
-        .exec()
-        .then((userCart) => {
-          let sum =0;
-          userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
-          return sum;
-        })
-        .catch(e => console.log(e));
-    try{
+      const userInfor = authMiddleware.userInfor(req);
+      var sumPrice =
+      userInfor.username == null ? null :
+        await UserCart.find({ user_id: userInfor.id })
+          .populate('course_id')
+          .exec()
+          .then((userCart) => {
+            let sum =0;
+            userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
+            return sum;
+          })
+          .catch(e => console.log(e));
+      try{
       const { email, number,exp_month,exp_year,cvc } = req.body;
       await stripe.tokens.create({
         card: {
