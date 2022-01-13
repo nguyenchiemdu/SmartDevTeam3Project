@@ -33,6 +33,8 @@ router.get("/usercart",siteController.getUserCart)
 
 router.get("/cart/checkout", siteController.checkout);
 
+router.post("/cart/payment",siteController.payment);
+
 router.get("/result", siteController.payment_success);
 
 router.get("/learning", siteController.learning);

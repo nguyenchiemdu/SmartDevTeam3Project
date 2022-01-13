@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 var findCourseBySlug;
 const { copy } = require("../app");
 class SiteController {
@@ -15,7 +17,7 @@ class SiteController {
   async home(req, res, next) {
     //////////
     try {
-      var data = await Promise.all([Course.find({}), Category.find({})]);
+      var data = await Promise.all([Course.find({}), Category.find({})])
       res.render("index.ejs", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(data[0]),
@@ -36,7 +38,7 @@ class SiteController {
       if (page) {
         page = parseInt(page);
         if (page < 1) {
-          page = 1;
+          page = 1
         }
         let skips = (page - 1) * pageSize;
 
@@ -154,6 +156,8 @@ class SiteController {
     } catch (e) {
       console.log(e);
       res.json(e);
+
+
     }
   }
 
@@ -212,12 +216,12 @@ class SiteController {
       let invoices = await Invoice.find({ course_id: courseId })
         .populate("user_id")
         .exec()
-        .then((invoices) => {
-          return invoices;
-        });
+        .then(invoices => {
+          return invoices
+        })
       console.log(invoices);
 
-      let course = await Course.findOne({ _id: courseId });
+      let course = await Course.findOne({ _id: courseId })
 
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
@@ -329,9 +333,14 @@ class SiteController {
         isFinish: false,
       });
       // res.json(newLessons);
-      await newLessons.save();
-      
-      res.redirect(`/seller/courses/create/2/${req.params.id}`);
+      await newLessons.save((err, data) => {
+        console.log({ err });
+      });
+      Lesson.find({}, (err, data) => {
+        if (!err) {
+          res.redirect(`/seller/courses/create/2/${req.params.id}`);
+        }
+      });
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -376,10 +385,9 @@ class SiteController {
     // console.log(userInfor)
     try {
       var coursesInCart =
-        userInfor.username == null
-          ? []
-          : await UserCart.find({ user_id: userInfor.id })
-            .populate("course_id")
+        userInfor.username == null ? [] :
+          await UserCart.find({ user_id: userInfor.id })
+            .populate('course_id')
             .exec()
             .then((userCart) => {
               let courses = userCart.map((course) => course.course_id);
@@ -396,12 +404,92 @@ class SiteController {
       console.log(e);
     }
   }
-  checkout(req, res, next) {
-    res.render("checkout", {
-      title: "Check Out",
-      ...authMiddleware.userInfor(req),
-    });
+  async checkout(req, res, next) {
+    const userInfor = authMiddleware.userInfor(req);
+    try {
+      var sumPrice =
+        userInfor.username == null ? null :
+          await UserCart.find({ user_id: userInfor.id })
+            .populate('course_id')
+            .exec()
+            .then((userCart) => {
+              let sum =0;
+              userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
+              return sum;
+            })
+            .catch(e => console.log(e));
+      if (sumPrice != null)
+      return res.render("checkout", {
+        sumPrice,
+        email: userInfor.username,
+        title: "Check Out",
+        ...authMiddleware.userInfor(req),
+      });
+
+      res.json({
+        error : 'You have to login first'
+      })
+    } catch (e) {
+      res.json(e);
+      console.log(e);
+
+    }
+
   }
+
+  // Payment checkout to striped
+  // [Post] /cart/payment
+  async payment(req, res, next) {
+      const userInfor = authMiddleware.userInfor(req);
+      var sumPrice =
+      userInfor.username == null ? null :
+        await UserCart.find({ user_id: userInfor.id })
+          .populate('course_id')
+          .exec()
+          .then((userCart) => {
+            let sum =0;
+            userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
+            return sum;
+          })
+          .catch(e => console.log(e));
+      try{
+      const { email, number,exp_month,exp_year,cvc } = req.body;
+      await stripe.tokens.create({
+        card: {
+          number,
+          exp_month,
+          exp_year,
+          cvc,
+        },
+      });
+      const paymentIntent = await stripe.paymentIntents.create({
+          amount: parseFloat(sumPrice)*100,
+          currency: 'usd',
+          // Verify your integration in this guide by including this parameter
+          metadata: { integration_check: 'accept_a_payment' },
+          payment_method_types: ['card'],
+          receipt_email: email
+      });
+      if(paymentIntent.client_secret!==null){
+          stripe.paymentIntents.confirm(
+          paymentIntent.id,
+          {payment_method: 'pm_card_visa'}
+        )
+        // .then(async (result) => {
+        //     await stripe.charges.update(
+        //       result.charges.data[0].id,
+        //       {billing_details: {email: email}}
+        //     );
+        // })
+      }
+      res.redirect('/result');
+    }
+    catch (err){
+      res.json({err});
+    }
+  
+  }
+
 
   //GET /password
   password(req, res, next) {
@@ -433,12 +521,11 @@ class SiteController {
       const userInfor = authMiddleware.userInfor(req);
       if (!userInfor.username)
         res.json({
-          status: "failed",
-        });
-      else
-        res.json({
-          status: "success",
-        });
+          status: 'failed'
+        })
+      else res.json({
+        status: 'success'
+      })
     } catch (e) {
       console(e);
       res.json(e);
@@ -456,7 +543,7 @@ class SiteController {
     try {
       await itemData.save();
       res.json({
-        status: "success",
+        status: 'success'
       });
     } catch (e) {
       res.json(e);
@@ -529,12 +616,7 @@ class SiteController {
     }
   }
 
-  checkout(req, res, next) {
-    res.render("checkout", {
-      title: "Check Out",
-      ...authMiddleware.userInfor(req),
-    });
-  }
+
   payment_success(req, res, next) {
     res.render("payment_success", {
       title: "Payment Success",
