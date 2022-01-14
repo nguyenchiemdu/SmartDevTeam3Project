@@ -492,6 +492,7 @@ class SiteController {
   // [Post] /cart/payment
   async payment(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
+    const { email, number, exp_month, exp_year, cvc } = req.body;
     var sumPrice =
       userInfor.username == null
         ? null
@@ -507,8 +508,7 @@ class SiteController {
             })
             .catch((e) => console.log(e));
     try {
-      const { email, number, exp_month, exp_year, cvc } = req.body;
-      await stripe.tokens.create({
+      const token = await stripe.tokens.create({
         card: {
           number,
           exp_month,
@@ -516,25 +516,18 @@ class SiteController {
           cvc,
         },
       });
-      const paymentIntent = await stripe.paymentIntents.create({
+      const customer = await stripe.customers.create({
+        email,
+        source: token.id,
+      });
+      await stripe.charges.create({
         amount: parseFloat(sumPrice) * 100,
-        currency: "usd",
+        currency: 'usd',
+        customer: customer.id,
         // Verify your integration in this guide by including this parameter
         metadata: { integration_check: "accept_a_payment" },
-        payment_method_types: ["card"],
         receipt_email: email,
       });
-      if (paymentIntent.client_secret !== null) {
-        stripe.paymentIntents.confirm(paymentIntent.id, {
-          payment_method: "pm_card_visa",
-        });
-        // .then(async (result) => {
-        //     await stripe.charges.update(
-        //       result.charges.data[0].id,
-        //       {billing_details: {email: email}}
-        //     );
-        // })
-      }
       res.redirect("/result");
     } catch (err) {
       resultPayment = err.raw.message;
