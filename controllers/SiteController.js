@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
-const Stripe = require('stripe');
+const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
@@ -21,7 +21,7 @@ class SiteController {
   async home(req, res, next) {
     //////////
     try {
-      var data = await Promise.all([Course.find({}), Category.find({})])
+      var data = await Promise.all([Course.find({}), Category.find({})]);
       res.render("index.ejs", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(data[0]),
@@ -42,7 +42,7 @@ class SiteController {
       if (page) {
         page = parseInt(page);
         if (page < 1) {
-          page = 1
+          page = 1;
         }
         let skips = (page - 1) * pageSize;
 
@@ -101,15 +101,18 @@ class SiteController {
   async learning(req, res, next) {
     try {
       let userInfor = authMiddleware.userInfor(req);
-      if (userInfor.username == null) return res.json({ error: "Bạn phải đăng nhập trước" })
+      if (userInfor.username == null)
+        return res.json({ error: "Bạn phải đăng nhập trước" });
       let userCourses = await UserCourse.find({ user_id: userInfor.id })
         .populate("course_id")
         .exec()
         .then((userCourses) => {
-
-          let courses = userCourses.length < 1 ? [] : userCourses.map(course => course.course_id);
+          let courses =
+            userCourses.length < 1
+              ? []
+              : userCourses.map((course) => course.course_id);
           return courses;
-        })
+        });
 
       // console.log(userCourses);
       res.render("learning.ejs", {
@@ -123,33 +126,36 @@ class SiteController {
   }
   async userLearning(req, res, next) {
     let userInfor = authMiddleware.userInfor(req);
-    if (userInfor.id == null) res.json({error : 'Ban phai dang nhap truoc'});
+    if (userInfor.id == null) res.json({ error: "Ban phai dang nhap truoc" });
     let courseId = req.params.id;
     let videoId = req.query.videos;
 
     if (videoId == null) {
       var lesson = await Lesson.findOne({ course_id: courseId });
-      if (lesson == null) return res.json({ error: "Khoá học này chưa khả dụng" })
-      return res.redirect(`/learning/${req.params.id}?videos=${lesson._id}`)
+      if (lesson == null)
+        return res.json({ error: "Khoá học này chưa khả dụng" });
+      return res.redirect(`/learning/${req.params.id}?videos=${lesson._id}`);
     }
 
     try {
-
       let courseId = req.params.id;
-      var lessons = await Lesson.find({ course_id: courseId })
+      var lessons = await Lesson.find({ course_id: courseId });
 
-      let course = await Course.findOne({ _id: courseId })
-      // console.log(lessons);  
+      let course = await Course.findOne({ _id: courseId });
+      // console.log(lessons);
       let currentLesson;
-      lessons.forEach(lesson => {
+      lessons.forEach((lesson) => {
         if (lesson._id == videoId) {
           currentLesson = lesson;
         }
       });
-      var userTracking = await UserLesson.findOne({user_id : userInfor.id, lesson_id : currentLesson._id});
+      var userTracking = await UserLesson.findOne({
+        user_id: userInfor.id,
+        lesson_id: currentLesson._id,
+      });
 
       res.render("userLearning/user-learning.ejs", {
-        progress : userTracking ==  null ? 0 : userTracking.progress,
+        progress: userTracking == null ? 0 : userTracking.progress,
         lessons,
         currentLesson,
         course,
@@ -163,17 +169,18 @@ class SiteController {
   async trackUser(req, res, next) {
     try {
       var userInfor = authMiddleware.userInfor(req);
-      if (userInfor.id == null) return res.json('Ban phai dang nhap truoc');
+      if (userInfor.id == null) return res.json("Ban phai dang nhap truoc");
       // console.log(typeof req.params.lessonid);
       // console.log(req.body);
       var doc = await UserLesson.findOne({
         user_id: userInfor.id,
         lesson_id: req.params.lessonid,
       });
-      if (doc == null) doc = new UserLesson({
-        user_id: userInfor.id,
-        lesson_id: req.params.lessonid,
-      })
+      if (doc == null)
+        doc = new UserLesson({
+          user_id: userInfor.id,
+          lesson_id: req.params.lessonid,
+        });
       doc.progress = req.body.progress;
       if (req.body.highestPercent > 90) doc.isFinish = true;
       var res = await doc.save();
@@ -182,7 +189,6 @@ class SiteController {
       console.log(e);
       res.json(e);
     }
-
   }
 
   async search(req, res, next) {
@@ -223,8 +229,6 @@ class SiteController {
     } catch (e) {
       console.log(e);
       res.json(e);
-
-
     }
   }
 
@@ -279,17 +283,16 @@ class SiteController {
   // bill Course demo
   async billCourses(req, res, next) {
     try {
-
       let courseId = req.params.id;
       let invoices = await Invoice.find({ course_id: courseId })
         .populate("user_id")
         .exec()
-        .then(invoices => {
-          return invoices
-        })
+        .then((invoices) => {
+          return invoices;
+        });
       console.log(invoices);
 
-      let course = await Course.findOne({ _id: courseId })
+      let course = await Course.findOne({ _id: courseId });
 
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
@@ -325,33 +328,9 @@ class SiteController {
     try {
       if (userInfor.id == null) throw "Bạn phải đăng nhập trước!";
       await Course.updateOne({ _id: req.params.id }, formData);
-      res.redirect("/seller/")
+      res.redirect("/seller/");
     } catch (err) {
       console.log(err);
-    }
-  }
-  async addLessonOfSeller(req, res, next) {
-    const formData = req.body;
-    try {
-      var newLessons = new Lesson({
-        course_id: req.params.id,
-        urlVideo: formData.urlVideo,
-        title: formData.title,
-        // order:
-        isFinish: false,
-      });
-      // res.json(newLessons);
-      await newLessons.save((err, data) => {
-        console.log({ err });
-      });
-      Lesson.find({}, (err, data) => {
-        if (!err) {
-          res.redirect(`/seller/courses/create/2/${req.params.id}`);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-      res.json(e);
     }
   }
 
@@ -361,8 +340,7 @@ class SiteController {
     const formData = req.body;
     const userInfor = authMiddleware.userInfor(req);
     try {
-      if (userInfor.id == null)
-        throw "Bạn phải đăng nhập trước!"
+      if (userInfor.id == null) throw "Bạn phải đăng nhập trước!";
       var newCourses = new Course({
         categories_id: formData.categories_id,
         user_id: userInfor.id,
@@ -401,9 +379,14 @@ class SiteController {
         isFinish: false,
       });
       // res.json(newLessons);
-      await newLessons.save();
+      await newLessons.save((err, data) => {
+        console.log({ err });
+      });
       Lesson.find({}, (err, data) => {
-        if (!err) {
+        if (!err && formData?.isEdit) {
+          res.redirect(`/seller/courses/${req.params.id}/edit`);
+        }
+        if (!formData?.isEdit) {
           res.redirect(`/seller/courses/create/2/${req.params.id}`);
         }
       });
@@ -454,13 +437,13 @@ class SiteController {
         userInfor.username == null
           ? []
           : await UserCart.find({ user_id: userInfor.id })
-            .populate("course_id")
-            .exec()
-            .then((userCart) => {
-              let courses = userCart.map((course) => course.course_id);
-              return courses;
-            })
-            .catch((e) => console.log(e));
+              .populate("course_id")
+              .exec()
+              .then((userCart) => {
+                let courses = userCart.map((course) => course.course_id);
+                return courses;
+              })
+              .catch((e) => console.log(e));
       res.render("shopping-cart", {
         title: "Cart",
         ...userInfor,
@@ -475,52 +458,56 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     try {
       var sumPrice =
-        userInfor.username == null ? null :
-          await UserCart.find({ user_id: userInfor.id })
-            .populate('course_id')
-            .exec()
-            .then((userCart) => {
-              let sum =0;
-              userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
-              return sum;
-            })
-            .catch(e => console.log(e));
+        userInfor.username == null
+          ? null
+          : await UserCart.find({ user_id: userInfor.id })
+              .populate("course_id")
+              .exec()
+              .then((userCart) => {
+                let sum = 0;
+                userCart.forEach(
+                  (item) => (sum += parseFloat(item.course_id.price))
+                );
+                return sum;
+              })
+              .catch((e) => console.log(e));
       if (sumPrice != null)
-      return res.render("checkout", {
-        sumPrice,
-        email: userInfor.username,
-        title: "Check Out",
-        ...authMiddleware.userInfor(req),
-      });
+        return res.render("checkout", {
+          sumPrice,
+          email: userInfor.username,
+          title: "Check Out",
+          ...authMiddleware.userInfor(req),
+        });
 
       res.json({
-        error : 'You have to login first'
-      })
+        error: "You have to login first",
+      });
     } catch (e) {
       res.json(e);
       console.log(e);
-
     }
-
   }
 
   // Payment checkout to striped
   // [Post] /cart/payment
   async payment(req, res, next) {
-      const userInfor = authMiddleware.userInfor(req);
-      var sumPrice =
-      userInfor.username == null ? null :
-        await UserCart.find({ user_id: userInfor.id })
-          .populate('course_id')
-          .exec()
-          .then((userCart) => {
-            let sum =0;
-            userCart.forEach(item=>sum+= parseFloat(item.course_id.price));
-            return sum;
-          })
-          .catch(e => console.log(e));
-      try{
-      const { email, number,exp_month,exp_year,cvc } = req.body;
+    const userInfor = authMiddleware.userInfor(req);
+    var sumPrice =
+      userInfor.username == null
+        ? null
+        : await UserCart.find({ user_id: userInfor.id })
+            .populate("course_id")
+            .exec()
+            .then((userCart) => {
+              let sum = 0;
+              userCart.forEach(
+                (item) => (sum += parseFloat(item.course_id.price))
+              );
+              return sum;
+            })
+            .catch((e) => console.log(e));
+    try {
+      const { email, number, exp_month, exp_year, cvc } = req.body;
       await stripe.tokens.create({
         card: {
           number,
@@ -530,18 +517,17 @@ class SiteController {
         },
       });
       const paymentIntent = await stripe.paymentIntents.create({
-          amount: parseFloat(sumPrice)*100,
-          currency: 'usd',
-          // Verify your integration in this guide by including this parameter
-          metadata: { integration_check: 'accept_a_payment' },
-          payment_method_types: ['card'],
-          receipt_email: email
+        amount: parseFloat(sumPrice) * 100,
+        currency: "usd",
+        // Verify your integration in this guide by including this parameter
+        metadata: { integration_check: "accept_a_payment" },
+        payment_method_types: ["card"],
+        receipt_email: email,
       });
-      if(paymentIntent.client_secret!==null){
-          stripe.paymentIntents.confirm(
-          paymentIntent.id,
-          {payment_method: 'pm_card_visa'}
-        )
+      if (paymentIntent.client_secret !== null) {
+        stripe.paymentIntents.confirm(paymentIntent.id, {
+          payment_method: "pm_card_visa",
+        });
         // .then(async (result) => {
         //     await stripe.charges.update(
         //       result.charges.data[0].id,
@@ -549,15 +535,12 @@ class SiteController {
         //     );
         // })
       }
-      res.redirect('/result');
-    }
-    catch (err){
+      res.redirect("/result");
+    } catch (err) {
       resultPayment = err.raw.message;
-      res.redirect('/error');
+      res.redirect("/error");
     }
-  
   }
-
 
   //GET /password
   password(req, res, next) {
@@ -589,11 +572,12 @@ class SiteController {
       const userInfor = authMiddleware.userInfor(req);
       if (!userInfor.username)
         res.json({
-          status: 'failed'
-        })
-      else res.json({
-        status: 'success'
-      })
+          status: "failed",
+        });
+      else
+        res.json({
+          status: "success",
+        });
     } catch (e) {
       console(e);
       res.json(e);
@@ -611,7 +595,7 @@ class SiteController {
     try {
       await itemData.save();
       res.json({
-        status: 'success'
+        status: "success",
       });
     } catch (e) {
       res.json(e);
@@ -643,9 +627,9 @@ class SiteController {
   async editVideo(req, res, next) {
     try {
       var lessons = await Lesson.find({ _id: req.params.id });
-      res.render('seller/edit2.ejs', {
+      res.render("seller/edit2.ejs", {
         ...authMiddleware.userInfor(req),
-        lessons: lessons
+        lessons: lessons,
       });
     } catch (e) {
       console.log(e);
@@ -662,13 +646,15 @@ class SiteController {
   async updateVideo(req, res, next) {
     try {
       const lessons = await Lesson.find({ _id: req.params.id });
-      const { title, urlVideo } = req.body
-      await Lesson.findOneAndUpdate({ _id: Number(req.params.id) }, { urlVideo, title, isFinish: false })
-      lessons.map(les => {
-        const id = les.course_id
-        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`)
-      })
-
+      const { title, urlVideo } = req.body;
+      await Lesson.findOneAndUpdate(
+        { _id: Number(req.params.id) },
+        { urlVideo, title, isFinish: false }
+      );
+      lessons.map((les) => {
+        const id = les.course_id;
+        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+      });
     } catch (e) {
       console.log(e.message);
       // res.json(e);
@@ -679,17 +665,16 @@ class SiteController {
   async destroy(req, res, next) {
     try {
       const lessons = await Lesson.find({ _id: req.params.id });
-      await Lesson.findByIdAndDelete({ _id: req.params.id })
-      lessons.map(les => {
-        const id = les.course_id
-        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`)
-      })
+      await Lesson.findByIdAndDelete({ _id: req.params.id });
+      lessons.map((les) => {
+        const id = les.course_id;
+        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+      });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
-
 
   payment_success(req, res, next) {
     res.render("payment_success", {
@@ -697,7 +682,7 @@ class SiteController {
       ...authMiddleware.userInfor(req),
     });
   }
-  
+
   payment_error(req, res, next) {
     res.render("payment_error", {
       title: "Payment Error",
