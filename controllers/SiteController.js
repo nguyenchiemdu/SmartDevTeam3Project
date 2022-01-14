@@ -12,6 +12,7 @@ const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
+const Transaction = require("../models/Transaction");
 
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
@@ -508,6 +509,7 @@ class SiteController {
             })
             .catch((e) => console.log(e));
     try {
+      // Create token check valid card
       const token = await stripe.tokens.create({
         card: {
           number,
@@ -516,17 +518,54 @@ class SiteController {
           cvc,
         },
       });
+      // Create customer to save email customer to show in bill
       const customer = await stripe.customers.create({
         email,
         source: token.id,
       });
-      await stripe.charges.create({
+      // Create charge method to payment
+      const charge = await stripe.charges.create({
         amount: parseFloat(sumPrice) * 100,
         currency: 'usd',
         customer: customer.id,
         // Verify your integration in this guide by including this parameter
         metadata: { integration_check: "accept_a_payment" },
         receipt_email: email,
+      });
+      // Save transaction data value and status
+      var transactions = new Transaction({
+        user_id: userInfor.id,
+        email, 
+        chargeID: charge.id,
+        cartNumber: number,
+        price: sumPrice,
+        status: true
+      })
+      // Add course in Mylearning and invoices
+      const courseInCart = await UserCart.find({ user_id: userInfor.id })
+      .populate("course_id")
+      .exec()
+      console.log(courseInCart);
+      courseInCart.forEach(async (course)=>{
+        var usercourses = new UserCourse({
+          user_id: userInfor.id,
+          course_id: course.course_id._id
+        })
+        var invoices = new Invoice({
+          user_id: userInfor.id,
+          course_id: course.course_id._id,
+          totalPayout: course.course_id.price
+        })
+        await usercourses.save();
+        await invoices.save();
+      })
+      await transactions.save();
+      // Delete course out of userCart
+      await UserCart.deleteMany({ user_id: userInfor.id })
+      .then(function(){
+        console.log("Data deleted"); // Success
+      }).catch(function(error){
+          console.log(error); // Failure
       });
       res.redirect("/result");
     } catch (err) {
