@@ -36,15 +36,16 @@ const getSlug = (value) =>{
 }
 // Render course data
 const renderCourses = (courses) => {
+    
     var htmls = courses.map(function (course) {
         return `
-        <div class="swiper-slide">
+     
             <a id="${course._id}" href="/courses/${course.slug}" class="slider">
                 <img src="${course.image}" alt="">
                 <h3>${course.name}</h3>
                 <h6>A$${course.price}</h6>
             </a>
-        </div>
+     
         `;
     });
     Array.prototype.map.call(renderCourse, function(render){render.innerHTML = htmls.join('')});
