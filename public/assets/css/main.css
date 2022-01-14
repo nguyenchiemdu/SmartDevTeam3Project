@@ -260,12 +260,18 @@ section.courses .course-main-title {
     margin-bottom: 40px;
 }
 
+section.courses .course-main-slider {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 section.courses .course-main-slider .slider {
     padding: 8px 8px;
+    width: 255px;
 }
 
 section.courses .course-main-slider img {
-    width: 100%;
     height: 12rem;
 }
 
