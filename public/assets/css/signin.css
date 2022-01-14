@@ -24,7 +24,7 @@ section.sign-in {
 }
 
 section .sign-in-left {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     background-color: var(--main-background-color);
     padding-left: 50px;

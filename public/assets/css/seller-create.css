@@ -51,6 +51,3 @@
 .course-container button.up-down:disabled {
     visibility: hidden;
 }
-.input-container {
-    margin: 0 15px;
-}

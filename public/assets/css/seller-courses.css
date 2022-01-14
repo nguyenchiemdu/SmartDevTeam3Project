@@ -141,7 +141,7 @@ form label {
     color: var(--style-color);
 }
 form button.btn-save {
-    margin: 30px 0;
+    margin: 30px 15px;
     background-color: var(--style-color);
     border-color: var(--style-color);
     transition: all 0.3s ease;
