@@ -61,6 +61,14 @@ a {
     margin: 40px auto;
     font-size:20px;
 }
+a.detail {
+    background-color: var(--style-color);
+    border-color: var(--style-color);
+}
+a.detail:hover {
+    background-color: var(--main-background4-color);
+    border-color: var(--main-background4-color);
+}
 
 .instructor-dashboard--panel{
     margin: 0 15px;

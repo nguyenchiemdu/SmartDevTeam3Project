@@ -20,6 +20,14 @@
     color: var(--main-color);
     margin-bottom: 30px;
 }
+.btn-primary {
+    background-color: var(--style-color);
+    border-color: var(--style-color);
+}
+.btn-primary:hover {
+    background-color: var(--main-background4-color);
+    border-color: var(--main-background4-color);
+}
 .course-container {
     width: 100%;
     margin: 15px;
