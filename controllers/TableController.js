@@ -119,16 +119,6 @@ class TableController {
     }
   }
 
-  async kiemduyet(req, res, next) {
-    const courseIsNotValidate = await Course.find({isValidated: 0})
-    console.log(courseIsNotValidate);
-    try {
-      res.render("admin/kiemduyet",{ ...authMiddleware.userInfor(req), courseIsNotValidate});
-    } catch (e) {
-      console.log(e);
-      res.json(e);
-    }
-  }
 }
 
 module.exports = new TableController();

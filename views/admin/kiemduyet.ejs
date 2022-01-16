@@ -31,48 +31,9 @@
               </li>
             </ul>
           </div>
-          <div class="col-sm content">
-            <div class="row justify-content-center mb-5">
-              <div class="col-md-6">
-                <div class="mb-4">
-                  <h3>Welcome <strong>Admin</strong></h3>
-                </div>
-                <h4>Select table in SmartDev Database</h4>
-              </div>
-            </div>
+          <div class="col-sm content" style="margin-top: 20px;">
       
-            <div class="container">
-              <!-- <table
-                class="table table-bordered table-striped table-hover"
-                style="table-layout: fixed"
-              >
-                <thead class="table-dark">
-                  <tr>
-                    <th scope="col" class="text-truncate">#</th>
-                    <th scope="col" class="text-truncate">Table</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td class="text-truncate">courses</td>
-                    <td>
-                      <div
-                        class="btn-group"
-                        role="group"
-                        aria-label="Basic mixed styles example"
-                      >
-                        <a type="button btn-primary" href="./courses/" class="btn btn-primary"
-                          >Go</a
-                        >
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
-        
-      
+            
             <div class="container">
               <table
                 class="table table-bordered table-striped table-hover"
@@ -94,7 +55,7 @@
                     <td class="text-truncate"><%- course.name%></td>
                     <td><%- course.price%></td>
                     <td>
-                      <a href="">
+                      <a href="/kiemduyet/<%- course.slug%>">
                         <i class="fas fa-info-circle"></i>
                       </a>
                       <a href="">
@@ -110,7 +71,7 @@
                 <a class="btn btn-danger" href="/"> Sign out </a>
               </div>
             </div>
-          </div>
+      
         </div>
       </div>
     
