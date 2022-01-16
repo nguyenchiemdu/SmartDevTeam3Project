@@ -3,15 +3,18 @@
     background-color: var(--main-background-color);
 }
 .sidebar__list{
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 .sidebar__list li{
     list-style: none;
     padding: 12px 12px;
 }
-.sidebar__list .sidebar__list-item a{
+.sidebar__list .sidebar__list-item{
     color: var(--main-color) !important;
 }
+.sidebar__list .sidebar__list-item a{
+    color: inherit !important;
+}
 .content{
-    flex:5;
+    flex:7;
 }

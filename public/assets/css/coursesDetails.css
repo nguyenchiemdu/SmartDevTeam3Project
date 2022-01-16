@@ -194,3 +194,33 @@ a {
     margin-bottom: 16px;
     margin-left: 12px;
 }
+.btn-area{
+    position: fixed;
+    z-index: 1000;
+    bottom: 130px;
+    right: 130px;
+    width: 35px;
+    height: 82px;
+
+}
+.btn-area ul{
+    list-style: none;
+    display: inline-block;
+    width: inherit;
+    height: inherit;
+}
+.btn-area li{
+    display: inline-block;
+    position: relative;
+}
+.btn-area .btn-item button{
+    color: var(--main-color);
+    text-align: center;
+    height: auto;
+    background-color: #ec008c;
+    border: none;
+    width: 90px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+}
