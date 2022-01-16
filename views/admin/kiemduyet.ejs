@@ -21,8 +21,14 @@
         <div class="row">
           <div class="sidebar col-sm">
             <ul class = "sidebar__list">
-              <li class = "sidebar__list-item"><a href="/admin">CRUD Database</a></li>
-              <li class = "sidebar__list-item"><a href="/admin/kiemduyet">Kiểm duyệt khóa học</a></li>
+              <li class = "sidebar__list-item">
+                <i class="fas fa-server"></i>
+                <a href="/admin">CRUD Database</a>
+              </li>
+              <li class = "sidebar__list-item">
+                <i class="fas fa-check-square"></i>
+                <a href="/admin/kiemduyet">Kiểm duyệt khóa học</a>
+              </li>
             </ul>
           </div>
           <div class="col-sm content">
@@ -66,9 +72,40 @@
                 </tbody>
               </table> -->
         
-            <% courseIsNotValidate.forEach(function(course) { %> 
-                <p><%- course._id%></p>
-            <%});%>
+      
+            <div class="container">
+              <table
+                class="table table-bordered table-striped table-hover"
+                style="table-layout: fixed"
+              >
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col" class="text-truncate">#</th>
+                    <th scope="col" class="text-truncate">Name of Course</th>
+                    <th scope="col" class="text-truncate">Price</th>
+                    <th scope="col" class="text-truncate">Status</th>
+                  </tr>
+                </thead>
+                <% var i =1;%>
+                <tbody>
+                  <% courseIsNotValidate.forEach(function(course) { %> 
+                  <tr>
+                    <td><%- i++%></td>
+                    <td class="text-truncate"><%- course.name%></td>
+                    <td><%- course.price%></td>
+                    <td>
+                      <a href="">
+                        <i class="fas fa-info-circle"></i>
+                      </a>
+                      <a href="">
+                        <i class="fas fa-check"></i>
+                      </a>
+                    </td>
+                  </tr>
+                 <%});%>
+                </tbody>
+              </table>
+        
               <div class="mt-5 mb-5">
                 <a class="btn btn-danger" href="/"> Sign out </a>
               </div>
