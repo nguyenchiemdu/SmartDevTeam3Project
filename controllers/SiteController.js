@@ -18,32 +18,27 @@ var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 
-const pagination = async (req,Table,pageSize) => {
+const pagination = async (req,Table,pageSize,populateString,findCondition) => {
   try {
     let page = req.query.page || 1;
     return await
       Table
-      .find({})
+      .find(findCondition)
       .skip((pageSize * page) - pageSize)
       .limit(pageSize)
+      .populate(populateString)
       .exec()
       .then(async(docs) => {
+        var countResult;
         let pages = await
-        Table.countDocuments()
+        Table.countDocuments(findCondition)
         .then((count) => { // đếm để tính xem có bao nhiêu trang
+          countResult = count;
           let pages =  Math.ceil(count / pageSize);
           return pages
-          // res.render("courses-view.ejs", {
-          //   ...authMiddleware.userInfor(req),
-          //   docs, // sản phẩm trên một paga
-          //   current: page, // page hiện tại
-          //   pages: Math.ceil(count / pageSize) // tổng số các page
-          // });
         });
-        return {docs,page,pages}
+        return {docs,page,pages,countResult}
       });
-      console.log(result);
-      return result;
   } catch (e) {
     console.log(e);
     res.json(e);
@@ -72,7 +67,7 @@ class SiteController {
     
     try {
     
-      let result = await pagination(req,Course,pageSize).then(res => res)
+      let result = await pagination(req,Course,pageSize,'').then(res => res)
       console.log(result.docs);
 
       res.render("courses-view.ejs", {
@@ -119,23 +114,13 @@ class SiteController {
       let userInfor = authMiddleware.userInfor(req);
       if (userInfor.username == null)
         return res.json({ error: "Bạn phải đăng nhập trước" });
-      let userCourses = await UserCourse.find({ user_id: userInfor.id })
-        .populate("course_id")
-        .exec()
-        .then((userCourses) => {
-          let courses =
-            userCourses.length < 1
-              ? []
-              : userCourses.map((course) => course.course_id);
-          return courses;
-        });
         
-        let result = await pagination(req,UserCourse,pageSize).then(res => res)
+        let result = await pagination(req,UserCourse,pageSize,'course_id').then(res => res)
         console.log(result.docs);
-      // console.log(userCourses);
+        let userCourses = result.docs.map(doc => doc.course_id);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses : result.docs, // sản phẩm trên một paga
+        courses : userCourses, // sản phẩm trên một paga
         current: result.page, // page hiện tại
         pages: result.pages
       
@@ -215,49 +200,20 @@ class SiteController {
   async search(req, res, next) {
 
     const pageSize = 4;
+    console.log(req);
     try {
-      const searchName = req.query.name.toLowerCase();
-      const courses = await Course.find({});
-      const personSearch = [];
-      let countSearch = 0;
-      courses.forEach((item) => {
-        if (
-          item.name.toLowerCase().indexOf(searchName) !== -1 ||
-          item.price.toLowerCase().indexOf(searchName) !== -1
-        ) {
-          personSearch.push(item);
-          countSearch++;
-        }
-      });
-     
+      const searchName = req.query.name;
+      let result =  await pagination(req,Course,pageSize,'',{ name : { "$regex": searchName, "$options": "i" }});
+      // console.log(result);
 
       res.render("searchPage.ejs", {
-        personSearch: mutipleMongooseToObject(personSearch),
+        personSearch: mutipleMongooseToObject(result.docs),
+        current: result.page, // page hiện tại
+        pages: result.pages,
         searchName: searchName,
-        countSearch: countSearch,
+        countSearch: result.countResult,
         ...authMiddleware.userInfor(req),
       });
-
-      // let page = req.query.page || 1;
-      // personSearchs
-      // .find({})
-      // .skip((pageSize * page) - pageSize)
-      // .limit(pageSize)
-      // .exec((err, personSearch) => {
-      //   personSearchs.countDocuments((err, count) => { // đếm để tính xem có bao nhiêu trang
-      //     if (err) return next(err);
-      //     res.render("courses-view.ejs", {
-      //       ...authMiddleware.userInfor(req),
-      //       personSearch, // sản phẩm trên một paga
-      //       current: page, // page hiện tại
-      //       pages: Math.ceil(count / pageSize) // tổng số các page
-      //     });
-      //   });
-      // });
-
-
-
-
     } catch (e) {
       console.log(e);
       res.json(e);
