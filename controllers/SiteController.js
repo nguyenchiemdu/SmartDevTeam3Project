@@ -314,7 +314,7 @@ class SiteController {
       category = category.map((item) => {
         return {
           nameCategory: item.nameCategory,
-          _id: JSON.stringify(item._id),
+          _id: item._id.toString(),
         };
       });
       console.log(typeof category[0]._id);
@@ -327,7 +327,7 @@ class SiteController {
         shortDescription: course[0].shortDescription,
         description: course[0].description,
         price: course[0].price,
-        categories_id: JSON.stringify(course[0].categories_id),
+        categories_id: course[0].categories_id.toString(),
       };
 
       res.render("seller/edit", {
@@ -703,7 +703,11 @@ class SiteController {
       );
       lessons.map((les) => {
         const id = les.course_id;
-        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+        if (req.body.isEdit) {
+          res.redirect(`/seller/courses/${id}/edit`);
+        } else {
+          res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+        }
       });
     } catch (e) {
       console.log(e.message);

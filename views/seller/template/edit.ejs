@@ -26,7 +26,7 @@
                         id="categoryID">
                         <% categories.forEach(function(category) { %>
                             <% if(category._id===course.categories_id){ %>
-                            <option value="<%= category._id %>" selected >
+                            <option value=<%= category._id %> selected >
                                 <%=category.nameCategory %>
                             </option>
                             <% } else { %>
@@ -71,9 +71,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/course/create/2/<%=course._id %>/edit" type="edit"
+                                <a href="/seller/course/create/2/<%= lesson._id %>/edit" id="editBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <a href="/seller/course/create/2/<%=course._id %>/delete" type="delete"
+                                <a href="/seller/course/create/2/<%= lesson._id %>/delete" id="delBtn" type="delete"
                                     class="btn btn-danger delete">
                                     Delete
                                 </a>
