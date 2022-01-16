@@ -17,6 +17,39 @@ const Transaction = require("../models/Transaction");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
+
+const pagination = async (req,Table,pageSize) => {
+  try {
+    let page = req.query.page || 1;
+    return await
+      Table
+      .find({})
+      .skip((pageSize * page) - pageSize)
+      .limit(pageSize)
+      .exec()
+      .then(async(docs) => {
+        let pages = await
+        Table.countDocuments()
+        .then((count) => { // đếm để tính xem có bao nhiêu trang
+          let pages =  Math.ceil(count / pageSize);
+          return pages
+          // res.render("courses-view.ejs", {
+          //   ...authMiddleware.userInfor(req),
+          //   docs, // sản phẩm trên một paga
+          //   current: page, // page hiện tại
+          //   pages: Math.ceil(count / pageSize) // tổng số các page
+          // });
+        });
+        return {docs,page,pages}
+      });
+      console.log(result);
+      return result;
+  } catch (e) {
+    console.log(e);
+    res.json(e);
+  }
+}
+
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -33,48 +66,29 @@ class SiteController {
       res.render(e);
     }
   }
-
   // [GET] /courses
   async courses(req, res, next) {
-    const pageSize = 4;
+    const pageSize = 8;
+    
     try {
-      let page = req.query.page;
+    
+      let result = await pagination(req,Course,pageSize).then(res => res)
+      console.log(result.docs);
 
-      if (page) {
-        page = parseInt(page);
-        if (page < 1) {
-          page = 1;
-        }
-        let skips = (page - 1) * pageSize;
-
-        Course.find({})
-          .skip(skips)
-          .limit(pageSize)
-          .then((courses) => {
-            res.json(courses);
-            // res.render("courses-view.ejs", {
-            //   ...authMiddleware.userInfor(req),
-            //   courses: mutipleMongooseToObject(courses),
-            // });
-          })
-          .catch((err) => {
-            console.log(e);
-            res.json(e);
-          });
-      } else {
-        // res.redirect("/courses?page=1")
-        var courses = await Course.find().skip(0).limit(pageSize);
-        // res.json(courses);
-        res.render("courses-view.ejs", {
-          ...authMiddleware.userInfor(req),
-          courses: mutipleMongooseToObject(courses),
-        });
-      }
+      res.render("courses-view.ejs", {
+        ...authMiddleware.userInfor(req),
+        courses : result.docs, // sản phẩm trên một paga
+        current: result.page, // page hiện tại
+        pages: result.pages // tổng số các page
+      });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
+
+ 
+
   // [Post] localhost:8080/category
   // Post slug to find ID Category
   async category(req, res, next) {
@@ -101,6 +115,7 @@ class SiteController {
 
   async learning(req, res, next) {
     try {
+      let pageSize = 4;
       let userInfor = authMiddleware.userInfor(req);
       if (userInfor.username == null)
         return res.json({ error: "Bạn phải đăng nhập trước" });
@@ -114,11 +129,16 @@ class SiteController {
               : userCourses.map((course) => course.course_id);
           return courses;
         });
-
+        
+        let result = await pagination(req,UserCourse,pageSize).then(res => res)
+        console.log(result.docs);
       // console.log(userCourses);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(userCourses),
+        courses : result.docs, // sản phẩm trên một paga
+        current: result.page, // page hiện tại
+        pages: result.pages
+      
       });
     } catch (e) {
       console.log(e);
@@ -193,6 +213,8 @@ class SiteController {
   }
 
   async search(req, res, next) {
+
+    const pageSize = 4;
     try {
       const searchName = req.query.name.toLowerCase();
       const courses = await Course.find({});
@@ -207,12 +229,35 @@ class SiteController {
           countSearch++;
         }
       });
+     
+
       res.render("searchPage.ejs", {
         personSearch: mutipleMongooseToObject(personSearch),
         searchName: searchName,
         countSearch: countSearch,
         ...authMiddleware.userInfor(req),
       });
+
+      // let page = req.query.page || 1;
+      // personSearchs
+      // .find({})
+      // .skip((pageSize * page) - pageSize)
+      // .limit(pageSize)
+      // .exec((err, personSearch) => {
+      //   personSearchs.countDocuments((err, count) => { // đếm để tính xem có bao nhiêu trang
+      //     if (err) return next(err);
+      //     res.render("courses-view.ejs", {
+      //       ...authMiddleware.userInfor(req),
+      //       personSearch, // sản phẩm trên một paga
+      //       current: page, // page hiện tại
+      //       pages: Math.ceil(count / pageSize) // tổng số các page
+      //     });
+      //   });
+      // });
+
+
+
+
     } catch (e) {
       console.log(e);
       res.json(e);
