@@ -370,9 +370,7 @@ class SiteController {
         isValidated: false,
       });
       // res.json(newCourses);
-      await newCourses.save((err, data) => {
-        console.log({ err });
-      });
+      await newCourses.save();
       const id = await newCourses._id;
       Course.find({}, (err, data) => {
         if (!err) {
@@ -397,9 +395,7 @@ class SiteController {
         isFinish: false,
       });
       // res.json(newLessons);
-      await newLessons.save((err, data) => {
-        console.log({ err });
-      });
+      await newLessons.save();
       Lesson.find({}, (err, data) => {
         if (!err && formData?.isEdit) {
           res.redirect(`/seller/courses/${req.params.id}/edit`);
