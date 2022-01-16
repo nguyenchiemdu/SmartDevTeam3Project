@@ -310,13 +310,30 @@ class SiteController {
   async editCourses(req, res, next) {
     let CourseId = req.params.id;
     try {
-      const category = await Category.find({});
+      let category = await Category.find({});
+      category = category.map((item) => {
+        return {
+          nameCategory: item.nameCategory,
+          _id: JSON.stringify(item._id),
+        };
+      });
+      console.log(typeof category[0]._id);
       var course = await Course.find({ _id: CourseId });
       const lessons = await Lesson.find({ course_id: course[0]._id });
+      course = {
+        user_id: course[0].user_id,
+        name: course[0].name,
+        image: course[0].image,
+        shortDescription: course[0].shortDescription,
+        description: course[0].description,
+        price: course[0].price,
+        categories_id: JSON.stringify(course[0].categories_id),
+      };
+
       res.render("seller/edit", {
         ...authMiddleware.userInfor(req),
         categories: category,
-        course: course[0],
+        course: course,
         lessons: lessons,
       });
     } catch (err) {
@@ -526,7 +543,7 @@ class SiteController {
       // Create charge method to payment
       const charge = await stripe.charges.create({
         amount: parseFloat(sumPrice) * 100,
-        currency: 'usd',
+        currency: "usd",
         customer: customer.id,
         // Verify your integration in this guide by including this parameter
         metadata: { integration_check: "accept_a_payment" },
@@ -535,38 +552,39 @@ class SiteController {
       // Save transaction data value and status
       var transactions = new Transaction({
         user_id: userInfor.id,
-        email, 
+        email,
         chargeID: charge.id,
         cartNumber: number,
         price: sumPrice,
-        status: true
-      })
+        status: true,
+      });
       // Add course in Mylearning and invoices
       const courseInCart = await UserCart.find({ user_id: userInfor.id })
-      .populate("course_id")
-      .exec()
+        .populate("course_id")
+        .exec();
       console.log(courseInCart);
-      courseInCart.forEach(async (course)=>{
+      courseInCart.forEach(async (course) => {
         var usercourses = new UserCourse({
           user_id: userInfor.id,
-          course_id: course.course_id._id
-        })
+          course_id: course.course_id._id,
+        });
         var invoices = new Invoice({
           user_id: userInfor.id,
           course_id: course.course_id._id,
-          totalPayout: course.course_id.price
-        })
+          totalPayout: course.course_id.price,
+        });
         await usercourses.save();
         await invoices.save();
-      })
+      });
       await transactions.save();
       // Delete course out of userCart
       await UserCart.deleteMany({ user_id: userInfor.id })
-      .then(function(){
-        console.log("Data deleted"); // Success
-      }).catch(function(error){
+        .then(function () {
+          console.log("Data deleted"); // Success
+        })
+        .catch(function (error) {
           console.log(error); // Failure
-      });
+        });
       res.redirect("/result");
     } catch (err) {
       resultPayment = err.raw.message;
