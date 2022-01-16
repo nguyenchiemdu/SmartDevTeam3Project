@@ -1,0 +1,17 @@
+.sidebar {
+    flex: 1;
+    background-color: var(--main-background-color);
+}
+.sidebar__list{
+    font-size: 1.1rem;
+}
+.sidebar__list li{
+    list-style: none;
+    padding: 12px 12px;
+}
+.sidebar__list .sidebar__list-item a{
+    color: var(--main-color) !important;
+}
+.content{
+    flex:5;
+}
