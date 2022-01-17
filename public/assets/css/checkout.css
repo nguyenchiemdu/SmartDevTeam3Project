@@ -62,7 +62,7 @@
   padding: 10px 20px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  
+
 }
 .hidden {
   display: none;
@@ -88,7 +88,7 @@
   color: var(--style-color);
 }
 .card-image {
-  width: 40px;
+  width: 70px;
 }
 .card-image img {
   width: 100%;
