@@ -1,87 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <!-- header -->
-    <% include ../elements/header %>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- header -->
+  <% include ../elements/header %>
     <!-- css header - footer -->
     <% include ../elements/css/header-footer %>
-    <link rel="stylesheet" href="/assets/css/dashboardAdmin.css" />
+      <link rel="stylesheet" href="/assets/css/dashboardAdmin.css" />
 
-  </head>
-  <body>
-    <!-- navbar -->
-    <% include ../elements/navbar %>
-    <div class="wrapper" style="padding-top: 82px"  >
-        <div class="row">
-          <div class="sidebar col-sm">
-            <ul class = "sidebar__list">
-              <li class = "sidebar__list-item">
-                <i class="fas fa-server"></i>
-                <a href="/admin">CRUD Database</a>
-              </li>
-              <li class = "sidebar__list-item">
-                <i class="fas fa-check-square"></i>
-                <a href="/admin/kiemduyet">Kiểm duyệt khóa học</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-sm content" style="margin-top: 20px;">
-      
-            
-            <div class="container">
-              <table
-                class="table table-bordered table-striped table-hover"
-                style="table-layout: fixed"
-              >
-                <thead class="table-dark">
-                  <tr>
-                    <th scope="col" class="text-truncate">#</th>
-                    <th scope="col" class="text-truncate">Name of Course</th>
-                    <th scope="col" class="text-truncate">Price</th>
-                    <th scope="col" class="text-truncate">Status</th>
-                  </tr>
-                </thead>
-                <% var i =1;%>
+</head>
+
+<body>
+  <!-- navbar -->
+  <% include ../elements/navbar %>
+    <div class="wrapper" style="padding-top: 82px">
+      <div class="row">
+        <div class="sidebar col-sm">
+          <ul class="sidebar__list">
+            <li class="sidebar__list-item">
+              <i class="fas fa-server"></i>
+              <a href="/admin">CRUD Database</a>
+            </li>
+            <li class="sidebar__list-item">
+              <i class="fas fa-check-square"></i>
+              <a href="/admin/kiemduyet">Kiểm duyệt khóa học</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm content" style="margin-top: 20px;">
+
+
+          <div class="container" style="text-align:center;">
+            <table class="table table-bordered table-striped table-hover" style="table-layout: fixed">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col" class="text-truncate">#</th>
+                  <th scope="col" class="text-truncate">Name of Course</th>
+                  <th scope="col" class="text-truncate">Price</th>
+                  <th scope="col" class="text-truncate">Status</th>
+                </tr>
+              </thead>
+              <% var i=1;%>
                 <tbody>
-                  <% courseIsNotValidate.forEach(function(course) { %> 
-                  <tr>
-                    <td><%- i++%></td>
-                    <td class="text-truncate"><%- course.name%></td>
-                    <td><%- course.price%></td>
-                    <td>
-                      <a href="/kiemduyet/<%- course.slug%>">
-                        <i class="fas fa-info-circle"></i>
-                      </a>
-                      <a href="">
-                        <i class="fas fa-check"></i>
-                      </a>
-                    </td>
-                  </tr>
-                 <%});%>
+                  <% courseIsNotValidate.forEach(function(course) { %>
+                    <tr>
+                      <td>
+                        <%- i++%>
+                      </td>
+                      <td class="text-truncate">
+                        <%- course.name%>
+                      </td>
+                      <td>
+                        <%- course.price%>
+                      </td>
+                      <td class = "status__course row">
+                        <div class="list-status">
+                          <a href="/kiemduyet/<%- course.slug%>">
+                            <i class="fas fa-info-circle fa-1x"></i>
+                            <p>
+                              Xem thông tin chi tiết của khóa học
+                            </p>
+                          </a>
+                        </div>
+                        <div class="list-status">
+                          <form method="POST" action="/kiemduyet/<%=course._id%>?_method=PATCH" id="confirm-form">
+                            <a href="" data-toggle="modal" data-id="<%- course._id%>"
+                              data-target="#kiemduyet-course-modal">
+                              <i class="fas fa-check fa-2x"></i>
+                              <p>
+                                Xác nhận khóa học
+                              </p>
+                            </a>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                    <%});%>
                 </tbody>
-              </table>
-        
-              <div class="mt-5 mb-5">
-                <a class="btn btn-danger" href="/"> Sign out </a>
-              </div>
-            </div>
-      
+            </table>
+
+          </div>
+
         </div>
       </div>
-    
-   
-    <% include ../elements/footer %>
-    <% include ../elements/script %>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+
+      <!-- {{!-- Confirm Kiem Duyet Course --}} -->
+      <div id="kiemduyet-course-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Kiểm Duyệt Khóa Học</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn có đồng ý duyệt khóa học này hay không? </p>
+            </div>
+            <div class="modal-footer">
+              <button id="btn-confirm-course" type="button" class="btn btn-danger">Xác nhận</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% include ../elements/footer %>
+      <% include ../elements/script %>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+      </script>
+      <script>
+        const btnConfirm = document.getElementById("btn-confirm-course");
+        const formConfirm = document.getElementById("confirm-form");
+        document.addEventListener('DOMContentLoaded', function () {
+          btnConfirm.onclick = function () {
+            formConfirm.submit();
+          }
+        });
+      </script>
+</body>
+
 </html>

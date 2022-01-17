@@ -244,3 +244,17 @@ footer .footer-bottom-right a i {
     color: var(--main-color);
     display: inline;
 }
+
+.chart-container {
+    width: 80%;
+    height: 480px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+  
+.pie-chart-container {
+    height: 400px;
+    width: 400;
+    float: left;
+}
