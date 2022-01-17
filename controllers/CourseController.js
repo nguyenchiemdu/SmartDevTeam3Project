@@ -18,7 +18,7 @@ class CourseController {
       res.render("courses/show", { course: mongooseToObject(courses), ...authMiddleware.userInfor(req),isInCart,isCheckedOut });
     } catch (e) {
       console.log(e);
-      res.json(e);
+      next(e);
     }
   }
 }

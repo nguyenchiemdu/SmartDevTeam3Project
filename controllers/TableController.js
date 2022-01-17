@@ -28,7 +28,7 @@ class TableController {
       res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, ...authMiddleware.userInfor(req) });
     } catch (e) {
       console.log(e);
-      res.json(e);
+      next(e);
     }
   }
   // [GET] /course/create
@@ -46,7 +46,7 @@ class TableController {
       });
     } catch (e) {
       console.log(e);
-      res.json(e);
+      next(e);
     }
   }
 
@@ -80,7 +80,7 @@ class TableController {
       });
     } catch (e) {
       console.log(e);
-      res.json(e);
+      next(e);
     }
   }
 
