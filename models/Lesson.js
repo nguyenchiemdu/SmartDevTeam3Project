@@ -4,7 +4,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Schema = mongoose.Schema;
 
 const Lesson = new Schema({
-    _id: { type: Number },
+    _id: { type: Number, ref: 'UserLesson' },
     course_id : { type: Schema.Types.ObjectId, ref: 'Course' },
     urlVideo: { type: String, required: true, },
     title: { type: String, required: true, },

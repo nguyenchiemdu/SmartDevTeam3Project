@@ -118,16 +118,66 @@ class SiteController {
       let userInfor = authMiddleware.userInfor(req);
       if (userInfor.username == null)
         return res.json({ error: "Bạn phải đăng nhập trước" });
-        
-        let result = await pagination(req,UserCourse,pageSize,'course_id').then(res => res)
-        console.log(result.docs);
-        let userCourses = result.docs.map(doc => doc.course_id);
+      let userCourses = await UserCourse.find({ user_id: userInfor.id })
+        .populate("course_id")
+        .exec()
+        .then((userCourses) => {
+          let courses =
+            userCourses.length < 1
+              ? []
+              : userCourses.map((course) => course.course_id);
+          return courses;
+        });
+
+      // console.log(userCourses);
+      userCourses = await Promise.all(userCourses.map(async (course) => {
+        var lessons = await Lesson.find({ course_id: course._id });
+        var userLesson = await UserLesson.find({ user_id: userInfor.id });
+
+        //Loc 2 mang co lessonId giong nhau
+        const filterLesson = userLesson.filter(user => {
+          return lessons.some(lesson => user.lesson_id == lesson._id)
+        });
+
+        //tim tat ca cac lesson cua course
+        const countLesson = lessons.filter(countLes => countLes.isFinish == true || countLes.isFinish == false);
+        const sumCountLesson = countLesson.length
+
+        //tim cac lesson da hoc
+        const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
+        const sumFinish = countFinish.length
+
+        //tinh phan tram cua lesson da hoc
+        var percentFinish;
+        if (sumFinish == 0 && sumCountLesson == 0) {
+          percentFinish = 0;
+        }
+        else {
+          percentFinish = sumFinish / sumCountLesson * 100;
+        }
+        course = JSON.parse(JSON.stringify(course));
+        var newCourse = {
+          ...course, percentFinish
+        }
+
+        return newCourse;
+      }));
+
+      //Code cua Tu
+      // let result = await pagination(req,UserCourse,pageSize,'course_id').then(res => res)
+      //   console.log(result.docs);
+      //   let userCourses = result.docs.map(doc => doc.course_id);
+      // res.render("learning.ejs", {
+      //   ...authMiddleware.userInfor(req),
+      //   courses : userCourses, // sản phẩm trên một paga
+      //   current: result.page, // page hiện tại
+      //   pages: result.pages
+
+
+      // console.log(userCourses);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses : userCourses, // sản phẩm trên một paga
-        current: result.page, // page hiện tại
-        pages: result.pages
-      
+        courses: (userCourses),
       });
     } catch (e) {
       console.log(e);
@@ -149,10 +199,38 @@ class SiteController {
 
     try {
       let courseId = req.params.id;
-      var lessons = await Lesson.find({ course_id: courseId });
-
       let course = await Course.findOne({ _id: courseId });
-      // console.log(lessons);
+
+      var lessons = await Lesson.find({ course_id: courseId });
+      var userLesson = await UserLesson.find({ user_id: userInfor.id });
+
+
+
+      const filterLesson = userLesson.filter(user => {
+        return lessons.some(lesson => user.lesson_id == lesson._id)
+      });
+
+      //tim tat ca cac lesson cua course
+      const countLesson = lessons.filter(countLes => countLes.isFinish == true || countLes.isFinish == false);
+      const sumCountLesson = countLesson.length
+      
+      const countCheckLesson = filterLesson.filter(userLes => userLes.isFinish == true || userLes.isFinish == false);
+     
+      //tim cac lesson da hoc
+      const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
+      const sumFinish = countFinish.length
+      console.log(countCheckLesson);
+
+
+      //tinh phan tram cua lesson da hoc
+      var percentFinish;
+      if (sumFinish == 0 && sumCountLesson == 0) {
+        percentFinish = 0;
+      }
+      else {
+        percentFinish = sumFinish / sumCountLesson * 100;
+      }
+
       let currentLesson;
       lessons.forEach((lesson) => {
         if (lesson._id == videoId) {
@@ -169,6 +247,13 @@ class SiteController {
         lessons,
         currentLesson,
         course,
+        userLesson,
+        sumCountLesson,
+        sumFinish,
+        percentFinish,
+        countFinish,
+        countCheckLesson,
+        // checkFinish,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
@@ -289,6 +374,7 @@ class SiteController {
   // bill Course demo
   async billCourses(req, res, next) {
     try {
+      let userInfor = authMiddleware.userInfor(req);
       let courseId = req.params.id;
       let invoices = await Invoice.find({ course_id: courseId })
         .populate("user_id")
@@ -296,13 +382,46 @@ class SiteController {
         .then((invoices) => {
           return invoices;
         });
-      console.log(invoices);
 
       let course = await Course.findOne({ _id: courseId });
 
+      invoices = await Promise.all(invoices.map(async (invoice) => {
+        //lay cac ma video(lesson)
+        var lessons = await Lesson.find({ course_id: courseId });
+        var userLesson = await UserLesson.find({ user_id: invoice.user_id });
+
+        //Loc 2 mang co lessonId giong nhau
+        const filterLesson = userLesson.filter(user => {
+          return lessons.some(lesson => user.lesson_id == lesson._id)
+        });
+
+        //tim tat ca cac lesson cua course
+        const countLesson = lessons.filter(countLes => countLes.isFinish == true || countLes.isFinish == false);
+        const sumCountLesson = countLesson.length
+
+        //tim cac lesson da hoc
+        const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
+        const sumFinish = countFinish.length
+
+        //tinh phan tram cua lesson da hoc
+        var percentFinish;
+        if (sumFinish == 0 && sumCountLesson == 0) {
+          percentFinish = 0;
+        }
+        else {
+          percentFinish = sumFinish / sumCountLesson * 100;
+        }
+        invoice = JSON.parse(JSON.stringify(invoice));
+        var newInvoice = {
+          ...invoice, percentFinish
+        }
+        // console.log(newInvoice);
+        return newInvoice;
+      }));
+
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
-        invoices,
+        invoices: (invoices),
         course,
       });
     } catch (e) {
@@ -457,13 +576,13 @@ class SiteController {
         userInfor.username == null
           ? []
           : await UserCart.find({ user_id: userInfor.id })
-              .populate("course_id")
-              .exec()
-              .then((userCart) => {
-                let courses = userCart.map((course) => course.course_id);
-                return courses;
-              })
-              .catch((e) => console.log(e));
+            .populate("course_id")
+            .exec()
+            .then((userCart) => {
+              let courses = userCart.map((course) => course.course_id);
+              return courses;
+            })
+            .catch((e) => console.log(e));
       res.render("shopping-cart", {
         title: "Cart",
         ...userInfor,
@@ -519,16 +638,16 @@ class SiteController {
       userInfor.username == null
         ? null
         : await UserCart.find({ user_id: userInfor.id })
-            .populate("course_id")
-            .exec()
-            .then((userCart) => {
-              let sum = 0;
-              userCart.forEach(
-                (item) => (sum += parseFloat(item.course_id.price))
-              );
-              return sum;
-            })
-            .catch((e) => console.log(e));
+          .populate("course_id")
+          .exec()
+          .then((userCart) => {
+            let sum = 0;
+            userCart.forEach(
+              (item) => (sum += parseFloat(item.course_id.price))
+            );
+            return sum;
+          })
+          .catch((e) => console.log(e));
     try {
       // Create token check valid card
       const token = await stripe.tokens.create({
