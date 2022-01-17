@@ -4,6 +4,7 @@ const { mongooseToObject } = require("../utilities/mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserCart = require('../models/UserCart');
+const UserCourse = require('../models/UserCourse');
 const { resolveInclude } = require('ejs');
 
 class UserController {
@@ -53,6 +54,9 @@ class UserController {
       const cart = req.body.cart;
       cart.forEach(async course_id => {
         try {
+          const userCourse = await UserCourse.findOne({user_id: user._id,course_id : course_id})
+          const  isBought = userCourse  ? true : false;
+          if (isBought) return;
           const result = await UserCart.findOne({ user_id: user._id, course_id: course_id });
           const isExisted = result ? true : false;
           if (!isExisted) {
