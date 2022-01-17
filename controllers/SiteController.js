@@ -13,6 +13,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
+var url = require("url");
 
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
@@ -321,6 +322,7 @@ class SiteController {
       var course = await Course.find({ _id: CourseId });
       const lessons = await Lesson.find({ course_id: course[0]._id });
       course = {
+        _id: course[0]._id,
         user_id: course[0].user_id,
         name: course[0].name,
         image: course[0].image,
@@ -487,7 +489,7 @@ class SiteController {
               .catch((e) => console.log(e));
       if (sumPrice != null)
         return res.render("checkout", {
-          sumPrice,
+          sumPrice, 
           email: userInfor.username,
           title: "Check Out",
           ...authMiddleware.userInfor(req),
@@ -716,10 +718,17 @@ class SiteController {
     try {
       const lessons = await Lesson.find({ _id: req.params.id });
       await Lesson.findByIdAndDelete({ _id: req.params.id });
-      lessons.map((les) => {
-        const id = les.course_id;
-        res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
-      });
+      if (req.query.edit) {
+        lessons.map((les) => {
+          const id = les.course_id;
+          res.redirect(`/seller/courses/${id}/edit`);
+        });
+      } else {
+        lessons.map((les) => {
+          const id = les.course_id;
+          res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+        });
+      }
     } catch (e) {
       console.log(e);
       res.json(e);

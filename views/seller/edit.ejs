@@ -5,12 +5,16 @@
   </head>
 
   <body>
-    <% include ../elements/navbar %> <% include template/edit %> <% include
-    template/footer %> <% include ../elements/script %>
+    <% include ../elements/navbar %>
+    <% include template/edit %>
+    <% include template/footer %>
+    <% include ../elements/script %>
     <script>
-      document.getElementById("editBtn").onclick = () => {
-        localStorage.setItem("isEditFromSeller", "true");
-      };
+      window.onload = () => {
+        document.getElementById("editBtn").onclick = () => {
+          localStorage.setItem("isEditFromSeller", "true");
+        };
+      }
     </script>
   </body>
 </html>
