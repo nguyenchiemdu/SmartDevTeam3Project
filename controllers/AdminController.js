@@ -8,7 +8,7 @@ class AdminController {
       res.render("admin/dashboard-admin", { ...authMiddleware.userInfor(req) });
     } catch (e) {
       console.log(e)
-      res.json(e)
+      next(e)
     }
   }
 }
