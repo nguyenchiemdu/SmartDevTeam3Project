@@ -86,36 +86,18 @@
                 <div class="order-detai">
                     <h4>Order Details</h4>
                 </div>
+                <% courses.forEach((course)=> { %>
                 <div class="card-info">
                     <div class="card-image">
-                        <img src="https://img-c.udemycdn.com/course/100x100/3250670_4785.jpg" alt="photo" />
+                        <img src="<%=course.image%>" alt="photo" />
                     </div>
-                    <h5>Hacking Éthique : Apprendre à programmer en Python</h5>
+                    <h5><%=course.name%></h5>
                     <div>
-                        <h6>$9.99</h6>
-                        <p><del>$84.99</del></p>
+                        <h6>$<%=course.price%></h6>
+                        <p><del>$1000</del></p>
                     </div>
                 </div>
-                <div class="card-info">
-                    <div class="card-image">
-                        <img src="https://img-c.udemycdn.com/course/100x100/3250670_4785.jpg" alt="photo" />
-                    </div>
-                    <h5>Hacking Éthique : Apprendre à programmer en Python</h5>
-                    <div>
-                        <h6>$9.99</h6>
-                        <p><del>$84.99</del></p>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="card-image">
-                        <img src="https://img-c.udemycdn.com/course/100x100/3250670_4785.jpg" alt="photo" />
-                    </div>
-                    <h5>Hacking Éthique : Apprendre à programmer en Python</h5>
-                    <div>
-                        <h6>$9.99</h6>
-                        <p><del>$84.99</del></p>
-                    </div>
-                </div>
+                <%})%>
             </div>
             <div class="checkout__summary">
                 <h1>Summary</h1>

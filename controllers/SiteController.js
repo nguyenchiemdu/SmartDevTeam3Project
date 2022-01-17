@@ -473,7 +473,7 @@ class SiteController {
   async checkout(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     try {
-      var sumPrice =
+      var infoCheckout =
         userInfor.username == null
           ? null
           : await UserCart.find({ user_id: userInfor.id })
@@ -481,15 +481,17 @@ class SiteController {
               .exec()
               .then((userCart) => {
                 let sum = 0;
+                var courses = userCart.map((course) => course.course_id);
                 userCart.forEach(
                   (item) => (sum += parseFloat(item.course_id.price))
                 );
-                return sum;
+                return { sum, courses };
               })
               .catch((e) => console.log(e));
-      if (sumPrice != null)
+      if (infoCheckout != null)
         return res.render("checkout", {
-          sumPrice, 
+          courses: infoCheckout.courses,
+          sumPrice: infoCheckout.sum,
           email: userInfor.username,
           title: "Check Out",
           ...authMiddleware.userInfor(req),
