@@ -9,11 +9,6 @@
                         value="<%= course.name %>">
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <label for="author" class="form-label">Author</label>
-                    <input type="text" class="form-control" id="author" name="author" placeholder="Author"
-                        value="<%= course.author %>">
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <label for="price" class="form-label">Price</label>
                     <input type="number" class="form-control" id="price" name="price" placeholder="Price"
                         value="<%= course.price %>">
@@ -30,10 +25,16 @@
                     <select class="form-control" aria-label="Default select example" name="categories_id"
                         id="categoryID">
                         <% categories.forEach(function(category) { %>
-                            <option value="<%= category._id %>">
+                            <% if(category._id===course.categories_id){ %>
+                            <option value=<%= category._id %> selected >
                                 <%=category.nameCategory %>
                             </option>
-                            <% }); %>
+                            <% } else { %>
+                                <option value="<%= category._id %>">
+                                    <%=category.nameCategory %>
+                                </option>
+                            <% } %>
+                            <% }) %>
                     </select>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
@@ -70,8 +71,10 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="" type="edit" class="btn btn-info edit">Edit</a>
-                                <a href="" type="delete" class="btn btn-danger delete">
+                                <a href="/seller/course/create/2/<%= lesson._id %>/edit" id="editBtn" type="edit"
+                                    class="btn btn-info edit">Edit</a>
+                                <a href="/seller/course/create/2/<%= lesson._id %>/delete?edit=true"  type="delete"
+                                    class="btn btn-danger delete">
                                     Delete
                                 </a>
                             </div>
@@ -85,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                <% }); %>
+                    <% }); %>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">

@@ -1,15 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <% include template/header %>
-</head>
+  </head>
 
-<body>
+  <body>
     <% include ../elements/navbar %>
     <% include template/edit %>
     <% include template/footer %>
     <% include ../elements/script %>
-</body>
-
+    <script>
+      window.onload = () => {
+        document.getElementById("editBtn").onclick = () => {
+          localStorage.setItem("isEditFromSeller", "true");
+        };
+      }
+    </script>
+  </body>
 </html>
