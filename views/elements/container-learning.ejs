@@ -19,91 +19,71 @@
                 </a>
             </div>
             <% }); %>
-            <div class="col-lg-12 d-flex justify-content-center">
-
-                <div id="paging">
-
-                </div>
-
-            </div>
-            <!-- <div class="col-lg-12 d-flex justify-content-center">
-                    <nav class="pagination-container">
-                        <div class="pagination">
-                            <a class="pagination-newer" href="#">PREV</a>
-                            <span class="pagination-inner">
-                                <a href="#">1</a>
-                                <a class="pagination-active" href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                            </span>
-                            <a class="pagination-older" href="#">NEXT</a>
-                        </div>
-                    </nav>
-                </div> -->
-            <div class="row">
-                <!-- pagination -->
-                <% if(pages > 0) { %>
-                <!-- show pagination if there is pages -->
-                <nav class="mx-auto pagination-container">
-                    <ul class="pagination" style="margin-top: 2rem;">
-                        <!-- FIRST ITEM -->
-                        <% if(current == 1) { %>
-                        <li class="page-item disabled">
-                            <a class="page-link" href="">First</a>
-                        </li>
-                        <% } else { %>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1">First</a>
-                        </li>
-                        <% } %>
-                        <!-- ITEMS  -->
-                        <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
-                        <% if(i !== 1) { %>
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">...</a>
-                        </li>
-                        <% } %>
-                        <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
-                        <% if(i == current) { %>
-                        <li class="page-item active">
-                            <a class="page-link" href="?page=<%= i %>">
-                                <%= i %>
-                            </a>
-                        </li>
-                        <% } else { %>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<%= i %>">
-                                <%= i %>
-                            </a>
-                        </li>
-                        <% } %>
-                        <% if (i == Number(current) + 2 && i < pages) { %>
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">...</a>
-                        </li>
-                        <% } %>
-                        <% } %>
-                        <!-- LAST ITEM -->
-                        <% if(current == pages) { %>
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">
-                                Last
-                            </a>
-                        </li>
-                        <% } else { %>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<%= pages %>">
-                                Last
-                            </a>
-                        </li>
-                        <% } %>
-                    </ul>
-                </nav>
-                <% } %>
-            </div>
+           
+           
+        
         </div>
-
+        <div class="row ">
+            <div class="col-lg-12 d-flex justify-content-center">
+            <!-- pagination -->
+            <% if(pages > 0) { %>
+            <!-- show pagination if there is pages -->
+            <nav class="mx-auto pagination-container d-flex justify-content-center">
+                <ul class="pagination" style="margin-top: 2rem;">
+                    <!-- FIRST ITEM -->
+                    <% if(current == 1) { %>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="">First</a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">First</a>
+                    </li>
+                    <% } %>
+                    <!-- ITEMS  -->
+                    <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
+                    <% if(i !== 1) { %>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <% } %>
+                    <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                    <% if(i == current) { %>
+                    <li class="page-item active">
+                        <a class="page-link" href="?page=<%= i %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<%= i %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                    <% } %>
+                    <% if (i == Number(current) + 2 && i < pages) { %>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <% } %>
+                    <% } %>
+                    <!-- LAST ITEM -->
+                    <% if(current == pages) { %>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            Last
+                        </a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<%= pages %>">
+                            Last
+                        </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </nav>
+            <% } %>
+        </div>
     </div>
 </section>

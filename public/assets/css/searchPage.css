@@ -26,7 +26,7 @@ h6 {
 .search__wrapper {
   margin: 0 auto;
   max-width: 1500px;
-  padding: 150px 100px 300px 100px;
+  padding: 50px 100px 10px 100px;
 }
 .search__title {
   margin: 50px 0px;
@@ -144,4 +144,21 @@ h6 {
   .card-price {
     margin-left: 10px;
   }
+}
+
+
+
+.pagination-container {
+  position: relative;
+
+}
+.pagination  li {
+  position: relative;
+  display: inline-block;
+  color: var(--main-color);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 0px ;
+  font-weight: 500; 
+ 
 }
