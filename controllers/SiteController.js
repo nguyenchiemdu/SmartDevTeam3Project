@@ -51,7 +51,10 @@ class SiteController {
   async home(req, res, next) {
     //////////
     try {
-      var data = await Promise.all([Course.find({}), Category.find({})]);
+      var data = await Promise.all([
+        Course.find({ isValidated: 1 }),
+        Category.find({}),
+      ]);
       res.render("index.ejs", {
         ...authMiddleware.userInfor(req),
         courses: mutipleMongooseToObject(data[0]),

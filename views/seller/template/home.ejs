@@ -59,6 +59,11 @@
                         <h4 class="price"><span>Price: </span>A$<%= courses.price %></h4>
                         <h5 class="date-create"><span>Create: </span> 2021 - 12 - 31</h5>
                         <p class="description"><span>Description: </span><%= courses.shortDescription %></p>
+                        <% if(!courses.isValidated) { %>
+                        <h6>Status: <span class="text-warning">Awaiting Approval</span></h6>
+                        <% } else { %>
+                        <h6>Status: <span class="text-success">Verified</span></h6>
+                        <% } %>
                     </div>
                     <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 button-right">
                         <button onclick="location.href='/seller/courses/<%= courses._id %>/edit'" type="edit" class="btn btn-info edit">Edit</button>
