@@ -119,7 +119,7 @@ class SiteController {
       if (userInfor.username == null)
         return res.json({ error: "Bạn phải đăng nhập trước" });
         
-        let result = await pagination(req,UserCourse,pageSize,'course_id').then(res => res)
+        let result = await pagination(req,UserCourse,pageSize,'course_id',{user_id: userInfor.id}).then(res => res)
         console.log(result.docs);
         let userCourses = result.docs.map(doc => doc.course_id);
       res.render("learning.ejs", {
