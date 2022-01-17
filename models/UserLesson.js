@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const UserLesson = new Schema({
     user_id : { type: Schema.Types.ObjectId, ref: 'User' },
-    lesson_id : { type: String, ref: 'Lesson' },
+    lesson_id : { type: Number, ref: 'Lesson' },
     progress : { type: Number, default : 0 },
     isFinish : { type: Boolean, default : false },
 }, {
