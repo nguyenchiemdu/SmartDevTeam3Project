@@ -36,16 +36,16 @@ const getSlug = (value) =>{
 }
 // Render course data
 const renderCourses = (courses) => {
-    
+
     var htmls = courses.map(function (course) {
         return `
-     
+
             <a id="${course._id}" href="/courses/${course.slug}" class="slider">
                 <img src="${course.image}" alt="">
                 <h3>${course.name}</h3>
                 <h6>A$${course.price}</h6>
             </a>
-     
+
         `;
     });
     Array.prototype.map.call(renderCourse, function(render){render.innerHTML = htmls.join('')});
@@ -56,7 +56,7 @@ const filterCourse = async () => {
       renderCourses(courses);
     });
 }
-    
+
 const courseTitle = document.querySelector(".course-title");
 const form = document.getElementById('btn-categories')
 
@@ -64,7 +64,7 @@ courseTitle.addEventListener("click", async function (x) {
     if (x.target.classList.contains("course-button")) {
         const Target = x.target.getAttribute("data-title");
         console.log(Target.slice(1));
-        valueSlug = await Target.slice(1); 
+        valueSlug = await Target.slice(1);
         slug = await getSlug(valueSlug);
         courseTitle.querySelector(".active").classList.remove("active");
         x.target.classList.add("active");
@@ -100,8 +100,8 @@ courseTitle.addEventListener("click", async function (x) {
 //     .then(search=>{
 //         console.log(search);
 //         $('#content').html("");
-//         courses.forEach(function(search) { 
-//             // const element = courses[i]; 
+//         courses.forEach(function(search) {
+//             // const element = courses[i];
 //             var item = $(
 //                     `    <div class="search__shopping">
 
@@ -131,7 +131,7 @@ courseTitle.addEventListener("click", async function (x) {
 //                                     <h5 class="card-text">
 //                                         ${ personSearch.price } $
 //                                     </h5>
-                                   
+
 //                                 </div>
 //                             </div>
 //                         </section>
