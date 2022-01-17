@@ -520,8 +520,11 @@
   section.courses .course-main-slider img {
     overflow: hidden;
     margin-top: 15px;
-    width: 95%;
-    height: auto;
+    width: 100%;
+    height: 180px;
+  }
+  .progress-bar {
+    background-color: rgb(238, 31, 176);
   }
   section.courses .course-main-slider:hover img {
     transform: rotate(-5deg) scale(0.9);

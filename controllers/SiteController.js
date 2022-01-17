@@ -19,32 +19,35 @@ var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 
-const pagination = async (req,Table,pageSize,populateString,findCondition) => {
+const pagination = async (
+  req,
+  Table,
+  pageSize,
+  populateString,
+  findCondition
+) => {
   try {
     let page = req.query.page || 1;
-    return await
-      Table
-      .find(findCondition)
-      .skip((pageSize * page) - pageSize)
+    return await Table.find(findCondition)
+      .skip(pageSize * page - pageSize)
       .limit(pageSize)
       .populate(populateString)
       .exec()
-      .then(async(docs) => {
+      .then(async (docs) => {
         var countResult;
-        let pages = await
-        Table.countDocuments(findCondition)
-        .then((count) => { // đếm để tính xem có bao nhiêu trang
+        let pages = await Table.countDocuments(findCondition).then((count) => {
+          // đếm để tính xem có bao nhiêu trang
           countResult = count;
-          let pages =  Math.ceil(count / pageSize);
-          return pages
+          let pages = Math.ceil(count / pageSize);
+          return pages;
         });
-        return {docs,page,pages,countResult}
+        return { docs, page, pages, countResult };
       });
   } catch (e) {
     console.log(e);
     res.json(e);
   }
-}
+};
 
 class SiteController {
   // GET /
@@ -68,25 +71,24 @@ class SiteController {
   // [GET] /courses
   async courses(req, res, next) {
     const pageSize = 8;
-    
+
     try {
-    
-      let result = await pagination(req,Course,pageSize,'').then(res => res)
+      let result = await pagination(req, Course, pageSize, "").then(
+        (res) => res
+      );
       console.log(result.docs);
 
       res.render("courses-view.ejs", {
         ...authMiddleware.userInfor(req),
-        courses : result.docs, // sản phẩm trên một paga
+        courses: result.docs, // sản phẩm trên một paga
         current: result.page, // page hiện tại
-        pages: result.pages // tổng số các page
+        pages: result.pages, // tổng số các page
       });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
-
- 
 
   // [Post] localhost:8080/category
   // Post slug to find ID Category
@@ -118,16 +120,15 @@ class SiteController {
       let userInfor = authMiddleware.userInfor(req);
       if (userInfor.username == null)
         return res.json({ error: "Bạn phải đăng nhập trước" });
-        
-        let result = await pagination(req,UserCourse,pageSize,'course_id',{user_id: userInfor.id}).then(res => res)
-        console.log(result.docs);
-        let userCourses = result.docs.map(doc => doc.course_id);
+
+      let result = await pagination(req, UserCourse, pageSize, "course_id", {
+        user_id: userInfor.id,
+      }).then((res) => res);
+      console.log(result.docs);
+      let userCourses = result.docs.map((doc) => doc.course_id);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses : userCourses, // sản phẩm trên một paga
-        current: result.page, // page hiện tại
-        pages: result.pages
-      
+        courses: userCourses,
       });
     } catch (e) {
       console.log(e);
@@ -149,10 +150,40 @@ class SiteController {
 
     try {
       let courseId = req.params.id;
-      var lessons = await Lesson.find({ course_id: courseId });
-
       let course = await Course.findOne({ _id: courseId });
-      // console.log(lessons);
+
+      var lessons = await Lesson.find({ course_id: courseId });
+      var userLesson = await UserLesson.find({ user_id: userInfor.id });
+
+      const filterLesson = userLesson.filter((user) => {
+        return lessons.some((lesson) => user.lesson_id == lesson._id);
+      });
+
+      //tim tat ca cac lesson cua course
+      const countLesson = lessons.filter(
+        (countLes) => countLes.isFinish == true || countLes.isFinish == false
+      );
+      const sumCountLesson = countLesson.length;
+
+      const countCheckLesson = filterLesson.filter(
+        (userLes) => userLes.isFinish == true || userLes.isFinish == false
+      );
+
+      //tim cac lesson da hoc
+      const countFinish = filterLesson.filter(
+        (userLes) => userLes.isFinish == true
+      );
+      const sumFinish = countFinish.length;
+      console.log(countCheckLesson);
+
+      //tinh phan tram cua lesson da hoc
+      var percentFinish;
+      if (sumFinish == 0 && sumCountLesson == 0) {
+        percentFinish = 0;
+      } else {
+        percentFinish = (sumFinish / sumCountLesson) * 100;
+      }
+
       let currentLesson;
       lessons.forEach((lesson) => {
         if (lesson._id == videoId) {
@@ -169,6 +200,13 @@ class SiteController {
         lessons,
         currentLesson,
         course,
+        userLesson,
+        sumCountLesson,
+        sumFinish,
+        percentFinish,
+        countFinish,
+        countCheckLesson,
+        // checkFinish,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
@@ -202,12 +240,13 @@ class SiteController {
   }
 
   async search(req, res, next) {
-
     const pageSize = 4;
     console.log(req);
     try {
       const searchName = req.query.name;
-      let result =  await pagination(req,Course,pageSize,'',{ name : { "$regex": searchName, "$options": "i" }});
+      let result = await pagination(req, Course, pageSize, "", {
+        name: { $regex: searchName, $options: "i" },
+      });
       // console.log(result);
 
       res.render("searchPage.ejs", {
@@ -289,6 +328,7 @@ class SiteController {
   // bill Course demo
   async billCourses(req, res, next) {
     try {
+      let userInfor = authMiddleware.userInfor(req);
       let courseId = req.params.id;
       let invoices = await Invoice.find({ course_id: courseId })
         .populate("user_id")
@@ -296,13 +336,53 @@ class SiteController {
         .then((invoices) => {
           return invoices;
         });
-      console.log(invoices);
 
       let course = await Course.findOne({ _id: courseId });
 
+      invoices = await Promise.all(
+        invoices.map(async (invoice) => {
+          //lay cac ma video(lesson)
+          var lessons = await Lesson.find({ course_id: courseId });
+          var userLesson = await UserLesson.find({ user_id: invoice.user_id });
+
+          //Loc 2 mang co lessonId giong nhau
+          const filterLesson = userLesson.filter((user) => {
+            return lessons.some((lesson) => user.lesson_id == lesson._id);
+          });
+
+          //tim tat ca cac lesson cua course
+          const countLesson = lessons.filter(
+            (countLes) =>
+              countLes.isFinish == true || countLes.isFinish == false
+          );
+          const sumCountLesson = countLesson.length;
+
+          //tim cac lesson da hoc
+          const countFinish = filterLesson.filter(
+            (userLes) => userLes.isFinish == true
+          );
+          const sumFinish = countFinish.length;
+
+          //tinh phan tram cua lesson da hoc
+          var percentFinish;
+          if (sumFinish == 0 && sumCountLesson == 0) {
+            percentFinish = 0;
+          } else {
+            percentFinish = (sumFinish / sumCountLesson) * 100;
+          }
+          invoice = JSON.parse(JSON.stringify(invoice));
+          var newInvoice = {
+            ...invoice,
+            percentFinish,
+          };
+          // console.log(newInvoice);
+          return newInvoice;
+        })
+      );
+
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
-        invoices,
+        invoices: invoices,
         course,
       });
     } catch (e) {
