@@ -18,6 +18,34 @@ var url = require("url");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
+
+const pagination = async (req,Table,pageSize,populateString,findCondition) => {
+  try {
+    let page = req.query.page || 1;
+    return await
+      Table
+      .find(findCondition)
+      .skip((pageSize * page) - pageSize)
+      .limit(pageSize)
+      .populate(populateString)
+      .exec()
+      .then(async(docs) => {
+        var countResult;
+        let pages = await
+        Table.countDocuments(findCondition)
+        .then((count) => { // đếm để tính xem có bao nhiêu trang
+          countResult = count;
+          let pages =  Math.ceil(count / pageSize);
+          return pages
+        });
+        return {docs,page,pages,countResult}
+      });
+  } catch (e) {
+    console.log(e);
+    res.json(e);
+  }
+}
+
 class SiteController {
   // GET /
   async home(req, res, next) {
@@ -34,48 +62,29 @@ class SiteController {
       res.render(e);
     }
   }
-
   // [GET] /courses
   async courses(req, res, next) {
-    const pageSize = 4;
+    const pageSize = 8;
+    
     try {
-      let page = req.query.page;
+    
+      let result = await pagination(req,Course,pageSize,'').then(res => res)
+      console.log(result.docs);
 
-      if (page) {
-        page = parseInt(page);
-        if (page < 1) {
-          page = 1;
-        }
-        let skips = (page - 1) * pageSize;
-
-        Course.find({})
-          .skip(skips)
-          .limit(pageSize)
-          .then((courses) => {
-            res.json(courses);
-            // res.render("courses-view.ejs", {
-            //   ...authMiddleware.userInfor(req),
-            //   courses: mutipleMongooseToObject(courses),
-            // });
-          })
-          .catch((err) => {
-            console.log(e);
-            res.json(e);
-          });
-      } else {
-        // res.redirect("/courses?page=1")
-        var courses = await Course.find().skip(0).limit(pageSize);
-        // res.json(courses);
-        res.render("courses-view.ejs", {
-          ...authMiddleware.userInfor(req),
-          courses: mutipleMongooseToObject(courses),
-        });
-      }
+      res.render("courses-view.ejs", {
+        ...authMiddleware.userInfor(req),
+        courses : result.docs, // sản phẩm trên một paga
+        current: result.page, // page hiện tại
+        pages: result.pages // tổng số các page
+      });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
+
+ 
+
   // [Post] localhost:8080/category
   // Post slug to find ID Category
   async category(req, res, next) {
@@ -102,24 +111,20 @@ class SiteController {
 
   async learning(req, res, next) {
     try {
+      let pageSize = 4;
       let userInfor = authMiddleware.userInfor(req);
       if (userInfor.username == null)
         return res.json({ error: "Bạn phải đăng nhập trước" });
-      let userCourses = await UserCourse.find({ user_id: userInfor.id })
-        .populate("course_id")
-        .exec()
-        .then((userCourses) => {
-          let courses =
-            userCourses.length < 1
-              ? []
-              : userCourses.map((course) => course.course_id);
-          return courses;
-        });
-
-      // console.log(userCourses);
+        
+        let result = await pagination(req,UserCourse,pageSize,'course_id').then(res => res)
+        console.log(result.docs);
+        let userCourses = result.docs.map(doc => doc.course_id);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: mutipleMongooseToObject(userCourses),
+        courses : userCourses, // sản phẩm trên một paga
+        current: result.page, // page hiện tại
+        pages: result.pages
+      
       });
     } catch (e) {
       console.log(e);
@@ -194,24 +199,20 @@ class SiteController {
   }
 
   async search(req, res, next) {
+
+    const pageSize = 4;
+    console.log(req);
     try {
-      const searchName = req.query.name.toLowerCase();
-      const courses = await Course.find({});
-      const personSearch = [];
-      let countSearch = 0;
-      courses.forEach((item) => {
-        if (
-          item.name.toLowerCase().indexOf(searchName) !== -1 ||
-          item.price.toLowerCase().indexOf(searchName) !== -1
-        ) {
-          personSearch.push(item);
-          countSearch++;
-        }
-      });
+      const searchName = req.query.name;
+      let result =  await pagination(req,Course,pageSize,'',{ name : { "$regex": searchName, "$options": "i" }});
+      // console.log(result);
+
       res.render("searchPage.ejs", {
-        personSearch: mutipleMongooseToObject(personSearch),
+        personSearch: mutipleMongooseToObject(result.docs),
+        current: result.page, // page hiện tại
+        pages: result.pages,
         searchName: searchName,
-        countSearch: countSearch,
+        countSearch: result.countResult,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {

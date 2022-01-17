@@ -766,54 +766,20 @@
       padding: 16px 30px;
     }
   }
-  /* footer css ở file headerFooter.css */
+ 
 
-  
-
-/* phân trang */
-/* #paging{
+.pagination-container {
   position: relative;
-    z-index: 1;
-    color: var(--main-color);
-} */
 
-#paging ul {
-  list-style: none;
-  display: flex;
-  color: var(--main-color);
 }
-#paging .paginationjs-page ,
-#paging .paginationjs-ellipsis,
-#paging .paginationjs-prev,
-#paging .paginationjs-next
-{
+.pagination  li {
   position: relative;
   display: inline-block;
   color: var(--main-color);
   text-decoration: none;
   font-size: 16px;
-  padding: 8px 16px 10px;
-  font-weight: 500;
+  padding: 0px ;
+  font-weight: 500; 
+ 
 }
-#paging .paginationjs-page a,
-#paging .paginationjs-ellipsis a,
-#paging .paginationjs-prev a,
-#paging .paginationjs-next a{
- color: var(--main-color); 
-}
-#paging .active{
-  background-color: var(--style-color);
-  color: white;
-  border-radius: 100%;
-}
-#paging .paginationjs-page:hover ,
-#paging .paginationjs-ellipsis:hover,
-#paging .paginationjs-prev:hover,
-#paging .paginationjs-next:hover{
-  background-color: var(--style-color);
-  color: white;
-  border-radius: 100%;
-  cursor: pointer;
-}
-
 
