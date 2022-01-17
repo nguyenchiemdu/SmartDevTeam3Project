@@ -13,6 +13,7 @@
                 <th scope="col">Tên người mua</th>
                 <th scope="col">Số tiền</th>
                 <th scope="col">Ngày mua</th>
+                <th scope="col" style="text-align: center;">Tiến độ</th>
               </tr>
             </thead>
             <tbody>
@@ -27,9 +28,12 @@
                   </td>
 
                   <td>
-                    <%= invoice.createdAt.getDate() %> -
-                    <%= invoice.createdAt.getMonth()+1 %> -
-                    <%= invoice.createdAt.getFullYear() %> 
+                    <%= invoice.createdAt %>
+                  </td>
+                  <td>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= invoice.percentFinish %>%"><%= invoice.percentFinish.toFixed(0) %>% done</div>
+                    </div>
                   </td>
                 </tr>
                 <%})%>

@@ -94,11 +94,11 @@ a {
 .lesson-description {
   cursor: pointer;
   width: 100%;
-  height: 50px;
+  height: auto;
   margin: 10px 6px; 
   padding-left: 10px;
 }
-.lesson-description:hover a {
+a.lesson-description:hover .lesson-name {
   font-weight: bold;
   color: rgb(238, 31, 176);
 }
@@ -106,7 +106,7 @@ a {
   font-weight: bold;
   color: rgb(199, 77, 6);
 }
-.lesson-description a {
+a.lesson-description {
   color: rgb(1, 235, 252);
 }
 .lesson-description p {
@@ -185,4 +185,7 @@ a {
 .user-avt img {
   width: 100%;
   border-radius: 50%;
+}
+.progress-bar {
+  background-color: rgb(238, 31, 176);
 }
