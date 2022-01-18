@@ -332,11 +332,11 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     var userCoursesName = [],
       userCoursePrices = [];
+    var courses = await Course.find({ user_id: userInfor.id });
     try {
       if (userInfor.id == null) {
         (userCoursesName = ["Chưa có dữ liệu"]), (userCoursePrices = ["100"]);
       } else {
-        var courses = await Course.find({ user_id: userInfor.id });
         var validatedCourse = await Course.find({
           user_id: userInfor.id,
           isValidated: 1,
@@ -359,7 +359,7 @@ class SiteController {
       }
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
-        courses,
+        courses: courses,
         userCoursesName,
         userCoursePrices,
       });
