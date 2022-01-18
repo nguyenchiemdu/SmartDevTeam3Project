@@ -311,25 +311,34 @@ class SiteController {
 
   async home_seller(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
+    var userCourses = [], userCoursePrices = [];
     try {
+      if(userInfor.id == null){
+        userCourses = ["Chưa có dữ liệu"],
+        userCoursePrices = ["100"]
+      }
       var sum = 0;
       var courses = await Course.find({ user_id: userInfor.id });
-      var isValidatedCourse = await Course.find({ user_id: userInfor.id, isValidated: 1 });
-      const a = [isValidatedCourse[0].name];
-      const b = [isValidatedCourse[1].name];
-      console.log("🚀 ~ file: SiteController.js ~ line 318 ~ SiteController ~ home_seller ~ a", [...a, ...b])
-      var userCourses = [], userCoursePrices = [];
       for(let i = 0; i <courses.length ; i++){
-        userCourses.push(courses[i].name);
-        userCoursePrices.push(courses[i].price);
-        // const test = await Invoice.find({course_id: courses[i]._id}).populate("course_id");
-        // test.forEach((testKq)=>{
-        //   sum += testKq.totalPayout
-        //   userCoursePrices.push(sum);
-        // })
+        if(courses[i].isValidated == 0){
+          continue;
+        }
+        else {
+          userCourses.push(courses[i].name);
+          const courseIsPaid = await Invoice.find({course_id: courses[i]._id}).populate("course_id");
+          if(courseIsPaid.length > 0 ){
+            courseIsPaid.forEach((course)=>{
+              sum = 0;
+              sum += course.totalPayout
+              userCoursePrices.push(sum);
+            })
+          }
+          else if(courseIsPaid.length == 0){
+            sum= 0;
+            userCoursePrices.push(sum);
+          }
+        }
       }
-      
-      // console.log(userCourses);
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
         courses,
