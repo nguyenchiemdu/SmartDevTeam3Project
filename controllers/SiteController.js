@@ -44,7 +44,7 @@ const pagination = async (req, Table, pageSize, populateString, findCondition) =
     console.log(e);
     res.json(e);
   }
-}
+};
 
 class SiteController {
   // GET /
@@ -78,15 +78,13 @@ class SiteController {
         ...authMiddleware.userInfor(req),
         courses: result.docs, // sản phẩm trên một paga
         current: result.page, // page hiện tại
-        pages: result.pages // tổng số các page
+        pages: result.pages, // tổng số các page
       });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
-
-
 
   // [Post] localhost:8080/category
   // Post slug to find ID Category
@@ -177,7 +175,7 @@ class SiteController {
       // console.log(userCourses);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
-        courses: (userCourses),
+        courses: userCourses,
       });
     } catch (e) {
       next(e)
@@ -204,18 +202,16 @@ class SiteController {
       var lessons = await Lesson.find({ course_id: courseId });
       var userLesson = await UserLesson.find({ user_id: userInfor.id });
 
-
-
-      const filterLesson = userLesson.filter(user => {
-        return lessons.some(lesson => user.lesson_id == lesson._id)
+      const filterLesson = userLesson.filter((user) => {
+        return lessons.some((lesson) => user.lesson_id == lesson._id);
       });
 
       //tim tat ca cac lesson cua course
       const countLesson = lessons.filter(countLes => countLes.isFinish == true || countLes.isFinish == false);
       const sumCountLesson = countLesson.length
-      
+
       const countCheckLesson = filterLesson.filter(userLes => userLes.isFinish == true || userLes.isFinish == false);
-     
+
       //tim cac lesson da hoc
       const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
       const sumFinish = countFinish.length;
@@ -231,9 +227,8 @@ class SiteController {
       var percentFinish;
       if (sumFinish == 0 && sumCountLesson == 0) {
         percentFinish = 0;
-      }
-      else {
-        percentFinish = sumFinish / sumCountLesson * 100;
+      } else {
+        percentFinish = (sumFinish / sumCountLesson) * 100;
       }
 
       let currentLesson;
@@ -293,7 +288,6 @@ class SiteController {
   }
 
   async search(req, res, next) {
-
     const pageSize = 4;
     console.log(req);
     try {
@@ -317,11 +311,39 @@ class SiteController {
 
   async home_seller(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
+    var userCourses = [], userCoursePrices = [];
     try {
+      if(userInfor.id == null){
+        userCourses = ["Chưa có dữ liệu"],
+        userCoursePrices = ["100"]
+      }
+      var sum = 0;
       var courses = await Course.find({ user_id: userInfor.id });
+      for(let i = 0; i <courses.length ; i++){
+        if(courses[i].isValidated == 0){
+          continue;
+        }
+        else {
+          userCourses.push(courses[i].name);
+          const courseIsPaid = await Invoice.find({course_id: courses[i]._id}).populate("course_id");
+          if(courseIsPaid.length > 0 ){
+            courseIsPaid.forEach((course)=>{
+              sum = 0;
+              sum += course.totalPayout
+              userCoursePrices.push(sum);
+            })
+          }
+          else if(courseIsPaid.length == 0){
+            sum= 0;
+            userCoursePrices.push(sum);
+          }
+        }
+      }
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
         courses,
+        userCourses,
+        userCoursePrices
       });
     } catch (e) {
       console.log(e);
@@ -391,43 +413,50 @@ class SiteController {
 
       let course = await Course.findOne({ _id: courseId });
 
-      invoices = await Promise.all(invoices.map(async (invoice) => {
-        //lay cac ma video(lesson)
-        var lessons = await Lesson.find({ course_id: courseId });
-        var userLesson = await UserLesson.find({ user_id: invoice.user_id });
+      invoices = await Promise.all(
+        invoices.map(async (invoice) => {
+          //lay cac ma video(lesson)
+          var lessons = await Lesson.find({ course_id: courseId });
+          var userLesson = await UserLesson.find({ user_id: invoice.user_id });
 
-        //Loc 2 mang co lessonId giong nhau
-        const filterLesson = userLesson.filter(user => {
-          return lessons.some(lesson => user.lesson_id == lesson._id)
-        });
+          //Loc 2 mang co lessonId giong nhau
+          const filterLesson = userLesson.filter((user) => {
+            return lessons.some((lesson) => user.lesson_id == lesson._id);
+          });
 
-        //tim tat ca cac lesson cua course
-        const countLesson = lessons.filter(countLes => countLes.isFinish == true || countLes.isFinish == false);
-        const sumCountLesson = countLesson.length
+          //tim tat ca cac lesson cua course
+          const countLesson = lessons.filter(
+            (countLes) =>
+              countLes.isFinish == true || countLes.isFinish == false
+          );
+          const sumCountLesson = countLesson.length;
 
-        //tim cac lesson da hoc
-        const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
-        const sumFinish = countFinish.length
+          //tim cac lesson da hoc
+          const countFinish = filterLesson.filter(
+            (userLes) => userLes.isFinish == true
+          );
+          const sumFinish = countFinish.length;
 
-        //tinh phan tram cua lesson da hoc
-        var percentFinish;
-        if (sumFinish == 0 && sumCountLesson == 0) {
-          percentFinish = 0;
-        }
-        else {
-          percentFinish = sumFinish / sumCountLesson * 100;
-        }
-        invoice = JSON.parse(JSON.stringify(invoice));
-        var newInvoice = {
-          ...invoice, percentFinish
-        }
-        // console.log(newInvoice);
-        return newInvoice;
-      }));
+          //tinh phan tram cua lesson da hoc
+          var percentFinish;
+          if (sumFinish == 0 && sumCountLesson == 0) {
+            percentFinish = 0;
+          } else {
+            percentFinish = (sumFinish / sumCountLesson) * 100;
+          }
+          invoice = JSON.parse(JSON.stringify(invoice));
+          var newInvoice = {
+            ...invoice,
+            percentFinish,
+          };
+          // console.log(newInvoice);
+          return newInvoice;
+        })
+      );
 
       res.render("seller/bill", {
         ...authMiddleware.userInfor(req),
-        invoices: (invoices),
+        invoices: invoices,
         course,
       });
     } catch (e) {
@@ -584,13 +613,13 @@ class SiteController {
         userInfor.username == null
           ? []
           : await UserCart.find({ user_id: userInfor.id })
-            .populate("course_id")
-            .exec()
-            .then((userCart) => {
-              let courses = userCart.map((course) => course.course_id);
-              return courses;
-            })
-            .catch((e) => console.log(e));
+              .populate("course_id")
+              .exec()
+              .then((userCart) => {
+                let courses = userCart.map((course) => course.course_id);
+                return courses;
+              })
+              .catch((e) => console.log(e));
       res.render("shopping-cart", {
         title: "Cart",
         ...userInfor,
@@ -644,16 +673,16 @@ class SiteController {
       userInfor.username == null
         ? null
         : await UserCart.find({ user_id: userInfor.id })
-          .populate("course_id")
-          .exec()
-          .then((userCart) => {
-            let sum = 0;
-            userCart.forEach(
-              (item) => (sum += parseFloat(item.course_id.price))
-            );
-            return sum;
-          })
-          .catch((e) => console.log(e));
+            .populate("course_id")
+            .exec()
+            .then((userCart) => {
+              let sum = 0;
+              userCart.forEach(
+                (item) => (sum += parseFloat(item.course_id.price))
+              );
+              return sum;
+            })
+            .catch((e) => console.log(e));
     try {
       // Create token check valid card
       const token = await stripe.tokens.create({
