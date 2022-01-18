@@ -246,8 +246,8 @@ footer .footer-bottom-right a i {
 }
 
 .chart-container {
-    width: 80%;
-    height: 480px;
+    width: 100%;
+    height: 600px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -255,6 +255,6 @@ footer .footer-bottom-right a i {
   
 .pie-chart-container {
     height: 400px;
-    width: 400;
+    width: 500px;
     float: left;
 }

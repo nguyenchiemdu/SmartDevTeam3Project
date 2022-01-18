@@ -109,12 +109,11 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const kq = [12,19,15,15,12];
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Học Lập Trình NodeJS', 'Lập trình web cho người mới bắt đầu', 'Khóa học lập trình web', 'Khóa học lập trình Javascript', 'Khóa học Java cơ bản đến nâng cao'],
+    // Truyền giá trị 
+    const kq = [20,30,10,20,20];
+    const labels =  ['Học Lập Trình NodeJS', 'Lập trình web cho người mới bắt đầu', 'Khóa học lập trình web', 'Khóa học lập trình Javascript', 'Khóa học Java cơ bản đến nâng cao'];
+    const data = {
+            labels,
             datasets: [{
                 label: '# of Votes',
                 data: kq,
@@ -127,13 +126,17 @@
                 ],
 
             }],
-            // hoverOffset: 4
-        },
+    }
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data,
         options: {
             responsive: true,
             plugins: {
                 legend: {
-                    position: 'top',
+                    // display: false,
+                    position: 'bottom',
                     labels: {
                         font: {
                             size: 18
@@ -142,14 +145,13 @@
                 },
                 title: {
                     display: true,
-                    text: 'Doanh thu của 5 khóa học cao nhất trong tháng này',
+                    text: 'Doanh thu của 5 khóa học cao nhất',
                     font: {
-                        size: 26,
-                        weight: 'bold',
+                        size: 28
                     }
                 },
                
-            },
+            }
            
         }
     });
