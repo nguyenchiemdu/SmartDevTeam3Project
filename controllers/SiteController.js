@@ -312,15 +312,29 @@ class SiteController {
   async home_seller(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     try {
+      var sum = 0;
       var courses = await Course.find({ user_id: userInfor.id });
       var isValidatedCourse = await Course.find({ user_id: userInfor.id, isValidated: 1 });
       const a = [isValidatedCourse[0].name];
       const b = [isValidatedCourse[1].name];
       console.log("🚀 ~ file: SiteController.js ~ line 318 ~ SiteController ~ home_seller ~ a", [...a, ...b])
-      const invoice = await Invoice.find({ });
+      var userCourses = [], userCoursePrices = [];
+      for(let i = 0; i <courses.length ; i++){
+        userCourses.push(courses[i].name);
+        userCoursePrices.push(courses[i].price);
+        // const test = await Invoice.find({course_id: courses[i]._id}).populate("course_id");
+        // test.forEach((testKq)=>{
+        //   sum += testKq.totalPayout
+        //   userCoursePrices.push(sum);
+        // })
+      }
+      
+      // console.log(userCourses);
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
         courses,
+        userCourses,
+        userCoursePrices
       });
     } catch (e) {
       console.log(e);
