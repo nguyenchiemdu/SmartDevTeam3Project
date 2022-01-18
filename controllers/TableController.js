@@ -4,6 +4,11 @@ const Category = require("../models/Category");
 const UserCart = require("../models/UserCart");
 const UserCourse = require("../models/UserCourse");
 const Lesson = require("../models/Lesson");
+const Comment = require("../models/Comment");
+const Invoice = require("../models/Invoice");
+const Role = require("../models/Role");
+const Transaction = require("../models/Transaction");
+const UserLesson = require("../models/UserLesson");
 
 const listTable = {
   users: User,
@@ -11,7 +16,12 @@ const listTable = {
   categories: Category,
   usercarts : UserCart,
   usercourses : UserCourse,
-  lessons : Lesson
+  lessons : Lesson,
+  comments : Comment,
+  invoices : Invoice,
+  roles : Role,
+  transactions : Transaction,
+  userlessons : UserLesson
 };
 var authMiddleware = require("../middlerwares/auth.middleware")
 const {
@@ -108,6 +118,7 @@ class TableController {
       res.json(e);
     }
   }
+
 }
 
 module.exports = new TableController();

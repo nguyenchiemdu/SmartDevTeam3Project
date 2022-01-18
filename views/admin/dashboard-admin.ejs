@@ -11,69 +11,138 @@
     <% include ../elements/header %>
     <!-- css header - footer -->
     <% include ../elements/css/header-footer %>
+    <link rel="stylesheet" href="/assets/css/dashboardAdmin.css" />
 
   </head>
   <body>
     <!-- navbar -->
     <% include ../elements/navbar %>
-    <div style="padding-top: 82px" class="container">
-      <div class="row justify-content-center mb-5">
-        <div class="col-md-6">
-          <div class="mb-4">
-            <h3>Welcome <strong>Admin</strong></h3>
-          </div>
-          <h4>Select table in SmartDev Database</h4>
+    <div class="wrapper" style="padding-top: 82px"  >
+      <div class="row">
+        <div class="sidebar col-sm">
+          <ul class = "sidebar__list">
+            <li class = "sidebar__list-item">
+              <i class="fas fa-server"></i>
+              <a href="/admin">CRUD Database</a>
+            </li>
+            <li class = "sidebar__list-item">
+              <i class="fas fa-check-square"></i>
+              <a href="/admin/kiemduyet">Kiểm duyệt khóa học</a>
+            </li>
+          </ul>
         </div>
-      </div>
-    </div>
-    <div class="container">
-      <table
-        class="table table-bordered table-striped table-hover"
-        style="table-layout: fixed"
-      >
-        <thead class="table-dark">
-          <tr>
-            <th scope="col" class="text-truncate">#</th>
-            <th scope="col" class="text-truncate">Table</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td class="text-truncate">courses</td>
-            <td>
-              <div
-                class="btn-group"
-                role="group"
-                aria-label="Basic mixed styles example"
-              >
-                <a type="button btn-primary" href="./courses/" class="btn btn-primary"
-                  >Go</a
-                >
+        <div class="col-sm content pl-0">
+          <div class="row justify-content-center mb-5">
+            <div class="col-md-6">
+              <div class="mb-4">
+                <h3>Welcome <strong>Admin</strong></h3>
               </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td class="text-truncate">users</td>
-            <td>
-              <div
-                class="btn-group"
-                role="group"
-                aria-label="Basic mixed styles example"
-              >
-                <a
-                  type="button btn-primary"
-                  href="./users/"
-                  class="btn btn-primary"
-                  >Go</a
-                >
-              </div>
-            </td>
+              <h4>Select table in SmartDev Database</h4>
+            </div>
+          </div>
+    
+          <div class="container">
+            <table
+              class="table table-bordered table-striped table-hover"
+              style="table-layout: fixed"
+            >
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col" class="text-truncate">#</th>
+                  <th scope="col" class="text-truncate">Table</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td class="text-truncate">courses</td>
+                  <td>
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic mixed styles example"
+                    >
+                      <a type="button btn-primary" href="./courses/" class="btn btn-primary"
+                        >Go</a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td class="text-truncate">users</td>
+                  <td>
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic mixed styles example"
+                    >
+                      <a
+                        type="button btn-primary"
+                        href="./users/"
+                        class="btn btn-primary"
+                        >Go</a
+                      >
+                    </div>
+                  </td>
+                  <tr>
+                    <td>3</td>
+                    <td class="text-truncate">categories</td>
+                    <td>
+                      <div
+                        class="btn-group"
+                        role="group"
+                        aria-label="Basic mixed styles example"
+                      >
+                        <a
+                          type="button btn-primary"
+                          href="./categories/"
+                          class="btn btn-primary"
+                          >Go</a
+                        >
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td class="text-truncate">usercarts</td>
+                  <td>
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic mixed styles example"
+                    >
+                      <a
+                        type="button btn-primary"
+                        href="./usercarts/"
+                        class="btn btn-primary"
+                        >Go</a
+                      >
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td class="text-truncate">usercourses</td>
+                <td>
+                  <div
+                    class="btn-group"
+                    role="group"
+                    aria-label="Basic mixed styles example"
+                  >
+                    <a
+                      type="button btn-primary"
+                      href="./usercourses/"
+                      class="btn btn-primary"
+                      >Go</a
+                    >
+                  </div>
+              </td>
+            </tr>
             <tr>
-              <td>3</td>
-              <td class="text-truncate">categories</td>
+              <td>6</td>
+              <td class="text-truncate">lessons</td>
               <td>
                 <div
                   class="btn-group"
@@ -82,52 +151,17 @@
                 >
                   <a
                     type="button btn-primary"
-                    href="./categories/"
+                    href="./lessons/"
                     class="btn btn-primary"
                     >Go</a
                   >
                 </div>
             </td>
           </tr>
-          <tr>
-            <td>4</td>
-            <td class="text-truncate">usercarts</td>
-            <td>
-              <div
-                class="btn-group"
-                role="group"
-                aria-label="Basic mixed styles example"
-              >
-                <a
-                  type="button btn-primary"
-                  href="./usercarts/"
-                  class="btn btn-primary"
-                  >Go</a
-                >
-              </div>
-          </td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td class="text-truncate">usercourses</td>
-          <td>
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic mixed styles example"
-            >
-              <a
-                type="button btn-primary"
-                href="./usercourses/"
-                class="btn btn-primary"
-                >Go</a
-              >
-            </div>
-        </td>
-      </tr>
+              
       <tr>
-        <td>6</td>
-        <td class="text-truncate">lessons</td>
+        <td>7</td>
+        <td class="text-truncate">comments</td>
         <td>
           <div
             class="btn-group"
@@ -136,13 +170,84 @@
           >
             <a
               type="button btn-primary"
-              href="./lessons/"
+              href="./comments/"
               class="btn btn-primary"
               >Go</a
             >
           </div>
       </td>
     </tr>
+    <tr>
+      <td>8</td>
+      <td class="text-truncate">invoices</td>
+      <td>
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Basic mixed styles example"
+        >
+          <a
+            type="button btn-primary"
+            href="./invoices/"
+            class="btn btn-primary"
+            >Go</a
+          >
+        </div>
+    </td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td class="text-truncate">roles</td>
+    <td>
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic mixed styles example"
+      >
+        <a
+          type="button btn-primary"
+          href="./roles/"
+          class="btn btn-primary"
+          >Go</a
+        >
+      </div>
+  </td>
+  <tr>
+    <td>10</td>
+    <td class="text-truncate">transactions</td>
+    <td>
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic mixed styles example"
+      >
+        <a
+          type="button btn-primary"
+          href="./transactions/"
+          class="btn btn-primary"
+          >Go</a
+        >
+      </div>
+  </td>
+</tr>
+<tr>
+  <td>11</td>
+  <td class="text-truncate">userlessons</td>
+  <td>
+    <div
+      class="btn-group"
+      role="group"
+      aria-label="Basic mixed styles example"
+    >
+      <a
+        type="button btn-primary"
+        href="./userlessons/"
+        class="btn btn-primary"
+        >Go</a
+      >
+    </div>
+</td>
+</tr>
         </tbody>
       </table>
 
@@ -150,6 +255,8 @@
         <a class="btn btn-danger" href="/"> Sign out </a>
       </div>
     </div>
+    
+   
     <% include ../elements/footer %>
     <% include ../elements/script %>
     <script

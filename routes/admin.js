@@ -5,7 +5,7 @@ const tableController = require("../controllers/TableController");
 const adminController = require("../controllers/AdminController");
 
 // siteController.index
-router.get("/", adminController.show);
+router.get("/kiemduyet", adminController.kiemduyet);
 
 router.get("/:table", tableController.showTable);
 
@@ -18,6 +18,10 @@ router.get("/:table/:id", tableController.edit);
 router.put("/:table/:id", tableController.update);
 
 router.delete("/:table/:id", tableController.destroy);
+
+router.get("/", adminController.show);
+
+
 
 
 module.exports = router;
