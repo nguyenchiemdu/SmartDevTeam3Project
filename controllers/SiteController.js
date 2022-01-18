@@ -313,6 +313,11 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     try {
       var courses = await Course.find({ user_id: userInfor.id });
+      var isValidatedCourse = await Course.find({ user_id: userInfor.id, isValidated: 1 });
+      const a = [isValidatedCourse[0].name];
+      const b = [isValidatedCourse[1].name];
+      console.log("🚀 ~ file: SiteController.js ~ line 318 ~ SiteController ~ home_seller ~ a", [...a, ...b])
+      const invoice = await Invoice.find({ });
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
         courses,
