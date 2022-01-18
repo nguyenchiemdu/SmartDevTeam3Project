@@ -218,9 +218,14 @@ class SiteController {
      
       //tim cac lesson da hoc
       const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
-      const sumFinish = countFinish.length
+      const sumFinish = countFinish.length;
+      console.log('countCheckLesson');
       console.log(countCheckLesson);
-
+      let mapIsFisnish = {};
+      countCheckLesson.forEach(userlesson=> {
+        mapIsFisnish[userlesson.lesson_id] = userlesson.isFinish;
+      })
+      console.log(mapIsFisnish);
 
       //tinh phan tram cua lesson da hoc
       var percentFinish;
@@ -253,6 +258,7 @@ class SiteController {
         percentFinish,
         countFinish,
         countCheckLesson,
+        mapIsFisnish,
         // checkFinish,
         ...authMiddleware.userInfor(req),
       });
