@@ -351,7 +351,6 @@ class SiteController {
           userCoursePrices.push(0);
         }
       }
-      console.log(userCoursePrices);
       res.render("seller/home.ejs", {
         ...authMiddleware.userInfor(req),
         courses,
