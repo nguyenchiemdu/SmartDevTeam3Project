@@ -11,6 +11,35 @@ class AdminController {
       next(e)
     }
   }
+  async kiemduyet(req, res, next) {
+    const courseIsNotValidate = await Course.find({isValidated: 0})
+    console.log(courseIsNotValidate);
+    try {
+      res.render("admin/kiemduyet",{ ...authMiddleware.userInfor(req), courseIsNotValidate});
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+  async viewDetail(req, res, next) {
+    
+    const courseSlug = await Course.findOne({slug: req.params.slug}).populate("user_id");
+    try {
+      res.render("admin/viewdetail",{ ...authMiddleware.userInfor(req), course: courseSlug});
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+  async confirm(req, res, next) {
+    try {
+      await Course.updateOne({_id: req.params.id},{isValidated: 1});
+      res.redirect("/admin/kiemduyet");
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
 }
 
 module.exports = new AdminController();

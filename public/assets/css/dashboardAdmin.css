@@ -1,0 +1,41 @@
+.sidebar {
+    flex: 1;
+    background-color: var(--main-background-color);
+}
+.sidebar__list{
+    font-size: 1rem;
+}
+.sidebar__list li{
+    list-style: none;
+    padding: 12px 12px;
+}
+.sidebar__list .sidebar__list-item{
+    color: var(--main-color) !important;
+}
+.sidebar__list .sidebar__list-item a{
+    color: inherit !important;
+}
+.content{
+    flex:7;
+}
+.status__course{
+    margin: 0 0!important;
+}
+.status__course .list-status{
+    margin: 10px 0;
+}
+.status__course .list-status a{
+    color: #000 !important;
+    display: flex;
+    text-align: left;
+}
+.status__course .list-status:hover{
+    background-color:#ccc;
+    width:100%;
+}
+
+.status__course a i {
+    font-size: 24px;
+    color: var(--style-color);
+    padding: 0 10px;
+}
