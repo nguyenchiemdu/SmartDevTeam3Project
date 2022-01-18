@@ -105,15 +105,13 @@
                     </div>
         </div>
     </div>
-    <p id = "userCourse" style ="display: none" ><%- userCourses%></p>
-    <p id = "userCoursePrices" style ="display: none"><%- userCoursePrices%></p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Truyền giá trị 
-    const userCourse = document.getElementById("userCourse").innerText;
-    const userCoursePrices = document.getElementById("userCoursePrices").innerText;
-    var lableCourse = userCourse.split(',');
+    // Truyền giá trị
+    const userCoursesName =  "<%- userCoursesName%>" ;
+    const userCoursePrices = "<%- userCoursePrices%>";
+    var lableCourse = userCoursesName.split(',');
     var dataCourse = userCoursePrices.split(',');
     const dataCoursePrice = dataCourse;
     const labels =  lableCourse;
@@ -126,7 +124,6 @@
         var rdColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
         randomColor.push(bgColor);
     }
-    console.log(dataCoursePrice, labels)
     const data = {
             labels,
             datasets: [{
