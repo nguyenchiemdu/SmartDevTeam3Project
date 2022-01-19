@@ -255,7 +255,7 @@ class SiteController {
         user_id: userInfor.id,
         lesson_id: currentLesson._id,
       });
-
+      if  (userTracking == null) userTracking = {};
       let commentUser = await Comment.find({ course_id: courseId })
         .populate("user_id")
         .exec()
@@ -263,7 +263,7 @@ class SiteController {
           return commentUser;
         });
       res.render("userLearning/user-learning.ejs", {
-        progress: userTracking == null ? 0 : userTracking.progress,
+        progress: userTracking.progress == null ? 0 : userTracking.progress,
         lessons,
         currentLesson,
         course,
