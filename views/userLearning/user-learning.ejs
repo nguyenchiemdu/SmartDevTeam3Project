@@ -44,26 +44,61 @@
                 <p>
                   <%= lesson.description %>
                 </p>
-               
+
                 <%}) %>
-                 <p>Các bạn subscribe kênh Youtube CodeEveryDay để nhận thông báo khi có các bài học mới nhé ❤️</p>
+                  <p>Các bạn subscribe kênh Youtube CodeEveryDay để nhận thông báo khi có các bài học mới nhé ❤️</p>
                   <div class="justify-content-between">
-                    <h3 class="my-3">33 hỏi đáp</h3>
-                    <div class="share">
-                      <span>CHIA SẺ</span>
-                    </div>
-                    <div class="user-comment d-flex align-items-center">
-                      <div class="user-avt">
-                        <img src="https://placeimg.com/480/480" alt="photo">
-                      </div>
-                      <div class="comment__user">
-                        <h6 class="user-name">
-                          Người học
-                        </h6>
-                        <p>bài học tuyệt vời</p>
+                    <h3 class="my-3">33 Review</h3>
+
+                    <div class="d-flex justify-content-center row">
+                      <div class="col-md-12">
+                        <div class="d-flex flex-column comment-section">
+                          <% commentUser.forEach(function(comment) { %>
+                            <div class="bg-white p-2">
+                              <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                                  src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                <div class="d-flex flex-column justify-content-start ml-2"><span
+                                    class="d-block font-weight-bold name">
+                                    <%= comment.user_id.username %>
+                                  </span><span class="date text-black-50">
+                                  <%= comment.createdAt.getDate() %>/
+                                  <%= comment.createdAt.getMonth()+1 %>/
+                                  <%= comment.createdAt.getFullYear() %> 
+                                  </span></div>
+                              </div>
+                              <div class="mt-2">
+                                <p class="comment-text">
+                                  <%= comment.commentContent %>
+                                </p>
+                              </div>
+                            </div>
+                            <% }); %>
+                              <div class="bg-white">
+                                <div class="d-flex flex-row fs-12">
+                                  <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span
+                                      class="ml-1">Like</span></div>
+                                  <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span
+                                      class="ml-1">Comment</span></div>
+                                  <div class="like p-2 cursor"><i class="fa fa-share"></i><span
+                                      class="ml-1">Share</span></div>
+                                </div>
+                              </div>
+                              <form method="POST" action="/learning/<%= course._id %> ">
+                                <div class="bg-light p-2">
+                                  <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
+                                      src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea
+                                      class="form-control ml-1 shadow-none textarea" name="comment"></textarea></div>
+                                  <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none"
+                                      type="submit">Post comment</button><button
+                                      class="btn btn-outline-primary btn-sm ml-1 shadow-none"
+                                      type="button">Cancel</button></div>
+                                </div>
+                              </form>
+                        </div>
                       </div>
                     </div>
                   </div>
+
             </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Trang ghi chú

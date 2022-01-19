@@ -189,3 +189,43 @@ a.lesson-description {
 .progress-bar {
   background-color: rgb(238, 31, 176);
 }
+/* 
+comment */
+body {
+  background: #eee
+}
+
+.date {
+  font-size: 11px
+}
+
+.comment-text {
+  font-size: 12px;
+  color :#212121;
+}
+
+.fs-12 {
+  font-size: 12px
+}
+.bg-white{
+  color: #007bff;
+}
+.shadow-none {
+  box-shadow: none
+}
+
+.name {
+  color: #007bff
+}
+
+.cursor:hover {
+  color: rgb(2, 2, 2)
+}
+
+.cursor {
+  cursor: pointer
+}
+
+.textarea {
+  resize: none
+}

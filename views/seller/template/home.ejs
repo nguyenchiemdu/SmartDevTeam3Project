@@ -48,7 +48,7 @@
                 <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
                 <div class="chart-container">
                     <div class="pie-chart-container">
-                        <canvas id="myChart" width="400" height="400"></canvas>
+                        <canvas id="myChart" width="1000" height="1000"></canvas>
                     </div>
                 </div>
             </div>
@@ -108,22 +108,40 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Truyền giá trị 
-    const kq = [20,30,10,20,20];
-    const labels =  ['Học Lập Trình NodeJS', 'Lập trình web cho người mới bắt đầu', 'Khóa học lập trình web', 'Khóa học lập trình Javascript', 'Khóa học Java cơ bản đến nâng cao'];
+    // Truyền giá trị
+    const userCoursesName =  "<%- userCoursesName%>" ;
+    const userCoursePrices = "<%- userCoursePrices%>";
+    var lableCourse = userCoursesName.split(',');
+    var dataCourse = userCoursePrices.split(',');
+    const dataCoursePrice = dataCourse;
+    const labels =  lableCourse;
+    var randomColor = [];
+    for(let i = 0; i < dataCoursePrice.length-10; i++){
+        var x = Math.floor(Math.random() * 256);
+        var y = 100+ Math.floor(Math.random() * 256);
+        var z = 50+ Math.floor(Math.random() * 256);
+        var bgColor = "rgba(" + x + "," + y + "," + z + ",1)";
+        var rdColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+        randomColor.push(bgColor);
+    }
     const data = {
             labels,
             datasets: [{
                 label: '# of Votes',
-                data: kq,
+                data: dataCoursePrice,
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235,1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
+                    'rgba(215, 199, 32, 1)',
+                    'rgba(154, 16, 25,1)',
+                    'rgba(225, 26, 186, 1)',
+                    'rgba(175, 134, 122, 1)',
+                    'rgba(123, 152, 154, 1)',
+                    ...randomColor
                 ],
-
             }],
     }
     var ctx = document.getElementById('myChart');
@@ -135,7 +153,7 @@
             plugins: {
                 legend: {
                     // display: false,
-                    position: 'bottom',
+                    position: 'right',
                     labels: {
                         font: {
                             size: 20
@@ -145,16 +163,13 @@
                 },
                 title: {
                     display: true,
-                    text: 'Doanh thu của 5 khóa học cao nhất',
+                    text: 'Doanh thu của các khóa học',
                     font: {
                         size: 28
                     },
                     color: "#e40084"
-                 
                 },
-               
             }
-           
         }
     });
 
