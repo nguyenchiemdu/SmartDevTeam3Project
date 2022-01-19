@@ -23,8 +23,8 @@ const { userInfor } = require("../middlerwares/auth.middleware");
 
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
-  'client_id': 'AZ4QZ4LYbgJVadQZL22Lcl2wSkal7QVLo86_cszv_9FjRpSgxNmYyu7ZDynIsKk25BoPRrN1Qrwhs5Nn',
-  'client_secret': 'EN69UzG_KbVzH0ge__8cM5I3qYUSAoXOuS9RL8LYgcG8KNKxIpUv1Oau9gnccmqplro_5C3m29lI2zq4'
+  'client_id': 'Af28FeslwhxWrQgkN15xEqGK6kUviwhpg1uc7SvOpQSHL1SWywAqBdpSDpQlPFSlkeyb6M2aolPeJjo-',
+  'client_secret': 'EP3Xp3p9mUMiyDeXRsv-lL4eKEzpG5lnHBJZwHWeyHOZur-FBycdsG387jVOGNGEK7ZquOWvr4AhHgtB'
 });
 
 const pagination = async (req, Table, pageSize, populateString, findCondition) => {
@@ -725,40 +725,44 @@ class SiteController {
   async paymentPaypal(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     try {
-      const create_payment_json = {
+      var create_payment_json = {
         "intent": "sale",
         "payer": {
           "payment_method": "paypal"
         },
+        "transactions": [{
+          "amount": {
+            "currency": "USD",
+            "total": "10.00"
+          },
+          "item_list": {
+            "items": [
+              {
+                "name": "item",
+                "price": "10.00",
+                "currency": "USD",
+                "quantity": "1"
+              }
+           ]
+          },
+          "description": "This is the payment description."
+        }],
         "redirect_urls": {
           "return_url": "http://localhost:8080/result/paypal",
           "cancel_url": "http://localhost:8080/error"
-        },
-        "transactions": [{
-          "item_list": {
-            "name": "Test Name 1",
-            "sku": "001",
-            "price": "25.00",
-            "currency": "USD",
-            "quantity": 1
-          },
-          "amount": {
-            "currency": "USD",
-            "total": "25.00"
-          },
-          "description": "This is the payment description hihi."
-        }]
+        }
       };
 
       paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
           throw error
         } else {
-          for (let i = 0; i < payment.links.length; i++) {
-            if (payment.links[i].rel === 'approval_url') {
+          for(let i = 0; i < payment.links.length; i++){
+            if(payment.links[i].rel == 'approval_url'){
               res.redirect(payment.links[i].href);
             }
           }
+
         }
       });
       // res.redirect("/result/paypal");
@@ -923,37 +927,37 @@ class SiteController {
 
   payment_paypal_success(req, res, next) {
     const payerId = req.query.PayerID;
-    const paymentId = req.query.PaymentId;
+    const paymentId = req.query.paymentId;
+    const execute_payment_json = {
+      "payer_id": payerId,
+      "transactions": [{
+        "amount": {
+          "currency": "USD",
+          "total": "10.00"
+        }
+      }]
+    };
+    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
 
-      const execute_payment_json = {
-        "payer_id": payerId,
-        "transactions": [{
-          "amount": {
-            "currency": "USD",
-            "total": "25.00"
-          }
-        }]
-      };
-      paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-        
       try {
         if (error) {
           console.log(error.response);
           throw error;
         } else {
+          console.log("Get payment response");
           console.log(JSON.stringify(payment));
           res.render("payment_success", {
             title: "Payment Success",
             ...authMiddleware.userInfor(req),
           });
         }
-        
-     } catch (error) {
-      // resultPayment = err.raw.message;
-      next(error);
-      // res.redirect("/error");
-    }
-      });
+
+      } catch (error) {
+        // resultPayment = err.raw.message;
+        next(error);
+        // res.redirect("/error");
+      }
+    });
   }
 
   payment_error(req, res, next) {
