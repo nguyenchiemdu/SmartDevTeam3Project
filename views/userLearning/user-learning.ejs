@@ -76,10 +76,47 @@
                                   <div class="response__comment-item response__comment-title">
                                     <p>Phản hồi của người bán</p>
                                   </div>
-                                  <div class="response__comment-item response__comment-comment">
-                                    <p>Trả lời của phản hồi của bạn</p>
+                                    <% if (comment.analyzeComment == "Positive") {%>
+                                    <div class="response__comment-item response__comment-comment">
+                                      <p>Cảm ơn những đánh giá tích cực từ bạn. Chúng mình sẽ phát triển thêm nhiều hơn nữa từng ngày.
+                                        Những lời góp ý của bạn là nguồn động viên tinh thần rất lớn cho mình. Mong bạn tiếp tục ủng hộ mình 
+                                        trong những khóa học tiếp theo. Hãy tham gia nhóm của mình trên facebook để có thể trao đổi thông tin với nhau nhá.
+                                      </p>
+                                      <p>
+                                        Thank you for your positive reviews. We will develop more and more day by day to improve this course and another.
+                                        Your comments are a great encouragement for me. Hope you continue to support me
+                                        in the future. Please join the group Facebook to be exchange information with each other.
+                                      </p>
+                                    </div>
+                                    <%} else if (comment.analyzeComment == "Negative") {%>
+                                      <div class="response__comment-item response__comment-comment">
+                                        <p>Chúng mình rất xin lỗi nếu đã mang trải nghiệm tệ đến bạn, những sự góp ý của bạn chúng mình sẽ ghi nhận và thay đổi
+                                          trong tương lai. Bọn mình cảm ơn bạn đã mua và trải nghiệm khóa học của bọn mình, những ý kiến từ những trải nghiệm tệ
+                                          của bạn có thể là nguồn tài nguyên lớn để cải thiện chất lượng của những khóa học bọn mình trong thời gian tới. Hãy tham 
+                                          gia group Facebook để có thể trao đổi thông tin với nhiều người hơn về những vấn đề của bạn. Cảm ơn bạn đã mua khóa học
+                                        </p>
+                                        <p>
+                                          We apologize if we caused you any inconvenience, your feedback will be taken into consideration and changed in the future.
+                                          We appreciate your purchasing and taking our course, as well as any negative feedback. 
+                                          Yours feedback could be a valuable resource for us in the future as we strive to improve the quality of our courses. 
+                                          Join the Facebook group to share information about your concerns with a more individuals. 
+                                          Thank you for taking the time to purchase the course.
+                                        </p>
+                                      </div>
+                                    <% } else {%>
+                                      <div class="response__comment-item response__comment-comment">
+                                        <p>
+                                          Cảm ơn bạn đã mua khóa học, nếu bạn có vấn đề nào hãy tham gia nhóm group Facebook để có thể trao đổi với mọi người về vấn đề bạn gặp 
+                                          phải. Nếu bạn gặp vấn đề nào hãy để lại bình luận chúng tôi sẽ liên hệ bạn trong thời gian sớm nhất. Chúc bạn xem khóa học vui vẻ. 
+                                          Một ngày tốt lành cho bạn
+                                        </p>
+                                        <p>
+                                          Thank you for purchasing the course; if you have any issues, please join the Facebook group so that you may discuss them with others.
+                                           Please leave a remark if you have any issues, and we will get back to you as soon as possible. Have fun watching the course. Have a good day
+                                        </p>
+                                      </div>
+                                    <% } %>
                                   </div>
-                                </div>
                               </div>
                             </div>
                             <% }); %>
