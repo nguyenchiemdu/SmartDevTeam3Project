@@ -51,7 +51,7 @@ a {
 .content__right {
   overflow: auto;
   -ms-overflow-style: none;
-  height: 100vh;
+  height: 100%;
 }
 @media (max-width: 991px) {
   .content__right {

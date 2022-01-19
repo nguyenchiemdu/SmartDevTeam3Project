@@ -61,9 +61,9 @@
                                     class="d-block font-weight-bold name">
                                     <%= comment.user_id.username %>
                                   </span><span class="date text-black-50">
-                                  <%= comment.createdAt.getDate() %>/
-                                  <%= comment.createdAt.getMonth()+1 %>/
-                                  <%= comment.createdAt.getFullYear() %> 
+                                    <%= comment.createdAt.getDate() %>/
+                                      <%= comment.createdAt.getMonth()+1 %>/
+                                        <%= comment.createdAt.getFullYear() %>
                                   </span></div>
                               </div>
                               <div class="mt-2">
@@ -112,11 +112,17 @@
           <h6>
             <%= course.name %>
           </h6>
-          <p>Hoàn thành <strong> <%= sumFinish %>/<%= sumCountLesson %> </strong> bài học (<strong><%= percentFinish.toFixed(0) %>%</strong>)</p>
+          <p>Hoàn thành <strong>
+              <%= sumFinish %>/<%= sumCountLesson %>
+            </strong> bài học (<strong>
+              <%= percentFinish.toFixed(0) %>%
+            </strong>)</p>
           <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= percentFinish %>%"><%= percentFinish.toFixed(0) %>% done</div>
-        </div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+              aria-valuemin="0" aria-valuemax="100" style="width: <%= percentFinish %>%">
+              <%= percentFinish.toFixed(0) %>% done
+            </div>
+          </div>
         </div>
         <div class="accordion" id="accordionPanelsStayOpenExample">
           <div class="accordion-item">
@@ -129,22 +135,24 @@
             <div id="part1" class="accordion-collapse collapse show">
               <% let idLesson=1; %>
                 <% lessons.forEach(lesson=>{%>
-                  <a href="/learning/<%= course._id %>?videos=<%= lesson._id%>" class="d-flex align-items-center lesson-description">
-                      <% if(mapIsFisnish[lesson._id] == true){ %>
+                  <a href="/learning/<%= course._id %>?videos=<%= lesson._id%>"
+                    class="d-flex align-items-center lesson-description active">
+                    <% if(mapIsFisnish[lesson._id]==true){ %>
+                      <div class="check">
+                        <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
+                      </div>
+                      <% }else{ %>
                         <div class="check">
-                          <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
+                          <i style="color: none;" class='bx bxs-check-circle'></i>
                         </div>
-                        <% }else{ %>
-                          <div class="check">
-                            <i style="color: none;" class='bx bxs-check-circle'></i>
+                        <% } %>
+                          <div class="ml-2">
+                            <div class="lesson-name">Lesson
+                              <%=idLesson++ %>: <%=lesson.title %>
+                            </div>
+                            <!-- <p class="lesson-name">1. <%=lesson.title  %> </p> -->
+                            <p class="lesson-time">08:04</p>
                           </div>
-                          <% } %>
-                    <div class="ml-2">
-                      <div class="lesson-name">Lesson
-                        <%=idLesson++ %>: <%=lesson.title %></div>
-                      <!-- <p class="lesson-name">1. <%=lesson.title  %> </p> -->
-                      <p class="lesson-time">08:04</p>
-                    </div>
                   </a>
 
                   <% }) %>
