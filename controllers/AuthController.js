@@ -52,6 +52,7 @@ class UserController {
 
       //add local Cart to user Cart
       const cart = req.body.cart;
+      if (cart != null)
       cart.forEach(async course_id => {
         try {
           const userCourse = await UserCourse.findOne({user_id: user._id,course_id : course_id})

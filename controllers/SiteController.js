@@ -19,7 +19,8 @@ const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
-
+const axios = require('axios').default;
+var ytDurationFormat = require('youtube-duration-format');
 const pagination = async (
   req,
   Table,
@@ -49,6 +50,22 @@ const pagination = async (
     res.json(e);
   }
 };
+const getYoutubeVideoDuration = async (videoId)=> {
+  var result = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyDR5YdTOMZJ43q47od7XVSGLfjQCRNwegA`)
+      .then((response) => {
+        // handle success
+        var youtubeTime = response.data.items[0].contentDetails.duration;
+        // console.log(youtubeTime);
+        var duration = ytDurationFormat(youtubeTime);
+        // console.log(duration);
+        return duration
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  return result;
+}
 
 class SiteController {
   // GET /
@@ -209,6 +226,14 @@ class SiteController {
         return res.redirect(`/learning/${req.params.id}?videos=${lesson._id}`);
       }
       var lessons = await Lesson.find({ course_id: courseId });
+      lessons = await Promise.all(
+        lessons.map( async(lesson)=> {
+          let duration = await getYoutubeVideoDuration(lesson.urlVideo);
+          // console.log(duration);
+          var newLesson = {...JSON.parse(JSON.stringify(lesson)),duration}
+          return newLesson
+        })
+      )
       var userLesson = await UserLesson.find({ user_id: userInfor.id });
       const filterLesson = userLesson.filter((user) => {
         return lessons.some((lesson) => user.lesson_id == lesson._id);

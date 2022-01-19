@@ -71,12 +71,12 @@
                               <div style="color: #e40084; font-weight: bold;" class="lesson-name">Lesson
                                 <%=idLesson++ %>: <%=lesson.title %>
                               </div>
-                              <p style="color: rgb(199, 77, 6); font-weight: bold;" class="lesson-time">08:04</p>
+                              <p style="color: rgb(199, 77, 6); font-weight: bold;" class="lesson-time"><%= lesson.duration%></p>
                               <% }else{ %>
                                 <div class="lesson-name">Lesson
                                   <%=idLesson++ %>: <%=lesson.title %>
                                 </div>
-                                <p class="lesson-time">08:04</p>
+                                <p class="lesson-time"><%= lesson.duration%></p>
                                 <% } %>
                                   <!-- <p class="lesson-name">1. <%=lesson.title  %> </p> -->
                           </div>
