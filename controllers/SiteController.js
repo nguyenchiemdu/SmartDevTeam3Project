@@ -203,7 +203,6 @@ class SiteController {
       let course = await Course.findOne({ _id: courseId });
 
       let videoId = req.query.videos;
-
       if (videoId == null) {
         var lesson = await Lesson.findOne({ course_id: courseId });
         if (lesson == null)
@@ -212,7 +211,6 @@ class SiteController {
       }
       var lessons = await Lesson.find({ course_id: courseId });
       var userLesson = await UserLesson.find({ user_id: userInfor.id });
-
       const filterLesson = userLesson.filter((user) => {
         return lessons.some((lesson) => user.lesson_id == lesson._id);
       });
@@ -232,13 +230,13 @@ class SiteController {
         (userLes) => userLes.isFinish == true
       );
       const sumFinish = countFinish.length;
-      console.log("countCheckLesson");
-      console.log(countCheckLesson);
+      // console.log("countCheckLesson");
+      // console.log(countCheckLesson);
       let mapIsFisnish = {};
       countCheckLesson.forEach((userlesson) => {
         mapIsFisnish[userlesson.lesson_id] = userlesson.isFinish;
       });
-      console.log(mapIsFisnish);
+      // console.log(mapIsFisnish);
 
       //tinh phan tram cua lesson da hoc
       var percentFinish;
@@ -265,7 +263,6 @@ class SiteController {
         .then((commentUser) => {
           return commentUser;
         });
-      console.log(commentUser);
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking == null ? 0 : userTracking.progress,
         lessons,
@@ -280,6 +277,7 @@ class SiteController {
         mapIsFisnish,
         // checkFinish,
         commentUser,
+        userTracking,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
