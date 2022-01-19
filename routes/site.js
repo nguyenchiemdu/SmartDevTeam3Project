@@ -17,6 +17,8 @@ router.get("/success",siteController.success)
 
 router.get("/courses/:slug", courseController.show);
 
+
+
 router.get("/courses", siteController.courses);
 // chưa đăng nhập chưa thể vào trang đổi pass
 router.get("/password", siteController.password);
@@ -42,10 +44,11 @@ router.get("/error", siteController.payment_error);
 router.get("/learning", siteController.learning);
 
 router.get("/learning/:id", siteController.userLearning);
+
+router.post("/learning/:id", siteController.postComment);
+
 router.post("/learning/lesson/:lessonid", siteController.trackUser);
-// router.get('stored/courses', function(req, res, next) {
-//   res.render('stored-courses', { title: 'stored-courses' });
-// });
+
 router.get("/search", siteController.search);
 
 module.exports = router;

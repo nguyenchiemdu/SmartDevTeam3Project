@@ -13,6 +13,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
+const Comment = require("../models/Comment");
 var url = require("url");
 
 var findCourseBySlug, resultPayment;
@@ -258,6 +259,13 @@ class SiteController {
         lesson_id: currentLesson._id,
       });
 
+      let commentUser = await Comment.find({ course_id: courseId })
+        .populate("user_id")
+        .exec()
+        .then((commentUser) => {
+          return commentUser;
+        });
+      console.log(commentUser);
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking == null ? 0 : userTracking.progress,
         lessons,
@@ -271,6 +279,7 @@ class SiteController {
         countCheckLesson,
         mapIsFisnish,
         // checkFinish,
+        commentUser,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
@@ -278,6 +287,27 @@ class SiteController {
       next(e);
     }
   }
+//Post Comment
+  async postComment(req, res, next) {
+    const formData = req.body;
+    const userInfor = authMiddleware.userInfor(req);
+    let courseId = req.params.id;
+    let videoId = req.query.videos;
+    try {
+      if (userInfor.id == null) throw "Bạn phải đăng nhập trước!";
+      var newComment = new Comment({
+        user_id: userInfor.id,
+        course_id: courseId,
+        commentContent: formData.comment,
+      });
+      await newComment.save();
+      res.redirect(`/learning/${courseId}?video=${videoId}`);
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
   async trackUser(req, res, next) {
     try {
       var userInfor = authMiddleware.userInfor(req);
@@ -428,7 +458,6 @@ class SiteController {
         .then((invoices) => {
           return invoices;
         });
-
       let course = await Course.findOne({ _id: courseId });
 
       invoices = await Promise.all(
