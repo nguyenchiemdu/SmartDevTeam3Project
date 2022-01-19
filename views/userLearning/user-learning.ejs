@@ -95,13 +95,13 @@
               <% let idLesson=1; %>
                 <% lessons.forEach(lesson=>{%>
                   <a href="/learning/<%= course._id %>?videos=<%= lesson._id%>" class="d-flex align-items-center lesson-description">
-                      <% if(countCheckLesson.isFinish == true){ %>
+                      <% if(countCheckLesson.isFinish){ %>
                         <div class="check">
                           <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
                         </div>
                         <% }else{ %>
                           <div class="check">
-                            <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
+                            <i style="color: none;" class='bx bxs-check-circle'></i>
                           </div>
                           <% } %>
                     <div class="ml-2">

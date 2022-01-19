@@ -24,6 +24,7 @@
     "mongoose-sequence": "^5.3.1",
     "mongoose-slug-generator": "^1.0.4",
     "morgan": "~1.9.1",
+    "paypal-rest-sdk": "^1.8.1",
     "stripe": "^8.195.0"
   },
   "devDependencies": {

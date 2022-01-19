@@ -10,6 +10,8 @@ const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const paypal = require("paypal-rest-sdk");
+// const paypal = Paypal(process.env.PAYPAL_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
@@ -18,6 +20,12 @@ var url = require("url");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
+
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'AZ4QZ4LYbgJVadQZL22Lcl2wSkal7QVLo86_cszv_9FjRpSgxNmYyu7ZDynIsKk25BoPRrN1Qrwhs5Nn',
+  'client_secret': 'EN69UzG_KbVzH0ge__8cM5I3qYUSAoXOuS9RL8LYgcG8KNKxIpUv1Oau9gnccmqplro_5C3m29lI2zq4'
+});
 
 const pagination = async (req, Table, pageSize, populateString, findCondition) => {
   try {
@@ -86,8 +94,6 @@ class SiteController {
     }
   }
 
-
-
   // [Post] localhost:8080/category
   // Post slug to find ID Category
   async category(req, res, next) {
@@ -117,7 +123,7 @@ class SiteController {
       let pageSize = 4;
       let userInfor = authMiddleware.userInfor(req);
       if (userInfor.username == null)
-      throw { message: "Bạn phải đăng nhập trước", status: 401 };
+        throw { message: "Bạn phải đăng nhập trước", status: 401 };
       let userCourses = await UserCourse.find({ user_id: userInfor.id })
         .populate("course_id")
         .exec()
@@ -213,9 +219,9 @@ class SiteController {
       //tim tat ca cac lesson cua course
       const countLesson = lessons.filter(countLes => countLes.isFinish == true || countLes.isFinish == false);
       const sumCountLesson = countLesson.length
-      
+
       const countCheckLesson = filterLesson.filter(userLes => userLes.isFinish == true || userLes.isFinish == false);
-     
+
       //tim cac lesson da hoc
       const countFinish = filterLesson.filter(userLes => userLes.isFinish == true);
       const sumFinish = countFinish.length
@@ -715,6 +721,74 @@ class SiteController {
     }
   }
 
+  // [Post] /cart/paymentPaypal
+  async paymentPaypal(req, res, next) {
+    const userInfor = authMiddleware.userInfor(req);
+    var sumPrice =
+      userInfor.username == null
+        ? null
+        : await UserCart.find({ user_id: userInfor.id })
+          .populate("course_id")
+          .exec()
+          .then((userCart) => {
+            let sum = 0;
+            userCart.forEach(
+              (item) => (sum += parseFloat(item.course_id.price))
+            );
+            return sum;
+          })
+          .catch((e) => console.log(e));
+
+    try {
+      var items = [
+        {
+          "name": "Test Name 1",
+          "sku": "001",
+          "price": "25.00",
+          "currency": "USD",
+          "quantity": 1
+        }
+      ];
+      const create_payment_json = {
+        "intent": "sale",
+        "payer": {
+          "payment_method": "paypal"
+        },
+        "redirect_urls": {
+          "return_url": "http://localhost:8080/result/paypal",
+          "cancel_url": "http://localhost:8080/error"
+        },
+        "transactions": [{
+          "item_list": {
+            "items": items
+          },
+          "amount": {
+            "currency": "USD",
+            "total": "25.00"
+          },
+          "description": "This is the payment description hihi."
+        }]
+      };
+
+      paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+          throw error
+        } else {
+          for (let i = 0; i < payment.links.length; i++) {
+            if (payment.links[i].rel === 'approval_url') {
+              res.redirect(payment.links[i].href);
+            }
+          }
+        }
+      });
+      // res.redirect("/result/paypal");
+    } catch (err) {
+      // resultPayment = err.raw.message;
+      next(err);
+      // res.redirect("/error");
+    }
+  }
+
   //GET /password
   password(req, res, next) {
     res.render("password", {
@@ -867,6 +941,37 @@ class SiteController {
     });
   }
 
+  payment_paypal_success(req, res, next) {
+    const payerID = req.query.PayerID;
+    const paymentId = req.query.PaymentId;
+    const execute_payment_json = {
+        "payer_id": payerID,
+        "transactions": [{
+          "amount": {
+            "currency": "USD",
+            "total": "25.00"
+          }
+        }]
+      };
+      paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+        try {
+          if (error) {
+            console.log(error.response);
+            throw error
+          } else {
+            console.log(JSON.stringify(payment));
+            res.send('Success');
+          }
+        } catch (err){
+          next(err);
+        }
+
+      });
+      // res.render("payment_success", {
+      //   title: "Payment Success",
+      //   ...authMiddleware.userInfor(req),
+      // });
+  }
   payment_error(req, res, next) {
     res.render("payment_error", {
       title: "Payment Error",
