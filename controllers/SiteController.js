@@ -15,7 +15,7 @@ const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
 const Comment = require("../models/Comment");
 var url = require("url");
-
+const { monkeyLearnAnalysis } = require("../utilities/bitext");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
@@ -295,10 +295,13 @@ class SiteController {
     let videoId = req.query.videos;
     try {
       if (userInfor.id == null) throw "Bạn phải đăng nhập trước!";
+      // Sentiment analysis comment
+      const resultAnalysis = await monkeyLearnAnalysis(formData.comment);
       var newComment = new Comment({
         user_id: userInfor.id,
         course_id: courseId,
         commentContent: formData.comment,
+        analyzeComment: resultAnalysis
       });
       await newComment.save();
       res.redirect(`/learning/${courseId}?video=${videoId}`);

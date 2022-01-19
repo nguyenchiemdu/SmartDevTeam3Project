@@ -7,6 +7,7 @@
     "fakedata": "node database/seed/fakerData.js"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
     "cookie-parser": "~1.4.4",
@@ -23,6 +24,7 @@
     "mongoose-delete": "^0.5.4",
     "mongoose-sequence": "^5.3.1",
     "mongoose-slug-generator": "^1.0.4",
+    "monkeylearn": "^3.4.0",
     "morgan": "~1.9.1",
     "stripe": "^8.195.0"
   },

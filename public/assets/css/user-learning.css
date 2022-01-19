@@ -229,3 +229,23 @@ body {
 .textarea {
   resize: none
 }
+.response__comment{
+  width: 100%;
+  height: auto;
+  background-color: #ccc;
+}
+.response__comment .block__comment{
+  padding: 2px 20px;
+}
+.response__comment .response__comment-item{
+  padding: 5px 0;
+}
+.response__comment .response__comment-title{
+  color: #8b572a;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.response__comment .response__comment-comment{
+  color: rgba(0,0,0,.87);
+  font-size: 0.8rem;
+}
