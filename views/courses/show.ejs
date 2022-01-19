@@ -121,53 +121,21 @@
             </div>
             <div class="reviews">
                 <h3 class="title">Reviews</h3>
+              <% commentUser.forEach(function(comment) { %>   
                 <div class="user">
                     <img src="/assets/images/review-test.jpg" alt="">
-                    <h5>Robert K.</h5>
-                    <h6>1/1/2021</h6>
-                    <p>It was great Java course - it took me around 4 months to finish it and luckily, these
-                        were intensive 4 months.
-                        <br>
-                        <br>
-                        I can recommend it to everyone who would like to learn Java, as it covers a looot of
-                        topics which you should know to at the very beginning.
-                        <br>
-                        <br>
-                        However, I still had got a feeling like, somewhere in the middle of course, there are
-                        missing videos. Also, sometimes there were missing topics which Tim mentioned during
-                        video but not covered completely.
-                        <br>
-                        <br>
-                        My suggestion? Create one additional section with "Grand Project" and this would be some
-                        real-life app which would be developed during this section, not for particular topic
-                        learning purposes, but for creating one actual project.
-                        <br>
-                        <br>
-                        Thanks once again Tim & LP Team! I appreciated this course and it was exactly what I was
-                        looking for! :)
+                    <h5><%= comment.user_id.username %> </h5>
+                    <h6>
+                        <%= comment.createdAt.getDate() %>/
+                        <%= comment.createdAt.getMonth()+1 %>/
+                        <%= comment.createdAt.getFullYear() %> 
+                    </h6>
+                    <p><%= comment.commentContent  %> 
                     </p>
                     <a href="#">Report</a>
                 </div>
-                <div class="user">
-                    <img src="/assets/images/review-test.jpg" alt="">
-                    <h5>Aleksandar K.</h5>
-                    <h6>1/1/2021</h6>
-                    <p>Excellent course. If you have basic knowledge in other languages, this course will be a very
-                        pleasant experience. For those who never programmed before and are new to programming in
-                        general, it will be a bit difficult to follow along, but as always Tim provides a good
-                        amount of concepts and things that can be researched on your own.
-                    </p>
-                    <a href="#">Report</a>
-                </div>
-                <div class="user">
-                    <img src="/assets/images/review-test.jpg" alt="">
-                    <h5>Charles Henry D.</h5>
-                    <h6>1/1/2021</h6>
-                    <p>This Course help me gain a better understanding towards java that my teacher within my
-                        college classes could not teach me
-                    </p>
-                    <a href="#">Report</a>
-                </div>
+                <% }); %>
+               
             </div>
         </div>
     </div>
