@@ -716,8 +716,15 @@ class SiteController {
   // Payment checkout to striped
   // [Post] /cart/payment
   async payment(req, res, next) {
+    var emailIsChecked;
     const userInfor = authMiddleware.userInfor(req);
     const { email, number, exp_month, exp_year, cvc } = req.body;
+    if (email.includes("@")) {
+      emailIsChecked = email
+    } 
+    else{
+      emailIsChecked = email + "@gmail.com";
+    }
     var sumPrice =
       userInfor.username == null
         ? null
@@ -744,7 +751,7 @@ class SiteController {
       });
       // Create customer to save email customer to show in bill
       const customer = await stripe.customers.create({
-        email,
+        email: emailIsChecked,
         source: token.id,
       });
       // Create charge method to payment
@@ -754,12 +761,12 @@ class SiteController {
         customer: customer.id,
         // Verify your integration in this guide by including this parameter
         metadata: { integration_check: "accept_a_payment" },
-        receipt_email: email,
+        receipt_email: emailIsChecked,
       });
       // Save transaction data value and status
       var transactions = new Transaction({
         user_id: userInfor.id,
-        email,
+        email: emailIsChecked,
         chargeID: charge.id,
         cartNumber: number,
         price: sumPrice,
