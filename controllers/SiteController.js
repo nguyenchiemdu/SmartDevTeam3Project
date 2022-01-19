@@ -628,7 +628,7 @@ class SiteController {
           ...authMiddleware.userInfor(req),
         });
 
-        throw { message: "Bạn phải đăng nhập trước", status: 401 }
+      throw { message: "Bạn phải đăng nhập trước", status: 401 }
     } catch (e) {
       next(e);
       console.log(e);
@@ -724,31 +724,7 @@ class SiteController {
   // [Post] /cart/paymentPaypal
   async paymentPaypal(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
-    var sumPrice =
-      userInfor.username == null
-        ? null
-        : await UserCart.find({ user_id: userInfor.id })
-          .populate("course_id")
-          .exec()
-          .then((userCart) => {
-            let sum = 0;
-            userCart.forEach(
-              (item) => (sum += parseFloat(item.course_id.price))
-            );
-            return sum;
-          })
-          .catch((e) => console.log(e));
-
     try {
-      var items = [
-        {
-          "name": "Test Name 1",
-          "sku": "001",
-          "price": "25.00",
-          "currency": "USD",
-          "quantity": 1
-        }
-      ];
       const create_payment_json = {
         "intent": "sale",
         "payer": {
@@ -760,7 +736,11 @@ class SiteController {
         },
         "transactions": [{
           "item_list": {
-            "items": items
+            "name": "Test Name 1",
+            "sku": "001",
+            "price": "25.00",
+            "currency": "USD",
+            "quantity": 1
           },
           "amount": {
             "currency": "USD",
@@ -942,10 +922,11 @@ class SiteController {
   }
 
   payment_paypal_success(req, res, next) {
-    const payerID = req.query.PayerID;
+    const payerId = req.query.PayerID;
     const paymentId = req.query.PaymentId;
-    const execute_payment_json = {
-        "payer_id": payerID,
+
+      const execute_payment_json = {
+        "payer_id": payerId,
         "transactions": [{
           "amount": {
             "currency": "USD",
@@ -954,24 +935,27 @@ class SiteController {
         }]
       };
       paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-        try {
-          if (error) {
-            console.log(error.response);
-            throw error
-          } else {
-            console.log(JSON.stringify(payment));
-            res.send('Success');
-          }
-        } catch (err){
-          next(err);
+        
+      try {
+        if (error) {
+          console.log(error.response);
+          throw error;
+        } else {
+          console.log(JSON.stringify(payment));
+          res.render("payment_success", {
+            title: "Payment Success",
+            ...authMiddleware.userInfor(req),
+          });
         }
-
+        
+     } catch (error) {
+      // resultPayment = err.raw.message;
+      next(error);
+      // res.redirect("/error");
+    }
       });
-      // res.render("payment_success", {
-      //   title: "Payment Success",
-      //   ...authMiddleware.userInfor(req),
-      // });
   }
+
   payment_error(req, res, next) {
     res.render("payment_error", {
       title: "Payment Error",
