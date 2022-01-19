@@ -17,7 +17,7 @@ const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
 var url = require("url");
 
-var findCourseBySlug, resultPayment;
+var findCourseBySlug, resultPayment,totalSumCart;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 
@@ -724,6 +724,36 @@ class SiteController {
   // [Post] /cart/paymentPaypal
   async paymentPaypal(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
+    var sumPrice =
+    userInfor.username == null
+      ? null
+      : await UserCart.find({ user_id: userInfor.id })
+        .populate("course_id")
+        .exec()
+        .then((userCart) => {
+          let sum = 0;
+          userCart.forEach(
+            (item) => (sum += parseFloat(item.course_id.price))
+          );
+          return sum;
+        })
+        .catch((e) => console.log(e));
+    const sum = sumPrice.toString()+ ".00";
+    totalSumCart = sumPrice.toString()+ ".00";
+     // Add course in Mylearning and invoices
+    const courseInCart = await UserCart.find({ user_id: userInfor.id })
+     .populate("course_id")
+     .exec();
+     var items = []
+     courseInCart.forEach((course) => {
+       var item = {
+         "name": course.course_id.name,
+         "price": course.course_id.price.toString() + '.00',
+         "currency": "USD",
+         "quantity": "1"
+       }
+       items.push(item);
+     })
     try {
       var create_payment_json = {
         "intent": "sale",
@@ -733,17 +763,10 @@ class SiteController {
         "transactions": [{
           "amount": {
             "currency": "USD",
-            "total": "10.00"
+            "total": sum
           },
           "item_list": {
-            "items": [
-              {
-                "name": "item",
-                "price": "10.00",
-                "currency": "USD",
-                "quantity": "1"
-              }
-           ]
+            "items": items
           },
           "description": "This is the payment description."
         }],
@@ -752,7 +775,7 @@ class SiteController {
           "cancel_url": "http://localhost:8080/error"
         }
       };
-
+      console.log(create_payment_json.transactions[0].item_list);
       paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
           throw error
@@ -925,7 +948,7 @@ class SiteController {
     });
   }
 
-  payment_paypal_success(req, res, next) {
+  async payment_paypal_success(req, res, next) {
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
     const execute_payment_json = {
@@ -933,7 +956,7 @@ class SiteController {
       "transactions": [{
         "amount": {
           "currency": "USD",
-          "total": "10.00"
+          "total": totalSumCart
         }
       }]
     };
