@@ -37,14 +37,14 @@
 
 body {
   padding: 20px 0;
-  background: #ccc;
+  background-color: #212121 !important ;
 }
 
 .pm-certificate-container {
   position: relative;
   width: 800px;
-  height: 600px;
-  background-color: #618597;
+  height: 800px;
+  background-color: rgb(107, 183, 187);
   padding: 30px;
   color: #333;
   font-family: 'Open Sans', sans-serif;
@@ -66,30 +66,30 @@ body {
 }
 .pm-certificate-container .outer-border {
     width: 794px;
-    height: 594px;
+    height: 694px;
     position: absolute;
     left: 50%;
     margin-left: -397px;
     top: 50%;
-    margin-top:-297px;
+    margin-top:-355px;
     border: 2px solid #fff;
   }
   
   .pm-certificate-container  .inner-border {
     width: 730px;
-    height: 530px;
+    height: 630px;
     position: absolute;
     left: 50%;
     margin-left: -365px;
     top: 50%;
-    margin-top:-265px;
+    margin-top:-315px;
     border: 2px solid #fff;
   }
 
   .pm-certificate-border {
     position: relative;
     width: 720px;
-    height: 520px;
+    height: 620px;
     padding: 0;
     border: 1px solid #E1E5F0;
     background-color: rgba(255, 255, 255, 1);
@@ -97,14 +97,14 @@ body {
     left: 50%;
     margin-left: -360px;
     top: 50%;
-    margin-top: -260px;
+    margin-top: -310px;
   }
     .pm-certificate-block {
       width: 650px;
       height: 200px;
       position: relative;
       left: 50%;
-      margin-left: -325px;
+      margin-left: -350px;
       top: 70px;
       margin-top: 0;
     }
@@ -162,8 +162,9 @@ body {
       height: 100px;
       position: relative;
       left: 50%;
-      margin-left: -325px;
+      margin-left: -350px;
       bottom: -105px;
     }
-  
-
+.btn {
+  text-align: center;
+}

@@ -1,6 +1,12 @@
+var authMiddleware = require("../middlerwares/auth.middleware");
+const { userInfor } = require("../middlerwares/auth.middleware");
+
 class CertificateController {
     async certificate(req, res, next){
-        res.render("certification/certification")
+        let userInfor = authMiddleware.userInfor(req);
+        res.render("certification/certification", {
+            ...authMiddleware.userInfor(req),
+        })
     }
 }
 
