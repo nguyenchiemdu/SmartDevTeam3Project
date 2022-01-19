@@ -352,7 +352,11 @@ class SiteController {
       doc.progress = req.body.progress;
       if (req.body.highestPercent > 90) doc.isFinish = true;
       var res = await doc.save();
-      // console.log(doc);
+      var abc = await UserLesson.find({ user_id: userInfor.id });
+      const allUnFinished = abc.some((item) => item.isFinish === false);
+      if (!allUnFinished) {
+        console.log("hiện ra form điền tên để lấy chứng chỉ");
+      }
     } catch (e) {
       console.log(e);
       next(e);
