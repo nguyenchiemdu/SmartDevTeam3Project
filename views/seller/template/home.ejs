@@ -44,13 +44,21 @@
                         href="/seller/courses/create/1">Create Your Course</a>
 
                 </div>
-
+                <% if (userCoursesName.length > 0) {%>
                 <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
                 <div class="chart-container">
                     <div class="pie-chart-container">
-                        <canvas id="myChart" width="1000" height="1000"></canvas>
+                        <canvas id="myChart" width="500" height="500"></canvas>
                     </div>
                 </div>
+                <% } else { %>
+                <h2 class="resources-title d-none">Based on your experience, we think these resources will be helpful.</h2>
+                <div class="chart-container d-none">
+                    <div class="pie-chart-container">
+                        <canvas id="myChart" width="500" height="500"></canvas>
+                    </div>
+                </div>
+                <% } %>
             </div>
             <% courses.forEach(function(courses) { %>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

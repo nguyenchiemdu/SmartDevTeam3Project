@@ -74,11 +74,10 @@ class SiteController {
     const pageSize = 8;
 
     try {
+      var validatedCourse = await Course.find({ isValidated: 1 });
       let result = await pagination(req, Course, pageSize, "").then(
         (res) => res
       );
-      console.log(result.docs);
-
       res.render("courses-view.ejs", {
         ...authMiddleware.userInfor(req),
         courses: result.docs, // sản phẩm trên một paga
@@ -285,7 +284,7 @@ class SiteController {
       next(e);
     }
   }
-//Post Comment
+  //Post Comment
   async postComment(req, res, next) {
     const formData = req.body;
     const userInfor = authMiddleware.userInfor(req);
@@ -299,7 +298,7 @@ class SiteController {
         user_id: userInfor.id,
         course_id: courseId,
         commentContent: formData.comment,
-        analyzeComment: resultAnalysis
+        analyzeComment: resultAnalysis,
       });
       await newComment.save();
       res.redirect(`/learning/${courseId}?video=${videoId}`);
@@ -360,13 +359,13 @@ class SiteController {
   }
 
   async home_seller(req, res, next) {
-    const userInfor = authMiddleware.userInfor(req);
-    var userCoursesName = [],
-      userCoursePrices = [];
-    var courses = await Course.find({ user_id: userInfor.id });
     try {
-      if (userInfor.id == null) {
-        (userCoursesName = ["Chưa có dữ liệu"]), (userCoursePrices = ["100"]);
+      const userInfor = authMiddleware.userInfor(req);
+      let userCoursesName = [],
+        userCoursePrices = [];
+      let courses = await Course.find({ user_id: userInfor.id });
+      if (userInfor.username == null) {
+        throw { message: "Bạn phải đăng nhập trước", status: 401 };
       } else {
         var validatedCourse = await Course.find({
           user_id: userInfor.id,
@@ -375,7 +374,7 @@ class SiteController {
         for (let index = 0; index < validatedCourse.length; index++) {
           userCoursesName.push(validatedCourse[index].name);
           const courseIsPaid = await Invoice.find({
-            course_id: courses[index]._id,
+            course_id: validatedCourse[index]._id,
           }).populate("course_id");
           if (courseIsPaid.length > 0) {
             let sum = 0;
@@ -721,9 +720,8 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     const { email, number, exp_month, exp_year, cvc } = req.body;
     if (email.includes("@")) {
-      emailIsChecked = email
-    } 
-    else{
+      emailIsChecked = email;
+    } else {
       emailIsChecked = email + "@gmail.com";
     }
     var sumPrice =
