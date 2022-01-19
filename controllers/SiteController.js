@@ -15,7 +15,7 @@ const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
 const Comment = require("../models/Comment");
 var url = require("url");
-const { monkeyLearnAnalysis } = require("../utilities/bitext");
+const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
