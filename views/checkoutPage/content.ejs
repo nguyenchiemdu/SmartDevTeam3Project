@@ -78,8 +78,9 @@
                             </form>
                         </div>
                         <div class="show hidden" id="show-paypal">
-                            In order to complete your transaction, we will transfer you over to
-                            PayPal's secure servers.
+                            <form action = "/cart/paypal" method="POST" id="cartFormPaypal">
+                              <h6>Click the process button to go to paypal payment page</h6>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -125,7 +126,8 @@
                         <a href="#">Terms of Service</a>.
                     </small>
                 </p>
-                <button class="btn-pink" id="handlePayment" type ="submit">Process</button>
+                <button class="btn-pink active" id="handlePayment" type="submit">Complete Payment</button>
+                <button class="btn-orange" id="handlePaymentPaypal" type="submit" value="BUY">Process</button>
             </div>
         </div>
     </div>
