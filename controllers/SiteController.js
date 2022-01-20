@@ -49,7 +49,7 @@ const pagination = async (req, Table, pageSize, populateString, findCondition) =
       });
   } catch (e) {
     console.log(e);
-    res.json(e);
+    next(e);
   }
 };
 const getYoutubeVideoDuration = async (videoId) => {
@@ -88,7 +88,7 @@ class SiteController {
       });
     } catch (e) {
       console.log(e);
-      res.render(e);
+      next(e);
     }
   }
   // [GET] /courses
@@ -107,7 +107,7 @@ class SiteController {
       });
     } catch (e) {
       console.log(e);
-      res.json(e);
+      next(e);
     }
   }
 
@@ -435,7 +435,7 @@ class SiteController {
       });
     } catch (e) {
       console.log(e);
-      res.json(e);
+      next(e);
     }
   }
 

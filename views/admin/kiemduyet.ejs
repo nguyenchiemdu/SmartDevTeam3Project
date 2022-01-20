@@ -73,6 +73,7 @@
             <tr>
               <th scope="col" class="text-truncate">#</th>
               <th scope="col" class="text-truncate">Name of Course</th>
+              <th scope="col" class="text-truncate">Author</th>
               <th scope="col" class="text-truncate">Price</th>
               <th scope="col" class="text-truncate">Status</th>
             </tr>
@@ -86,6 +87,9 @@
                   </td>
                   <td class="text-truncate">
                     <%- course.name%>
+                  </td>
+                  <td class="text-truncate">
+                    <%- course.user_id.username%>
                   </td>
                   <td>
                     <%- course.price%>
