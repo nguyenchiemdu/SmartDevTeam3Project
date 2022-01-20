@@ -37,7 +37,11 @@ router.get("/cart/checkout", siteController.checkout);
 
 router.post("/cart/payment",siteController.payment);
 
+router.post("/cart/paypal",siteController.paymentPaypal);
+
 router.get("/result", siteController.payment_success);
+
+router.get("/result/paypal", siteController.payment_paypal_success);
 
 router.get("/error", siteController.payment_error);
 
