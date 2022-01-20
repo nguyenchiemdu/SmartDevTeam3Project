@@ -798,6 +798,10 @@
   border: 1px solid #dee2e6;
   border-radius: 50%;
 }
+.page-item > .page-link:hover {
+  color: var(--main-color);
+  background-color: var(--main-background4-color);
+}
 .page-item:first-child .page-link {
   margin-left: 0;
   border-top-left-radius: 50%;
