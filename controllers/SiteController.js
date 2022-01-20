@@ -17,7 +17,7 @@ const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
 var url = require("url");
 
-var findCourseBySlug, resultPayment,totalSumCart;
+var findCourseBySlug, resultPayment, totalSumCart, userNow;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 
@@ -685,7 +685,7 @@ class SiteController {
         chargeID: charge.id,
         cartNumber: number,
         price: sumPrice,
-        status: true,
+        status: 'approved',
       });
       // Add course in Mylearning and invoices
       const courseInCart = await UserCart.find({ user_id: userInfor.id })
@@ -724,36 +724,37 @@ class SiteController {
   // [Post] /cart/paymentPaypal
   async paymentPaypal(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
+    userNow = userInfor;
     var sumPrice =
-    userInfor.username == null
-      ? null
-      : await UserCart.find({ user_id: userInfor.id })
-        .populate("course_id")
-        .exec()
-        .then((userCart) => {
-          let sum = 0;
-          userCart.forEach(
-            (item) => (sum += parseFloat(item.course_id.price))
-          );
-          return sum;
-        })
-        .catch((e) => console.log(e));
-    const sum = sumPrice.toString()+ ".00";
-    totalSumCart = sumPrice.toString()+ ".00";
-     // Add course in Mylearning and invoices
+      userInfor.username == null
+        ? null
+        : await UserCart.find({ user_id: userInfor.id })
+          .populate("course_id")
+          .exec()
+          .then((userCart) => {
+            let sum = 0;
+            userCart.forEach(
+              (item) => (sum += parseFloat(item.course_id.price))
+            );
+            return sum;
+          })
+          .catch((e) => console.log(e));
+    const sum = sumPrice.toString() + ".00";
+    totalSumCart = sumPrice.toString() + ".00";
+    // Add course in Mylearning and invoices
     const courseInCart = await UserCart.find({ user_id: userInfor.id })
-     .populate("course_id")
-     .exec();
-     var items = []
-     courseInCart.forEach((course) => {
-       var item = {
-         "name": course.course_id.name,
-         "price": course.course_id.price.toString() + '.00',
-         "currency": "USD",
-         "quantity": "1"
-       }
-       items.push(item);
-     })
+      .populate("course_id")
+      .exec();
+    var items = []
+    courseInCart.forEach((course) => {
+      var item = {
+        "name": course.course_id.name,
+        "price": course.course_id.price.toString() + '.00',
+        "currency": "USD",
+        "quantity": "1"
+      }
+      items.push(item);
+    })
     try {
       var create_payment_json = {
         "intent": "sale",
@@ -780,8 +781,8 @@ class SiteController {
         if (error) {
           throw error
         } else {
-          for(let i = 0; i < payment.links.length; i++){
-            if(payment.links[i].rel == 'approval_url'){
+          for (let i = 0; i < payment.links.length; i++) {
+            if (payment.links[i].rel == 'approval_url') {
               res.redirect(payment.links[i].href);
             }
           }
@@ -960,21 +961,55 @@ class SiteController {
         }
       }]
     };
-    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+    paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
 
       try {
         if (error) {
           console.log(error.response);
           throw error;
         } else {
-          console.log("Get payment response");
-          console.log(JSON.stringify(payment));
+          console.log(payment.id, payment.state, payment.payer.payer_info.email)
+          console.log(userNow);
+          // Save transaction data value and status
+          var transactions = new Transaction({
+            user_id: userInfor.id,
+            email: payment.payer.payer_info.email,
+            chargeID: payment.id,
+            price: totalSumCart,
+            status:  payment.state,
+          });
+          // Add course in Mylearning and invoices
+          const courseInCart = await UserCart.find({ user_id: userNow.id })
+            .populate("course_id")
+            .exec();
+          console.log(courseInCart);
+          courseInCart.forEach(async (course) => {
+            var usercourses = new UserCourse({
+              user_id: userNow.id,
+              course_id: course.course_id._id,
+            });
+            var invoices = new Invoice({
+              user_id: userNow.id,
+              course_id: course.course_id._id,
+              totalPayout: course.course_id.price,
+            });
+            await usercourses.save();
+            await invoices.save();
+          });
+          await transactions.save();
+          // Delete course out of userCart
+          await UserCart.deleteMany({ user_id: userNow.id })
+            .then(function () {
+              console.log("Data deleted"); // Success
+            })
+            .catch(function (error) {
+              console.log(error); // Failure
+            });
+          // console.log(JSON.stringify(payment));
           res.render("payment_success", {
             title: "Payment Success",
-            ...authMiddleware.userInfor(req),
           });
         }
-
       } catch (error) {
         // resultPayment = err.raw.message;
         next(error);
