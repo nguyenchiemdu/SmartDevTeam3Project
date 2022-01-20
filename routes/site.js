@@ -49,6 +49,8 @@ router.post("/learning/:id", siteController.postComment);
 
 router.post("/learning/lesson/:lessonid", siteController.trackUser);
 
+router.get("/certification", siteController.certification);
+
 router.get("/search", siteController.search);
 
 module.exports = router;

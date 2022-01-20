@@ -19,8 +19,8 @@ const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
 var findCourseBySlug, resultPayment;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
-const axios = require('axios').default;
-var ytDurationFormat = require('youtube-duration-format');
+const axios = require("axios").default;
+var ytDurationFormat = require("youtube-duration-format");
 const pagination = async (
   req,
   Table,
@@ -50,22 +50,25 @@ const pagination = async (
     res.json(e);
   }
 };
-const getYoutubeVideoDuration = async (videoId)=> {
-  var result = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyDR5YdTOMZJ43q47od7XVSGLfjQCRNwegA`)
-      .then((response) => {
-        // handle success
-        var youtubeTime = response.data.items[0].contentDetails.duration;
-        // console.log(youtubeTime);
-        var duration = ytDurationFormat(youtubeTime);
-        // console.log(duration);
-        return duration
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
+const getYoutubeVideoDuration = async (videoId) => {
+  var result = await axios
+    .get(
+      `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyDR5YdTOMZJ43q47od7XVSGLfjQCRNwegA`
+    )
+    .then((response) => {
+      // handle success
+      var youtubeTime = response.data.items[0].contentDetails.duration;
+      // console.log(youtubeTime);
+      var duration = ytDurationFormat(youtubeTime);
+      // console.log(duration);
+      return duration;
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
   return result;
-}
+};
 
 class SiteController {
   // GET /
@@ -88,13 +91,12 @@ class SiteController {
   }
   // [GET] /courses
   async courses(req, res, next) {
-    const pageSize = 8;
-
     try {
-      var validatedCourse = await Course.find({ isValidated: 1 });
-      let result = await pagination(req, Course, pageSize, "").then(
-        (res) => res
-      );
+      const pageSize = 8;
+      let result = await pagination(req, Course, pageSize, "", {
+        isValidated: 1,
+      }).then((res) => res);
+      // const validatedCourse = result.docs.filter((item) => item.isValidated === 1);
       res.render("courses-view.ejs", {
         ...authMiddleware.userInfor(req),
         courses: result.docs, // sản phẩm trên một paga
@@ -227,13 +229,13 @@ class SiteController {
       }
       var lessons = await Lesson.find({ course_id: courseId });
       lessons = await Promise.all(
-        lessons.map( async(lesson)=> {
+        lessons.map(async (lesson) => {
           let duration = await getYoutubeVideoDuration(lesson.urlVideo);
           // console.log(duration);
-          var newLesson = {...JSON.parse(JSON.stringify(lesson)),duration}
-          return newLesson
+          var newLesson = { ...JSON.parse(JSON.stringify(lesson)), duration };
+          return newLesson;
         })
-      )
+      );
       var userLesson = await UserLesson.find({ user_id: userInfor.id });
       const filterLesson = userLesson.filter((user) => {
         return lessons.some((lesson) => user.lesson_id == lesson._id);
@@ -280,7 +282,7 @@ class SiteController {
         user_id: userInfor.id,
         lesson_id: currentLesson._id,
       });
-      if  (userTracking == null) userTracking = {};
+      if (userTracking == null) userTracking = {};
       let commentUser = await Comment.find({ course_id: courseId })
         .populate("user_id")
         .exec()
@@ -334,6 +336,8 @@ class SiteController {
   }
 
   async trackUser(req, res, next) {
+    let courseId = req.params.id;
+    let videoId = req.query.videos;
     try {
       var userInfor = authMiddleware.userInfor(req);
       if (userInfor.id == null)
@@ -351,23 +355,32 @@ class SiteController {
         });
       doc.progress = req.body.progress;
       if (req.body.highestPercent > 90) doc.isFinish = true;
-      var res = await doc.save();
-      // console.log(doc);
+      await doc.save();
+      var allLesson = await UserLesson.find({ user_id: userInfor.id });
+      const hasAllNotFinished = allLesson.some((item) => !item.isFinish);
+      if (!hasAllNotFinished) {
+        // res.redirect("/certification");
+      }
     } catch (e) {
       console.log(e);
       next(e);
     }
   }
-
+  async certification(req, res, next) {
+    try {
+      res.render("certification-information.ejs");
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  }
   async search(req, res, next) {
     const pageSize = 4;
-    console.log(req);
     try {
       const searchName = req.query.name;
       let result = await pagination(req, Course, pageSize, "", {
         name: { $regex: searchName, $options: "i" },
       });
-      // console.log(result);
 
       res.render("searchPage.ejs", {
         personSearch: mutipleMongooseToObject(result.docs),
