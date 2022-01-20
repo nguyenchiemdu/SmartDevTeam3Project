@@ -21,7 +21,4 @@ router.delete("/:table/:id", tableController.destroy);
 
 router.get("/", adminController.show);
 
-
-
-
 module.exports = router;
