@@ -107,7 +107,7 @@ a.detail:hover {
 .instructor-dashboard-button{
     /* font-weight: 700;
     line-height: 1.2;
-     letter-spacing: -.02rem; 
+     letter-spacing: -.02rem;
     font-size: 16px;
     max-width: 29px;
     background-color: #a435f0;
@@ -135,8 +135,8 @@ a.detail:hover {
     background-color: var(--main-background3-color);
 }
 .add-course h2 {
-    color: var(--main-color);  
-    margin-bottom: 20px; 
+    color: var(--main-color);
+    margin-bottom: 20px;
 }
 .add-course form label, .edit-course form label {
     color: var(--style-color);
@@ -158,12 +158,12 @@ a.detail:hover {
     background-color: var(--main-background3-color);
 }
 .edit-course h2 {
-    color: var(--main-color);  
-    margin-bottom: 20px; 
+    color: var(--main-color);
+    margin-bottom: 20px;
 }
 .edit-course form label {
     color: var(--style-color);
-}   
+}
 .edit-course form button.btn-save:hover {
     background-color: var(--main-background4-color);
     border-color: var(--main-background4-color);
@@ -252,7 +252,7 @@ footer .footer-bottom-right a i {
     display: flex;
     justify-content: center;
 }
-  
+
 .pie-chart-container {
     height: auto;
     width: auto;

@@ -29,6 +29,7 @@ const pagination = async (
   findCondition
 ) => {
   try {
+    console.log("abcd", Table);
     let page = req.query.page || 1;
     return await Table.find(findCondition)
       .skip(pageSize * page - pageSize)
@@ -88,9 +89,9 @@ class SiteController {
   }
   // [GET] /courses
   async courses(req, res, next) {
-    const pageSize = 8;
-
     try {
+      const pageSize = 8;
+      let userInfor = authMiddleware.userInfor(req);
       var validatedCourse = await Course.find({ isValidated: 1 });
       let result = await pagination(req, Course, pageSize, "").then(
         (res) => res
@@ -334,6 +335,8 @@ class SiteController {
   }
 
   async trackUser(req, res, next) {
+    let courseId = req.params.id;
+    let videoId = req.query.videos;
     try {
       var userInfor = authMiddleware.userInfor(req);
       if (userInfor.id == null)
@@ -351,21 +354,27 @@ class SiteController {
         });
       doc.progress = req.body.progress;
       if (req.body.highestPercent > 90) doc.isFinish = true;
-      var res = await doc.save();
-      var abc = await UserLesson.find({ user_id: userInfor.id });
-      const allUnFinished = abc.some((item) => item.isFinish === false);
-      if (!allUnFinished) {
-        console.log("hiện ra form điền tên để lấy chứng chỉ");
+      await doc.save();
+      var allLesson = await UserLesson.find({ user_id: userInfor.id });
+      const hasAllNotFinished = allLesson.some((item) => !item.isFinish);
+      if (!hasAllNotFinished) {
+        // res.redirect("/certification");
       }
     } catch (e) {
       console.log(e);
       next(e);
     }
   }
-
+  async certification(req, res, next) {
+    try {
+      res.render("certification-information.ejs");
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  }
   async search(req, res, next) {
     const pageSize = 4;
-    console.log(req);
     try {
       const searchName = req.query.name;
       let result = await pagination(req, Course, pageSize, "", {
