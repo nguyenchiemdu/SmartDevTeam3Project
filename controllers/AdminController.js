@@ -12,7 +12,7 @@ class AdminController {
     }
   }
   async kiemduyet(req, res, next) {
-    const courseIsNotValidate = await Course.find({isValidated: 0})
+    const courseIsNotValidate = await Course.find({isValidated: 0}).populate('user_id')
     console.log(courseIsNotValidate);
     try {
       res.render("admin/kiemduyet",{ ...authMiddleware.userInfor(req), courseIsNotValidate});

@@ -67,7 +67,7 @@ const filterCourse = async () => {
 const courseTitle = document.querySelector(".course-title");
 const form = document.getElementById('btn-categories')
 
-courseTitle.addEventListener("click", async function (x) {
+if (courseTitle !=null) courseTitle.addEventListener("click", async function (x) {
     if (x.target.classList.contains("course-button")) {
         const Target = x.target.getAttribute("data-title");
         valueSlug = await Target.slice(1);
