@@ -273,8 +273,6 @@
         player = new YT.Player('player', {
           events: { 'onStateChange': onPlayerStateChange, 'onReady': () => { player.seekTo(player.getDuration() / 100 *<%= progress %>); } }
         });
-        // console.log(player);
-
       }
 
       function onPlayerStateChange(event) {
