@@ -2,6 +2,7 @@ var siteRouter = require("./site");
 var authRouter = require("./auth");
 var adminRouter = require("./admin");
 var sellerRouter = require("./seller");
+var certificateRouter = require("./certificate");
 var kiemduyetRouter = require("./kiemduyet");
 var userRouter = require("./user");
 var authMiddleware = require("../middlerwares/auth.middleware")
@@ -18,6 +19,7 @@ function route(app) {
   app.use("/seller", sellerRouter);
   app.use("/kiemduyet", kiemduyetRouter);
   app.use("/user", userRouter);
+  app.use("/certificate", certificateRouter);
 }
 
 module.exports = route;
