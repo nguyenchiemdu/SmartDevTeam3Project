@@ -86,7 +86,7 @@ class UserController {
       // res.redirect('/')
     } catch (e) {
       console.log(e)
-      res.json(e)
+      // res.json(e)
     }
   }
   async register(req, res) {

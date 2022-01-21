@@ -23,6 +23,7 @@ const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 const axios = require("axios").default;
 var ytDurationFormat = require("youtube-duration-format");
+const { userInfo } = require("os");
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
   'client_id': 'Af28FeslwhxWrQgkN15xEqGK6kUviwhpg1uc7SvOpQSHL1SWywAqBdpSDpQlPFSlkeyb6M2aolPeJjo-',
@@ -217,11 +218,13 @@ class SiteController {
   async userLearning(req, res, next) {
     try {
       let userInfor = authMiddleware.userInfor(req);
+      let courseId = req.params.id;
       if (userInfor.id == null)
         throw { message: "Bạn phải đăng nhập trước", status: 401 };
-      let courseId = req.params.id;
+      let userCourse = await UserCourse.findOne({user_id : userInfor.id, course_id : courseId});
+      if (userCourse == null)
+      throw { message: "Bạn chưa mua khoá học này", status: 403 };
       let course = await Course.findOne({ _id: courseId });
-
       let videoId = req.query.videos;
       if (videoId == null) {
         var lesson = await Lesson.findOne({ course_id: courseId });

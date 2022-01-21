@@ -9,13 +9,14 @@ class AuthMiddleware {
             payload = jwt.verify(req.cookies.accessToken, process.env.JWT_SECRET)
         }
         catch (e) {
-            console.log(e)
+            // console.log(e)
             payload = null;
+            res.render('usererror',{e});
         }
-        console.log(payload)
-        req.params.username = payload == null ? null : payload.username
-        req.params.uid = payload == null ? null : payload.id
-        console.log(req.params)
+        // console.log(payload)
+        // req.params.username = payload == null ? null : payload.username
+        // req.params.uid = payload == null ? null : payload.id
+        // console.log(req.params)
         next()
     }
     userInfor(req){
