@@ -1,0 +1,39 @@
+<div class="container" style = "margin-top: 100px;margin-bottom:40px;">
+    <div class="row container-profile">
+        <div class="sidebar col-sm">
+            <div class="name-profile">
+                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+                <h3><%- user.username%></h3>
+            </div>
+            <div class="sidebar-list">
+                <ul>
+                    <li><a href="/user">View public profile</a></li>
+                    <li class = "active"><a href="/user/edit-profile">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="profile-container col-sm">
+            <div class="profile-container__header">
+                <h2>Public profile</h2>
+                <p>Edit information about yourself</p>
+            </div>
+            <form action="http://localhost:8080/user/<%- userInfor.id%>/?_method=PATCH" method = "POST">
+                <div class="profile-container__information">
+                    <div class="lable">
+                        <h3>Basics:</h3>
+                    </div>
+                    <div class="form-field">
+                        <input type="text"placeholder="Last name" name = "lastName" value = "<%- user.lastName%>" required>
+                    </div>
+                    <div class="form-field">
+                        <input type="text"placeholder="First name" name = "firstName" value = "<%- user.firstName%>"required>
+                    </div>
+                    <div class="form-field">
+                        <input type="email"placeholder="Email address" name = "email" value = "<%- user.email%>"required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
