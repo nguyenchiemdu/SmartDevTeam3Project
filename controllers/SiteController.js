@@ -264,7 +264,6 @@ class SiteController {
       countCheckLesson.forEach((userlesson) => {
         mapIsFisnish[userlesson.lesson_id] = userlesson.isFinish;
       });
-      // console.log(mapIsFisnish);
 
       //tinh phan tram cua lesson da hoc
       var percentFinish;
@@ -273,6 +272,8 @@ class SiteController {
       } else {
         percentFinish = (sumFinish / sumCountLesson) * 100;
       }
+      
+      // console.log(countCheckLesson);
 
       let currentLesson;
       lessons.forEach((lesson) => {
