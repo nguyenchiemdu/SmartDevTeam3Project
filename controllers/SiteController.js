@@ -252,10 +252,10 @@ class SiteController {
       });
 
       //tim tat ca cac lesson cua course
-      const countLesson = lessons.filter(
-        (countLes) => countLes.isFinish == true || countLes.isFinish == false
-      );
-      const sumCountLesson = countLesson.length;
+      // const countLesson = lessons.filter(
+      //   (countLes) => countLes.isFinish == true || countLes.isFinish == false
+      // );
+      const sumCountLesson = lessons.length;
 
       const countCheckLesson = filterLesson.filter(
         (userLes) => userLes.isFinish == true || userLes.isFinish == false
@@ -286,11 +286,17 @@ class SiteController {
       const hasAllNotFinished = userLesson.some((item) => !item.isFinish);
 
       let currentLesson;
-      lessons.forEach((lesson) => {
-        if (lesson._id == videoId) {
-          currentLesson = lesson;
+      let current = 0;
+      for (let i=0;i< lessons.length;i++) {
+        if (lessons[i]._id == videoId) {
+          current = i;
         }
-      });
+      };
+      currentLesson = lessons[current];
+      console.log(current);
+      console.log(lessons[current-1]);
+      if ( current >0 && mapIsFisnish[lessons[current-1]._id] != true ) throw { message: "Bạn chưa được phép học bài này", status: 403 };
+      // console.log(beforeCurrentLesson);
       var userTracking = await UserLesson.findOne({
         user_id: userInfor.id,
         lesson_id: currentLesson._id,
