@@ -283,8 +283,17 @@ class SiteController {
       }
 
       // kiem tra da xem hêt bai hoc hay chua?
-      const hasAllNotFinished = userLesson.some((item) => !item.isFinish);
-
+      const findAllCourseNotFinished = countFinish.filter(
+        (userLes) => userLes.isFinish
+      );
+      let hasAllFinished;
+      if (findAllCourseNotFinished.length === sumCountLesson) {
+        hasAllFinished = true;
+      }
+      else {
+        hasAllFinished = false;
+      };
+      
       let currentLesson;
       let current = 0;
       for (let i=0;i< lessons.length;i++) {
@@ -323,7 +332,7 @@ class SiteController {
         // checkFinish,
         commentUser,
         userTracking,
-        hasAllNotFinished,
+        hasAllFinished,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
