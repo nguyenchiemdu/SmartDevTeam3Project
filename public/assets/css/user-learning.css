@@ -44,7 +44,7 @@ a {
 }
 @media (max-width: 991px) {
   .container-fluid {
-    margin: 0; 
+    margin: 0;
   }
 }
 .content__left iframe {
@@ -115,7 +115,7 @@ a {
   cursor: pointer;
   width: 100%;
   height: auto;
-  margin: 10px 6px; 
+  margin: 10px 6px;
   padding-left: 10px;
 }
 a.lesson-description:hover .lesson-name {
@@ -133,7 +133,7 @@ a.lesson-description {
   color: rgb(141, 112, 146);
 }
 .lesson-description:first-child {
-  margin-top: 15px; 
+  margin-top: 15px;
 }
 .lesson-time {
   color: rgb(143, 140, 140);
@@ -209,7 +209,7 @@ a.lesson-description {
 .progress-bar {
   background-color: rgb(238, 31, 176);
 }
-/* 
+/*
 comment */
 body {
   background: #eee
