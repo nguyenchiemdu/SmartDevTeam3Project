@@ -26,9 +26,9 @@
     "mongoose-slug-generator": "^1.0.4",
     "monkeylearn": "^3.4.0",
     "morgan": "~1.9.1",
+    "paypal-rest-sdk": "^1.8.1",
     "stripe": "^8.195.0",
-    "youtube-duration-format": "^0.2.0",
-    "paypal-rest-sdk": "^1.8.1"
+    "youtube-duration-format": "^0.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
