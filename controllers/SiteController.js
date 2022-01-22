@@ -17,6 +17,7 @@ const UserLesson = require("../models/UserLesson");
 const User = require("../models/User");
 const Transaction = require("../models/Transaction");
 const Comment = require("../models/Comment");
+const Question = require("../models/Question");
 var url = require("url");
 const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
 var findCourseBySlug, resultPayment, totalSumCart, userNow;
@@ -492,7 +493,7 @@ class SiteController {
     }
   }
 
-  // add Course demo
+  // add Video Course
   async addCourses2(req, res, next) {
     try {
       var course = await Course.find({ _id: req.params.id });
@@ -503,6 +504,26 @@ class SiteController {
         ...authMiddleware.userInfor(req),
         lessons: lessons,
         course: course,
+        // courses: mutipleMongooseToObject(courses),
+      });
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  }
+
+  // add Question Course
+  async addCourses3(req, res, next) {
+    try {
+      var course = await Course.find({ _id: req.params.id });
+      var lessons = await Lesson.find({ course_id: req.params.id });
+      var questions = await Question.find({ course_id: req.params.id });
+      // console.log(questions);
+      res.render("seller/create3", {
+        ...authMiddleware.userInfor(req),
+        lessons: lessons,
+        course: course,
+        questions: questions,
         // courses: mutipleMongooseToObject(courses),
       });
     } catch (e) {
@@ -587,9 +608,11 @@ class SiteController {
           _id: item._id.toString(),
         };
       });
-      console.log(typeof category[0]._id);
+      // console.log(typeof category[0]._id);
       var course = await Course.find({ _id: CourseId });
       const lessons = await Lesson.find({ course_id: course[0]._id });
+      const questions = await Question.find({ course_id: course[0]._id });
+      // console.log(questions);
       course = {
         _id: course[0]._id,
         user_id: course[0].user_id,
@@ -606,12 +629,14 @@ class SiteController {
         categories: category,
         course: course,
         lessons: lessons,
+        questions: questions,
       });
     } catch (err) {
       console.log(err);
       next(e);
     }
   }
+
   async updateCoursesOfSeller(req, res, next) {
     const formData = req.body;
     const userInfor = authMiddleware.userInfor(req);
@@ -684,6 +709,38 @@ class SiteController {
       next(e);
     }
   }
+
+    // [POST] seller/course/create3
+    async sellerCreate3(req, res, next) {
+      const formData = req.body;
+      try {
+        var newQuestions = new Question({
+          course_id: req.params.id,
+          question: formData.question,
+          a: formData.aAnswer,
+          b: formData.bAnswer,
+          c: formData.cAnswer,
+          d: formData.dAnswer,
+          // order:
+          trueAnswer: formData.trueAnswer,
+
+        });
+        // console.log(course_id);
+        // res.json(newLessons);
+        await newQuestions.save();
+        Question.find({}, (err, data) => {
+          if (!err && formData?.isEdit) {
+            res.redirect(`/seller/courses/create/3/${req.params.id}`);
+          }
+          if (!formData?.isEdit) {
+            res.redirect(`/seller/courses/${req.params.id}/edit`);
+          }
+        });
+      } catch (e) {
+        console.log(e);
+        next(e);
+      }
+    }
   // [GET] / login
   login(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
@@ -1036,6 +1093,21 @@ class SiteController {
       next(e);
     }
   }
+
+    // [GET] /seller/course/create/3/:id/edit
+    async editQuestion(req, res, next) {
+      try {
+        var questions = await Question.find({ _id: req.params.id });
+        res.render("seller/edit3.ejs", {
+          ...authMiddleware.userInfor(req),
+          questions: questions,
+        });
+      } catch (e) {
+        console.log(e);
+        next(e);
+      }
+    }
+
   // checkout(req, res, next) {
   //   res.render("checkout", {
   //     title: "Check Out",
@@ -1065,6 +1137,29 @@ class SiteController {
     }
   }
 
+  // [PUT] /seller/course/create/3/:id
+  async updateQuestion(req, res, next) {
+    try {
+      const questions = await Question.find({ _id: req.params.id });
+      const { question, a, b, c, d, trueAnswer } = req.body;
+      await Question.findOneAndUpdate(
+        { _id: req.params.id },
+        { question, a, b, c, d, trueAnswer }
+      );
+      questions.map((ques) => {
+        const id = ques.course_id;
+        if (req.body.isQuestionEdit) {
+          res.redirect(`/seller/courses/${id}/edit`);
+        } else {
+          res.redirect(`http://localhost:8080/seller/courses/create/3/${id}`);
+        }
+      });
+    } catch (e) {
+      console.log(e.message);
+      next(e);
+    }
+  }
+
   // [DELETE] /seller/course/create/2/:id
   async destroy(req, res, next) {
     try {
@@ -1079,6 +1174,29 @@ class SiteController {
         lessons.map((les) => {
           const id = les.course_id;
           res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  }
+
+   // [DELETE] /seller/course/create/3/:id
+   async destroyQuestion(req, res, next) {
+    try {
+      const questions = await Question.find({ _id: req.params.id });
+      await Question.findByIdAndDelete({ _id: req.params.id });
+      // console.log(questions); 
+      if (req.query.edit) {
+        questions.map((ques) => {
+          const id = ques.course_id;
+          res.redirect(`/seller/courses/${id}/edit`);
+        });
+      } else {
+        questions.map((ques) => {
+          const id = ques.course_id;
+          res.redirect(`http://localhost:8080/seller/courses/create/3/${id}`);
         });
       }
     } catch (e) {
