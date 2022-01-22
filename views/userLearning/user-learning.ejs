@@ -294,8 +294,11 @@
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      var player, timer, timeSpent = [], display = document.getElementById('display');
+      var player, timer,timer2, timeSpent = [], display = document.getElementById('display');
       var highestPercent = 0;
+      var rawData = [];
+      var serverData = <%- JSON.stringify(rawData) %>;
+      // console.log(server);
       function onYouTubeIframeAPIReady() {
 
         player = new YT.Player('player', {
@@ -308,10 +311,19 @@
 
           if (!timeSpent.length) {
             for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+            for (var i= 0;i< serverData.length;i++) {
+              for (var j = serverData[i].start;j<=serverData[i].end;j++) {
+                timeSpent[j] = true;
+              }
+            }
+            // console.log(timeSpent);
           }
+
           timer = setInterval(record, 100);
+          // timer2 = setInterval(calRawData, 5000);
         } else {
           clearInterval(timer);
+          clearInterval(timer2);
         }
       }
 
@@ -319,25 +331,54 @@
         timeSpent[parseInt(player.getCurrentTime())] = true;
         showPercentage();
       }
-
+      // function calRawData(){
+        // let i=0;
+        // rawData = [];
+        // while (i< timeSpent.length) {
+        //   if (timeSpent[i]) {
+        //     let start = i;
+        //     let end = i;
+        //     while (timeSpent[i]) end = i++;
+        //     rawData.push({
+        //       start,end
+        //     })
+        //   } else i++;
+        // }
+        // console.log(rawData);
+      // }
       function showPercentage() {
-        var percent = 0;
-        for (var i = 0, l = timeSpent.length; i < l; i++) {
-          if (timeSpent[i]) percent++;
-        }
-        percent = Math.round(percent / timeSpent.length * 100);
-        highestPercent = Math.max(highestPercent, (player.getCurrentTime() / player.getDuration() * 100));
+        // var percent = 0;
+        // for (var i = 0, l = timeSpent.length; i < l; i++) {
+        //   if (timeSpent[i]) percent++;
+        // }
+        // percent = Math.round(percent / timeSpent.length * 100);
+        // highestPercent = Math.max(highestPercent, (player.getCurrentTime() / player.getDuration() * 100));
+
         // display.innerHTML = (player.getCurrentTime() / player.getDuration() * 100) + "%";
       }
-      window.addEventListener('beforeunload', function () {
-        fetch('/learning/lesson/<%= currentLesson._id%>', {
+      window.addEventListener('beforeunload', async function () {
+        let i=0;
+        rawData = [];
+        while (i< timeSpent.length) {
+          if (timeSpent[i]) {
+            let start = i;
+            let end = i;
+            while (timeSpent[i]) end = i++;
+            rawData.push({
+              start,end
+            })
+          } else i++;
+        }
+        await fetch('/learning/lesson/<%= currentLesson._id%>', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             progress: (player.getCurrentTime() / player.getDuration() * 100),
-            highestPercent
+            // highestPercent,
+            duration : player.getDuration(),
+            rawData,
           })
         }).then((res) => res.json());
         return
