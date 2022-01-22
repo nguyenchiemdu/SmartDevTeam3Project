@@ -304,10 +304,7 @@ class SiteController {
         }
       };
       currentLesson = lessons[current];
-      console.log(current);
-      console.log(lessons[current-1]);
       if ( current >0 && mapIsFisnish[lessons[current-1]._id] != true ) throw { message: "Bạn chưa được phép học bài này", status: 403 };
-      // console.log(beforeCurrentLesson);
       var userTracking = await UserLesson.findOne({
         user_id: userInfor.id,
         lesson_id: currentLesson._id,
@@ -319,8 +316,10 @@ class SiteController {
         .then((commentUser) => {
           return commentUser;
         });
+        // console.log(userTracking);
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
+        rawData : userTracking.rawData == null ? [] : userTracking.rawData,
         lessons,
         currentLesson,
         course,
@@ -369,6 +368,7 @@ class SiteController {
   async trackUser(req, res, next) {
     let courseId = req.params.id;
     let videoId = req.query.videos;
+    // console.log(req.body);
     try {
       var userInfor = authMiddleware.userInfor(req);
       if (userInfor.id == null)
@@ -385,8 +385,16 @@ class SiteController {
           lesson_id: req.params.lessonid,
         });
       doc.progress = req.body.progress;
-      if (req.body.highestPercent > 90) doc.isFinish = true;
+      doc.rawData = req.body.rawData;
+      let sumWatchedSecond =0;
+      doc.rawData.forEach(segment=> {
+        sumWatchedSecond = sumWatchedSecond + segment.end - segment.start;
+      });
+
+      if ( sumWatchedSecond/req.body.duration > 0.8) doc.isFinish = true;
+      // else doc.isFinish = false;
       await doc.save();
+      // console.log(doc);
     } catch (e) {
       console.log(e);
       next(e);
