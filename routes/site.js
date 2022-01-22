@@ -51,7 +51,7 @@ router.get("/learning/:id", siteController.userLearning);
 
 router.post("/learning/:id", siteController.postComment);
 
-router.post("/learning/lesson/:lessonid", siteController.trackUser);
+router.post("/learning/:courseId/:lessonid", siteController.trackUser);
 
 // router.get("/certification", siteController.certification);
 

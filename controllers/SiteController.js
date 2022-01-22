@@ -293,6 +293,12 @@ class SiteController {
       let hasAllFinished;
       if (findAllCourseNotFinished.length === sumCountLesson) {
         hasAllFinished = true;
+        var doc = await UserCourse.findOne({
+        user_id: userInfor.id,
+        course_id: courseId,
+      });
+        doc.isCompleted = 1;
+        await doc.save()
       }
       else {
         hasAllFinished = false;
@@ -371,10 +377,8 @@ class SiteController {
   }
 
   async trackUser(req, res, next) {
-    let courseId = req.params.id;
-    let videoId = req.query.videos;
-    // console.log(req.body);
     try {
+      let courseId = req.params.courseId;
       var userInfor = authMiddleware.userInfor(req);
       if (userInfor.id == null)
         throw { message: "Bạn phải đăng nhập trước", status: 401 };
@@ -399,20 +403,11 @@ class SiteController {
       if ( sumWatchedSecond/req.body.duration > 0.8) doc.isFinish = true;
       // else doc.isFinish = false;
       await doc.save();
-      // console.log(doc);
     } catch (e) {
       console.log(e);
       next(e);
     }
   }
-  // async certification(req, res, next) {
-  //   try {
-  //     res.render("certification-information.ejs");
-  //   } catch (e) {
-  //     console.log(e);
-  //     next(e);
-  //   }
-  // }
   async search(req, res, next) {
     const pageSize = 4;
     try {
@@ -1199,7 +1194,7 @@ class SiteController {
     try {
       const questions = await Question.find({ _id: req.params.id });
       await Question.findByIdAndDelete({ _id: req.params.id });
-      // console.log(questions); 
+      // console.log(questions);
       if (req.query.edit) {
         questions.map((ques) => {
           const id = ques.course_id;

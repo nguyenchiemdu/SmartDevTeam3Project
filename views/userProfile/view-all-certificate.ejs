@@ -21,43 +21,22 @@
                 </div>
                 <div class="sidebar-list">
                     <ul>
-                        <li class = "active"><a href="/user">View public profile</a></li>
+                        <li><a href="/user">View public profile</a></li>
                         <li><a href="/user/edit-profile">Profile</a></li>
-                        <li><a href="/user/certificate">View all certificate</a></li>
+                        <li class = "active"><a href="/user/certificate">View all certificate</a></li>
                     </ul>
                 </div>
             </div>
             <div class="profile-container col-sm">
                 <div class="profile-container__header">
-                    <h2>Public profile</h2>
-                    <p>Information about yourself</p>
+                    <h2>All Certificate</h2>
                 </div>
                 <div class="profile-container__information">
-                    <div class="lable">
-                        <h3>Basics:</h3>
-                    </div>
-                    <% if (user.firstName == '') {%>
-                        <div class="form-field row" style = "color: red; font-size: 1.5rem; font-weight: bold;">
-                            <p>Hãy cập nhật thông tin của bạn</p>
-                        </div>
-                    <%} else {%>
-                    <div class="form-field row">
-                        <label for="">Full name: </label>
-                        <p><%- user.lastName%> <%- user.firstName%></p>
-                    </div>
-                    <div class="form-field row">
-                        <label for="">Email:</label>
-                        <p><%- user.email%></p>
-                    </div>
-                    <div class="form-field row">
-                        <label for="">SDT:</label>
-                        <p>090.123.4567</p>
-                    </div>
-                    <div class="form-field row">
-                        <label for="">Địa chỉ:</label>
-                        <p>Viet Nam</p>
-                    </div>
-                    <%}%>
+                    <ul>
+                        <% CourseCompleted.forEach(function(course) { %>
+                        <a href="/certificate/<%= course.course_id._id %>"><%= course.course_id.name %></a>
+                        <% }); %>
+                    </ul>
                 </div>
             </div>
         </div>

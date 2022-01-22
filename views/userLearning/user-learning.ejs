@@ -275,7 +275,7 @@
             </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Trang ghi chú
-            
+
             <div class="d-flex justify-content-center row">
               <div class="col-md-12">
                 <div class="d-flex flex-column comment-section">
@@ -338,7 +338,7 @@
                 </div>
               </div>
             </div>
-          
+
           </div>
           <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Trang liên quan
           </div>
@@ -441,7 +441,7 @@
             })
           } else i++;
         }
-        await fetch('/learning/lesson/<%= currentLesson._id%>', {
+        await fetch('/learning/<%= course._id %>/<%= currentLesson._id%>', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -455,7 +455,7 @@
         }).then((res) => res.json());
         return
       })
-      
+
     </script>
     <script>
       const formNote = document.getElementById('form-note');
