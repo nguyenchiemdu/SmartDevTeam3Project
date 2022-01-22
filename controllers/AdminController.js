@@ -40,6 +40,11 @@ class AdminController {
       res.json(e);
     }
   }
+  async signout(req, res, next) {
+    // Clear cookie 
+    res.clearCookie('accessToken')
+    res.redirect('/login')
+  }
 }
 
 module.exports = new AdminController();

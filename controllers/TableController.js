@@ -9,6 +9,7 @@ const Invoice = require("../models/Invoice");
 const Role = require("../models/Role");
 const Transaction = require("../models/Transaction");
 const UserLesson = require("../models/UserLesson");
+const Question = require("../models/Question");
 
 const listTable = {
   users: User,
@@ -21,7 +22,8 @@ const listTable = {
   invoices : Invoice,
   roles : Role,
   transactions : Transaction,
-  userlessons : UserLesson
+  userlessons : UserLesson,
+  questions : Question,
 };
 var authMiddleware = require("../middlerwares/auth.middleware")
 const {

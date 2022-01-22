@@ -147,7 +147,7 @@
         btnConfirm.onclick = (e)=>{ 
             e.preventDefault();
             var courseId =btnConfirm.value;
-            formConfirm.action = '/kiemduyet/' + courseId + '?_method=PATCH';
+            formConfirm.action = '/admin/kiemduyet/' + courseId + '?_method=PATCH';
             formConfirm.submit();
         };
         

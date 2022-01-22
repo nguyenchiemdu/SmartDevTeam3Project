@@ -96,7 +96,7 @@
                   </td>
                   <td class="status__course row">
                     <div class="list-status">
-                      <a href="/kiemduyet/<%- course.slug%>">
+                      <a href="/admin/kiemduyet/<%- course.slug%>">
                         <i class="fas fa-info-circle fa-1x"></i>
                         <p>
                           Xem thông tin chi tiết của khóa học
@@ -104,7 +104,7 @@
                       </a>
                     </div>
                     <div class="list-status">
-                      <form method="POST" action="/kiemduyet/<%=course._id%>?_method=PATCH" id="confirm-form">
+                      <form method="POST" action="/admin/kiemduyet/<%=course._id%>?_method=PATCH" id="confirm-form">
                         <a href="" data-toggle="modal" data-id="<%- course._id%>" data-target="#kiemduyet-course-modal">
                           <i class="fas fa-check fa-2x"></i>
                           <p>

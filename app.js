@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan'); 
 var methodOverride = require('method-override')
 var bodyParser = require('body-parser')
-
+var AdminMiddleware = require('./middlerwares/admin.middleware')
 //mongoDB
 const database = require('./database');
 // Connect to DB
@@ -31,6 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(bodyParser.json());
+
+// Check account admin
+app.use(AdminMiddleware.authenAdmin);
 
 //Router
 route(app);
