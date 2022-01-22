@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
+const Note = require('../models/Note');
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const paypal = require("paypal-rest-sdk");
@@ -304,8 +305,8 @@ class SiteController {
         }
       };
       currentLesson = lessons[current];
-      console.log(current);
-      console.log(lessons[current-1]);
+      // console.log(current);
+      // console.log(lessons[current-1]);
       if ( current >0 && mapIsFisnish[lessons[current-1]._id] != true ) throw { message: "Bạn chưa được phép học bài này", status: 403 };
       // console.log(beforeCurrentLesson);
       var userTracking = await UserLesson.findOne({
@@ -319,6 +320,8 @@ class SiteController {
         .then((commentUser) => {
           return commentUser;
         });
+      // Note
+      const notes = await Note.find({lesson_id: currentLesson._id}).populate("lesson_id");
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
         lessons,
@@ -331,6 +334,7 @@ class SiteController {
         countFinish,
         countCheckLesson,
         mapIsFisnish,
+        notes,
         // checkFinish,
         commentUser,
         userTracking,

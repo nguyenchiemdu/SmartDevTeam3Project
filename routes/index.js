@@ -5,6 +5,7 @@ var sellerRouter = require("./seller");
 var certificateRouter = require("./certificate");
 var kiemduyetRouter = require("./kiemduyet");
 var userRouter = require("./user");
+var apiRouter = require("./api");
 var authMiddleware = require("../middlerwares/auth.middleware")
 // Middleware này để tạm thời thêm dấu / vào route, fix một vài lỗi tạm thời
 function redirect(req,res,next) {
@@ -20,6 +21,7 @@ function route(app) {
   app.use("/kiemduyet", kiemduyetRouter);
   app.use("/user", userRouter);
   app.use("/certificate", certificateRouter);
+  app.use("/api", apiRouter);
 }
 
 module.exports = route;

@@ -6,9 +6,9 @@ const Schema = mongoose.Schema;
 const Note = new Schema({
     user_id : { type: Schema.Types.ObjectId, ref: 'User' },
     // course_id : { type: Schema.Types.ObjectId, ref: 'Course' },
-    lesson_id : { type: Schema.Types.ObjectId, ref: 'Lesson' },
-    commentContent: { type: String, required: true},
-    second : {type : Number, required : true},
+    lesson_id : { type: Number ,ref: 'Lesson' },
+    comment: { type: String, required: true},
+    second : {type : Number},
 }, {
     timestamps: true,
 });
