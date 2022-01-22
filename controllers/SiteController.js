@@ -321,7 +321,8 @@ class SiteController {
           return commentUser;
         });
       // Note
-      const notes = await Note.find({lesson_id: currentLesson._id}).populate("lesson_id");
+      const notes = await Note.find({lesson_id: currentLesson._id, user_id: userInfor.id}).populate("lesson_id");
+      console.log(notes);
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
         lessons,
