@@ -16,6 +16,7 @@ const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
 const Transaction = require("../models/Transaction");
 const Comment = require("../models/Comment");
+const Question = require("../models/Question");
 var url = require("url");
 const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
 var findCourseBySlug, resultPayment, totalSumCart, userNow;
@@ -118,6 +119,7 @@ class SiteController {
       next(e);
     }
   }
+
 
   // [Post] localhost:8080/category
   // Post slug to find ID Category
@@ -320,6 +322,7 @@ class SiteController {
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
         lessons,
+        courseId,
         currentLesson,
         course,
         userLesson,
@@ -340,6 +343,64 @@ class SiteController {
       next(e);
     }
   }
+
+
+  async question(req, res, next) {
+    try {
+      let courseId = req.params.id;
+      console.log(courseId);
+      let questions = await Question.find({course_id:courseId});
+      console.log(questions);
+      console.log();
+
+      res.render("question.ejs",
+      {...authMiddleware.userInfor(req),
+        questions,
+        courseId
+      });
+    } catch (e) {
+      console.log(e)
+      next(e)
+    }
+  }
+  
+  async postQuestion(req, res, next) {
+    try {
+      const formData = req.body;
+  
+       const userInfor = authMiddleware.userInfor(req);
+      let courseId = req.params.id;
+        // console.log(formData);
+      let countListTrueAnswers = 0;
+      let questions = await Question.find({course_id:courseId});
+      let listTrueAnswers = questions.map(question =>{
+        return question._id.toString() + question.trueAnswer.toString();
+      })
+      // console.log(listTrueAnswers);
+      listTrueAnswers.forEach(trueAnswer =>{
+        if(formData[trueAnswer] == "on"){
+          countListTrueAnswers++;
+        }
+      });
+      let isPassed = countListTrueAnswers/questions.length >= 0.8 ? true: false;
+      console.log(isPassed);
+      var newQuestion = new Question({
+        user_id: userInfor.id,
+        course_id: courseId,
+       
+      });
+
+      res.render("question.ejs",
+      {...authMiddleware.userInfor(req),
+        questions,
+        courseId
+      });
+    } catch (e) {
+      console.log(e)
+      next(e)
+    }
+  }
+
   //Post Comment
   async postComment(req, res, next) {
     const formData = req.body;
