@@ -9,6 +9,7 @@ const User = new Schema({
     firstName: { type: String, default: '' },
     lastName: { type: String, default: ''},
     email: { type: String, default: ''},
+    isActive : { type: Boolean, default : true },
 }, {
     timestamps: true,
 }, { collection: 'users' }

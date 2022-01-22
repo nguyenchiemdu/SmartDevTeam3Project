@@ -1,4 +1,6 @@
 const Course = require("../models/Course");
+const User = require("../models/User");
+const Role = require("../models/Role");
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
 var authMiddleware = require("../middlerwares/auth.middleware")
 class AdminController {
@@ -11,6 +13,18 @@ class AdminController {
       next(e)
     }
   }
+
+  async userManagement(req, res, next) {
+    try {
+      const users = await User.find({});
+      console.log(users);
+      res.render("admin/usermanagement",{ ...authMiddleware.userInfor(req), users});
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
   async kiemduyet(req, res, next) {
     const courseIsNotValidate = await Course.find({isValidated: 0}).populate('user_id')
     console.log(courseIsNotValidate);
@@ -31,6 +45,18 @@ class AdminController {
       res.json(e);
     }
   }
+
+  async disable(req, res, next) {
+    try {
+      console.log(req.params.id);
+      await User.updateOne({_id: req.params.id},{isActive: 1});
+      res.redirect("/admin/usermanagement");
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
   async confirm(req, res, next) {
     try {
       await Course.updateOne({_id: req.params.id},{isValidated: 1});
@@ -40,6 +66,7 @@ class AdminController {
       res.json(e);
     }
   }
+
   async signout(req, res, next) {
     // Clear cookie 
     res.clearCookie('accessToken')

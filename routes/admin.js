@@ -5,6 +5,10 @@ const tableController = require("../controllers/TableController");
 const adminController = require("../controllers/AdminController");
 
 // siteController.index
+router.get("/usermanagement", adminController.userManagement);
+
+router.patch("/usermanagement/:id", adminController.disable);
+
 router.get("/kiemduyet", adminController.kiemduyet);
 
 router.get("/signout",adminController.signout);
