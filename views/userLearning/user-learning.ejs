@@ -303,10 +303,27 @@
                                 <%= note.createdAt.getFullYear() %>
                           </span></div>
                       </div>
-                      <div class="mt-2">
-                        <p class="comment-text">
-                          <%= note.comment %>
-                        </p>
+                      <div class="mt-2 container-note">
+                        <div class="note-area">
+                          <p class="comment-text note-text">
+                            <%= note.comment %>
+                          </p>
+                          <form method="POST" action="/api/notes/<%=note._id%>?_method=PATCH" class="edit-content__form" style ="display: none;">
+                              <textarea 
+                                class="form-control ml-1 shadow-none textarea" name="comment" style = "background-color:  rgba(0,0,0,0); border-style: none;"><%- note.comment%></textarea>
+                              <button class = "btn btn-secondary" class = "btn-save__note" >Save</button>
+                          </form>
+                          <div class="note-function" >
+                            <a href = ""  class = "editNoteBtn">
+                              <i class="far fa-edit"></i>
+                            </a>                              
+                            <form method="POST" action="/api/notes/<%=note._id%>?_method=DELETE" class="deleteNote-form">   
+                              <a href = "" data-id="<%- note._id%>" id = "deleteNoteBtn" >
+                                <i class="far fa-trash-alt"></i>
+                              </a>
+                            </form>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <% }); %>
@@ -497,11 +514,33 @@
         window.location.href = "/certificate/<%= courseId %>"
       }
     </script>
-    <!-- <script>
-      formNote.addEventListener('submit',(e) => {
+    <script>
+      const editNoteBtn = document.querySelectorAll('.editNoteBtn');
+      const editNoteForm = document.getElementById('editNote-form');
+      const allFormDelete = document.querySelectorAll('.deleteNote-form');
+      const noteText = document.querySelectorAll('.note-text');
+      const containerNote = document.querySelectorAll('.container-note');
+      containerNote.forEach( e => {
+        e.children[0].children[2].children[0].addEventListener('click', event =>{
+          event.preventDefault();
+          e.children[0].children[0].style.display = "none";
+          e.children[0].children[1].style.display = "flex";
+        })
+        e.children[0].children[1].children[1].addEventListener('click', event =>{
+          event.preventDefault();
+          e.children[0].children[0].style.display = "block";
+          e.children[0].children[1].style.display = "none";
+          e.children[0].children[1].submit();
+        })
 
       })
-    </script> -->
+      allFormDelete.forEach(e => {
+        e.addEventListener('click',(event)=>{
+          event.preventDefault();
+          e.submit();
+        })
+      })
+    </script>
 </body>
 
 </html>

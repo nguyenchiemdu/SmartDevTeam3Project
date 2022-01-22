@@ -27,6 +27,17 @@ class ApiController {
             next(err);
         }
     }
+    // [Patch]
+    async editNote(req, res, next) {
+        await Note.updateOne({ _id: req.params.id }, {comment: req.body.comment});
+        res.redirect("back");
+    }
+    // [Delete]
+    async deleteNote(req, res, next) {
+        const noteId = req.params.id
+        await Note.deleteOne({_id: noteId});
+        res.redirect('back');
+    }
 }
 
 module.exports = new ApiController();

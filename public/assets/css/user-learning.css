@@ -288,9 +288,8 @@ body {
   border-top-right-radius: 8px;
   font-size: 16px;
   font-weight: bold;
-  width: auto;
+  flex: 1;
   padding: 5px 12px;
-  background-color: rgb(175, 175, 175);
   color: var(--main-background4-color) ;
 }
 .comment-section .response__comment {
@@ -331,4 +330,26 @@ body {
   color: #fff;
   background-color: var(--main-background4-color);
   border-color: var(--main-background4-color);
+}
+
+.container-note{
+  background-color: rgb(175, 175, 175);
+  border-radius: 10px;
+}
+.note-area{
+  margin-right: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.note-function{
+  font-size: 1.2rem;
+  color:#e40084;
+}
+.note-function a{
+  color: inherit;
+  padding: 0.5rem;
+}
+.edit-content__form{
+  display: flex;
+  width: 100%;
 }
