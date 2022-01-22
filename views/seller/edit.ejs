@@ -11,8 +11,11 @@
     <% include ../elements/script %>
     <script>
       window.onload = () => {
-        document.getElementById("editBtn").onclick = () => {
+        document.getElementById("editVideoBtn").onclick = () => {
           localStorage.setItem("isEditFromSeller", "true");
+        };
+        document.getElementById("editQuestionBtn").onclick = () => {
+          localStorage.setItem("isEditQuestionFromSeller", "true");
         };
       }
     </script>

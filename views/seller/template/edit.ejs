@@ -26,15 +26,15 @@
                         id="categoryID">
                         <% categories.forEach(function(category) { %>
                             <% if(category._id===course.categories_id){ %>
-                            <option value=<%= category._id %> selected >
-                                <%=category.nameCategory %>
-                            </option>
-                            <% } else { %>
-                                <option value="<%= category._id %>">
+                                <option value=<%=category._id %> selected >
                                     <%=category.nameCategory %>
                                 </option>
-                            <% } %>
-                            <% }) %>
+                                <% } else { %>
+                                    <option value="<%= category._id %>">
+                                        <%=category.nameCategory %>
+                                    </option>
+                                    <% } %>
+                                        <% }) %>
                     </select>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
@@ -54,6 +54,7 @@
         </form>
         <form method="POST" action="/seller/courses/create/2/<%= course._id %>">
             <div class="row">
+                <h2 class="ml-3">Add Video</h2>
                 <% lessons.forEach(function(lesson) { %>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                         <div class="row course-container">
@@ -71,9 +72,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/course/create/2/<%= lesson._id %>/edit" id="editBtn" type="edit"
+                                <a href="/seller/course/create/2/<%= lesson._id %>/edit" id="editVideoBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <a href="/seller/course/create/2/<%= lesson._id %>/delete?edit=true"  type="delete"
+                                <a href="/seller/course/create/2/<%= lesson._id %>/delete?edit=true" type="delete"
                                     class="btn btn-danger delete">
                                     Delete
                                 </a>
@@ -104,6 +105,81 @@
                             <!-- kiem tra xem co phai dang edit khong? -->
                         </div>
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form method="POST" action="/seller/courses/create/3/<%= course._id %>">
+            <div class="row">
+                <h2 class="ml-3 mt-5">Add Question</h2>
+                <% questions.forEach(function(question) { %>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                        <div class="row course-container">
+                            <div class="col-lg-9 col-md-6 col-sm-6 col-xs-12">
+                                <h3 class="title">
+                                    <%= question.question %>
+                                </h3>
+                            </div>
+                            <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
+                                <a href="/seller/course/create/3/<%= question._id %>/edit" id="editQuestionBtn" type="edit"
+                                    class="btn btn-info edit">Edit</a>
+                                <a href="/seller/course/create/3/<%= question._id %>/delete?edit=true" type="delete"
+                                    class="btn btn-danger delete">
+                                    Delete
+                                </a>
+                            </div>
+                            <div class="col-lg-1 col-md-2 col-sm-6 col-xs-6">
+                                <button class="up-down">
+                                    <i class="bx bxs-up-arrow"></i>
+                                </button>
+                                <button class="up-down">
+                                    <i class="bx bxs-down-arrow"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <label for="name" class="form-label">Name Question</label>
+                            <input type="text" class="form-control" id="question" name="question"
+                                placeholder="Name Question" />
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <label for="name" class="form-label">Choose the correct answer</label>
+                            <select class="form-control" aria-label="Default select example" name="trueAnswer" id="trueAnswer">
+                                <option value="a">A</option>
+                                <option value="b">B</option>
+                                <option value="c">C</option>
+                                <option value="d">D</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <label for="name" class="form-label">A</label>
+                            <input type="text" class="form-control" id="aAnswer" name="aAnswer" placeholder="Answer" />
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <label for="name" class="form-label">B</label>
+                            <input type="text" class="form-control" id="bAnswer" name="bAnswer" placeholder="Answer" />
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <label for="name" class="form-label">C</label>
+                            <input type="text" class="form-control" id="cAnswer" name="cAnswer" placeholder="Answer" />
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                            <label for="name" class="form-label">D</label>
+                            <input type="text" class="form-control" id="dAnswer" name="dAnswer" placeholder="Answer" />
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3 d-none">
+                            <input type="checkbox" name="isQuestionEdit" checked>Is Question Edit</input>
+                            <!-- kiem tra xem co phai dang edit khong? -->
+                        </div>
+                        <div style="text-align: right" class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3 ml-auto">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

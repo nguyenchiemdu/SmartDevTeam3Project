@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include template/header-create %>
+</head>
+
+<body>
+    <% include ../elements/navbar %>
+    <% include template/edit3 %>
+    <% include template/footer %>
+    <% include ../elements/script %>
+    <script>
+        window.onload = () => {
+            const isEditFromSeller = localStorage.getItem("isEditQuestionFromSeller") || "";
+            document.getElementById("submitFormEditQuestion").onclick = () => {
+            localStorage.removeItem('isEditQuestionFromSeller');
+          };
+          if (isEditFromSeller) {
+              document.getElementById('isEditQuestionFromSeller').innerHTML = "<input type='checkbox' name='isQuestionEdit' checked>Is Question Edit</input>"
+          }
+        }
+    </script>
+</body>
+
+</html>

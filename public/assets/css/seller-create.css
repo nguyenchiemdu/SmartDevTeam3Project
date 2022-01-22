@@ -62,3 +62,6 @@
 .progress-bar {
     background-color: rgb(238, 31, 176);
 }
+.add-course form label, .edit-course form label {
+    color: var(--style-color);
+}
