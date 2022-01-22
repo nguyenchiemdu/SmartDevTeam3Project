@@ -14,6 +14,7 @@ const paypal = require("paypal-rest-sdk");
 // const paypal = Paypal(process.env.PAYPAL_SECRET_KEY);
 const UserCourse = require("../models/UserCourse");
 const UserLesson = require("../models/UserLesson");
+const User = require("../models/User");
 const Transaction = require("../models/Transaction");
 const Comment = require("../models/Comment");
 var url = require("url");
@@ -744,6 +745,7 @@ class SiteController {
   }
   async checkout(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
+    const getEmail = await User.findOne({_id: userInfor.id});
     try {
       var infoCheckout =
         userInfor.username == null
@@ -760,11 +762,12 @@ class SiteController {
                 return { sum, courses };
               })
               .catch((e) => console.log(e));
+      if(getEmail.email == '') throw {message: "Bạn phải cập nhật thông tin trong profile trước", status: 403}
       if (infoCheckout != null)
         return res.render("checkout", {
           courses: infoCheckout.courses,
           sumPrice: infoCheckout.sum,
-          email: userInfor.username,
+          email: getEmail.email,
           title: "Check Out",
           ...authMiddleware.userInfor(req),
         });
@@ -779,14 +782,8 @@ class SiteController {
   // Payment checkout to striped
   // [Post] /cart/payment
   async payment(req, res, next) {
-    var emailIsChecked;
     const userInfor = authMiddleware.userInfor(req);
     const { email, number, exp_month, exp_year, cvc } = req.body;
-    if (email.includes("@")) {
-      emailIsChecked = email;
-    } else {
-      emailIsChecked = email + "@gmail.com";
-    }
     var sumPrice =
       userInfor.username == null
         ? null
@@ -813,7 +810,7 @@ class SiteController {
       });
       // Create customer to save email customer to show in bill
       const customer = await stripe.customers.create({
-        email: emailIsChecked,
+        email,
         source: token.id,
       });
       // Create charge method to payment
@@ -823,12 +820,12 @@ class SiteController {
         customer: customer.id,
         // Verify your integration in this guide by including this parameter
         metadata: { integration_check: "accept_a_payment" },
-        receipt_email: emailIsChecked,
+        receipt_email: email,
       });
       // Save transaction data value and status
       var transactions = new Transaction({
         user_id: userInfor.id,
-        email: emailIsChecked,
+        email,
         chargeID: charge.id,
         cartNumber: number,
         price: sumPrice,
