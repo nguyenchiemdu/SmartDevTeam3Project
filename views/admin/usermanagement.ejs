@@ -89,7 +89,7 @@
                         </a>
                       </div> -->
                       <div class="list-status">
-                        <form method="POST" action="/admin/usermanagement/<%= user._id%>?_method=PATCH" id="confirm-form">
+                        <form method="POST" action="/admin/usermanagement/<%= user._id%>?_method=PATCH" class="confirm-form">
                           <a href="" data-toggle="modal" data-id="<%- user._id%>" data-target="#usermanagement-course-modal">
                             <i class="fas fa-check fa-2x"></i>
                             <p>
@@ -136,12 +136,14 @@
       </script>
     <script>
       const btnConfirm = document.getElementById("btn-confirm-user");
-      const formConfirm = document.getElementById("confirm-form");
-      document.addEventListener('DOMContentLoaded', function () {
-        btnConfirm.onclick = function () {
-          formConfirm.submit();
+      const formConfirm = document.querySelectorAll(".confirm-form");
+      formConfirm.forEach(form => {
+        form.addEventListener("click",(e)=>{
+          btnConfirm.onclick = function () {
+          form.submit();
         }
-      });
+        })
+      })
     </script>
 </body>
 

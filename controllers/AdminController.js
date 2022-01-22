@@ -48,8 +48,7 @@ class AdminController {
 
   async disable(req, res, next) {
     try {
-      console.log(req.params.id);
-      await User.updateOne({_id: req.params.id},{isActive: 1});
+      await User.updateOne({_id: req.params.id},{isActive: false});
       res.redirect("/admin/usermanagement");
     } catch (e) {
       console.log(e);
