@@ -17,7 +17,7 @@ function route(app) {
   app.use("/admin",redirect, adminRouter);
   app.use("/seller", sellerRouter);
   app.use("/user", userRouter);
-  app.use("/certificate", certificateRouter);
+  app.use("/certificate/", certificateRouter);
 }
 
 module.exports = route;
