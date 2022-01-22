@@ -104,7 +104,7 @@
                       </a>
                     </div>
                     <div class="list-status">
-                      <form method="POST" action="/admin/kiemduyet/<%=course._id%>?_method=PATCH" id="confirm-form">
+                      <form method="POST" action="/admin/kiemduyet/<%=course._id%>?_method=PATCH" class="confirm-form">
                         <a href="" data-toggle="modal" data-id="<%- course._id%>" data-target="#kiemduyet-course-modal">
                           <i class="fas fa-check fa-2x"></i>
                           <p>
@@ -151,12 +151,15 @@
       </script>
     <script>
       const btnConfirm = document.getElementById("btn-confirm-course");
-      const formConfirm = document.getElementById("confirm-form");
-      document.addEventListener('DOMContentLoaded', function () {
-        btnConfirm.onclick = function () {
-          formConfirm.submit();
+      const formConfirm = document.querySelectorAll(".confirm-form");
+      formConfirm.forEach(form => {
+        form.addEventListener("click", e=>{
+          e.preventDefault();
+          btnConfirm.onclick = function () {
+            form.submit();
         }
-      });
+        })
+      })
     </script>
 </body>
 
