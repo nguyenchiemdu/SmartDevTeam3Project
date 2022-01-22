@@ -128,7 +128,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Làm bài test ngay</button>
+                <button type="button" class="btn btn-primary" id="goToTheTestPage">Làm bài test ngay</button>
               </div>
             </div>
           </div>
@@ -363,6 +363,11 @@
         })
       }
     </script> -->
+    <script>
+      document.getElementById('goToTheTestPage').onclick = ()=>{
+        window.location.href = "/certificate/<%= courseId %>"
+      }
+    </script>
 </body>
 
 </html>

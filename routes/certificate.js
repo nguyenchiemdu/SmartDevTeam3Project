@@ -3,6 +3,6 @@ var router = express.Router();
 
 const certificateController = require("../controllers/CertificateController");
 
-router.get("/", certificateController.certificate);
+router.get("/:id", certificateController.certificate);
 
 module.exports = router;

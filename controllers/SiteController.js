@@ -282,7 +282,7 @@ class SiteController {
       } else {
         percentFinish = (sumFinish / sumCountLesson) * 100;
       }
-      
+
       // console.log(countCheckLesson);
 
       // kiem tra da xem hêt bai hoc hay chua?
@@ -296,7 +296,7 @@ class SiteController {
       else {
         hasAllFinished = false;
       };
-      
+
       let currentLesson;
       let current = 0;
       for (let i=0;i< lessons.length;i++) {
@@ -336,6 +336,7 @@ class SiteController {
         commentUser,
         userTracking,
         hasAllFinished,
+        courseId,
         ...authMiddleware.userInfor(req),
       });
     } catch (e) {
