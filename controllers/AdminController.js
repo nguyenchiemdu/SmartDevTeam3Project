@@ -17,7 +17,7 @@ class AdminController {
   async userManagement(req, res, next) {
     try {
       const users = await User.find({});
-      console.log(users);
+      // console.log(users);
       res.render("admin/usermanagement",{ ...authMiddleware.userInfor(req), users});
     } catch (e) {
       console.log(e);
@@ -27,7 +27,7 @@ class AdminController {
 
   async kiemduyet(req, res, next) {
     const courseIsNotValidate = await Course.find({isValidated: 0}).populate('user_id')
-    console.log(courseIsNotValidate);
+    // console.log(courseIsNotValidate);
     try {
       res.render("admin/kiemduyet",{ ...authMiddleware.userInfor(req), courseIsNotValidate});
     } catch (e) {
@@ -36,7 +36,6 @@ class AdminController {
     }
   }
   async viewDetail(req, res, next) {
-    
     const courseSlug = await Course.findOne({slug: req.params.slug}).populate("user_id");
     try {
       res.render("admin/viewdetail",{ ...authMiddleware.userInfor(req), course: courseSlug});
