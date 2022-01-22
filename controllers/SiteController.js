@@ -122,6 +122,7 @@ class SiteController {
     }
   }
 
+
   // [Post] localhost:8080/category
   // Post slug to find ID Category
   async category(req, res, next) {
@@ -330,6 +331,7 @@ class SiteController {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
         rawData : userTracking.rawData == null ? [] : userTracking.rawData,
         lessons,
+        courseId,
         currentLesson,
         course,
         userLesson,
@@ -352,6 +354,62 @@ class SiteController {
       next(e);
     }
   }
+
+
+  async question(req, res, next) {
+    try {
+      let courseId = req.params.id;
+      console.log(courseId);
+      let questions = await Question.find({course_id:courseId});
+      console.log(questions);
+      console.log();
+
+      res.render("question.ejs",
+      {...authMiddleware.userInfor(req),
+        questions,
+        courseId
+      });
+    } catch (e) {
+      console.log(e)
+      next(e)
+    }
+  }
+  
+  async postQuestion(req, res, next) {
+    try {
+      const formData = req.body;
+  
+       const userInfor = authMiddleware.userInfor(req);
+      let courseId = req.params.id;
+      let countListTrueAnswers = 0;
+      let questions = await Question.find({course_id:courseId});
+      let listTrueAnswers = questions.map(question =>{
+        return question._id.toString() + question.trueAnswer.toString();
+      })
+      listTrueAnswers.forEach(trueAnswer =>{
+        if(formData[trueAnswer] == "on"){
+          countListTrueAnswers++;
+        }
+      });
+      let isPassed = countListTrueAnswers/questions.length >= 0.8 ? true: false;
+      var CourseCompleted = await UserCourse.findOne({
+        user_id: userInfor.id,
+        course_id: courseId,
+      })
+      CourseCompleted.isCompleted = 1;
+      await CourseCompleted.save();
+
+      res.render("question.ejs",
+      {...authMiddleware.userInfor(req),
+        questions,
+        courseId
+      });
+    } catch (e) {
+      console.log(e)
+      next(e)
+    }
+  }
+
   //Post Comment
   async postComment(req, res, next) {
     const formData = req.body;

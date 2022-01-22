@@ -17,9 +17,9 @@ router.get("/success",siteController.success)
 
 router.get("/courses/:slug", courseController.show);
 
-
-
 router.get("/courses", siteController.courses);
+
+
 // chưa đăng nhập chưa thể vào trang đổi pass
 router.get("/password", siteController.password);
 
@@ -51,7 +51,11 @@ router.get("/learning/:id", siteController.userLearning);
 
 router.post("/learning/:id", siteController.postComment);
 
-router.post("/learning/:courseId/:lessonid", siteController.trackUser);
+router.get("/learning/:id/question", siteController.question);
+
+router.post("/learning/:id/question", siteController.postQuestion);
+
+router.post("/learning/lesson/:lessonid", siteController.trackUser);
 
 // router.get("/certification", siteController.certification);
 
