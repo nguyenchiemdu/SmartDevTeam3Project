@@ -869,6 +869,7 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     const getEmail = await User.findOne({_id: userInfor.id});
     try {
+      if(userInfor.email == null) throw {message: "Bạn phải đăng nhập trước", status: 401}
       var infoCheckout =
         userInfor.username == null
           ? null
