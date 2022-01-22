@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const Invoice = require("../models/Invoice");
 const UserCart = require("../models/UserCart");
+const Note = require('../models/Note');
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const paypal = require("paypal-rest-sdk");
@@ -317,7 +318,8 @@ class SiteController {
         .then((commentUser) => {
           return commentUser;
         });
-        // console.log(userTracking);
+      // Note
+      const notes = await Note.find({lesson_id: currentLesson._id}).populate("lesson_id");
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
         rawData : userTracking.rawData == null ? [] : userTracking.rawData,
@@ -331,6 +333,7 @@ class SiteController {
         countFinish,
         countCheckLesson,
         mapIsFisnish,
+        notes,
         // checkFinish,
         commentUser,
         userTracking,

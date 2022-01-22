@@ -275,6 +275,70 @@
             </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Trang ghi chú
+            
+            <div class="d-flex justify-content-center row">
+              <div class="col-md-12">
+                <div class="d-flex flex-column comment-section">
+                  <% notes.forEach(function(note) { %>
+                    <div class="bg-white p-2">
+                      <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                          src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                        <div class="d-flex flex-column justify-content-start ml-2"><span
+                            class="d-block font-weight-bold name">
+                            <% if(note.second<60){ %>
+                              <%- note.second%> giây
+                            <%}else if (note.second>=60 && note.second <3600){%>
+                              <% var phut = (note.second-note.second%60)/60%>
+                              <% (note.second) = (note.second) % 60%>
+                              <%-phut%> phút <%- note.second%> giây
+                            <%} else{%>
+                              <% var gio = (note.second - note.second %3600)/3600%>
+                              <% var phut = ((note.second%3600)-(note.second%3600)%60)/60%>
+                              <% note.second = (note.second - (phut * 60) - (gio*3600))%>
+                              <%-gio%> giờ <%-phut%> phút <%- note.second%> giây
+                            <%}%>
+                          </span><span class="date text-black-50">
+                            <%= note.createdAt.getDate() %>/
+                              <%= note.createdAt.getMonth()+1 %>/
+                                <%= note.createdAt.getFullYear() %>
+                          </span></div>
+                      </div>
+                      <div class="mt-2">
+                        <p class="comment-text">
+                          <%= note.comment %>
+                        </p>
+                      </div>
+                    </div>
+                    <% }); %>
+                      <div class="bg-white">
+                        <div class="d-flex flex-row fs-12">
+                          <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span
+                              class="ml-1">Like</span></div>
+                          <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span
+                              class="ml-1">Comment</span></div>
+                          <div class="like p-2 cursor"><i class="fa fa-share"></i><span
+                              class="ml-1">Share</span></div>
+                        </div>
+                      </div>
+                      <form action="../api/notes" method = "POST" id = "form-note">
+                        <div class="bg-light p-2">
+                          <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
+                              src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea
+                              class="form-control ml-1 shadow-none textarea" name="comment" id = "commentNote"></textarea></div>
+                          <div id="noti-note" style ="display: none;"></div>
+                          <input type="text" id = "videoId" name = "lesson_id" style="display: none;">
+                          <input type="text" id = "videoId" name = "course_id" value = "<%- course._id%>" style="display: none;">
+                          <input type="text" id = "currentTime" name = "second" style="display: none;">
+                          <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none"
+                              type="submit" id = "btn-note">Tạo ghi chú</button><button
+                              class="btn btn-outline-primary btn-sm ml-1 shadow-none"
+                              type="button">Cancel</button></div>
+                        </div>
+                      </form>
+                </div>
+              </div>
+            </div>
+          
           </div>
           <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Trang liên quan
           </div>
@@ -295,6 +359,9 @@
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       var player, timer,timer2, timeSpent = [], display = document.getElementById('display');
+      var currentTime = document.getElementById('currentTime');
+      var commentNote = document.getElementById('commentNote');
+      const notiNote = document.getElementById('noti-note');
       var highestPercent = 0;
       var rawData = [];
       var serverData = <%- JSON.stringify(rawData) %>;
@@ -304,6 +371,7 @@
         player = new YT.Player('player', {
           events: { 'onStateChange': onPlayerStateChange, 'onReady': () => { player.seekTo(player.getDuration() / 100 *<%= progress %>); } }
         });
+
       }
 
       function onPlayerStateChange(event) {
@@ -320,8 +388,12 @@
           }
 
           timer = setInterval(record, 100);
-          // timer2 = setInterval(calRawData, 5000);
-        } else {
+        } else if(event.data ===2){
+          currentTime.value = (player.getCurrentTime()).toFixed();
+          notiNote.innerHTML = "Tạo ghi chú tại giây " + parseInt(currentTime.value).toFixed();
+          notiNote.style.display = "block";
+        }
+        else{
           clearInterval(timer);
           clearInterval(timer2);
         }
@@ -383,10 +455,26 @@
         }).then((res) => res.json());
         return
       })
-
+      
     </script>
     <script>
-
+      const formNote = document.getElementById('form-note');
+      const btnNote = document.getElementById('btn-note');
+      var commentNote = document.getElementById('commentNote');
+      const videoArea = document.getElementById('videoId');
+      var currentUrl = window.location.href;
+      const position = currentUrl.indexOf("=")+1;
+      const videoId = currentUrl.slice(position);
+      videoArea.value = videoId;
+      formNote.onSubmit = () =>{
+        commentNote.value = '';
+      }
+      commentNote.addEventListener('focus',(e) => {
+        currentTime.value = (player.getCurrentTime()).toFixed();
+        notiNote.innerHTML = "Tạo ghi chú tại giây " + parseInt(currentTime.value).toFixed();
+        notiNote.style.display = "block";
+        player.pauseVideo();
+      })
     </script>
     <!-- <script>
       const statuses= document.querySelectorAll('.status')
@@ -409,6 +497,11 @@
         window.location.href = "/certificate/<%= courseId %>"
       }
     </script>
+    <!-- <script>
+      formNote.addEventListener('submit',(e) => {
+
+      })
+    </script> -->
 </body>
 
 </html>
