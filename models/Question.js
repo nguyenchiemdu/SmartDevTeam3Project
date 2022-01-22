@@ -16,6 +16,6 @@ const Question = new Schema({
     timestamps: true,
 });
 
-Lesson.plugin(AutoIncrement);
+// Lesson.plugin(AutoIncrement);
 
 module.exports = mongoose.model('Question', Question);

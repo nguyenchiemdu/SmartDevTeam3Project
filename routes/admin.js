@@ -7,6 +7,12 @@ const adminController = require("../controllers/AdminController");
 // siteController.index
 router.get("/kiemduyet", adminController.kiemduyet);
 
+router.get("/signout",adminController.signout);
+
+router.patch('/kiemduyet/:id',adminController.confirm);
+
+router.get("/kiemduyet/:slug", adminController.viewDetail);
+
 router.get("/:table", tableController.showTable);
 
 router.get("/:table/create", tableController.create);
