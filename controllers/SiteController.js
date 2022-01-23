@@ -234,6 +234,12 @@ class SiteController {
       let courseId = req.params.id;
       let course = await Course.findOne({ _id: courseId });
 
+      // kiem tra xem user da mua khoa nay chua
+      let usercourse = await UserCourse.findOne({
+        user_id : userInfor.id,
+        course_id : courseId
+      });
+      if (usercourse== null) throw { message: "Bạn chưa mua khoá học này", status: 403 }
       let videoId = req.query.videos;
       if (videoId == null) {
         var lesson = await Lesson.findOne({ course_id: courseId });
