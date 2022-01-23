@@ -49,7 +49,11 @@ class UserController {
       const user = await User.findOne({ username: req.body.username })
       if (!user) return res.json({ status: 'failed' })
       if (! await bcrypt.compare(req.body.password, user.password)) return res.json({ status: 'failed' })
-
+      if (user.isActive != true)  {
+        return res.json({
+          error: "Bạn đã bị admin khóa tài khoản",
+        });
+      }
       //add local Cart to user Cart
       const cart = req.body.cart;
       if (cart != null)
