@@ -5,9 +5,13 @@ const tableController = require("../controllers/TableController");
 const adminController = require("../controllers/AdminController");
 
 // siteController.index
-router.get("/usermanagement", adminController.userManagement);
+router.get("/userdisable", adminController.userDisable);
 
-router.patch("/usermanagement/:id", adminController.disable);
+router.patch("/userdisable/:id", adminController.disable);
+
+router.get("/useractive", adminController.userActive);
+
+router.patch("/useractive/:id", adminController.active);
 
 router.get("/kiemduyet", adminController.kiemduyet);
 

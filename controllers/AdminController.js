@@ -14,11 +14,22 @@ class AdminController {
     }
   }
 
-  async userManagement(req, res, next) {
+  //User disable
+  async userDisable(req, res, next) {
     try {
-      const users = await User.find({});
-      // console.log(users);
-      res.render("admin/usermanagement",{ ...authMiddleware.userInfor(req), users});
+      const users = await User.find({isActive: true});
+      res.render("admin/userdisable",{ ...authMiddleware.userInfor(req), users});
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
+  //User active
+  async userActive(req, res, next) {
+    try {
+      const users = await User.find({isActive: false});
+      res.render("admin/useractive",{ ...authMiddleware.userInfor(req), users});
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -45,10 +56,22 @@ class AdminController {
     }
   }
 
+  // :PATCH disable user
   async disable(req, res, next) {
     try {
       await User.updateOne({_id: req.params.id},{isActive: false});
-      res.redirect("/admin/usermanagement");
+      res.redirect("/admin/userdisable");
+    } catch (e) {
+      console.log(e);
+      res.json(e);
+    }
+  }
+
+  // :PATCH active user
+  async active(req, res, next) {
+    try {
+      await User.updateOne({_id: req.params.id},{isActive: true});
+      res.redirect("/admin/useractive");
     } catch (e) {
       console.log(e);
       res.json(e);

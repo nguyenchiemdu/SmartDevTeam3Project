@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- header -->
+  <% include ../elements/header %>
+    <!-- css header - footer -->
+    <% include ../elements/css/header-footer %>
+      <link rel="stylesheet" href="/assets/css/dashboardAdmin.css" />
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <% include admin-sidebar %>
+
+      <!-- Page Content  -->
+      <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info btn_color">
+              <i class="fas fa-align-left"></i>
+              <span>Toggle Sidebar</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <i class="fas fa-align-justify"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item active" style="color: antiquewhite; padding-right: 20px;">
+                  <a href="/admin">CRUD Database</a>
+                </li>
+                <li class="nav-item" style="color: antiquewhite;">
+                  <a href="/admin/kiemduyet">Kiểm duyệt khóa học</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container" style="text-align:center;">
+          <p>Quản lý User</p>
+          <table class="table table-bordered table-striped table-hover" style="table-layout: fixed">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col" class="text-truncate">#</th>
+                <th scope="col" class="text-truncate">User Name</th>
+                <th scope="col" class="text-truncate">First Name</th>
+                <th scope="col" class="text-truncate">Last Name</th>
+                <th scope="col" class="text-truncate">Email</th>
+                <th scope="col" class="text-truncate">Status</th>
+              </tr>
+            </thead>
+            <% var i=1;%>
+              <tbody>
+                <% users.forEach(function(user) { %>
+                  <tr>
+                    <td>
+                      <%- i++%>
+                    </td>
+                    <td class="text-truncate">
+                      <%- user.username%>
+                    </td>
+                    <td class="text-truncate">
+                      <%- user.fistName%>
+                    </td>
+                    <td class="text-truncate">
+                      <%- user.lastName%>
+                    </td>
+                    <td class="text-truncate">
+                      <%- user.email%>
+                    </td>
+                    <td class="status__course row">
+                      <!-- <div class="list-status">
+                        <a href="/admin/usermanagement">
+                          <i class="fas fa-info-circle fa-1x"></i>
+                          <p>
+                            Xem thông tin chi tiết của User
+                          </p>
+                        </a>
+                      </div> -->
+                      <div class="list-status">
+                        <form method="POST" action="/admin/userdisable/<%= user._id%>?_method=PATCH" class="confirm-form">
+                          <a href="" data-toggle="modal" data-id="<%- user._id%>" data-target="#userdisable-course-modal">
+                            <i class='bx bxs-lock-alt'></i>
+                            <p>
+                              Vô hiệu hóa User
+                            </p>
+                          </a>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                  <%});%>
+              </tbody>
+          </table>
+
+        </div>
+        <div id="userdisable-course-modal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Vô hiệu hóa User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Bạn có đồng ý vô hiệu hóa User này hay không? </p>
+              </div>
+              <div class="modal-footer">
+                <button id="btn-confirm-user" type="button" class="btn btn-danger">Xác nhận</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- <% include ../elements/footer %> -->
+
+  </div>
+
+  <% include ../elements/script %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+      </script>
+    <script>
+      const btnConfirm = document.getElementById("btn-confirm-user");
+      const formConfirm = document.querySelectorAll(".confirm-form");
+      formConfirm.forEach(form => {
+        form.addEventListener("click",(e)=>{
+          btnConfirm.onclick = function () {
+          form.submit();
+        }
+        })
+      })
+    </script>
+</body>
+
+</html>
