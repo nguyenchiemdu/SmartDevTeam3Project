@@ -228,7 +228,7 @@ body {
   font-size: 12px
 }
 .bg-white{
-  color: #007bff;
+  color: var(--style-color);
 }
 .shadow-none {
   box-shadow: none
@@ -292,6 +292,15 @@ body {
   padding: 5px 12px;
   color: var(--main-background4-color) ;
 }
+.comment-section .note-text {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  padding: 5px 12px;
+  color: #333 ;
+}
 .comment-section .response__comment {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -300,6 +309,12 @@ body {
   color: #fff;
   background-color: var(--style-color);
   border-color: var(--style-color);
+  transition: all 0.3s ease;
+}
+.comment-section .bg-light .btn-primary:hover {
+  color: #fff;
+  background-color: var(--main-background4-color);
+  border-color: var(--main-background4-color);
 }
 .comment-section .bg-light {
   background-color: #333333!important;
@@ -325,6 +340,7 @@ body {
 .comment-section .bg-light .btn-outline-primary {
   color: var(--main-background4-color);
   border-color: var(--main-background4-color);
+  transition: all 0.3s ease;
 }
 .comment-section .bg-light .btn-outline-primary:hover {
   color: #fff;
@@ -333,7 +349,7 @@ body {
 }
 
 .container-note{
-  background-color: rgb(175, 175, 175);
+  background-color: #f7f8fa;
   border-radius: 10px;
 }
 .note-area{
@@ -342,12 +358,22 @@ body {
   justify-content: space-between;
 }
 .note-function{
+  display: flex;
   font-size: 1.2rem;
-  color:#e40084;
 }
-.note-function a{
+.note-function a, .deleteNote-form {
+  color:#e40084;
+  font-size: 23px;
+  margin: 12px 10px;
   color: inherit;
-  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+.note-function a:hover, .deleteNote-form:hover {
+  color:#00c9e4;
+}
+.btn-secondary {
+  padding: 0 15px;
+  line-height: 0;
 }
 .edit-content__form{
   display: flex;
