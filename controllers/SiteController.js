@@ -291,19 +291,14 @@ class SiteController {
       const findAllCourseNotFinished = countFinish.filter(
         (userLes) => userLes.isFinish
       );
-      let hasAllFinished;
-      if (findAllCourseNotFinished.length === sumCountLesson) {
-        hasAllFinished = true;
-        var doc = await UserCourse.findOne({
+
+      let hasAllFinished =(findAllCourseNotFinished.length === sumCountLesson) ? true :false
+      var doc = await UserCourse.findOne({
         user_id: userInfor.id,
         course_id: courseId,
-      });
-        doc.isCompleted = 1;
-        await doc.save()
-      }
-      else {
-        hasAllFinished = false;
-      };
+        isCompleted : 1,
+      })
+      let isTested = (doc !==null) ? true : false
 
       let currentLesson;
       let current = 0;
@@ -346,6 +341,7 @@ class SiteController {
         commentUser,
         userTracking,
         hasAllFinished,
+        isTested,
         courseId,
         ...authMiddleware.userInfor(req),
       });
@@ -374,11 +370,11 @@ class SiteController {
       next(e)
     }
   }
-  
+
   async postQuestion(req, res, next) {
     try {
       const formData = req.body;
-  
+
        const userInfor = authMiddleware.userInfor(req);
       let courseId = req.params.id;
       let countListTrueAnswers = 0;

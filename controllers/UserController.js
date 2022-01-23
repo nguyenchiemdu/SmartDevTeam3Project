@@ -44,13 +44,6 @@ class UserController {
   async showCertificate(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     const user = await User.findOne({ _id: userInfor.id });
-    // dua vao id cua user de tim ra cac khoa hoc user da mua
-    // const userLesson = await UserCourse.find({ user_id: user._id });
-    // // lay course_id cua tung khoa hoc
-    // let course_id = [];
-    // userLesson.forEach((element) => {
-    //   course_id.push(element.course_id);
-    // });
     var CourseCompleted = await UserCourse.find({
       user_id: userInfor.id,
       isCompleted: 1,

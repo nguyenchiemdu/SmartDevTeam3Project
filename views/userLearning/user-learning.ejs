@@ -107,7 +107,7 @@
           </div>
 
         </div>
-        <% if (hasAllFinished) {%>
+        <% if (hasAllFinished && !isTested) {%>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
           Làm bài kiểm tra
@@ -309,15 +309,15 @@
                             <%= note.comment %>
                           </p>
                           <form method="POST" action="/api/notes/<%=note._id%>?_method=PATCH" class="edit-content__form" style ="display: none;">
-                              <textarea 
+                              <textarea
                                 class="form-control ml-1 shadow-none textarea" name="comment" style = "background-color:  rgba(0,0,0,0); border-style: none;"><%- note.comment%></textarea>
                               <button class = "btn btn-secondary" class = "btn-save__note" >Save</button>
                           </form>
                           <div class="note-function" >
                             <a href = ""  class = "editNoteBtn">
                               <i class="far fa-edit"></i>
-                            </a>                              
-                            <form method="POST" action="/api/notes/<%=note._id%>?_method=DELETE" class="deleteNote-form">   
+                            </a>
+                            <form method="POST" action="/api/notes/<%=note._id%>?_method=DELETE" class="deleteNote-form">
                               <a href = "" data-id="<%- note._id%>" id = "deleteNoteBtn" >
                                 <i class="far fa-trash-alt"></i>
                               </a>
@@ -509,7 +509,7 @@
         })
       }
     </script> -->
- 
+
     <script>
       const editNoteBtn = document.querySelectorAll('.editNoteBtn');
       const editNoteForm = document.getElementById('editNote-form');
