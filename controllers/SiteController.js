@@ -1110,11 +1110,20 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     if (!userInfor.username) return res.sendStatus(401);
 
-    const itemData = new UserCart({
-      user_id: userInfor.id,
-      course_id: req.body.course_id,
-    });
+    // const itemData = new UserCart({
+    //   user_id: userInfor.id,
+    //   course_id: req.body.course_id,
+    // });
+    
     try {
+      var itemData = await  UserCart.findOne({
+        user_id: userInfor.id,
+        course_id: req.body.course_id,
+      })
+      if (itemData==null) itemData = new UserCart({
+          user_id: userInfor.id,
+          course_id: req.body.course_id,
+      });
       await itemData.save();
       res.json({
         status: "success",
