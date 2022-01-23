@@ -1,4 +1,4 @@
-<div style="margin-top: 64px;" class="container pm-certificate-container">
+<div style="margin-top: 64px;" class="container pm-certificate-container" id="screen">
   <div class="outer-border"></div>
   <div class="inner-border"></div>
   <div class="pm-certificate-border col-xs-12">
@@ -94,9 +94,37 @@
     </div>
 
   </div>
-
+</div>
+<div id='appends'>
 </div>
 <div style="text-align:center;" class="mt-3 mb-3">
-  <button type="button" class="btn btn-info" style="background-color: #e40084; border-color: #e40084; color: #fff;">Download</button>
+  <button type="button" class="btn btn-info" style="background-color: #e40084; border-color: #e40084; color: #fff;" onclick="screenShot()">Download</button>
   <button type="button" class="btn btn-primary">Share</button>
 </div>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+  integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+   const screenShot = () => {
+  const element = document.getElementById("screen");
+  // html2canvas(element).then(canvas => {
+  //   document.getElementById('appends').appendChild(canvas);
+  // });
+  // // setTimeout(luu,2000);
+  var opt = {
+    margin: 0,
+    filename: "Certificate <%= NameCourse %>.pdf",
+    image: { type: "webp", quality: 0.1 },
+    html2canvas: { scale: 1 },
+    jsPDF: { unit: "px", format: "a4", orientation: "landscape" },
+  };
+  html2pdf().set(opt).from(element).toPdf().save();
+};
+  const luu = ()=>{
+  const a = document.getElementById("appends");
+  }
+</script>
