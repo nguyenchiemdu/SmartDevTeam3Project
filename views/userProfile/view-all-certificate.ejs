@@ -32,11 +32,17 @@
                     <h2>All Certificate</h2>
                 </div>
                 <div class="profile-container__information">
-                    <ul>
+                    <% if (CourseCompleted.length === 0) { %>
+                        <div>
+                            You have no certificate
+                        </div>
+                    <% } else { %>
                         <% CourseCompleted.forEach(function(course) { %>
-                        <a href="/certificate/<%= course.course_id._id %>"><%= course.course_id.name %></a>
+                            <div>
+                                Chứng Chỉ: <a href="/certificate/<%= course.course_id._id %>"><%= course.course_id.name %></a>
+                            </div>
                         <% }); %>
-                    </ul>
+                    <% } %>
                 </div>
             </div>
         </div>
