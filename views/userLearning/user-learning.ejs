@@ -410,12 +410,38 @@
           clearInterval(timer2);
         }
       }
-
+      function secondsToTime(secs)
+      {
+          var hours = Math.floor(secs / (60 * 60));
+      
+          var divisor_for_minutes = secs % (60 * 60);
+          var minutes = Math.floor(divisor_for_minutes / 60);
+      
+          var divisor_for_seconds = divisor_for_minutes % 60;
+          var seconds = Math.ceil(divisor_for_seconds);
+      
+          var obj = {
+              "h": hours,
+              "m": minutes,
+              "s": seconds
+          };
+          return obj;
+      }
       function record() {
         timeSpent[parseInt(player.getCurrentTime())] = true;
         showPercentage();
-        currentTime.value = (player.getCurrentTime()).toFixed();
-        notiNote.innerHTML = "Tạo ghi chú tại giây " + parseInt(currentTime.value).toFixed();
+        currentTime.value = Math.floor(player.getCurrentTime());
+        var convertTime = secondsToTime(currentTime.value)
+        if(convertTime.m <1){
+          var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây` ;
+        }
+        else if(convertTime.h<1 && convertTime.h >-1){
+            var notifyNote = `Tạo ghi chú tại ${convertTime.m} phút ${convertTime.s} giây` ;
+          }
+          else {
+            var notifyNote = `Tạo ghi chú tại ${convertTime.h} giờ ${convertTime.m} phút ${convertTime.s} giây` ;
+          }
+        notiNote.innerHTML = notifyNote;
         notiNote.style.display = "block";
       }
       // function calRawData(){
@@ -485,8 +511,18 @@
         commentNote.value = '';
       }
       commentNote.addEventListener('focus',(e) => {
-        currentTime.value = (player.getCurrentTime()).toFixed();
-        notiNote.innerHTML = "Tạo ghi chú tại giây " + parseInt(currentTime.value).toFixed();
+        currentTime.value = Math.floor(player.getCurrentTime());
+        var convertTime = secondsToTime(currentTime.value)
+        if(convertTime.m <1){
+          var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây` ;
+        }
+        else if(convertTime.h<1 && convertTime.h >-1){
+            var notifyNote = `Tạo ghi chú tại ${convertTime.m} phút ${convertTime.s} giây` ;
+          }
+          else {
+            var notifyNote = `Tạo ghi chú tại ${convertTime.h} giờ ${convertTime.m} phút ${convertTime.s} giây` ;
+          }
+        notiNote.innerHTML = notifyNote;
         notiNote.style.display = "block";
         player.pauseVideo();
       })
