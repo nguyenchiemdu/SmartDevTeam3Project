@@ -869,7 +869,7 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     const getEmail = await User.findOne({_id: userInfor.id});
     try {
-      if(userInfor.email == null) throw {message: "Bạn phải đăng nhập trước", status: 401}
+      if(userInfor.id == null) throw {message: "Bạn phải đăng nhập trước", status: 401}
       var infoCheckout =
         userInfor.username == null
           ? null
@@ -885,16 +885,19 @@ class SiteController {
                 return { sum, courses };
               })
               .catch((e) => console.log(e));
-      if(getEmail.email == '') throw {message: "Bạn phải cập nhật thông tin trong profile trước", status: 403}
-      if (infoCheckout != null)
+      if(getEmail.email == '') throw {message: "Bạn phải cập nhật thông tin trong profile trước", status: 403};
+      if (infoCheckout != null) {
+        if (infoCheckout.sum !=0)
         return res.render("checkout", {
           courses: infoCheckout.courses,
           sumPrice: infoCheckout.sum,
           email: getEmail.email,
           title: "Check Out",
           ...authMiddleware.userInfor(req),
-        });
+        })
+        else throw  {message: "Bạn chưa có khoá học nào trong giỏ hàng!", status: 404};
 
+      }
       throw { message: "Bạn phải đăng nhập trước", status: 401 };
     } catch (e) {
       next(e);

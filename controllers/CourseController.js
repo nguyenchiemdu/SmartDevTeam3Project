@@ -20,6 +20,8 @@ class CourseController {
         user_id: userInfor.id,
       });
       const isInCart = coursesInCart ? true : false;
+      console.log(isCheckedOut);
+      console.log(isInCart);
       let commentUser = await Comment.find({ course_id: courses._id })
         .populate("user_id")
         .exec()

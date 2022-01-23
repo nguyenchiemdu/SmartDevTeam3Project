@@ -161,7 +161,8 @@
                     })
                 }).then((res) => res.json());
             }
-            else { return window.location.href = "/learning"}
+            else { 
+                 if (<%=isCheckedOut %>)return window.location.href = "/learning"}
             // console.log(result);
             window.location.href = "/cart"
         }
