@@ -385,26 +385,29 @@ class SiteController {
       let courseId = req.params.id;
       let countListTrueAnswers = 0;
       let questions = await Question.find({course_id:courseId});
-      let listTrueAnswers = questions.map(question =>{
-        return question._id.toString() + question.trueAnswer.toString();
-      })
-      listTrueAnswers.forEach(trueAnswer =>{
-        if(formData[trueAnswer] == "on"){
+      // let listTrueAnswers = questions.map(question =>{
+      //   return question._id.toString() + question.trueAnswer.toString();
+      // })
+      console.log(formData);
+      questions.forEach(question =>{
+        if(formData[question._id] == question.trueAnswer){
           countListTrueAnswers++;
         }
       });
       let isPassed = countListTrueAnswers/questions.length >= 0.8 ? true: false;
-      var CourseCompleted = await UserCourse.findOne({
-        user_id: userInfor.id,
-        course_id: courseId,
-      })
-      CourseCompleted.isCompleted = 1;
-      await CourseCompleted.save();
+      if(isPassed){
+        var CourseCompleted = await UserCourse.findOne({
+          user_id: userInfor.id,
+          course_id: courseId,
+        })
+        CourseCompleted.isCompleted = 1;
+        await CourseCompleted.save();
+      }
 
-      res.render("question.ejs",
+      res.render("question-success.ejs",
       {...authMiddleware.userInfor(req),
-        questions,
-        courseId
+       isPassed,
+      
       });
     } catch (e) {
       console.log(e)
