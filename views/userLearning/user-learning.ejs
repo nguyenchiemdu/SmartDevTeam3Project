@@ -403,13 +403,8 @@
             }
             // console.log(timeSpent);
           }
-
           timer = setInterval(record, 100);
-        } else if(event.data ===2){
-          currentTime.value = (player.getCurrentTime()).toFixed();
-          notiNote.innerHTML = "Tạo ghi chú tại giây " + parseInt(currentTime.value).toFixed();
-          notiNote.style.display = "block";
-        }
+        } 
         else{
           clearInterval(timer);
           clearInterval(timer2);
@@ -419,6 +414,9 @@
       function record() {
         timeSpent[parseInt(player.getCurrentTime())] = true;
         showPercentage();
+        currentTime.value = (player.getCurrentTime()).toFixed();
+        notiNote.innerHTML = "Tạo ghi chú tại giây " + parseInt(currentTime.value).toFixed();
+        notiNote.style.display = "block";
       }
       // function calRawData(){
         // let i=0;

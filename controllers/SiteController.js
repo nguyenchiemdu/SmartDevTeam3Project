@@ -451,7 +451,7 @@ class SiteController {
       doc.rawData = req.body.rawData;
       let sumWatchedSecond =0;
       doc.rawData.forEach(segment=> {
-        sumWatchedSecond = sumWatchedSecond + segment.end - segment.start;
+        sumWatchedSecond = sumWatchedSecond + segment.end - segment.start +1;
       });
 
       if ( sumWatchedSecond/req.body.duration > 0.8) doc.isFinish = true;
