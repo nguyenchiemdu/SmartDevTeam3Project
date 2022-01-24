@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var sellerMiddleware = require("../middlerwares/seller.middleware")
 
 const siteController = require("../controllers/SiteController");
 const tableController = require("../controllers/TableController");
@@ -9,7 +10,7 @@ router.get("/", siteController.home_seller);
 
 router.get("/courses", siteController.show);
 
-router.get("/courses/:id", siteController.billCourses);
+router.get("/courses/:id",sellerMiddleware.authenSeller, siteController.billCourses);
 
 router.get("/courses/create/1", siteController.addCourses1);
 
