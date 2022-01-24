@@ -1,132 +1,173 @@
-<div style="margin-top: 64px;" class="container pm-certificate-container" id="screen">
-  <div class="outer-border"></div>
-  <div class="inner-border"></div>
-  <div class="pm-certificate-border col-xs-12">
-    <div class="row pm-certificate-header">
-      <div class="pm-certificate-title cursive col-xs-12 text-center">
-        <h2>CodeEveryDay Certificate of Completion</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chup</title>
+  <!-- <% include header-certification %> -->
+</head>
+<body>
+  <div
+    style="margin-top: 64px"
+    class="container pm-certificate-container"
+    id="myHtml"
+  >
+    <div class="outer-border">
+      <div class="inner-border">
+        <div class="pm-certificate-border col-xs-12">
+          <div class="row pm-certificate-header">
+            <div class="pm-certificate-title cursive col-xs-12 text-center">
+              <h2>CodeEveryDay Certificate of Completion</h2>
+            </div>
+          </div>
+          <div class="row pm-certificate-body">
+            <div class="pm-certificate-block">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                  <div
+                    class="pm-certificate-name underline margin-0 col-xs-8 text-center"
+                  >
+                    <h1 class="bold"><%= fullName %></h1>
+                  </div>
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                  <div class="pm-earned col-xs-8 text-center">
+                    <span class="pm-earned-text padding-0 block cursive"
+                      >has earned</span
+                    >
+                    <span class="pm-credits-text block bold sans"
+                      >PD175: 1.0 Credit Hours</span
+                    >
+                  </div>
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                  <div class="col-xs-12"></div>
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                  <div class="pm-course-title col-xs-8 text-center">
+                    <span class="pm-earned-text block cursive"
+                      >while completing the training course entitled</span
+                    >
+                  </div>
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                  <div class="pm-course-title underline col-xs-8 text-center">
+                    <span class="pm-credits-text block bold sans"
+                      >BPS PGS Initial PLO for Principals at Cluster
+                      Meetings</span
+                    >
+                  </div>
+                  <div class="col-xs-2">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="pm-certificate-footer">
+                  <div class="col-xs-4 pm-certified col-xs-4 text-center">
+                    <h5 class="block sans">
+                      Accomplished
+                      <span class="text-success"><%= NameCourse %></span>
+                    </h5>
+                    <h6 class="block sans">Classification : Excellent</h6>
+                    <span class="pm-empty-space block underline"></span>
+                    <span class="bold block"
+                      >Crystal Benton Instructional Specialist II, Staff
+                      Development</span
+                    >
+                  </div>
+                  <div class="col-xs-4">
+                    <!-- LEAVE EMPTY -->
+                  </div>
+                  <div class="col-xs-4 pm-certified col-xs-4 text-center">
+                    <span class="pm-credits-text block sans">Date Completed</span>
+                    <span class="pm-empty-space block underline"></span>
+                    <span class="bold block">DOB: </span>
+                    <span class="bold block"
+                      >Social Security # (last 4 digits)</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row pm-certificate-body">
-      <div class="pm-certificate-block">
-        <div class="col-xs-12">
-          <div class="row">
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-            <div class="pm-certificate-name underline margin-0 col-xs-8 text-center">
-              <h1 class="bold"><%= fullName %></h1>
-            </div>
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xs-12">
-          <div class="row">
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-            <div class="pm-earned col-xs-8 text-center">
-              <span class="pm-earned-text padding-0 block cursive">has earned</span>
-              <span class="pm-credits-text block bold sans">PD175: 1.0 Credit Hours</span>
-            </div>
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-            <div class="col-xs-12"></div>
-          </div>
-        </div>
-
-        <div class="col-xs-12">
-          <div class="row">
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-            <div class="pm-course-title col-xs-8 text-center">
-              <span class="pm-earned-text block cursive">while completing the training course entitled</span>
-            </div>
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xs-12">
-          <div class="row">
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-            <div class="pm-course-title underline col-xs-8 text-center">
-              <span class="pm-credits-text block bold sans">BPS PGS Initial PLO for Principals at Cluster
-                Meetings</span>
-            </div>
-            <div class="col-xs-2">
-              <!-- LEAVE EMPTY -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12">
-        <div class="row">
-          <div class="pm-certificate-footer">
-            <div class="col-xs-4 pm-certified col-xs-4 text-center">
-              <h5 class="block sans">Accomplished <span class="text-success"><%= NameCourse %></span></h5>
-              <h6 class="block sans">Classification : Excellent</h6>
-              <span class="pm-empty-space block underline"></span>
-              <span class="bold block">Crystal Benton Instructional Specialist II, Staff Development</span>
-            </div>
-            <div class="col-xs-4">
-              <!-- LEAVE EMPTY -->
-            </div>
-            <div class="col-xs-4 pm-certified col-xs-4 text-center">
-              <span class="pm-credits-text block sans">Date Completed</span>
-              <span class="pm-empty-space block underline"></span>
-              <span class="bold block">DOB: </span>
-              <span class="bold block">Social Security # (last 4 digits)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
   </div>
-</div>
-<div id='appends'>
-</div>
-<div style="text-align:center;" class="mt-3 mb-3">
-  <button type="button" class="btn btn-info" style="background-color: #e40084; border-color: #e40084; color: #fff;" onclick="screenShot()">Download</button>
-  <button type="button" class="btn btn-primary">Share</button>
-</div>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-  integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-   const screenShot = () => {
-  const element = document.getElementById("screen");
-  // const a = document.getElementById("appends");
-  // html2canvas(element).then(canvas => {
-  //   document.getElementById('appends').appendChild(canvas);
-  // });
-  // // setTimeout(luu,2000);
-  var opt = {
-    margin: [1],
-    filename: "Certificate <%= NameCourse %>.pdf",
-    image: { type: "png", quality: 0.1 },
-    html2canvas: { scale: 1 },
-    jsPDF: { unit: "mm", format: "letter", orientation: "l" },
-  };
-  html2pdf()
-    .from(element)
-    .set(opt)
-    .toPdf()
-    .save();
-};
-</script>
+  <div style="text-align: center" class="mt-3 mb-3">
+    <input
+      id="btn_convert"
+      type="button"
+      value="Convert to Image"
+      onclick="chup()"
+    />
+    <button type="button" class="btn btn-primary">Share</button>
+  </div>
+  <div id="previewImg"></div>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script>
+    const $ = (ele) => {
+      return document.getElementById(ele);
+    };
+    function chup() {
+        html2canvas(document.getElementById("myHtml"),
+            {
+                allowTaint: true,
+                useCORS: true
+            }).then(function (canvas) {
+                var anchorTag = document.createElement("a");
+                document.body.appendChild(anchorTag);
+                document.getElementById("previewImg").appendChild(canvas);
+                anchorTag.download = "filename.jpg";
+                anchorTag.href = canvas.toDataURL();
+                anchorTag.target = '_blank';
+                anchorTag.click();
+            });
+    }
+  </script>
+</body>
+</html>
