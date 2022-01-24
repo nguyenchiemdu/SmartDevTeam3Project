@@ -7,7 +7,7 @@ router.post("/register", authController.register);
 
 router.post("/login", authController.login);
 
-router.patch("/password", authController.password);
+router.patch("/password", authController.changePassWord);
 
 router.get("/signout",authController.signout);
 
