@@ -122,7 +122,6 @@ class SiteController {
     }
   }
 
-
   // [Post] localhost:8080/category
   // Post slug to find ID Category
   async category(req, res, next) {

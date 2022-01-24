@@ -1,11 +1,10 @@
 <div class="container-fluid">
     <div class="search__wrapper">
         <h2 class="search__title">
-            <%= countSearch %> results for “<%= searchName %> ”
+            <%= countSearch %> results for “<span><%= searchName %></span>”
         </h2>
         <% personSearch.forEach(function(personSearch) { %>
             <div class="search__shopping">
-
                 <a href="/courses/<%= personSearch.slug %>" class="search__list">
                     <section class="card">
                         <div class="card-container">
@@ -19,11 +18,6 @@
                                 <p>
                                     <%= personSearch.author %>
                                 </p>
-                                <!-- <p class="card-rating">
-                                    4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                    <span>(1000 rating)</span>
-                                </p> -->
                                 <p style="line-height: 15px;">
                                     <%= personSearch.shortDescription %>
                                 </p>
@@ -32,84 +26,74 @@
                                 <h5 class="card-text">
                                     <%= personSearch.price %> $
                                 </h5>
-                                <!-- <h6><del>$84.99</del></h6> -->
                             </div>
                         </div>
                     </section>
                 </a>
             </div>
-            <% }); %>
+        <% }); %>
     </div>
     <div class="row">
         <!-- pagination -->
-        <% if(pages > 0) { %>
-        <!-- show pagination if there is pages -->
-        <nav class="mx-auto pagination-container">
-          <ul class="pagination" style="margin-top: 2rem;">
-            <!-- FIRST ITEM -->
-            <% if(current == 1) { %>
-            <li class="page-item disabled">
-              <a class="page-link" href="">First</a>
-            </li>
-            <% } else { %>
-            <li class="page-item">
-              <a class="page-link" href="?name=<%=searchName%>&page=1">First</a>
-            </li>
+        <% if(pages> 0) { %>
+            <!-- show pagination if there is pages -->
+            <nav class="mx-auto pagination-container">
+                <ul class="pagination" style="margin-top: 2rem;">
+                    <!-- FIRST ITEM -->
+                    <% if(current==1) { %>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="">First</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                            <a class="page-link" href="?name=<%=searchName%>&page=1">First</a>
+                        </li>
+                    <% } %>
+                    <!-- ITEMS  -->
+                    <% var i=(Number(current)> 3 ? Number(current) - 2 : 1) %>
+                        <% if(i !==1) { %>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">...</a>
+                            </li>
+                        <% } %>
+                        <% for(; i <=(Number(current) + 2) && i <=pages; i++) { %>
+                            <% if(i==current) { %>
+                                <li class="page-item active">
+                                    <a class="page-link" href="?name=<%=searchName%>&page=<%= i %>">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                            <% } else { %>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?name=<%=searchName%>&page=<%= i %>">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                            <% } %>
+                                <% if (i==Number(current) + 2 && i < pages) { %>
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">...</a>
+                                    </li>
+                                <% } %>
+                        <% } %>
+                        <!-- LAST ITEM -->
+                        <% if(current==pages) { %>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">
+                                    Last
+                                </a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?name=<%=searchName%>&page=<%= pages %>">
+                                    Last
+                                </a>
+                            </li>
+                        <% } %>
+                </ul>
+            </nav>
             <% } %>
-            <!-- ITEMS  -->
-            <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
-            <% if(i !== 1) { %>
-            <li class="page-item disabled">
-              <a class="page-link" href="#">...</a>
-            </li>
-            <% } %>
-            <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
-            <% if(i == current) { %>
-            <li class="page-item active">
-              <a class="page-link" href="?name=<%=searchName%>&page=<%= i %>">
-                <%= i %>
-              </a>
-            </li>
-            <% } else { %>
-            <li class="page-item">
-              <a class="page-link" href="?name=<%=searchName%>&page=<%= i %>">
-                <%= i %>
-              </a>
-            </li>
-            <% } %>
-            <% if (i == Number(current) + 2 && i < pages) { %>
-            <li class="page-item disabled">
-              <a class="page-link" href="#">...</a>
-            </li>
-            <% } %>
-            <% } %>
-            <!-- LAST ITEM -->
-            <% if(current == pages) { %>
-            <li class="page-item disabled">
-              <a class="page-link" href="#">
-                Last
-              </a>
-            </li>
-            <% } else { %>
-            <li class="page-item">
-              <a class="page-link" href="?name=<%=searchName%>&page=<%= pages %>">
-                Last
-              </a>
-            </li>
-            <% } %>
-          </ul>
-        </nav>
-        <% } %>
-      </div>
-
-
-    
-    <!-- <div class="col-lg-12 d-flex justify-content-center">
-               
-
-        <div id="paging">
-
-        </div>
-
-    </div> -->
+    </div>
 </div>

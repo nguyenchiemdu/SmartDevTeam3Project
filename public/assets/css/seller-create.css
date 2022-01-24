@@ -34,8 +34,7 @@
     border: 1px solid rgb(158, 158, 158);
     border-radius: 5px;
     padding: 12px;
-    background-color: var(--main-background3-color);
-
+    background-color: #1f1f1f;
 }
 .course-container h3.title {
     padding-top: 30px;

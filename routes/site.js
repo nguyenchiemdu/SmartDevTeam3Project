@@ -19,7 +19,6 @@ router.get("/courses/:slug", courseController.show);
 
 router.get("/courses", siteController.courses);
 
-
 // chưa đăng nhập chưa thể vào trang đổi pass
 router.get("/password", siteController.password);
 
