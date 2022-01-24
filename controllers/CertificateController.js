@@ -13,7 +13,7 @@ class CertificateController {
       if (!fullName) {
         throw { message: "Bạn phải nhập thông tin cá nhân trước", status: 401 };
       }
-      res.render("certification/certification", {
+      res.render("certification/home-certification.ejs", {
         fullName,
         NameCourse: course.name,
         ...authMiddleware.userInfor(req),
