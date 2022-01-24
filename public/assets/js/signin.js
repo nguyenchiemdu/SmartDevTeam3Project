@@ -18,7 +18,7 @@ async function submit(e) {
     }).then((res) => res.json())
     if (result.status == 'success') window.location.href='/'
         else {
-            document.getElementById('notification').innerHTML = 'Invalid username or password';
+            document.getElementById('notification').innerHTML = result.error;
         }
     
 }
