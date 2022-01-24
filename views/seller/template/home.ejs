@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row header-seller-home">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row create-your">
-                    <h1 class="col-lg-6 col-md-8 col-sm-12 col-xs-12 create-title ">
+                <div class="row create-your" >
+                    <h1 class="col-lg-6 col-md-8 col-sm-12 col-xs-12 create-title" data-aos="flip-up" data-aos-duration="1000">
                         Jump Into Course Creation
                     </h1>
-                    <a class="col-lg-6 col-md-4 col-sm-12 col-xs-12 btn-create-your"
+                    <a class="col-lg-6 col-md-4 col-sm-12 col-xs-12 btn-create-your" data-aos="flip-down" data-aos-duration="1000"
                         href="/seller/courses/create/1">Create Your Course</a>
 
                 </div>
@@ -27,7 +27,7 @@
                 <% } %>
             </div>
             <% courses.forEach(function(courses) { %>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="row instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
                             class="instructor-dashboard--resource-image"
@@ -49,8 +49,8 @@
                         <a href="/seller/courses/<%= courses._id %> " type="detail" class="btn btn-primary detail">Detail</a>
                     </div>
                 </div>
-                </div>
-                <% }); %>
+            </div>
+            <% }); %>
                     <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
@@ -71,7 +71,7 @@
                 </div>
             </div> -->
                 <div class="col-lg-12">
-                    <div class="instructor-dashboard-footer">
+                    <div class="instructor-dashboard-footer"  data-aos="zoom-out" data-aos-duration="1000">
                         <h2 class="instructor-dashboard--footer-title">Are You Ready to Begin?</h2>
                         <a href="/seller/courses/create/1" class="instructor-dashboard-button"><span>Create
                                 Your Course</span></a>
