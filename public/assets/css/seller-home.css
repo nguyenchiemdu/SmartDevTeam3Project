@@ -23,12 +23,12 @@ a {
 }
 .create-your{
     align-items: center;
+    background-color: #272727;
     margin: 48px 0 24px 0;
     padding:48px;
     border: 1px solid #d1d7dc;
     border-radius: 5px;
     margin: 0 15px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
     display: flex;
     justify-content: space-between;
 }
@@ -69,21 +69,24 @@ a.detail:hover {
     background-color: var(--main-background4-color);
     border-color: var(--main-background4-color);
 }
-
+.instructor-dashboard--resource-text > h6 {
+    margin-top: -10px;
+}
 .instructor-dashboard--panel{
+    background-color: #272727;
     margin: 0 15px;
     width: auto ;
     color: var(--main-color);
     padding: 16px 20px;
     border: 1px solid #d1d7dc;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
     margin-bottom: 20px;
 }
 .instructor-dashboard--panel img {
     width: 200px;
     height: 150px;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 .instructor-dashboard--panel h3{
     color: var(--style-color);
@@ -92,7 +95,7 @@ a.detail:hover {
     color: rgb(153, 153, 153);
 }
 .instructor-dashboard--panel .button-right {
-    margin-top: 8%;
+    margin-top: 7%;
 }
 .instructor-dashboard--panel .button-right button.detail {
     background-color: var(--style-color);
