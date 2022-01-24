@@ -7,7 +7,7 @@
                 <% var sum = 0; %>
                 <% courses.forEach((course)=> { %>
                     <% sum += parseFloat(course.price) %>
-                    <section class="card">
+                    <section class="card" data-aos="zoom-out-right" data-aos-duration="1000">
                         <div class="card-container">
                             <div class="card-image">
                                 <img src="<%=course.image%>" alt="photo" />
@@ -35,7 +35,7 @@
                     </section>
                 <%})%>           
             </div>
-            <div class="cart__total">
+            <div class="cart__total" data-aos="zoom-out-left" data-aos-duration="1000">
                 <p>Total:</p>
                 <h1 class="total_price">$<%=sum%></h1>
                 <p><del class="total_price">$<%=sum%></del></p>
