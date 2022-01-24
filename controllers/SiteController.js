@@ -731,8 +731,8 @@ class SiteController {
           },
         ],
         redirect_urls: {
-          return_url: "http://localhost:8080/result/paypal",
-          cancel_url: "http://localhost:8080/error",
+          return_url: "/result/paypal",
+          cancel_url: "/error",
         },
       };
       console.log(create_payment_json.transactions[0].item_list);

@@ -26,7 +26,7 @@ async function postData(url = "", data = {}) {
 }
 
 var valueSlug,slug;
-const courseCategory = "http://localhost:8080/category";
+const courseCategory = "/category";
 const renderCourse = document.querySelectorAll(".renderCourse");
 // Fetch api method get to get courses which filter by category
 const getCourses = async (data) => {
@@ -77,7 +77,7 @@ if (courseTitle !=null) courseTitle.addEventListener("click", async function (x)
         const courseItem = document.querySelector(".courses");
         courseItem.querySelector(".course-main.active").classList.remove("active");
         courseItem.querySelector(Target).classList.add("active");
-        await postData('http://localhost:8080/category', { slug })
+        await postData('/category', { slug })
         filterCourse();
     }
 })

@@ -341,11 +341,11 @@ class SellerController {
                 { urlVideo, title, isFinish: false }
             );
             lessons.map((les) => {
-                const id = les.course_id;
+                const courseId = les.course_id;
                 if (req.body.isEdit) {
-                    res.redirect(`/seller/courses/${id}/edit`);
+                    res.redirect(`/seller/courses/${courseId}/edit`);
                 } else {
-                    res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+                    res.redirect(`/seller/courses/create/2/${courseId}`);
                 }
             });
         } catch (e) {
@@ -366,7 +366,7 @@ class SellerController {
             } else {
                 lessons.map((les) => {
                     const id = les.course_id;
-                    res.redirect(`http://localhost:8080/seller/courses/create/2/${id}`);
+                    res.redirect(`/seller/courses/create/2/${id}`);
                 });
             }
         } catch (e) {
@@ -401,7 +401,7 @@ class SellerController {
                 if (req.body.isQuestionEdit) {
                     res.redirect(`/seller/courses/${id}/edit`);
                 } else {
-                    res.redirect(`http://localhost:8080/seller/courses/create/3/${id}`);
+                    res.redirect(`/seller/courses/create/3/${id}`);
                 }
             });
         } catch (e) {
@@ -423,7 +423,7 @@ class SellerController {
             } else {
                 questions.map((ques) => {
                     const id = ques.course_id;
-                    res.redirect(`http://localhost:8080/seller/courses/create/3/${id}`);
+                    res.redirect(`/seller/courses/create/3/${id}`);
                 });
             }
         } catch (e) {
