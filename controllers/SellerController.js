@@ -68,7 +68,7 @@ class SellerController {
     async billCourses(req, res, next) {
         try {
             let userInfor = authMiddleware.userInfor(req);
-            let courseId = req.params.id;
+            let courseId = req.params.courseid;
             let invoices = await Invoice.find({ course_id: courseId })
                 .populate("user_id")
                 .exec()
@@ -143,7 +143,7 @@ class SellerController {
         }
     }
     // create courses of seller
-    // [POST] seller/course/create1
+    // [POST] seller/courses/create1
     async sellerCreate1(req, res, next) {
         const formData = req.body;
         const userInfor = authMiddleware.userInfor(req);
@@ -176,9 +176,9 @@ class SellerController {
     // add Video Course
     async addCourses2(req, res, next) {
         try {
-            var course = await Course.find({ _id: req.params.id });
+            var course = await Course.find({ _id: req.params.courseid });
             // console.log(course);
-            var lessons = await Lesson.find({ course_id: req.params.id });
+            var lessons = await Lesson.find({ course_id: req.params.courseid });
             // console.log(lessons);
             res.render("seller/create2", {
                 ...authMiddleware.userInfor(req),
@@ -191,12 +191,12 @@ class SellerController {
             next(e);
         }
     }
-    // [POST] seller/course/create2
+    // [POST] seller/courses/create2
     async sellerCreate2(req, res, next) {
         const formData = req.body;
         try {
             var newLessons = new Lesson({
-                course_id: req.params.id,
+                course_id: req.params.courseid,
                 urlVideo: formData.urlVideo,
                 title: formData.title,
                 // order:
@@ -206,10 +206,10 @@ class SellerController {
             await newLessons.save();
             Lesson.find({}, (err, data) => {
                 if (!err && formData?.isEdit) {
-                    res.redirect(`/seller/courses/${req.params.id}/edit`);
+                    res.redirect(`/seller/courses/${req.params.courseid}/edit`);
                 }
                 if (!formData?.isEdit) {
-                    res.redirect(`/seller/courses/create/2/${req.params.id}`);
+                    res.redirect(`/seller/courses/create/2/${req.params.courseid}`);
                 }
             });
         } catch (e) {
@@ -220,9 +220,9 @@ class SellerController {
     // add Question Course
     async addCourses3(req, res, next) {
         try {
-            var course = await Course.find({ _id: req.params.id });
-            var lessons = await Lesson.find({ course_id: req.params.id });
-            var questions = await Question.find({ course_id: req.params.id });
+            var course = await Course.find({ _id: req.params.courseid });
+            var lessons = await Lesson.find({ course_id: req.params.courseid });
+            var questions = await Question.find({ course_id: req.params.courseid });
             // console.log(questions);
             res.render("seller/create3", {
                 ...authMiddleware.userInfor(req),
@@ -236,12 +236,12 @@ class SellerController {
             next(e);
         }
     }
-    // [POST] seller/course/create3
+    // [POST] seller/courses/create3
     async sellerCreate3(req, res, next) {
         const formData = req.body;
         try {
             var newQuestions = new Question({
-                course_id: req.params.id,
+                course_id: req.params.courseid,
                 question: formData.question,
                 a: formData.aAnswer,
                 b: formData.bAnswer,
@@ -256,10 +256,10 @@ class SellerController {
             await newQuestions.save();
             Question.find({}, (err, data) => {
                 if (!err && formData?.isEdit) {
-                    res.redirect(`/seller/courses/create/3/${req.params.id}`);
+                    res.redirect(`/seller/courses/create/3/${req.params.courseid}`);
                 }
                 if (!formData?.isEdit) {
-                    res.redirect(`/seller/courses/${req.params.id}/edit`);
+                    res.redirect(`/seller/courses/${req.params.courseid}/edit`);
                 }
             });
         } catch (e) {
@@ -269,7 +269,7 @@ class SellerController {
     }
     // edit Course demo
     async editCourses(req, res, next) {
-        let CourseId = req.params.id;
+        let CourseId = req.params.courseid;
         try {
             let category = await Category.find({});
             category = category.map((item) => {
@@ -312,17 +312,17 @@ class SellerController {
         try {
             if (userInfor.id == null)
                 throw { message: "Bạn phải đăng nhập trước", status: 401 };
-            await Course.updateOne({ _id: req.params.id }, formData);
+            await Course.updateOne({ _id: req.params.courseid }, formData);
             res.redirect("/seller/");
         } catch (err) {
             console.log(err);
             next(err);
         }
     }
-    // [GET] /seller/course/create/2/:id/edit
+    // [GET] /seller/courses/create/2/:id/edit
     async editVideo(req, res, next) {
         try {
-            var lessons = await Lesson.find({ _id: req.params.id });
+            var lessons = await Lesson.find({ _id: req.params.lessonid });
             res.render("seller/edit2.ejs", {
                 ...authMiddleware.userInfor(req),
                 lessons: lessons,
@@ -334,10 +334,10 @@ class SellerController {
     }
     async updateVideo(req, res, next) {
         try {
-            const lessons = await Lesson.find({ _id: req.params.id });
+            const lessons = await Lesson.find({ _id: req.params.lessonid });
             const { title, urlVideo } = req.body;
             await Lesson.findOneAndUpdate(
-                { _id: Number(req.params.id) },
+                { _id: Number(req.params.lessonid) },
                 { urlVideo, title, isFinish: false }
             );
             lessons.map((les) => {
@@ -353,11 +353,11 @@ class SellerController {
             next(e);
         }
     }
-    // [DELETE] /seller/course/create/2/:id
+    // [DELETE] /seller/courses/create/2/:id
     async destroy(req, res, next) {
         try {
-            const lessons = await Lesson.find({ _id: req.params.id });
-            await Lesson.findByIdAndDelete({ _id: req.params.id });
+            const lessons = await Lesson.find({ _id: req.params.lessonid });
+            await Lesson.findByIdAndDelete({ _id: req.params.lessonid });
             if (req.query.edit) {
                 lessons.map((les) => {
                     const id = les.course_id;
@@ -374,10 +374,10 @@ class SellerController {
             next(e);
         }
     }
-    // [GET] /seller/course/create/3/:id/edit
+    // [GET] /seller/courses/create/3/:id/edit
     async editQuestion(req, res, next) {
         try {
-            var questions = await Question.find({ _id: req.params.id });
+            var questions = await Question.find({ _id: req.params.questionid });
             res.render("seller/edit3.ejs", {
                 ...authMiddleware.userInfor(req),
                 questions: questions,
@@ -387,13 +387,13 @@ class SellerController {
             next(e);
         }
     }
-    // [PUT] /seller/course/create/3/:id
+    // [PUT] /seller/courses/create/3/:id
     async updateQuestion(req, res, next) {
         try {
-            const questions = await Question.find({ _id: req.params.id });
+            const questions = await Question.find({ _id: req.params.questionid });
             const { question, a, b, c, d, trueAnswer } = req.body;
             await Question.findOneAndUpdate(
-                { _id: req.params.id },
+                { _id: req.params.questionid },
                 { question, a, b, c, d, trueAnswer }
             );
             questions.map((ques) => {
@@ -409,11 +409,11 @@ class SellerController {
             next(e);
         }
     }
-    // [DELETE] /seller/course/create/3/:id
+    // [DELETE] /seller/courses/create/3/:id
     async destroyQuestion(req, res, next) {
         try {
-            const questions = await Question.find({ _id: req.params.id });
-            await Question.findByIdAndDelete({ _id: req.params.id });
+            const questions = await Question.find({ _id: req.params.questionid });
+            await Question.findByIdAndDelete({ _id: req.params.questionid });
             // console.log(questions);
             if (req.query.edit) {
                 questions.map((ques) => {

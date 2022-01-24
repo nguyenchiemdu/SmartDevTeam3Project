@@ -72,9 +72,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/course/create/2/<%= lesson._id %>/edit" id="editVideoBtn" type="edit"
+                                <a href="/seller/courses/<%= course._id %>/lessons/<%= lesson._id %>/edit" id="editVideoBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <a href="/seller/course/create/2/<%= lesson._id %>/delete?edit=true" type="delete"
+                                <a href="/seller/courses/<%= course._id%>/lessons/<%= lesson._id %>/delete?edit=true" type="delete"
                                     class="btn btn-danger delete">
                                     Delete
                                 </a>
@@ -123,9 +123,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/course/create/3/<%= question._id %>/edit" id="editQuestionBtn" type="edit"
+                                <a href="/seller/courses/<%= course._id %>/questions/<%= question._id %>/edit" id="editQuestionBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <a href="/seller/course/create/3/<%= question._id %>/delete?edit=true" type="delete"
+                                <a href="/seller/courses/<%= course._id %>/questions/<%= question._id %>/delete?edit=true" type="delete"
                                     class="btn btn-danger delete">
                                     Delete
                                 </a>
