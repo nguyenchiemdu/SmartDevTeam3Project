@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,47 +8,55 @@
     <title>View User Profile</title>
     <% include ../elements/header %>
     <% include ../elements/css/header-footer %>
-    <link rel="stylesheet" href="/assets/css/userProfile.css">
-    <link rel="stylesheet" href="/assets/css/viewUserProfile.css">
+        <link rel="stylesheet" href="/assets/css/userProfile.css">
+        <link rel="stylesheet" href="/assets/css/viewUserProfile.css">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Lato:wght@300&family=Mea+Culpa&family=Neonderthaw&family=Playfair+Display:ital@1&family=Roboto+Mono&family=Roboto:wght@300&family=Shalimar&display=swap"
+            rel="stylesheet">
 </head>
 <body>
     <% include ../elements/navbar %>
-    <div class="container" style = "margin-top: 100px;margin-bottom:40px;">
-        <div class="row container-profile">
-            <div class="sidebar col-sm">
-                <div class="name-profile">
-                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-                    <h3><%- user.username%></h3>
+        <div class="container" style="margin-top: 100px;margin-bottom:40px;">
+            <div class="row container-profile">
+                <div class="sidebar col-sm">
+                    <div class="name-profile">
+                        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            alt="">
+                        <h3>
+                            <%- user.username%>
+                        </h3>
+                    </div>
+                    <div class="sidebar-list">
+                        <ul>
+                            <li><a href="/user">View public profile</a></li>
+                            <li><a href="/user/edit-profile">Profile</a></li>
+                            <li class="active"><a href="/user/certificate">View all certificate</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="sidebar-list">
-                    <ul>
-                        <li><a href="/user">View public profile</a></li>
-                        <li><a href="/user/edit-profile">Profile</a></li>
-                        <li class = "active"><a href="/user/certificate">View all certificate</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="profile-container col-sm">
-                <div class="profile-container__header">
-                    <h2>All Certificate</h2>
-                </div>
-                <div class="profile-container__information">
-                    <% if (CourseCompleted.length === 0) { %>
-                        <div>
-                            You have no certificate
-                        </div>
-                    <% } else { %>
-                        <% CourseCompleted.forEach(function(course) { %>
+                <div class="profile-container col-sm">
+                    <div class="profile-container__header">
+                        <h2>All Certificate</h2>
+                    </div>
+                    <div class="profile-container__information">
+                        <% if (CourseCompleted.length===0) { %>
                             <div>
-                                Chứng Chỉ: <a href="/certificate/<%= course.course_id._id %>"><%= course.course_id.name %></a>
+                                You have no certificate
                             </div>
-                        <% }); %>
-                    <% } %>
+                            <% } else { %>
+                                <% CourseCompleted.forEach(function(course) { %>
+                                    <div>
+                                        Chứng Chỉ: <a href="/certificate/<%= course.course_id._id %>">
+                                            <%= course.course_id.name %>.
+                                        </a>
+                                    </div>
+                                <% }); %>
+                            <% } %>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <% include ../elements/footer %>
+        <% include ../elements/footer %>
 </body>
+
 </html>
