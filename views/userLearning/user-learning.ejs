@@ -373,25 +373,33 @@
       var highestPercent = 0;
       var rawData = [];
       var serverData = <%- JSON.stringify(rawData) %>;
-      // console.log(server);
-      function onYouTubeIframeAPIReady() {
-
-        player = new YT.Player('player', {
-          events: { 'onStateChange': onPlayerStateChange, 'onReady': () => { player.seekTo(player.getDuration() / 100 *<%= progress %>); } }
-        });
-
-      }
+      // console.log(serverData);
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+              events: {
+                'onStateChange': onPlayerStateChange,
+                'onReady': () => {
+                  player.seekTo(player.getDuration() / 100 *<%= progress %>); for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+                  for (var i = 0; i < serverData.length; i++) {
+                    for (var j = serverData[i].start; j <= serverData[i].end; j++) {
+                      timeSpent[j] = true;
+                    }
+                  }
+                }
+              }
+            });
+          }
 
       function onPlayerStateChange(event) {
         if (event.data === 1) { // Started playing
 
           if (!timeSpent.length) {
             for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
-            for (var i= 0;i< serverData.length;i++) {
-              for (var j = serverData[i].start;j<=serverData[i].end;j++) {
-                timeSpent[j] = true;
-              }
-            }
+            // for (var i= 0;i< serverData.length;i++) {
+            //   for (var j = serverData[i].start;j<=serverData[i].end;j++) {
+            //     timeSpent[j] = true;
+            //   }
+            // }
             // console.log(timeSpent);
           }
           timer = setInterval(record, 100);
@@ -467,7 +475,7 @@
           if (timeSpent[i]) {
             let start = i;
             let end = i;
-            while (timeSpent[i]) end = i++;
+            while (timeSpent[i] && i < timeSpent.length) end = i++;
             rawData.push({
               start,end
             })
