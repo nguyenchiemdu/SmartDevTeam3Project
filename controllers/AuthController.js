@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const UserCart = require('../models/UserCart');
 const UserCourse = require('../models/UserCourse');
 const { resolveInclude } = require('ejs');
-
+var authMiddleware = require("../middlerwares/auth.middleware")
 class UserController {
   // [POST] /users/password
   async password(req, res) {
@@ -130,6 +130,34 @@ class UserController {
     }
 
     res.json({ status: "ok" });
+  }
+  async changePassWord(req,res,next) {
+    try {
+      const { currentPass, newPass, confirmPass } = req.body;
+      const userInfor = authMiddleware.userInfor(req);
+      if (userInfor.id ==null) return res.json({error : 'Bạn chưa đăng nhập!', status : 'failed'});
+      const user = await  User.findOne({_id : userInfor.id});
+      if (user.isActive != true)  {
+        return res.json({
+          error: "Bạn đã bị admin khóa tài khoản",
+          status : "failed"
+        });
+      }
+      if (! await bcrypt.compare(currentPass, user.password)) return res.json({error: "Invalid username or password", status: 'failed' });
+      if (newPass.length < 5) {
+        return res.json({
+          status: "error",
+          error: "Password to small. Should be atleast 6 characters",
+        });
+      }
+      const hashedPassword = await bcrypt.hash(newPass, 10);
+      user.password = hashedPassword;
+      await user.save();
+      res.json({ status: 'success' })
+    } catch (e) {
+      res.json(e);
+      console.log(e)
+    }
   }
   async signout(req, res, next) {
     // Clear cookie 

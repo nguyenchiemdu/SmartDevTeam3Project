@@ -28,6 +28,15 @@ class UserController {
       user: user,
     });
   }
+  async changePassword(req, res, next) {
+    const userInfor = authMiddleware.userInfor(req);
+    const user = await User.findOne({ _id: userInfor.id });
+    res.render("password", {
+      ...userInfor,
+      userInfor: userInfor,
+      user: user,
+    });
+  }
   async confirmEdit(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
     const { firstName, lastName, email } = req.body;
