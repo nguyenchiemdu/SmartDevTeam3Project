@@ -21,7 +21,6 @@ async function getLocalCart() {
                             </div>
                             <div class="card-info">
                             <h6><a style="color: white;" href="/courses/${item.slug}">${item.name}</a></h6>
-                                <p>${item.author}</p>
                                 <p class="card-rating">
                                     4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                     <span>(1000 rating)</span>
@@ -30,12 +29,10 @@ async function getLocalCart() {
                             </div>
                             <div class="card-button">
                                 <button class="btn btn-link btn-remove" id="${item._id}">Remove</button>
-                                <button class="btn btn-link">Save for Later</button>
-                                <button class="btn btn-link">Move to Wishlist</button>
                             </div>
                             <div class="card-price">
-                                <h5 class="card-text">$${item.price}<i class="fas fa-tag mx-2"></i></h5>
-                                <h6><del>$${item.price}</del></h6>
+                                <h5 class="card-text">$${item.price}</h5>
+                                <h6><del>$${item.price*10}</del></h6>
                             </div>
                         </div>
                     </section>`

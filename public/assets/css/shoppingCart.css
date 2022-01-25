@@ -44,19 +44,19 @@ p.my-3 {
   background-color: var(--main-background-color) !important;
 }
 .card-container {
+  align-items: center;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin: 12px 8px;
 }
 .card-image {
   width: 100px;
-  height: 100px;
 }
 .card-image img {
   width: 100%;
 }
 .card-info {
+  width: 400px;
   padding-left: 10px;
 }
 .card-info h6 {

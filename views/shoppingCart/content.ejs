@@ -14,7 +14,6 @@
                             </div>
                             <div class="card-info">
                                 <h6><a style="color: white;" href="/courses/<%=course.slug%>"><%=course.name%></a></h6>
-                                <p>By <%= course.author %></p>
                                 <p class="card-rating">
                                     4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i
                                         class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -24,21 +23,19 @@
                             </div>
                             <div class="card-button">
                                 <button class="btn btn-link btn-remove" id="<%=course._id%>">Remove</button>
-                                <button class="btn btn-link">Save for Later</button>
-                                <button class="btn btn-link">Move to Wishlist</button>
                             </div>
                             <div class="card-price">
-                                <h5 class="card-text">$<%=course.price%><i class="fas fa-tag mx-2"></i></h5>
-                                <h6><del>$<%=course.price%></del></h6>
+                                <h5 class="card-text">$<%=course.price%></h5>
+                                <h6><del>$<%=course.price*10 %></del></h6>
                             </div>
                         </div>
                     </section>
-                <%})%>           
+                <%})%>
             </div>
             <div class="cart__total" data-aos="zoom-out-left" data-aos-duration="1000">
                 <p>Total:</p>
                 <h1 class="total_price">$<%=sum%></h1>
-                <p><del class="total_price">$<%=sum%></del></p>
+                <p><del class="total_price">$<%=sum * 10%></del></p>
                 <p>0% off</p>
                 <button onclick="location.href='/cart/checkout'" class="btn-pink">Checkout</button>
                 <h5 class="my-3">Promotions</h5>
