@@ -32,6 +32,7 @@
           <%= NameCourse %>
         </h5>
         <h6 class="text-center">Classification : Excellent</h6>
+        <p id="date" class="text-center"></p>
         <div class="d-flex justify-content-between align-items-center signature">
           <div class="image">
             <img src="/assets/images/passed.jfif" alt="passed">
@@ -53,28 +54,36 @@
     integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
-    function screenShot() {
-      var element = document.getElementById('myHtml');
-      var opt = {
-        filename: 'Certificate <%= NameCourse %>.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 1 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
-      html2pdf().set(opt).from(element).save();
-        // html2canvas(document.getElementById("myHtml"),
-        // {
-        //   allowTaint: true,
-        //   useCORS: true
-        // }).then(function (canvas) {
-        //   var anchorTag = document.createElement("a");
-        //   document.body.appendChild(anchorTag);
-        //   anchorTag.download = "filename.jpg";
-        //   anchorTag.href = canvas.toDataURL();
-        //   anchorTag.target = '_blank';
-        //   anchorTag.click();
-        // });
+    today = dd + '/' + mm + '/' + yyyy;
+    document.getElementById('date').innerHTML = `Date: ${today}`;
+    function screenShot() {
+
+      // var element = document.getElementById('myHtml');
+      // var opt = {
+      //   filename: 'Certificate <%= NameCourse %>.pdf',
+      //   image: { type: 'jpeg', quality: 0.98 },
+      //   html2canvas: { scale: 1 },
+      //   jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      // };
+
+      // html2pdf().set(opt).from(element).save();
+      html2canvas(document.getElementById("myHtml"),
+        {
+          allowTaint: true,
+          useCORS: true
+        }).then(function (canvas) {
+          var anchorTag = document.createElement("a");
+          document.body.appendChild(anchorTag);
+          anchorTag.download = "Certificate <%= NameCourse %>.jpg";
+          anchorTag.href = canvas.toDataURL();
+          anchorTag.target = '_blank';
+          anchorTag.click();
+        });
     }
   </script>
 </body>
