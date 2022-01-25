@@ -26,12 +26,12 @@
                         <h4 class="author"><span>By </span>
                             <%= course.user_id.username %>
                         </h4>
-                        <h6 class="price"><span>Price: </span>A$<%= course.price %>
+                        <h6 class="price"><span>Price: </span>$<%= course.price %>
                         </h6>
                         <h5 class="update"><span>Update: </span>
                             <%= course.updatedAt.getDate() %> -
                             <%= course.updatedAt.getMonth()+1 %> -
-                            <%= course.updatedAt.getFullYear() %> 
+                            <%= course.updatedAt.getFullYear() %>
                         </h5>
                         <p class="description"><span>Description: </span><%= course.shortDescription %></p>
                         <button course_id="<%= course._id %>" type="button"
@@ -107,7 +107,7 @@
                     <div class="title">
                         <h6>Learn Python Programming Masterclass</h6>
                         <p><span>65 total hours</span> | Update 12/2021</p>
-                        <div class="price">A$21.99</div>
+                        <div class="price">$21.99</div>
                     </div>
                 </a>
                 <a href="" class="course">
@@ -115,27 +115,27 @@
                     <div class="title">
                         <h6>Learn Python Programming Masterclass</h6>
                         <p><span>65 total hours</span> | Update 12/2021</p>
-                        <div class="price">A$21.99</div>
+                        <div class="price">$21.99</div>
                     </div>
                 </a>
             </div>
             <div class="reviews">
                 <h3 class="title">Reviews</h3>
-              <% commentUser.forEach(function(comment) { %>   
+              <% commentUser.forEach(function(comment) { %>
                 <div class="user">
                     <img src="/assets/images/review-test.jpg" alt="">
                     <h5><%= comment.user_id.username %> </h5>
                     <h6>
                         <%= comment.createdAt.getDate() %>/
                         <%= comment.createdAt.getMonth()+1 %>/
-                        <%= comment.createdAt.getFullYear() %> 
+                        <%= comment.createdAt.getFullYear() %>
                     </h6>
-                    <p><%= comment.commentContent  %> 
+                    <p><%= comment.commentContent  %>
                     </p>
                     <a href="#">Report</a>
                 </div>
                 <% }); %>
-               
+
             </div>
         </div>
     </div>
@@ -161,7 +161,7 @@
                     })
                 }).then((res) => res.json());
             }
-            else { 
+            else {
                  if (<%=isCheckedOut %>)return window.location.href = "/learning"}
             // console.log(result);
             window.location.href = "/cart"
@@ -177,7 +177,7 @@
                             <script>
                                 addToCartButton.addEventListener('click', addToUserCart)
                             </script>
-                            <%}%>    
+                            <%}%>
         <% include ../elements/footer %>
 
                             <% include ../elements/script %>

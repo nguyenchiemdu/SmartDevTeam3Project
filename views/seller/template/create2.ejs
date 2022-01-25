@@ -3,7 +3,7 @@
         <h2>All Video</h2>
         <% course.forEach(cou=> { %>
         <form method="POST" action="/seller/courses/create/2/<%= cou._id %>">
-            <div class="row">   
+            <div class="row">
                  <% lessons.forEach(function(lesson)  { %>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <div class="row course-container">
@@ -23,21 +23,9 @@
                                 Delete
                             </a>
                         </div>
-                        <div class="col-lg-1 col-md-2 col-sm-6 col-xs-6">
-                            <button class="up-down">
-                                <i class="bx bxs-up-arrow"></i>
-                            </button>
-                            <button class="up-down">
-                                <i class="bx bxs-down-arrow"></i>
-                            </button>
-                        </div>
                     </div>
                 </div>
                 <% }); %>
-
-
-              
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                     <div class="row course-container">
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <iframe width="220" height="100" src="https://www.youtube.com/embed/LnTPJcUQdNU"
@@ -55,16 +43,8 @@
                                 Delete
                             </button>
                         </div>
-                        <div class="col-lg-1 col-md-2 col-sm-6 col-xs-6">
-                            <button class="up-down">
-                                <i class="bx bxs-up-arrow"></i>
-                            </button>
-                            <button class="up-down">
-                                <i class="bx bxs-down-arrow"></i>
-                            </button>
-                        </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">

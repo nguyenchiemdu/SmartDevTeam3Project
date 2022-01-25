@@ -69,7 +69,7 @@
     -webkit-animation: colorBackground 5s infinite;
     -moz-animation: colorBackground 5s infinite;
     -o-animation: colorBackground 0.5s infinite
-  
+
 }
 @keyframes colorBackground {
     0% {
@@ -124,8 +124,7 @@
     border-radius:5px;
 }
 .profile-container__information .btn-save{
-    margin: 5px auto;  
-    width: 5vw;
+    margin: 5px auto;
     border-radius:15px;
     background-color: var(--style-color);
     border-color: var(--style-color);
