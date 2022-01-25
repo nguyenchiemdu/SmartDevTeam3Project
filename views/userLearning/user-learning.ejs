@@ -138,7 +138,7 @@
                 <%}) %>
                   <p>Các bạn subscribe kênh Youtube CodeEveryDay để nhận thông báo khi có các bài học mới nhé ❤️</p>
                   <div class="justify-content-between">
-                    <h3 class="my-3">33 Review</h3>
+                    <h3 class="my-3">Review</h3>
 
                     <div class="d-flex justify-content-center row">
                       <div class="col-md-12">
@@ -384,7 +384,7 @@
           }
           timer = setInterval(record, 100);
           timer2 = setInterval(checkFinish, 1000);
-        } 
+        }
         else{
           clearInterval(timer);
           clearInterval(timer2);
@@ -394,13 +394,13 @@
       function secondsToTime(secs)
       {
           var hours = Math.floor(secs / (60 * 60));
-      
+
           var divisor_for_minutes = secs % (60 * 60);
           var minutes = Math.floor(divisor_for_minutes / 60);
-      
+
           var divisor_for_seconds = divisor_for_minutes % 60;
           var seconds = Math.ceil(divisor_for_seconds);
-      
+
           var obj = {
               "h": hours,
               "m": minutes,
@@ -428,7 +428,7 @@
         });
         // Check if user have done learn above 80%
         if(sumWatchedSecond/player.getDuration() > 0.8){
-          // If have data rawData in database, i will edit 
+          // If have data rawData in database, i will edit
           if(serverData.length>0){
             const editRaw = async () =>{
               await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>', {

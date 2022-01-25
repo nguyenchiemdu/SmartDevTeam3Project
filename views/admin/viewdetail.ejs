@@ -26,12 +26,12 @@
                         <h4 class="author"><span>By </span>
                             <%= course.user_id.username %>
                         </h4>
-                        <h6 class="price"><span>Price: </span>A$<%= course.price %>
+                        <h6 class="price"><span>Price: </span>$<%= course.price %>
                         </h6>
                         <h5 class="update"><span>Update: </span>
                             <%= course.updatedAt.getDate() %> -
                             <%= course.updatedAt.getMonth()+1 %> -
-                            <%= course.updatedAt.getFullYear() %> 
+                            <%= course.updatedAt.getFullYear() %>
                         </h5>
                         <p class="description"><span>Description: </span><%= course.shortDescription %></p>
                         <button course_id="<%= course._id %>" type="button"
@@ -108,7 +108,7 @@
                     <div class="title">
                         <h6>Learn Python Programming Masterclass</h6>
                         <p><span>65 total hours</span> | Update 12/2021</p>
-                        <div class="price">A$21.99</div>
+                        <div class="price">$21.99</div>
                     </div>
                 </a>
                 <a href="" class="course">
@@ -116,7 +116,7 @@
                     <div class="title">
                         <h6>Learn Python Programming Masterclass</h6>
                         <p><span>65 total hours</span> | Update 12/2021</p>
-                        <div class="price">A$21.99</div>
+                        <div class="price">$21.99</div>
                     </div>
                 </a>
             </div>
@@ -144,14 +144,14 @@
     <script>
         const btnConfirm = document.getElementById("btn-confirm")
         const formConfirm = document.getElementById("confirmForm");
-        btnConfirm.onclick = (e)=>{ 
+        btnConfirm.onclick = (e)=>{
             e.preventDefault();
             var courseId =btnConfirm.value;
             formConfirm.action = '/admin/kiemduyet/' + courseId + '?_method=PATCH';
             formConfirm.submit();
         };
-        
-    </script>        
+
+    </script>
     <% include ../elements/script %>
 
 </body>

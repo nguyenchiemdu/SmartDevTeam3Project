@@ -50,7 +50,7 @@ const renderCourses = (courses) => {
             <a id="${course._id}" href="/courses/${course.slug}" class="slider">
                 <img src="${course.image}" alt="">
                 <h3>${course.name}</h3>
-                <h6>A$${course.price}</h6>
+                <h6>$${course.price}</h6>
             </a>
 
         `;

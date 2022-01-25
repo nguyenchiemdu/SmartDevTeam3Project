@@ -61,7 +61,7 @@ a {
     font-size:20px;
 }
 
-a.instructor-dashboard--panel { 
+a.instructor-dashboard--panel {
     margin: 0 15px;
     width: auto ;
     color: var(--main-color);
@@ -125,13 +125,14 @@ a .instructor-dashboard--resource-text h6{
     background-color: var(--main-background3-color);
 }
 .add-course h2 {
-    color: var(--main-color);  
-    margin-bottom: 20px; 
+    color: var(--main-color);
+    margin-bottom: 20px;
 }
 form label {
     color: var(--style-color);
 }
 form button.btn-save {
+    min-width: 20px;
     margin: 30px 15px;
     background-color: var(--style-color);
     border-color: var(--style-color);
