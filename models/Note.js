@@ -7,7 +7,7 @@ const Note = new Schema({
     user_id : { type: Schema.Types.ObjectId, ref: 'User' },
     // course_id : { type: Schema.Types.ObjectId, ref: 'Course' },
     lesson_id : { type: Number ,ref: 'Lesson' },
-    comment: { type: String, required: true},
+    noteContent: { type: String, required: true},
     second : {type : Number},
 }, {
     timestamps: true,

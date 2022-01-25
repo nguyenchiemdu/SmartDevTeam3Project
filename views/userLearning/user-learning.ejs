@@ -287,14 +287,17 @@
                       </div>
                       <div class="mt-2 container-note">
                         <div class="note-area">
-                          <p class="comment-text note-text">
-                            <%= note.comment %>
+                          <p class="comment-text note-text note-container">
+                            <%= note.noteContent %>
                           </p>
-                          <form method="POST" action="/api/notes/<%=note._id%>?_method=PATCH" class="edit-content__form" style ="display: none;">
-                              <textarea
-                                class="form-control ml-1 shadow-none textarea" name="comment" style = "background-color:  rgba(0,0,0,0); border-style: none;"><%- note.comment%></textarea>
-                              <button class = "btn btn-secondary" class = "btn-save__note" title="Lưu ghi chú">Save</button>
-                          </form>
+                          <!-- <form method="POST" action="/api/notes/<%#=note._id%>?_method=PATCH" class="edit-content__form" style ="display: none;"> -->
+                          <div class="edit-content__form" style ="display: none;" value = "<%=note._id%>">
+                            <textarea
+                              class="form-control ml-1 shadow-none textarea" name="noteContent" style = "background-color:  rgba(0,0,0,0); 
+                              border-style: none;"><%- note.noteContent%></textarea>
+                            <button class = "btn btn-secondary btn-save__note"title="Lưu ghi chú">Save</button>
+                          </div>
+                          <!-- </form> -->
                           <div class="note-function" >
                             <a href = ""  class = "editNoteBtn" title="Chỉnh sửa ghi chú" >
                               <i class="far fa-edit"></i>
@@ -313,7 +316,7 @@
                         <div class="bg-light p-2">
                           <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
                               src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea
-                              class="form-control ml-1 shadow-none textarea" name="comment" id = "commentNote"></textarea></div>
+                              class="form-control ml-1 shadow-none textarea" name="noteContent" id = "commentNote"></textarea></div>
                           <div id="noti-note" style ="display: none;"></div>
                           <input type="text" id = "videoId" name = "lesson_id" style="display: none;">
                           <input type="text" id = "videoId" name = "course_id" value = "<%- course._id%>" style="display: none;">
@@ -383,8 +386,8 @@
             // console.log(timeSpent);
           }
           timer = setInterval(record, 100);
-          timer2 = setInterval(checkFinish, 1000);
-        }
+          timer2 = setInterval(checkFinish, 3000);
+        } 
         else{
           clearInterval(timer);
           clearInterval(timer2);
@@ -476,7 +479,7 @@
       function record() {
         timeSpent[parseInt(player.getCurrentTime())] = true;
         // showPercentage();
-        // Render time when you create note
+        // Update time when video is playing
         currentTime.value = Math.floor(player.getCurrentTime());
 
         // show time in note 
@@ -558,9 +561,7 @@
       const position = currentUrl.indexOf("=")+1;
       const videoId = currentUrl.slice(position);
       videoArea.value = videoId;
-      formNote.onSubmit = () =>{
-        commentNote.value = '';
-      }
+      // When focus text area tạo ghi chú, stopvideo and stop time in that moment
       commentNote.addEventListener('focus',(e) => {
         currentTime.value = Math.floor(player.getCurrentTime());
         var convertTime = secondsToTime(currentTime.value)
@@ -613,7 +614,8 @@
           event.preventDefault();
           e.children[0].children[0].style.display = "block";
           e.children[0].children[1].style.display = "none";
-          e.children[0].children[1].submit();
+          // Change edit data by send form to fetch api
+          // e.children[0].children[1].submit();
         })
 
       })
@@ -642,6 +644,49 @@
             }
           }
         }
+      }
+    </script>
+    <script>
+      // Update edit note but dont reload page
+      const noteContainer = document.querySelectorAll(".note-container");
+      const btnSaveNote = document.querySelectorAll(".btn-save__note");
+      const editContentForm= document.querySelectorAll(".edit-content__form");
+      editContentForm.forEach(form => {
+        form.children[1].addEventListener("click", async () => {
+          form.children[0].value = form.children[0].value;
+          await editNote(form.children[0].value,form.getAttribute("value"));
+          getNotes()
+        })
+      })
+      // Render update when done edit finish
+      const getNotes = async () => { 
+        const response = await fetch(`/api/notes/${videoId}`); 
+        const notes = await response.json();  
+        var htmls = notes.map(note => {
+          return `
+            <p class="comment-text note-text">
+              ${note.noteContent}
+            </p>
+          `
+        })
+        for(let i = 0; i < noteContainer.length; i++) {
+          for(let j = i; j < htmls.length; j++) {
+            noteContainer[i].innerHTML = htmls[j];
+            break;
+          }
+        }
+      } 
+      // Edit note send data to db to edit
+      const editNote = async (noteContent,noteId) =>{
+        const response = await fetch(`/api/notes/${noteId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            noteContent
+          })
+        })
       }
     </script>
 </body>
