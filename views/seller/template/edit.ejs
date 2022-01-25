@@ -59,7 +59,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                         <div class="row course-container">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                <iframe width="220" height="100"
+                                <iframe width="220" height="120"
                                     src="https://www.youtube.com/embed/<%= lesson.urlVideo %>"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -72,9 +72,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/course/create/2/<%= lesson._id %>/edit" id="editVideoBtn" type="edit"
+                                <a href="/seller/courses/<%= course._id %>/lessons/<%= lesson._id %>/edit" id="editVideoBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <a href="/seller/course/create/2/<%= lesson._id %>/delete?edit=true" type="delete"
+                                <a href="/seller/courses/<%= course._id%>/lessons/<%= lesson._id %>/delete?edit=true" type="delete"
                                     class="btn btn-danger delete">
                                     Delete
                                 </a>
@@ -123,9 +123,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/course/create/3/<%= question._id %>/edit" id="editQuestionBtn" type="edit"
+                                <a href="/seller/courses/<%= course._id %>/questions/<%= question._id %>/edit" id="editQuestionBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <a href="/seller/course/create/3/<%= question._id %>/delete?edit=true" type="delete"
+                                <a href="/seller/courses/<%= course._id %>/questions/<%= question._id %>/delete?edit=true" type="delete"
                                     class="btn btn-danger delete">
                                     Delete
                                 </a>
@@ -161,19 +161,19 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                             <label for="name" class="form-label">A</label>
-                            <input type="text" class="form-control" id="aAnswer" name="aAnswer" placeholder="Answer" />
+                            <input type="text" class="form-control" id="aAnswer" name="aAnswer" placeholder="Answer A" />
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                             <label for="name" class="form-label">B</label>
-                            <input type="text" class="form-control" id="bAnswer" name="bAnswer" placeholder="Answer" />
+                            <input type="text" class="form-control" id="bAnswer" name="bAnswer" placeholder="Answer B" />
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                             <label for="name" class="form-label">C</label>
-                            <input type="text" class="form-control" id="cAnswer" name="cAnswer" placeholder="Answer" />
+                            <input type="text" class="form-control" id="cAnswer" name="cAnswer" placeholder="Answer C" />
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                             <label for="name" class="form-label">D</label>
-                            <input type="text" class="form-control" id="dAnswer" name="dAnswer" placeholder="Answer" />
+                            <input type="text" class="form-control" id="dAnswer" name="dAnswer" placeholder="Answer D" />
                         </div>
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3 d-none">
                             <input type="checkbox" name="isQuestionEdit" checked>Is Question Edit</input>

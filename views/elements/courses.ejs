@@ -1,6 +1,6 @@
 <section id="courses" class="courses" style="padding-top: 82px;">
     <div class="container">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 course-title">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 course-title"  data-aos="fade-down" data-aos-duration="1000">
             <h1>A broad selection of courses</h1>
             <p>Choose from 183,000 online video courses with new additions published every month</p>
                 <button class="course-button active" data-title="#all" title="All Course">
@@ -12,7 +12,7 @@
                 </button>
             <%}); %>
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  data-aos="fade-up" data-aos-duration="1000">
             <div class="course-main active" id="all">
                 <div class="course-main-title">
                     <h2>Expand your career opportunities </h2>
@@ -35,7 +35,6 @@
                         <% }); %>
                 </div>
             </div>
-
             <% categories.forEach((category)=>{%>
                 <div class="course-main" id="<%- category.slug%>">
                     <div class="course-main-title">
@@ -54,7 +53,6 @@
 
                 </div>
             <%}); %>
-
             <!-- <div class="course-main " id="coursescart">
                 <span style="color: #e40084; font-weight: bold; font-size: 20px; text-align: center;">No Courses
                     !</span>
@@ -68,7 +66,6 @@
                     <span>Tổng cộng: </span> $1000
                 </h2>
             </div> -->
-
         </div>
     </div>
 </section>

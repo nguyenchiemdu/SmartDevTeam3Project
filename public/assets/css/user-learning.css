@@ -144,6 +144,11 @@ a.lesson-description {
 .lesson-description:hover {
   background-color: #e7e7e7;
 }
+.content__right .btn-primary {
+  color: rgb(255, 255, 255);
+  background-color: #37c9c9;
+  border-color: #00ffff;
+}
 .nav-tabs {
   padding: 0 50px;
 }

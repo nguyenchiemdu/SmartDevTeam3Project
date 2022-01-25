@@ -22,9 +22,6 @@ body {
     padding-top: -50px;
 
 }
-
-
-
 .container>p {
     font-size: 32px
 }
@@ -32,23 +29,19 @@ body {
 .question {
     width: 75%
 }
-
 .options {
     position: relative;
     padding-left: 40px
 }
-
 #options label {
     display: block;
     margin-bottom: 15px;
     font-size: 14px;
     cursor: pointer
 }
-
 .options input {
     opacity: 0
 }
-
 .checkmark {
     position: absolute;
     top: -1px;
@@ -59,11 +52,9 @@ body {
     border: 1px solid #ddd;
     border-radius: 50%
 }
-
 .options input:checked~.checkmark:after {
     display: block
 }
-
 .options .checkmark:after {
     content: "";
     width: 10px;

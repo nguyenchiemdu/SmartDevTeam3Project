@@ -524,9 +524,19 @@
     margin-top: 15px;
     width: 100%;
     height: 180px;
+    border-radius: 5px;
+  }
+  section.courses .course-main-slider.slider-course img {
+    overflow: hidden;
+    margin-top: 15px;
+    padding-right: 15px;
+    width: 100%;
+    height: 180px;
+    border-radius: 5px;
   }
   .progress-bar {
     background-color: rgb(238, 31, 176);
+    bottom: 0;
   }
   section.courses .course-main-slider:hover img {
     transform: rotate(-5deg) scale(0.9);
@@ -535,18 +545,19 @@
   }
   section.courses .course-main-slider h3 {
     width: auto;
-    margin: 10px 15px;
+    margin: 10px 0px;
     font-size: 18px;
     color: var(--main-color);
   }
   section.courses .course-main-slider h4 {
-    margin: 10px 15px;
+    margin: 10px 0px;
     font-size: 12px;
     color: rgb(168, 168, 168);
     font-weight: bold;
   }
   section.courses .course-main-slider h6 {
     margin-top: 10px;
+    margin-left: 12px;
     font-size: 16px;
     font-weight: bold;
     color: var(--main-color);

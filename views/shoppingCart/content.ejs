@@ -7,14 +7,14 @@
                 <% var sum = 0; %>
                 <% courses.forEach((course)=> { %>
                     <% sum += parseFloat(course.price) %>
-                    <section class="card">
+                    <section class="card" data-aos="zoom-out-right" data-aos-duration="1000">
                         <div class="card-container">
                             <div class="card-image">
                                 <img src="<%=course.image%>" alt="photo" />
                             </div>
                             <div class="card-info">
                                 <h6><a style="color: white;" href="/courses/<%=course.slug%>"><%=course.name%></a></h6>
-                                <p>By <%=course.author%></p>
+                                <p>By <%= course.author %></p>
                                 <p class="card-rating">
                                     4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i
                                         class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -33,10 +33,9 @@
                             </div>
                         </div>
                     </section>
-                <%})%>
-                        
+                <%})%>           
             </div>
-            <div class="cart__total">
+            <div class="cart__total" data-aos="zoom-out-left" data-aos-duration="1000">
                 <p>Total:</p>
                 <h1 class="total_price">$<%=sum%></h1>
                 <p><del class="total_price">$<%=sum%></del></p>
@@ -52,5 +51,4 @@
             </div>
         </div>
     </div>
-
 </div>

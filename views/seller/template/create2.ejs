@@ -18,8 +18,8 @@
                             <h3 class="title"><%= lesson.title %></h3>
                         </div>
                         <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                            <a href="/seller/course/create/2/<%= lesson._id %>/edit" type="edit" class="btn btn-info edit">Edit</a>
-                            <a href="/seller/course/create/2/<%= lesson._id %>/delete" type="delete" class="btn btn-danger delete">
+                            <a href="/seller/courses/<%= lesson.course_id%>/lessons/<%= lesson._id %>/edit" type="edit" class="btn btn-info edit">Edit</a>
+                            <a href="/seller/courses/<%= lesson.course_id%>/lessons/<%= lesson._id %>/delete" type="delete" class="btn btn-danger delete">
                                 Delete
                             </a>
                         </div>
