@@ -16,29 +16,29 @@
 </head>
 
 <body>
- <div class="success__wrapper">
-    <div class="success_container">
-       
-        <% if(isPassed == true){ %> 
-            <div class="ic_schauhan">
-                <i class="fa fa-check" aria-hidden="true"></i>
-            </div>
-        <p>Congratulations on successfully passing the test!
-            Select next to view credits</p>
-        <div class="line"></div>
-        <a href="/user/certificate">
-            <span class="arrow"></span>
-        </a>
-        <% } else{ %> 
-        <p>You did it wrong! 
-            Select next to redo</p>
-        <div class="line"></div>
-        <a href="">
-            <span class="arrow"></span>
-        </a>
-        <% } %> 
+    <div class="success__wrapper">
+        <div class="success_container">
+
+            <% if(isPassed==true){ %>
+                <div class="ic_schauhan">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                </div>
+                <p>Congratulations on successfully passing the test!
+                    Select next to view credits</p>
+                <div class="line"></div>
+                <a href="/user/certificate">
+                    <span class="arrow"></span>
+                </a>
+                <% } else{ %>
+                    <p>You did it wrong!
+                        Select next to redo</p>
+                    <div class="line"></div>
+                    <a href="">
+                        <span class="arrow"></span>
+                    </a>
+                    <% } %>
+        </div>
     </div>
- </div>
 </body>
 
 </html>

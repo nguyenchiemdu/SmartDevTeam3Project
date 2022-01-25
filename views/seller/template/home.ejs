@@ -2,55 +2,63 @@
     <div class="container">
         <div class="row header-seller-home">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row create-your" >
-                    <h1 class="col-lg-6 col-md-8 col-sm-12 col-xs-12 create-title" data-aos="flip-up" data-aos-duration="1000">
+                <div class="row create-your">
+                    <h1 class="col-lg-6 col-md-8 col-sm-12 col-xs-12 create-title" data-aos="flip-up"
+                        data-aos-duration="1000">
                         Jump Into Course Creation
                     </h1>
-                    <a class="col-lg-6 col-md-4 col-sm-12 col-xs-12 btn-create-your" data-aos="flip-down" data-aos-duration="1000"
-                        href="/seller/courses/create/1">Create Your Course</a>
+                    <a class="col-lg-6 col-md-4 col-sm-12 col-xs-12 btn-create-your" data-aos="flip-down"
+                        data-aos-duration="1000" href="/seller/courses/create/1">Create Your Course</a>
 
                 </div>
-                <% if (userCoursesName.length > 0) {%>
-                <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
-                <div class="chart-container">
-                    <div class="pie-chart-container">
-                        <canvas id="myChart" width="1000" height="1000"></canvas>
+                <% if (userCoursesName.length> 0) {%>
+                    <h2 class="resources-title">Based on your experience, we think these resources will be helpful.</h2>
+                    <div class="chart-container">
+                        <div class="pie-chart-container">
+                            <canvas id="myChart" width="1000" height="1000"></canvas>
+                        </div>
                     </div>
-                </div>
-                <% } else { %>
-                <h2 class="resources-title d-none">Based on your experience, we think these resources will be helpful.</h2>
-                <div class="chart-container d-none">
-                    <div class="pie-chart-container">
-                        <canvas id="myChart" width="1000" height="1000"></canvas>
-                    </div>
-                </div>
-                <% } %>
+                    <% } else { %>
+                        <h2 class="resources-title d-none">Based on your experience, we think these resources will be
+                            helpful.</h2>
+                        <div class="chart-container d-none">
+                            <div class="pie-chart-container">
+                                <canvas id="myChart" width="1000" height="1000"></canvas>
+                            </div>
+                        </div>
+                        <% } %>
             </div>
             <% courses.forEach(function(courses) { %>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" data-aos="zoom-in" data-aos-duration="1000">
-                <div class="row instructor-dashboard--panel">
-                    <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
-                            class="instructor-dashboard--resource-image"
-                            src="<%= courses.image %>">
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 instructor-dashboard--resource-text">
-                        <h3 class="name-course"><%= courses.name %></h3>
-                        <h4 class="price"><span>Price: </span>A$<%= courses.price %></h4>
-                        <h5 class="date-create"><span>Create: </span> 2021 - 12 - 31</h5>
-                        <p class="description"><span>Description: </span><%= courses.shortDescription %></p>
-                        <% if(!courses.isValidated) { %>
-                        <h6>Status: <span class="text-warning">Awaiting Approval</span></h6>
-                        <% } else { %>
-                        <h6>Status: <span class="text-success">Verified</span></h6>
-                        <% } %>
-                    </div>
-                    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 button-right">
-                        <button onclick="location.href='/seller/courses/<%= courses._id %>/edit'" type="edit" class="btn btn-info edit">Edit</button>
-                        <a href="/seller/courses/<%= courses._id %> " type="detail" class="btn btn-primary detail">Detail</a>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" data-aos="zoom-in" data-aos-duration="1000">
+                    <div class="row instructor-dashboard--panel">
+                        <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
+                                class="instructor-dashboard--resource-image" src="<%= courses.image %>">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 instructor-dashboard--resource-text">
+                            <h3 class="name-course">
+                                <%= courses.name %>
+                            </h3>
+                            <h4 class="price"><span>Price: </span>A$<%= courses.price %>
+                            </h4>
+                            <h5 class="date-create"><span>Create: </span> 2021 - 12 - 31</h5>
+                            <p class="description"><span>Description: </span>
+                                <%= courses.shortDescription %>
+                            </p>
+                            <% if(!courses.isValidated) { %>
+                                <h6>Status: <span class="text-warning">Awaiting Approval</span></h6>
+                                <% } else { %>
+                                    <h6>Status: <span class="text-success">Verified</span></h6>
+                                    <% } %>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 button-right">
+                            <button onclick="location.href='/seller/courses/<%= courses._id %>/edit'" type="edit"
+                                class="btn btn-info edit">Edit</button>
+                            <a href="/seller/courses/<%= courses._id %> " type="detail"
+                                class="btn btn-primary detail">Detail</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <% }); %>
+                <% }); %>
                     <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row instructor-dashboard--panel">
                     <div class="instructor-dashboard--resource"><img alt="" width="300" height="200"
@@ -70,53 +78,53 @@
                     </div>
                 </div>
             </div> -->
-                <div class="col-lg-12">
-                    <div class="instructor-dashboard-footer"  data-aos="zoom-out" data-aos-duration="1000">
-                        <h2 class="instructor-dashboard--footer-title">Are You Ready to Begin?</h2>
-                        <a href="/seller/courses/create/1" class="instructor-dashboard-button"><span>Create
-                                Your Course</span></a>
+                    <div class="col-lg-12">
+                        <div class="instructor-dashboard-footer" data-aos="zoom-out" data-aos-duration="1000">
+                            <h2 class="instructor-dashboard--footer-title">Are You Ready to Begin?</h2>
+                            <a href="/seller/courses/create/1" class="instructor-dashboard-button"><span>Create
+                                    Your Course</span></a>
+                        </div>
                     </div>
-                </div>
         </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Truyền giá trị
-    const userCoursesName =  "<%- userCoursesName%>" ;
+    const userCoursesName = "<%- userCoursesName%>";
     const userCoursePrices = "<%- userCoursePrices%>";
     var lableCourse = userCoursesName.split(',');
     var dataCourse = userCoursePrices.split(',');
     const dataCoursePrice = dataCourse;
-    const labels =  lableCourse;
+    const labels = lableCourse;
     var randomColor = [];
-    for(let i = 0; i < dataCoursePrice.length-10; i++){
+    for (let i = 0; i < dataCoursePrice.length - 10; i++) {
         var x = Math.floor(Math.random() * 256);
-        var y = 100+ Math.floor(Math.random() * 256);
-        var z = 50+ Math.floor(Math.random() * 256);
+        var y = 100 + Math.floor(Math.random() * 256);
+        var z = 50 + Math.floor(Math.random() * 256);
         var bgColor = "rgba(" + x + "," + y + "," + z + ",1)";
-        var rdColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+        var rdColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
         randomColor.push(bgColor);
     }
     const data = {
-            labels,
-            datasets: [{
-                label: '# of Votes',
-                data: dataCoursePrice,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235,1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(215, 199, 32, 1)',
-                    'rgba(154, 16, 25,1)',
-                    'rgba(225, 26, 186, 1)',
-                    'rgba(175, 134, 122, 1)',
-                    'rgba(123, 152, 154, 1)',
-                    ...randomColor
-                ],
-            }],
+        labels,
+        datasets: [{
+            label: '# of Votes',
+            data: dataCoursePrice,
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235,1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(215, 199, 32, 1)',
+                'rgba(154, 16, 25,1)',
+                'rgba(225, 26, 186, 1)',
+                'rgba(175, 134, 122, 1)',
+                'rgba(123, 152, 154, 1)',
+                ...randomColor
+            ],
+        }],
     }
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {

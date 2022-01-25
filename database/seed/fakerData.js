@@ -50,13 +50,10 @@ database.connect()
 //     //     })
 //     // }
 //     // getRole();
- 
-      
+     
 //     //   user.save(function (err) {
 //     //     if (err) return handleError(err);
-      
- 
-        
+         
 //     //     const role = new Role({
 //     //         roleName: faker.name.jobArea(),
 //     //         user_id: user._id    // assign the _id from the person
@@ -67,7 +64,6 @@ database.connect()
 //     //       // that's it!
 //     //     });
 //     //   });
-
   
     // User.
     // findOne({ username: 'Wilbert.Raynor22'}).
@@ -91,7 +87,6 @@ database.connect()
             }).exec((err,course)=>{
                 console.log(course);
             }) 
-        
     }
     fun()
     

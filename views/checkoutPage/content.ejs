@@ -25,43 +25,43 @@
                     </div>
                     <div class="method-payment">
                         <div class="show" id="show-cart">
-                            <form action = "/cart/payment" method="post" id = "cartForm">
+                            <form action="/cart/payment" method="post" id="cartForm">
                                 <div class="form-row">
                                     <div class="col mb-3">
                                         <label for="validationDefault01">Name on card</label>
                                         <input type="text" class="form-control" id="validationDefault01"
-                                            placeholder="Name on card" name = "nameCard" required />
+                                            placeholder="Name on card" name="nameCard" required />
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="validationDefault02">Card Number</label>
                                         <input type="number" class="form-control" id="validationDefault02"
-                                            placeholder="Card Number" value="Otto" name = "number"required />
+                                            placeholder="Card Number" value="Otto" name="number" required />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-6 mb-3">
                                         <label for="validationDefaultUsername">Month</label>
                                         <div class="input-group">
-                                            <input type="datepicker" class="form-control" name = "exp_month"
+                                            <input type="datepicker" class="form-control" name="exp_month"
                                                 placeholder="MM" aria-describedby="inputGroupPrepend2" required />
                                         </div>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="validationDefaultUsername">Year</label>
                                         <div class="input-group">
-                                            <input type="datepicker" class="form-control" name = "exp_year"
+                                            <input type="datepicker" class="form-control" name="exp_year"
                                                 placeholder="YYYY" aria-describedby="inputGroupPrepend2" required />
                                         </div>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="validationDefault03">Security Code</label>
                                         <input type="text" class="form-control" id="validationDefault03"
-                                            placeholder="Security Code" name = "cvc" required />
+                                            placeholder="Security Code" name="cvc" required />
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="validationDefault05">Zip</label>
-                                        <input type="text" class="form-control" id="validationDefault05" placeholder="Zip"
-                                        name =  "zipCard"   required />
+                                        <input type="text" class="form-control" id="validationDefault05"
+                                            placeholder="Zip" name="zipCard" required />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -73,13 +73,13 @@
                                         </label>
                                     </div>
                                 </div>
-                                <input value="<%- sumPrice%>" name = "price" id ="price" hidden />
-                                <input value="<%- email%>" name = "email" id = "email" hidden />
+                                <input value="<%- sumPrice%>" name="price" id="price" hidden />
+                                <input value="<%- email%>" name="email" id="email" hidden />
                             </form>
                         </div>
                         <div class="show hidden" id="show-paypal">
-                            <form action = "/cart/paypal" method="POST" id="cartFormPaypal">
-                              <h6>Click the process button to go to paypal payment page</h6>
+                            <form action="/cart/paypal" method="POST" id="cartFormPaypal">
+                                <h6>Click the process button to go to paypal payment page</h6>
                             </form>
                         </div>
                     </div>
@@ -88,23 +88,27 @@
                     <h4>Order Details</h4>
                 </div>
                 <% courses.forEach((course)=> { %>
-                <div class="card-info">
-                    <div class="card-image">
-                        <img src="<%=course.image%>" alt="photo" />
+                    <div class="card-info">
+                        <div class="card-image">
+                            <img src="<%=course.image%>" alt="photo" />
+                        </div>
+                        <h5>
+                            <%=course.name%>
+                        </h5>
+                        <div>
+                            <h6>$<%=course.price%>
+                            </h6>
+                            <p><del>$1000</del></p>
+                        </div>
                     </div>
-                    <h5><%=course.name%></h5>
-                    <div>
-                        <h6>$<%=course.price%></h6>
-                        <p><del>$1000</del></p>
-                    </div>
-                </div>
-                <%})%>
+                    <%})%>
             </div>
             <div class="checkout__summary">
                 <h1>Summary</h1>
                 <div class="d-flex justify-content-between">
                     <p>Original price:</p>
-                    <p>$<%=sumPrice%></p>
+                    <p>$<%=sumPrice%>
+                    </p>
                 </div>
                 <div class="d-flex justify-content-between border-bottom border-dark">
                     <p>Coupon discounts:</p>
@@ -112,7 +116,8 @@
                 </div>
                 <div class="d-flex justify-content-between mt-2">
                     <h4>Total:</h4>
-                    <h3>$<%=sumPrice%></h3>
+                    <h3>$<%=sumPrice%>
+                    </h3>
                 </div>
                 <p>
                     <small>

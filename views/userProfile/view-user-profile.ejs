@@ -1,70 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View User Profile</title>
     <% include ../elements/header %>
-    <% include ../elements/css/header-footer %>
-    <link rel="stylesheet" href="/assets/css/userProfile.css">
-    <link rel="stylesheet" href="/assets/css/viewUserProfile.css">
+        <% include ../elements/css/header-footer %>
+            <link rel="stylesheet" href="/assets/css/userProfile.css">
+            <link rel="stylesheet" href="/assets/css/viewUserProfile.css">
 </head>
+
 <body>
     <% include ../elements/navbar %>
-    <div class="container" style = "margin-top: 100px;margin-bottom:40px;">
-        <div class="row container-profile">
-            <div class="sidebar col-sm">
-                <div class="name-profile">
-                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-                    <h3><%- user.username%></h3>
-                </div>
-                <div class="sidebar-list">
-                    <ul>
-                        <li class = "active"><a href="/user">View public profile</a></li>
-                        <li><a href="/user/edit-profile">Profile</a></li>
-                        <li><a href="/user/password">Change password</a></li>
-                        <li><a href="/user/certificate">View all certificate</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="profile-container col-sm">
-                <div class="profile-container__header">
-                    <h2>Public profile</h2>
-                    <p>Information about yourself</p>
-                </div>
-                <div class="profile-container__information">
-                    <div class="lable">
-                        <h3>Basics:</h3>
+        <div class="container" style="margin-top: 100px;margin-bottom:40px;">
+            <div class="row container-profile">
+                <div class="sidebar col-sm">
+                    <div class="name-profile">
+                        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            alt="">
+                        <h3>
+                            <%- user.username%>
+                        </h3>
                     </div>
-                    <% if (user.firstName == '') {%>
-                        <div class="form-field row" style = "color: red; font-size: 1.5rem; font-weight: bold;">
-                            <p>Hãy cập nhật thông tin của bạn</p>
+                    <div class="sidebar-list">
+                        <ul>
+                            <li class="active"><a href="/user">View public profile</a></li>
+                            <li><a href="/user/edit-profile">Profile</a></li>
+                            <li><a href="/user/password">Change password</a></li>
+                            <li><a href="/user/certificate">View all certificate</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="profile-container col-sm">
+                    <div class="profile-container__header">
+                        <h2>Public profile</h2>
+                        <p>Information about yourself</p>
+                    </div>
+                    <div class="profile-container__information">
+                        <div class="lable">
+                            <h3>Basics:</h3>
                         </div>
-                    <%} else {%>
-                    <div class="form-field row">
-                        <label for="">Full name: </label>
-                        <p><%- user.lastName%> <%- user.firstName%></p>
+                        <% if (user.firstName=='' ) {%>
+                            <div class="form-field row" style="color: red; font-size: 1.5rem; font-weight: bold;">
+                                <p>Hãy cập nhật thông tin của bạn</p>
+                            </div>
+                            <%} else {%>
+                                <div class="form-field row">
+                                    <label for="">Full name: </label>
+                                    <p>
+                                        <%- user.lastName%>
+                                            <%- user.firstName%>
+                                    </p>
+                                </div>
+                                <div class="form-field row">
+                                    <label for="">Email:</label>
+                                    <p>
+                                        <%- user.email%>
+                                    </p>
+                                </div>
+                                <div class="form-field row">
+                                    <label for="">SDT:</label>
+                                    <p>090.123.4567</p>
+                                </div>
+                                <div class="form-field row">
+                                    <label for="">Địa chỉ:</label>
+                                    <p>Viet Nam</p>
+                                </div>
+                                <%}%>
                     </div>
-                    <div class="form-field row">
-                        <label for="">Email:</label>
-                        <p><%- user.email%></p>
-                    </div>
-                    <div class="form-field row">
-                        <label for="">SDT:</label>
-                        <p>090.123.4567</p>
-                    </div>
-                    <div class="form-field row">
-                        <label for="">Địa chỉ:</label>
-                        <p>Viet Nam</p>
-                    </div>
-                    <%}%>
                 </div>
             </div>
         </div>
-    </div>
-    <% include ./script.ejs%>;
-    <% include ../elements/footer %>
-    <% include ../elements/script %>
+        <% include ./script.ejs%>;
+            <% include ../elements/footer %>
+                <% include ../elements/script %>
 </body>
+
 </html>

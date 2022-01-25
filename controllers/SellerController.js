@@ -113,7 +113,6 @@ class SellerController {
                         ...invoice,
                         percentFinish,
                     };
-                    // console.log(newInvoice);
                     return newInvoice;
                 })
             );
@@ -177,9 +176,7 @@ class SellerController {
     async addCourses2(req, res, next) {
         try {
             var course = await Course.find({ _id: req.params.courseid });
-            // console.log(course);
             var lessons = await Lesson.find({ course_id: req.params.courseid });
-            // console.log(lessons);
             res.render("seller/create2", {
                 ...authMiddleware.userInfor(req),
                 lessons: lessons,
@@ -223,7 +220,6 @@ class SellerController {
             var course = await Course.find({ _id: req.params.courseid });
             var lessons = await Lesson.find({ course_id: req.params.courseid });
             var questions = await Question.find({ course_id: req.params.courseid });
-            // console.log(questions);
             res.render("seller/create3", {
                 ...authMiddleware.userInfor(req),
                 lessons: lessons,
@@ -251,8 +247,6 @@ class SellerController {
                 trueAnswer: formData.trueAnswer,
 
             });
-            // console.log(course_id);
-            // res.json(newLessons);
             await newQuestions.save();
             Question.find({}, (err, data) => {
                 if (!err && formData?.isEdit) {
@@ -278,11 +272,9 @@ class SellerController {
                     _id: item._id.toString(),
                 };
             });
-            // console.log(typeof category[0]._id);
             var course = await Course.find({ _id: CourseId });
             const lessons = await Lesson.find({ course_id: course[0]._id });
             const questions = await Question.find({ course_id: course[0]._id });
-            // console.log(questions);
             course = {
                 _id: course[0]._id,
                 user_id: course[0].user_id,
@@ -414,7 +406,6 @@ class SellerController {
         try {
             const questions = await Question.find({ _id: req.params.questionid });
             await Question.findByIdAndDelete({ _id: req.params.questionid });
-            // console.log(questions);
             if (req.query.edit) {
                 questions.map((ques) => {
                     const id = ques.course_id;

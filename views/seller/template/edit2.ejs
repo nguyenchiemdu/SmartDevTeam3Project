@@ -2,7 +2,8 @@
     <div style="padding-top: 100px; padding-bottom: 74px" class="container mt-5">
         <h2>Edit Video</h2>
         <% lessons.forEach(function(lesson) { %>
-            <form method="POST" action="/seller/courses/<%= lesson.course_id%>/lessons/<%- lesson._id %>/edit?_method=PUT">
+            <form method="POST"
+                action="/seller/courses/<%= lesson.course_id%>/lessons/<%- lesson._id %>/edit?_method=PUT">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">
@@ -22,7 +23,8 @@
                                 <button type="submit" class="btn btn-primary" id="submitFormEditLesson">Submit</button>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <a href="/seller/courses/<%= lesson.course_id%>/edit"  class="btn btn-secondary mt-3">Back</a>
+                                <a href="/seller/courses/<%= lesson.course_id%>/edit"
+                                    class="btn btn-secondary mt-3">Back</a>
                             </div>
                         </div>
                     </div>

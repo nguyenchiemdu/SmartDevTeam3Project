@@ -2,583 +2,679 @@
 <html lang="en">
 
 <head>
-  <% include ../elements/header %>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="/assets/css/user-learning.css" />
-    <link rel="stylesheet" href="/assets/css/headerFooter.css" />
+    <% include ../elements/header %>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous" />
+        <link rel="stylesheet" href="/assets/css/user-learning.css" />
+        <link rel="stylesheet" href="/assets/css/headerFooter.css" />
 </head>
 
 <body>
-  <div class="wrapper">
-    <div class="nav__header">
-      <div class="container">
-        <a href="/"><img src="/assets/images/logo.png" alt="">
-          CodeEveryDay</a>
-      </div>
-    </div>
-    <div class="container-fluid row">
-      <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 content__left">
-        <div class="video-lesson">
-          <iframe id="player" width="100%" height="100%"
-            src="https://www.youtube.com/embed/<%= currentLesson.urlVideo%>?enablejsapi=1" title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 content__right mb-5">
-        <div class="p-3">
-          <h6>
-            <%= course.name %>
-          </h6>
-          <p>Hoàn thành <strong>
-              <%= sumFinish %>/<%= sumCountLesson %>
-            </strong> bài học (<strong>
-              <%= percentFinish.toFixed(0) %>%
-            </strong>)</p>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
-              aria-valuemin="0" aria-valuemax="100" style="width: <%= percentFinish %>%">
-              <%= percentFinish.toFixed(0) %>% done
+    <div class="wrapper">
+        <div class="nav__header">
+            <div class="container">
+                <a href="/"><img src="/assets/images/logo.png" alt="">
+                    CodeEveryDay</a>
             </div>
-          </div>
         </div>
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-              <button class="accordion-button playlist-button" type="button" data-bs-toggle="collapse"
-                data-bs-target="#part1" aria-expanded="true">
-                Phần 1: Bắt đầu
-              </button>
-            </h2>
-            <div id="part1" class="accordion-collapse collapse show">
-              <% let idLesson=1; %>
-                <% lessons.forEach(lesson=>{%>
-                  <a href="/learning/<%= course._id %>?videos=<%= lesson._id%>"
-                    class="d-flex align-items-center lesson-description active">
-                    <% if(mapIsFisnish[lesson._id]==true){ %>
-                      <div class="check">
-                        <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
-                      </div>
-                      <% }else{ %>
-                        <div class="check" value = <%- lesson._id%>>
-                          <i style="color: none;" class='bx bxs-check-circle'></i>
-                        </div>
-                        <% } %>
-                          <div class="ml-2">
-                            <% if(currentLesson._id == lesson._id){ %>
-                              <div style="color: #e40084; font-weight: bold;" class="lesson-name">Lesson
-                                <%=idLesson++ %>: <%=lesson.title %>
-                              </div>
-                              <p style="color: rgb(199, 77, 6); font-weight: bold;" class="lesson-time"><%= lesson.duration%></p>
-                              <% }else{ %>
-                                <div class="lesson-name">Lesson
-                                  <%=idLesson++ %>: <%=lesson.title %>
-                                </div>
-                                <p class="lesson-time"><%= lesson.duration%></p>
-                                <% } %>
-                                  <!-- <p class="lesson-name">1. <%=lesson.title  %> </p> -->
-                          </div>
-                  </a>
-
-                  <% }) %>
-            </div>
-          </div>
-
-        </div>
-        <% if (hasAllFinished && !isTested) {%>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
-          Làm bài kiểm tra
-        </button>
-        <% } %>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-primary" id="exampleModalLabel">Thông báo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p class="text-dark">Chúc mừng bạn đã hoàn thành <span class="text-success"><%= course.name %></span>. Làm bài test ngay để nhận chứng chỉ của CodeEveryDay</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <a href="/learning/<%= courseId%>/question"> <button type="button" class="btn btn-primary">Làm bài test ngay</button></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 content__left">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-              type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-              type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Ghi Chú</button>
-            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
-              type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Liên Quan</button>
-          </div>
-        </nav>
-
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="nav-home-tab">
-              <% lessons.forEach(lesson=>{%>
-                <p>
-                  <%= lesson.description %>
-                </p>
-
-                <%}) %>
-                  <p>Các bạn subscribe kênh Youtube CodeEveryDay để nhận thông báo khi có các bài học mới nhé ❤️</p>
-                  <div class="justify-content-between">
-                    <h3 class="my-3">33 Review</h3>
-
-                    <div class="d-flex justify-content-center row">
-                      <div class="col-md-12">
-                        <div class="d-flex flex-column comment-section">
-                          <% commentUser.forEach(function(comment) { %>
-                            <div class="bg-white p-2">
-                              <div class="d-flex flex-row user-info"><img class="rounded-circle"
-                                  src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-                                <div class="d-flex flex-column justify-content-start ml-2"><span
-                                    class="d-block font-weight-bold name">
-                                    <%= comment.user_id.username %>
-                                  </span><span class="date text-black-50">
-                                    <%= comment.createdAt.getDate() %>/
-                                      <%= comment.createdAt.getMonth()+1 %>/
-                                        <%= comment.createdAt.getFullYear() %>
-                                  </span></div>
-                              </div>
-                              <div class="mt-2">
-                                <p class="comment-text">
-                                  <%= comment.commentContent %>
-                                </p>
-                              </div>
-                              <div class="response__comment">
-                                <div class="block__comment">
-                                  <div class="response__comment-item response__comment-title">
-                                    <p>Phản hồi của người bán</p>
-                                  </div>
-                                  <% if (comment.analyzeComment=="Positive" ) {%>
-                                    <div class="response__comment-item response__comment-comment">
-                                      <p>Cảm ơn những đánh giá tích cực từ bạn. Chúng mình sẽ phát triển thêm nhiều hơn
-                                        nữa từng ngày.
-                                        Những lời góp ý của bạn là nguồn động viên tinh thần rất lớn cho mình. Mong bạn
-                                        tiếp tục ủng hộ mình
-                                        trong những khóa học tiếp theo. Hãy tham gia nhóm của mình trên facebook để có
-                                        thể trao đổi thông tin với nhau nhá.
-                                      </p>
-                                      <p>
-                                        Thank you for your positive reviews. We will develop more and more day by day to
-                                        improve this course and another.
-                                        Your comments are a great encouragement for me. Hope you continue to support me
-                                        in the future. Please join the group Facebook to be exchange information with
-                                        each other.
-                                      </p>
-                                    </div>
-                                    <%} else if (comment.analyzeComment=="Negative" ) {%>
-                                      <div class="response__comment-item response__comment-comment">
-                                        <p>Chúng mình rất xin lỗi nếu đã mang trải nghiệm tệ đến bạn, những sự góp ý của
-                                          bạn chúng mình sẽ ghi nhận và thay đổi
-                                          trong tương lai. Bọn mình cảm ơn bạn đã mua và trải nghiệm khóa học của bọn
-                                          mình, những ý kiến từ những trải nghiệm tệ
-                                          của bạn có thể là nguồn tài nguyên lớn để cải thiện chất lượng của những khóa
-                                          học bọn mình trong thời gian tới. Hãy tham
-                                          gia group Facebook để có thể trao đổi thông tin với nhiều người hơn về những
-                                          vấn đề của bạn. Cảm ơn bạn đã mua khóa học
-                                        </p>
-                                        <p>
-                                          We apologize if we caused you any inconvenience, your feedback will be taken
-                                          into consideration and changed in the future.
-                                          We appreciate your purchasing and taking our course, as well as any negative
-                                          feedback.
-                                          Yours feedback could be a valuable resource for us in the future as we strive
-                                          to improve the quality of our courses.
-                                          Join the Facebook group to share information about your concerns with a more
-                                          individuals.
-                                          Thank you for taking the time to purchase the course.
-                                        </p>
-                                      </div>
-                                      <% } else {%>
-                                        <div class="response__comment-item response__comment-comment">
-                                          <p>
-                                            Cảm ơn bạn đã mua khóa học, nếu bạn có vấn đề nào hãy tham gia nhóm group
-                                            Facebook để có thể trao đổi với mọi người về vấn đề bạn gặp
-                                            phải. Nếu bạn gặp vấn đề nào hãy để lại bình luận chúng tôi sẽ liên hệ bạn
-                                            trong thời gian sớm nhất. Chúc bạn xem khóa học vui vẻ.
-                                            Một ngày tốt lành cho bạn
-                                          </p>
-                                          <p>
-                                            Thank you for purchasing the course; if you have any issues, please join the
-                                            Facebook group so that you may discuss them with others.
-                                            Please leave a remark if you have any issues, and we will get back to you as
-                                            soon as possible. Have fun watching the course. Have a good day
-                                          </p>
-                                        </div>
-                                        <% } %>
-                                </div>
-                              </div>
-                            </div>
-                            <% }); %>
-                              <div class="bg-white">
-                                <div class="d-flex flex-row fs-12">
-                                  <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span
-                                      class="ml-1">Like</span></div>
-                                  <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span
-                                      class="ml-1">Comment</span></div>
-                                  <div class="like p-2 cursor"><i class="fa fa-share"></i><span
-                                      class="ml-1">Share</span></div>
-                                </div>
-                              </div>
-                              <form method="POST" action="/learning/<%= course._id %> ">
-                                <div class="bg-light p-2">
-                                  <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                                      src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea
-                                      class="form-control ml-1 shadow-none textarea" name="comment"></textarea></div>
-                                  <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none"
-                                      type="submit">Post comment</button><button
-                                      class="btn btn-outline-primary btn-sm ml-1 shadow-none"
-                                      type="button">Cancel</button></div>
-                                </div>
-                              </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            </div>
-          </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Trang ghi chú
-
-            <div class="d-flex justify-content-center row">
-              <div class="col-md-12">
-                <div class="d-flex flex-column comment-section">
-                  <% notes.forEach(function(note) { %>
-                    <div class="bg-white p-2">
-                      <div class="d-flex flex-row user-info"><img class="rounded-circle"
-                          src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-                        <div class="d-flex flex-column justify-content-start ml-2"><span
-                            class="d-block font-weight-bold name">
-                            Ghi chú tại
-                            <% if(note.second<60){ %>
-                              <%- note.second%> giây
-                            <%}else if (note.second>=60 && note.second <3600){%>
-                              <% var phut = (note.second-note.second%60)/60%>
-                              <% (note.second) = (note.second) % 60%>
-                              <%-phut%> phút <%- note.second%> giây
-                            <%} else{%>
-                              <% var gio = (note.second - note.second %3600)/3600%>
-                              <% var phut = ((note.second%3600)-(note.second%3600)%60)/60%>
-                              <% note.second = (note.second - (phut * 60) - (gio*3600))%>
-                              <%-gio%> giờ <%-phut%> phút <%- note.second%> giây
-                            <%}%>
-                          </span><span class="date text-black-50">
-                            <%= note.createdAt.getDate() %>/
-                              <%= note.createdAt.getMonth()+1 %>/
-                                <%= note.createdAt.getFullYear() %>
-                          </span></div>
-                      </div>
-                      <div class="mt-2 container-note">
-                        <div class="note-area">
-                          <p class="comment-text note-text">
-                            <%= note.comment %>
-                          </p>
-                          <form method="POST" action="/api/notes/<%=note._id%>?_method=PATCH" class="edit-content__form" style ="display: none;">
-                              <textarea
-                                class="form-control ml-1 shadow-none textarea" name="comment" style = "background-color:  rgba(0,0,0,0); border-style: none;"><%- note.comment%></textarea>
-                              <button class = "btn btn-secondary" class = "btn-save__note" title="Lưu ghi chú">Save</button>
-                          </form>
-                          <div class="note-function" >
-                            <a href = ""  class = "editNoteBtn" title="Chỉnh sửa ghi chú" >
-                              <i class="far fa-edit"></i>
-                            </a>
-                            <form method="POST" action="/api/notes/<%=note._id%>?_method=DELETE" class="deleteNote-form">
-                              <a href = "" data-id="<%- note._id%>" id = "deleteNoteBtn" title="Xóa ghi chú">
-                                <i class="far fa-trash-alt"></i>
-                              </a>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <% }); %>
-                      <form action="../api/notes" method = "POST" id = "form-note">
-                        <div class="bg-light p-2">
-                          <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                              src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea
-                              class="form-control ml-1 shadow-none textarea" name="comment" id = "commentNote"></textarea></div>
-                          <div id="noti-note" style ="display: none;"></div>
-                          <input type="text" id = "videoId" name = "lesson_id" style="display: none;">
-                          <input type="text" id = "videoId" name = "course_id" value = "<%- course._id%>" style="display: none;">
-                          <input type="text" id = "currentTime" name = "second" style="display: none;">
-                          <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none"
-                              type="submit" id = "btn-note">Tạo ghi chú</button><button
-                              class="btn btn-outline-primary btn-sm ml-1 shadow-none"
-                              type="button">Cancel</button></div>
-                        </div>
-                      </form>
+        <div class="container-fluid row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 content__left">
+                <div class="video-lesson">
+                    <iframe id="player" width="100%" height="100%"
+                        src="https://www.youtube.com/embed/<%= currentLesson.urlVideo%>?enablejsapi=1"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
                 </div>
-              </div>
             </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 content__right mb-5">
+                <div class="p-3">
+                    <h6>
+                        <%= course.name %>
+                    </h6>
+                    <p>Hoàn thành <strong>
+                            <%= sumFinish %>/<%= sumCountLesson %>
+                        </strong> bài học (<strong>
+                            <%= percentFinish.toFixed(0) %>%
+                        </strong>)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                            style="width: <%= percentFinish %>%">
+                            <%= percentFinish.toFixed(0) %>% done
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button playlist-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#part1" aria-expanded="true">
+                                Phần 1: Bắt đầu
+                            </button>
+                        </h2>
+                        <div id="part1" class="accordion-collapse collapse show">
+                            <% let idLesson=1; %>
+                                <% lessons.forEach(lesson=>{%>
+                                    <a href="/learning/<%= course._id %>?videos=<%= lesson._id%>"
+                                        class="d-flex align-items-center lesson-description active">
+                                        <% if(mapIsFisnish[lesson._id]==true){ %>
+                                            <div class="check">
+                                                <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
+                                            </div>
+                                            <% }else{ %>
+                                                <div class="check" value=<%- lesson._id%>>
+                                                    <i style="color: none;" class='bx bxs-check-circle'></i>
+                                                </div>
+                                                <% } %>
+                                                    <div class="ml-2">
+                                                        <% if(currentLesson._id==lesson._id){ %>
+                                                            <div style="color: #e40084; font-weight: bold;"
+                                                                class="lesson-name">Lesson
+                                                                <%=idLesson++ %>: <%=lesson.title %>
+                                                            </div>
+                                                            <p style="color: rgb(199, 77, 6); font-weight: bold;"
+                                                                class="lesson-time">
+                                                                <%= lesson.duration%>
+                                                            </p>
+                                                            <% }else{ %>
+                                                                <div class="lesson-name">Lesson
+                                                                    <%=idLesson++ %>: <%=lesson.title %>
+                                                                </div>
+                                                                <p class="lesson-time">
+                                                                    <%= lesson.duration%>
+                                                                </p>
+                                                                <% } %>
+                                                                    <!-- <p class="lesson-name">1. <%=lesson.title  %> </p> -->
+                                                    </div>
+                                    </a>
 
-          </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Trang liên quan
-          </div>
+                                    <% }) %>
+                        </div>
+                    </div>
+
+                </div>
+                <% if (hasAllFinished && !isTested) {%>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                        Làm bài kiểm tra
+                    </button>
+                    <% } %>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-primary" id="exampleModalLabel">Thông báo</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-dark">Chúc mừng bạn đã hoàn thành <span class="text-success">
+                                                <%= course.name %>
+                                            </span>. Làm bài test ngay để nhận chứng chỉ của CodeEveryDay</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                        <a href="/learning/<%= courseId%>/question"> <button type="button"
+                                                class="btn btn-primary">Làm bài test ngay</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 content__left">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                            aria-selected="true">Home</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                            type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Ghi Chú</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                            type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Liên
+                            Quan</button>
+                    </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <% lessons.forEach(lesson=>{%>
+                                <p>
+                                    <%= lesson.description %>
+                                </p>
+
+                                <%}) %>
+                                    <p>Các bạn subscribe kênh Youtube CodeEveryDay để nhận thông báo khi có các bài học
+                                        mới nhé ❤️</p>
+                                    <div class="justify-content-between">
+                                        <h3 class="my-3">33 Review</h3>
+
+                                        <div class="d-flex justify-content-center row">
+                                            <div class="col-md-12">
+                                                <div class="d-flex flex-column comment-section">
+                                                    <% commentUser.forEach(function(comment) { %>
+                                                        <div class="bg-white p-2">
+                                                            <div class="d-flex flex-row user-info"><img
+                                                                    class="rounded-circle"
+                                                                    src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                                                <div
+                                                                    class="d-flex flex-column justify-content-start ml-2">
+                                                                    <span class="d-block font-weight-bold name">
+                                                                        <%= comment.user_id.username %>
+                                                                    </span><span class="date text-black-50">
+                                                                        <%= comment.createdAt.getDate() %>/
+                                                                            <%= comment.createdAt.getMonth()+1 %>/
+                                                                                <%= comment.createdAt.getFullYear() %>
+                                                                    </span></div>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <p class="comment-text">
+                                                                    <%= comment.commentContent %>
+                                                                </p>
+                                                            </div>
+                                                            <div class="response__comment">
+                                                                <div class="block__comment">
+                                                                    <div
+                                                                        class="response__comment-item response__comment-title">
+                                                                        <p>Phản hồi của người bán</p>
+                                                                    </div>
+                                                                    <% if (comment.analyzeComment=="Positive" ) {%>
+                                                                        <div
+                                                                            class="response__comment-item response__comment-comment">
+                                                                            <p>Cảm ơn những đánh giá tích cực từ bạn.
+                                                                                Chúng mình sẽ phát triển thêm nhiều hơn
+                                                                                nữa từng ngày.
+                                                                                Những lời góp ý của bạn là nguồn động
+                                                                                viên tinh thần rất lớn cho mình. Mong
+                                                                                bạn
+                                                                                tiếp tục ủng hộ mình
+                                                                                trong những khóa học tiếp theo. Hãy tham
+                                                                                gia nhóm của mình trên facebook để có
+                                                                                thể trao đổi thông tin với nhau nhá.
+                                                                            </p>
+                                                                            <p>
+                                                                                Thank you for your positive reviews. We
+                                                                                will develop more and more day by day to
+                                                                                improve this course and another.
+                                                                                Your comments are a great encouragement
+                                                                                for me. Hope you continue to support me
+                                                                                in the future. Please join the group
+                                                                                Facebook to be exchange information with
+                                                                                each other.
+                                                                            </p>
+                                                                        </div>
+                                                                        <%} else if (comment.analyzeComment=="Negative"
+                                                                            ) {%>
+                                                                            <div
+                                                                                class="response__comment-item response__comment-comment">
+                                                                                <p>Chúng mình rất xin lỗi nếu đã mang
+                                                                                    trải nghiệm tệ đến bạn, những sự góp
+                                                                                    ý của
+                                                                                    bạn chúng mình sẽ ghi nhận và thay
+                                                                                    đổi
+                                                                                    trong tương lai. Bọn mình cảm ơn bạn
+                                                                                    đã mua và trải nghiệm khóa học của
+                                                                                    bọn
+                                                                                    mình, những ý kiến từ những trải
+                                                                                    nghiệm tệ
+                                                                                    của bạn có thể là nguồn tài nguyên
+                                                                                    lớn để cải thiện chất lượng của
+                                                                                    những khóa
+                                                                                    học bọn mình trong thời gian tới.
+                                                                                    Hãy tham
+                                                                                    gia group Facebook để có thể trao
+                                                                                    đổi thông tin với nhiều người hơn về
+                                                                                    những
+                                                                                    vấn đề của bạn. Cảm ơn bạn đã mua
+                                                                                    khóa học
+                                                                                </p>
+                                                                                <p>
+                                                                                    We apologize if we caused you any
+                                                                                    inconvenience, your feedback will be
+                                                                                    taken
+                                                                                    into consideration and changed in
+                                                                                    the future.
+                                                                                    We appreciate your purchasing and
+                                                                                    taking our course, as well as any
+                                                                                    negative
+                                                                                    feedback.
+                                                                                    Yours feedback could be a valuable
+                                                                                    resource for us in the future as we
+                                                                                    strive
+                                                                                    to improve the quality of our
+                                                                                    courses.
+                                                                                    Join the Facebook group to share
+                                                                                    information about your concerns with
+                                                                                    a more
+                                                                                    individuals.
+                                                                                    Thank you for taking the time to
+                                                                                    purchase the course.
+                                                                                </p>
+                                                                            </div>
+                                                                            <% } else {%>
+                                                                                <div
+                                                                                    class="response__comment-item response__comment-comment">
+                                                                                    <p>
+                                                                                        Cảm ơn bạn đã mua khóa học, nếu
+                                                                                        bạn có vấn đề nào hãy tham gia
+                                                                                        nhóm group
+                                                                                        Facebook để có thể trao đổi với
+                                                                                        mọi người về vấn đề bạn gặp
+                                                                                        phải. Nếu bạn gặp vấn đề nào hãy
+                                                                                        để lại bình luận chúng tôi sẽ
+                                                                                        liên hệ bạn
+                                                                                        trong thời gian sớm nhất. Chúc
+                                                                                        bạn xem khóa học vui vẻ.
+                                                                                        Một ngày tốt lành cho bạn
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        Thank you for purchasing the
+                                                                                        course; if you have any issues,
+                                                                                        please join the
+                                                                                        Facebook group so that you may
+                                                                                        discuss them with others.
+                                                                                        Please leave a remark if you
+                                                                                        have any issues, and we will get
+                                                                                        back to you as
+                                                                                        soon as possible. Have fun
+                                                                                        watching the course. Have a good
+                                                                                        day
+                                                                                    </p>
+                                                                                </div>
+                                                                                <% } %>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <% }); %>
+                                                            <div class="bg-white">
+                                                                <div class="d-flex flex-row fs-12">
+                                                                    <div class="like p-2 cursor"><i
+                                                                            class="fa fa-thumbs-o-up"></i><span
+                                                                            class="ml-1">Like</span></div>
+                                                                    <div class="like p-2 cursor"><i
+                                                                            class="fa fa-commenting-o"></i><span
+                                                                            class="ml-1">Comment</span></div>
+                                                                    <div class="like p-2 cursor"><i
+                                                                            class="fa fa-share"></i><span
+                                                                            class="ml-1">Share</span></div>
+                                                                </div>
+                                                            </div>
+                                                            <form method="POST" action="/learning/<%= course._id %> ">
+                                                                <div class="bg-light p-2">
+                                                                    <div class="d-flex flex-row align-items-start"><img
+                                                                            class="rounded-circle"
+                                                                            src="https://i.imgur.com/RpzrMR2.jpg"
+                                                                            width="40"><textarea
+                                                                            class="form-control ml-1 shadow-none textarea"
+                                                                            name="comment"></textarea></div>
+                                                                    <div class="mt-2 text-right"><button
+                                                                            class="btn btn-primary btn-sm shadow-none"
+                                                                            type="submit">Post comment</button><button
+                                                                            class="btn btn-outline-primary btn-sm ml-1 shadow-none"
+                                                                            type="button">Cancel</button></div>
+                                                                </div>
+                                                            </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Trang
+                        ghi chú
+
+                        <div class="d-flex justify-content-center row">
+                            <div class="col-md-12">
+                                <div class="d-flex flex-column comment-section">
+                                    <% notes.forEach(function(note) { %>
+                                        <div class="bg-white p-2">
+                                            <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                                                    src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                                <div class="d-flex flex-column justify-content-start ml-2"><span
+                                                        class="d-block font-weight-bold name">
+                                                        Ghi chú tại
+                                                        <% if(note.second<60){ %>
+                                                            <%- note.second%> giây
+                                                                <%}else if (note.second>=60 && note.second <3600){%>
+                                                                        <% var phut=(note.second-note.second%60)/60%>
+                                                                            <% (note.second)=(note.second) % 60%>
+                                                                                <%-phut%> phút <%- note.second%> giây
+                                                                                        <%} else{%>
+                                                                                            <% var gio=(note.second -
+                                                                                                note.second
+                                                                                                %3600)/3600%>
+                                                                                                <% var
+                                                                                                    phut=((note.second%3600)-(note.second%3600)%60)/60%>
+                                                                                                    <% note.second=(note.second
+                                                                                                        - (phut * 60) -
+                                                                                                        (gio*3600))%>
+                                                                                                        <%-gio%> giờ
+                                                                                                            <%-phut%>
+                                                                                                                phút <%-
+                                                                                                                    note.second%>
+                                                                                                                    giây
+                                                                                                                    <%}%>
+                                                    </span><span class="date text-black-50">
+                                                        <%= note.createdAt.getDate() %>/
+                                                            <%= note.createdAt.getMonth()+1 %>/
+                                                                <%= note.createdAt.getFullYear() %>
+                                                    </span></div>
+                                            </div>
+                                            <div class="mt-2 container-note">
+                                                <div class="note-area">
+                                                    <p class="comment-text note-text">
+                                                        <%= note.comment %>
+                                                    </p>
+                                                    <form method="POST" action="/api/notes/<%=note._id%>?_method=PATCH"
+                                                        class="edit-content__form" style="display: none;">
+                                                        <textarea class="form-control ml-1 shadow-none textarea"
+                                                            name="comment"
+                                                            style="background-color:  rgba(0,0,0,0); border-style: none;"><%- note.comment%></textarea>
+                                                        <button class="btn btn-secondary" class="btn-save__note"
+                                                            title="Lưu ghi chú">Save</button>
+                                                    </form>
+                                                    <div class="note-function">
+                                                        <a href="" class="editNoteBtn" title="Chỉnh sửa ghi chú">
+                                                            <i class="far fa-edit"></i>
+                                                        </a>
+                                                        <form method="POST"
+                                                            action="/api/notes/<%=note._id%>?_method=DELETE"
+                                                            class="deleteNote-form">
+                                                            <a href="" data-id="<%- note._id%>" id="deleteNoteBtn"
+                                                                title="Xóa ghi chú">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                            <form action="../api/notes" method="POST" id="form-note">
+                                                <div class="bg-light p-2">
+                                                    <div class="d-flex flex-row align-items-start"><img
+                                                            class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg"
+                                                            width="40"><textarea
+                                                            class="form-control ml-1 shadow-none textarea"
+                                                            name="comment" id="commentNote"></textarea></div>
+                                                    <div id="noti-note" style="display: none;"></div>
+                                                    <input type="text" id="videoId" name="lesson_id"
+                                                        style="display: none;">
+                                                    <input type="text" id="videoId" name="course_id"
+                                                        value="<%- course._id%>" style="display: none;">
+                                                    <input type="text" id="currentTime" name="second"
+                                                        style="display: none;">
+                                                    <div class="mt-2 text-right"><button
+                                                            class="btn btn-primary btn-sm shadow-none" type="submit"
+                                                            id="btn-note">Tạo ghi chú</button><button
+                                                            class="btn btn-outline-primary btn-sm ml-1 shadow-none"
+                                                            type="button">Cancel</button></div>
+                                                </div>
+                                            </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Trang
+                        liên quan
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <% include ../elements/footer %>
-  <% include ../elements/script %>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"></script>
-    <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
+    <% include ../elements/footer %>
+        <% include ../elements/script %>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+            <script>
+                // 2. This code loads the IFrame Player API code asynchronously.
+                var tag = document.createElement('script');
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      var player, timer,timer2, timeSpent = [], display = document.getElementById('display');
-      var currentTime = document.getElementById('currentTime');
-      var commentNote = document.getElementById('commentNote');
-      const notiNote = document.getElementById('noti-note');
-      var highestPercent = 0;
-      var rawData = [];
-      var serverData = <%- JSON.stringify(rawData) %>;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-              events: {
-                'onStateChange': onPlayerStateChange,
-                'onReady': () => {
-                  player.seekTo(player.getDuration() / 100 *<%= progress %>); for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
-                  for (var i = 0; i < serverData.length; i++) {
-                    for (var j = serverData[i].start; j <= serverData[i].end; j++) {
-                      timeSpent[j] = true;
-                    }
-                  }
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                var player, timer, timer2, timeSpent = [], display = document.getElementById('display');
+                var currentTime = document.getElementById('currentTime');
+                var commentNote = document.getElementById('commentNote');
+                const notiNote = document.getElementById('noti-note');
+                var highestPercent = 0;
+                var rawData = [];
+                var serverData = <% - JSON.stringify(rawData) %>;
+                function onYouTubeIframeAPIReady() {
+                    player = new YT.Player('player', {
+                        events: {
+                            'onStateChange': onPlayerStateChange,
+                            'onReady': () => {
+                                player.seekTo(player.getDuration() / 100 *<%= progress %>); for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+                                for (var i = 0; i < serverData.length; i++) {
+                                    for (var j = serverData[i].start; j <= serverData[i].end; j++) {
+                                        timeSpent[j] = true;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
-              }
-            });
-          }
 
-      function onPlayerStateChange(event) {
-        if (event.data === 1) { // Started playing
+                function onPlayerStateChange(event) {
+                    if (event.data === 1) { // Started playing
 
-          if (!timeSpent.length) {
-            for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
-            // for (var i= 0;i< serverData.length;i++) {
-            //   for (var j = serverData[i].start;j<=serverData[i].end;j++) {
-            //     timeSpent[j] = true;
-            //   }
-            // }
-            // console.log(timeSpent);
-          }
-          timer = setInterval(record, 100);
-          timer2 = setInterval(checkFinish, 1000);
-        } 
-        else{
-          clearInterval(timer);
-          clearInterval(timer2);
-        }
-      }
-      // Convert second to hour/minute/second
-      function secondsToTime(secs)
-      {
-          var hours = Math.floor(secs / (60 * 60));
-      
-          var divisor_for_minutes = secs % (60 * 60);
-          var minutes = Math.floor(divisor_for_minutes / 60);
-      
-          var divisor_for_seconds = divisor_for_minutes % 60;
-          var seconds = Math.ceil(divisor_for_seconds);
-      
-          var obj = {
-              "h": hours,
-              "m": minutes,
-              "s": seconds
-          };
-          return obj;
-      }
-      // Check if user have finish learn, it will post or patch item
-      function checkFinish () {
-        let i=0;
-        rawData = [];
-        while (i< timeSpent.length) {
-          if (timeSpent[i]) {
-            let start = i;
-            let end = i;
-            while (timeSpent[i] && i < timeSpent.length) end = i++;
-            rawData.push({
-              start,end
-            })
-          } else i++;
-        }
-        let sumWatchedSecond =0;
-        rawData.forEach(segment=> {
-          sumWatchedSecond = sumWatchedSecond + segment.end - segment.start +1;
-        });
-        // Check if user have done learn above 80%
-        if(sumWatchedSecond/player.getDuration() > 0.8){
-          // If have data rawData in database, i will edit 
-          if(serverData.length>0){
-            const editRaw = async () =>{
-              await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>', {
-                method: 'PATCH',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  rawData,
+                        if (!timeSpent.length) {
+                            for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+                            // for (var i= 0;i< serverData.length;i++) {
+                            //   for (var j = serverData[i].start;j<=serverData[i].end;j++) {
+                            //     timeSpent[j] = true;
+                            //   }
+                            // }
+                            // console.log(timeSpent);
+                        }
+                        timer = setInterval(record, 100);
+                        timer2 = setInterval(checkFinish, 1000);
+                    }
+                    else {
+                        clearInterval(timer);
+                        clearInterval(timer2);
+                    }
+                }
+                // Convert second to hour/minute/second
+                function secondsToTime(secs) {
+                    var hours = Math.floor(secs / (60 * 60));
+
+                    var divisor_for_minutes = secs % (60 * 60);
+                    var minutes = Math.floor(divisor_for_minutes / 60);
+
+                    var divisor_for_seconds = divisor_for_minutes % 60;
+                    var seconds = Math.ceil(divisor_for_seconds);
+
+                    var obj = {
+                        "h": hours,
+                        "m": minutes,
+                        "s": seconds
+                    };
+                    return obj;
+                }
+                // Check if user have finish learn, it will post or patch item
+                function checkFinish() {
+                    let i = 0;
+                    rawData = [];
+                    while (i < timeSpent.length) {
+                        if (timeSpent[i]) {
+                            let start = i;
+                            let end = i;
+                            while (timeSpent[i] && i < timeSpent.length) end = i++;
+                            rawData.push({
+                                start, end
+                            })
+                        } else i++;
+                    }
+                    let sumWatchedSecond = 0;
+                    rawData.forEach(segment => {
+                        sumWatchedSecond = sumWatchedSecond + segment.end - segment.start + 1;
+                    });
+                    // Check if user have done learn above 80%
+                    if (sumWatchedSecond / player.getDuration() > 0.8) {
+                        // If have data rawData in database, i will edit 
+                        if (serverData.length > 0) {
+                            const editRaw = async () => {
+                                await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>', {
+                                    method: 'PATCH',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        rawData,
+                                    })
+                                })
+                            }
+                            // Check if done the check will color green
+                            const updateUI = async () => {
+                                await editRaw();
+                                getCheckFinish();
+                            }
+                            updateUI();
+                        }
+                        // Else dont have i will post create new rawData
+                        else if (serverData.length == 0) {
+                            const postRaw = async () => {
+                                await fetch('/learning/<%= course._id %>/<%= currentLesson._id%>', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        progress: (player.getCurrentTime() / player.getDuration() * 100),
+                                        duration: player.getDuration(),
+                                        rawData,
+                                    })
+                                })
+                            }
+                            // Check if done the check will color green
+                            const updateUI = async () => {
+                                await postRaw();
+                                getCheckFinish();
+                            }
+                            updateUI();
+                        }
+                    }
+                }
+                // Mark current second is watched
+                function record() {
+                    timeSpent[parseInt(player.getCurrentTime())] = true;
+                    // showPercentage();
+                    // Render time when you create note
+                    currentTime.value = Math.floor(player.getCurrentTime());
+
+                    // show time in note 
+                    var convertTime = secondsToTime(currentTime.value)
+                    if (convertTime.m < 1) {
+                        var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây`;
+                    }
+                    else if (convertTime.h < 1 && convertTime.h > -1) {
+                        var notifyNote = `Tạo ghi chú tại ${convertTime.m} phút ${convertTime.s} giây`;
+                    }
+                    else {
+                        var notifyNote = `Tạo ghi chú tại ${convertTime.h} giờ ${convertTime.m} phút ${convertTime.s} giây`;
+                    }
+                    notiNote.innerHTML = notifyNote;
+                    notiNote.style.display = "block";
+                }
+                // function calRawData(){
+                // let i=0;
+                // rawData = [];
+                // while (i< timeSpent.length) {
+                //   if (timeSpent[i]) {
+                //     let start = i;
+                //     let end = i;
+                //     while (timeSpent[i]) end = i++;
+                //     rawData.push({
+                //       start,end
+                //     })
+                //   } else i++;
+                // }
+                // console.log(rawData);
+                // }
+                // function showPercentage() {
+                // var percent = 0;
+                // for (var i = 0, l = timeSpent.length; i < l; i++) {
+                //   if (timeSpent[i]) percent++;
+                // }
+                // percent = Math.round(percent / timeSpent.length * 100);
+                // highestPercent = Math.max(highestPercent, (player.getCurrentTime() / player.getDuration() * 100));
+
+                // display.innerHTML = (player.getCurrentTime() / player.getDuration() * 100) + "%";
+                // }
+                // submit data to server when user leave page
+                window.addEventListener('beforeunload', async function () {
+                    let i = 0;
+                    rawData = [];
+                    while (i < timeSpent.length) {
+                        if (timeSpent[i]) {
+                            let start = i;
+                            let end = i;
+                            while (timeSpent[i] && i < timeSpent.length) end = i++;
+                            rawData.push({
+                                start, end
+                            })
+                        } else i++;
+                    }
+                    await fetch('/learning/<%= course._id %>/<%= currentLesson._id%>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            progress: (player.getCurrentTime() / player.getDuration() * 100),
+                            // highestPercent,
+                            duration: player.getDuration(),
+                            rawData,
+                        })
+                    }).then((res) => res.json());
+                    return
                 })
-              })
-            }
-            // Check if done the check will color green
-            const updateUI = async() =>{
-              await editRaw();
-              getCheckFinish();
-            }
-            updateUI();
-          }
-          // Else dont have i will post create new rawData
-          else if (serverData.length==0){
-            const postRaw = async () =>{
-              await fetch('/learning/<%= course._id %>/<%= currentLesson._id%>', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                progress: (player.getCurrentTime() / player.getDuration() * 100),
-                duration : player.getDuration(),
-                rawData,
-              })
-            })
-            }
-            // Check if done the check will color green
-            const updateUI = async() =>{
-              await postRaw();
-              getCheckFinish();
-            }
-            updateUI();
-          }
-        }
-      }
-      // Mark current second is watched
-      function record() {
-        timeSpent[parseInt(player.getCurrentTime())] = true;
-        // showPercentage();
-        // Render time when you create note
-        currentTime.value = Math.floor(player.getCurrentTime());
 
-        // show time in note 
-        var convertTime = secondsToTime(currentTime.value)
-        if(convertTime.m <1){
-          var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây` ;
-        }
-        else if(convertTime.h<1 && convertTime.h >-1){
-            var notifyNote = `Tạo ghi chú tại ${convertTime.m} phút ${convertTime.s} giây` ;
-          }
-          else {
-            var notifyNote = `Tạo ghi chú tại ${convertTime.h} giờ ${convertTime.m} phút ${convertTime.s} giây` ;
-          }
-        notiNote.innerHTML = notifyNote;
-        notiNote.style.display = "block";
-      }
-      // function calRawData(){
-        // let i=0;
-        // rawData = [];
-        // while (i< timeSpent.length) {
-        //   if (timeSpent[i]) {
-        //     let start = i;
-        //     let end = i;
-        //     while (timeSpent[i]) end = i++;
-        //     rawData.push({
-        //       start,end
-        //     })
-        //   } else i++;
-        // }
-        // console.log(rawData);
-      // }
-      // function showPercentage() {
-        // var percent = 0;
-        // for (var i = 0, l = timeSpent.length; i < l; i++) {
-        //   if (timeSpent[i]) percent++;
-        // }
-        // percent = Math.round(percent / timeSpent.length * 100);
-        // highestPercent = Math.max(highestPercent, (player.getCurrentTime() / player.getDuration() * 100));
-
-        // display.innerHTML = (player.getCurrentTime() / player.getDuration() * 100) + "%";
-      // }
-      // submit data to server when user leave page
-      window.addEventListener('beforeunload', async function () {
-        let i=0;
-        rawData = [];
-        while (i< timeSpent.length) {
-          if (timeSpent[i]) {
-            let start = i;
-            let end = i;
-            while (timeSpent[i] && i < timeSpent.length) end = i++;
-            rawData.push({
-              start,end
-            })
-          } else i++;
-        }
-        await fetch('/learning/<%= course._id %>/<%= currentLesson._id%>', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            progress: (player.getCurrentTime() / player.getDuration() * 100),
-            // highestPercent,
-            duration : player.getDuration(),
-            rawData,
-          })
-        }).then((res) => res.json());
-        return
-      })
-
-    </script>
-    <script>
-      // Task render styop time when focus on note text area
-      const formNote = document.getElementById('form-note');
-      const btnNote = document.getElementById('btn-note');
-      var commentNote = document.getElementById('commentNote');
-      const videoArea = document.getElementById('videoId');
-      var currentUrl = window.location.href;
-      const position = currentUrl.indexOf("=")+1;
-      const videoId = currentUrl.slice(position);
-      videoArea.value = videoId;
-      formNote.onSubmit = () =>{
-        commentNote.value = '';
-      }
-      commentNote.addEventListener('focus',(e) => {
-        currentTime.value = Math.floor(player.getCurrentTime());
-        var convertTime = secondsToTime(currentTime.value)
-        if(convertTime.m <1){
-          var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây` ;
-        }
-        else if(convertTime.h<1 && convertTime.h >-1){
-            var notifyNote = `Tạo ghi chú tại ${convertTime.m} phút ${convertTime.s} giây` ;
-          }
-          else {
-            var notifyNote = `Tạo ghi chú tại ${convertTime.h} giờ ${convertTime.m} phút ${convertTime.s} giây` ;
-          }
-        notiNote.innerHTML = notifyNote;
-        notiNote.style.display = "block";
-        player.pauseVideo();
-      })
-    </script>
-    <!-- <script>
+            </script>
+            <script>
+                // Task render styop time when focus on note text area
+                const formNote = document.getElementById('form-note');
+                const btnNote = document.getElementById('btn-note');
+                var commentNote = document.getElementById('commentNote');
+                const videoArea = document.getElementById('videoId');
+                var currentUrl = window.location.href;
+                const position = currentUrl.indexOf("=") + 1;
+                const videoId = currentUrl.slice(position);
+                videoArea.value = videoId;
+                formNote.onSubmit = () => {
+                    commentNote.value = '';
+                }
+                commentNote.addEventListener('focus', (e) => {
+                    currentTime.value = Math.floor(player.getCurrentTime());
+                    var convertTime = secondsToTime(currentTime.value)
+                    if (convertTime.m < 1) {
+                        var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây`;
+                    }
+                    else if (convertTime.h < 1 && convertTime.h > -1) {
+                        var notifyNote = `Tạo ghi chú tại ${convertTime.m} phút ${convertTime.s} giây`;
+                    }
+                    else {
+                        var notifyNote = `Tạo ghi chú tại ${convertTime.h} giờ ${convertTime.m} phút ${convertTime.s} giây`;
+                    }
+                    notiNote.innerHTML = notifyNote;
+                    notiNote.style.display = "block";
+                    player.pauseVideo();
+                })
+            </script>
+            <!-- <script>
       const statuses= document.querySelectorAll('.status')
       const checkes = document.querySelectorAll('.check')
       console.log(checkes);
@@ -595,55 +691,55 @@
       }
     </script> -->
 
-    <script>
-      // Task edit and delete note
-      const editNoteBtn = document.querySelectorAll('.editNoteBtn');
-      const editNoteForm = document.getElementById('editNote-form');
-      const allFormDelete = document.querySelectorAll('.deleteNote-form');
-      const noteText = document.querySelectorAll('.note-text');
-      const containerNote = document.querySelectorAll('.container-note');
-      // Edit note show new text area and patch new text area to edit note
-      containerNote.forEach( e => {
-        e.children[0].children[2].children[0].addEventListener('click', event =>{
-          event.preventDefault();
-          e.children[0].children[0].style.display = "none";
-          e.children[0].children[1].style.display = "flex";
-        })
-        e.children[0].children[1].children[1].addEventListener('click', event =>{
-          event.preventDefault();
-          e.children[0].children[0].style.display = "block";
-          e.children[0].children[1].style.display = "none";
-          e.children[0].children[1].submit();
-        })
+            <script>
+                // Task edit and delete note
+                const editNoteBtn = document.querySelectorAll('.editNoteBtn');
+                const editNoteForm = document.getElementById('editNote-form');
+                const allFormDelete = document.querySelectorAll('.deleteNote-form');
+                const noteText = document.querySelectorAll('.note-text');
+                const containerNote = document.querySelectorAll('.container-note');
+                // Edit note show new text area and patch new text area to edit note
+                containerNote.forEach(e => {
+                    e.children[0].children[2].children[0].addEventListener('click', event => {
+                        event.preventDefault();
+                        e.children[0].children[0].style.display = "none";
+                        e.children[0].children[1].style.display = "flex";
+                    })
+                    e.children[0].children[1].children[1].addEventListener('click', event => {
+                        event.preventDefault();
+                        e.children[0].children[0].style.display = "block";
+                        e.children[0].children[1].style.display = "none";
+                        e.children[0].children[1].submit();
+                    })
 
-      })
-      // Delete note when click icon delete
-      allFormDelete.forEach(e => {
-        e.addEventListener('click',(event)=>{
-          event.preventDefault();
-          e.submit();
-        })
-      })
-    </script>
-    <script>
-      // Task check if finish lesson check icon will change color green
-      const check = document.querySelectorAll('.check');
-      const checkActive = document.querySelector('#check-active');
-      const getCheckFinish = async () =>{
-        const response = await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>');
-        const kq = await response.json();
-        if(kq.kq === "Thanh cong"){
-          const b = <%- currentLesson._id %>
-          for(let i=0; i<check.length; i++){
-            var a = parseInt(check[i].getAttribute('value'));
-            if(a === b){
-              check[i].style.color = 'rgb(29, 216, 29)';
-              break;
-            }
-          }
-        }
-      }
-    </script>
+                })
+                // Delete note when click icon delete
+                allFormDelete.forEach(e => {
+                    e.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        e.submit();
+                    })
+                })
+            </script>
+            <script>
+                // Task check if finish lesson check icon will change color green
+                const check = document.querySelectorAll('.check');
+                const checkActive = document.querySelector('#check-active');
+                const getCheckFinish = async () => {
+                    const response = await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>');
+                    const kq = await response.json();
+                    if (kq.kq === "Thanh cong") {
+                        const b = <% - currentLesson._id %>
+          for (let i = 0; i < check.length; i++) {
+                            var a = parseInt(check[i].getAttribute('value'));
+                            if (a === b) {
+                                check[i].style.color = 'rgb(29, 216, 29)';
+                                break;
+                            }
+                        }
+                    }
+                }
+            </script>
 </body>
 
 </html>

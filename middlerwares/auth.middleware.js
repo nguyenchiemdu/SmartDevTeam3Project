@@ -2,7 +2,7 @@ require('dotenv').config()
 const jwt = require("jsonwebtoken");
 
 class AuthMiddleware {
-    async authenticateUser(req,res,next){
+    async authenticateUser(req, res, next) {
         //Check token
         let payload
         try {
@@ -18,7 +18,7 @@ class AuthMiddleware {
         console.log(req.params)
         next()
     }
-    userInfor(req){
+    userInfor(req) {
         //Check token
         let payload
         try {
@@ -27,9 +27,9 @@ class AuthMiddleware {
         catch (e) {
             // console.log(e)
             payload = {
-                username : null,
-                id : null,
-                iat : null
+                username: null,
+                id: null,
+                iat: null
             };
         }
         return payload;

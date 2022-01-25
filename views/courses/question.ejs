@@ -5,18 +5,18 @@
                 <% questions.forEach(question=>{%>
                     <div class="container mt-sm-5 my-1 quiz">
                         <div class="question ml-sm-5 pl-sm-5 pt-2">
-                            <div  class="py-2 h5"><b>
+                            <div class="py-2 h5"><b>
                                     <%= question.question%>
                                 </b></div>
                             <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-                                <label class="options">A: <%= question.a%> <input type="radio" name="<%= question._id%>" value="a"><span
-                                            class="checkmark"></span> </label>
-                                <label class="options">B: <%= question.b%><input type="radio" name="<%= question._id%>" value="b"><span
-                                            class="checkmark"></span> </label>
-                                <label class="options">C: <%= question.c%> <input type="radio" name="<%= question._id%>" value="c"><span
-                                            class="checkmark"></span> </label>
-                                <label class="options">D: <%= question.d%> <input type="radio" name="<%= question._id%>" value="d"><span
-                                            class="checkmark"></span> </label>
+                                <label class="options">A: <%= question.a%> <input type="radio" name="<%= question._id%>"
+                                            value="a"><span class="checkmark"></span> </label>
+                                <label class="options">B: <%= question.b%><input type="radio" name="<%= question._id%>"
+                                            value="b"><span class="checkmark"></span> </label>
+                                <label class="options">C: <%= question.c%> <input type="radio" name="<%= question._id%>"
+                                            value="c"><span class="checkmark"></span> </label>
+                                <label class="options">D: <%= question.d%> <input type="radio" name="<%= question._id%>"
+                                            value="d"><span class="checkmark"></span> </label>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
             <div class="container mt-sm-5 my-1 quiz">
                 <div class="d-flex align-items-center pt-3">
                     <div id="prev"> <button class="btn btn-primary">Back</button> </div>
-                    <div class="ml-auto mr-sm-5"> <button class="btn btn-success"  type="submit">Submit</button> </div>
+                    <div class="ml-auto mr-sm-5"> <button class="btn btn-success" type="submit">Submit</button> </div>
                 </div>
             </div>
 

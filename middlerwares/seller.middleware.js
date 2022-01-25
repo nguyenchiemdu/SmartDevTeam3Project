@@ -28,7 +28,7 @@ class SellerMiddleware {
     async authenSellerLesson(req, res, next) {
         //Check token
         try {
-            try { var lesson = await Lesson.findOne({ _id: req.params.lessonid, course_id : req.params.courseid }); }
+            try { var lesson = await Lesson.findOne({ _id: req.params.lessonid, course_id: req.params.courseid }); }
             catch (e) {
                 return res.render('error', { error: { status: 404 }, message: 'Not found' });
             }
@@ -42,7 +42,7 @@ class SellerMiddleware {
     async authenSellerQuestion(req, res, next) {
         //Check token
         try {
-            try { var question = await Question.findOne({ _id: req.params.questionid, course_id : req.params.courseid }); }
+            try { var question = await Question.findOne({ _id: req.params.questionid, course_id: req.params.courseid }); }
             catch (e) {
                 return res.render('error', { error: { status: 404 }, message: 'Not found' });
             }

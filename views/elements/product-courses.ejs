@@ -7,8 +7,7 @@
         <div class="row" id="content">
             <% courses.forEach(function(courses) { %>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 course-main-slider slider-course" data-aos="flip-right"
-                data-aos-easing="ease-out-cubic"
-                data-aos-duration="1000">
+                    data-aos-easing="ease-out-cubic" data-aos-duration="1000">
                     <a id="<%= courses.id %>" href="/courses/<%= courses.slug %>" class="slider">
                         <img src="<%= courses.image %>" alt="">
                         <h3>

@@ -3,184 +3,192 @@
 
 <head>
     <% include ../elements/header %>
-    <% include ../elements/css/main %>
-    <% include ../elements/css/header-footer %>
-    <link rel="stylesheet" href="/assets/css/coursesDetails.css">
+        <% include ../elements/css/main %>
+            <% include ../elements/css/header-footer %>
+                <link rel="stylesheet" href="/assets/css/coursesDetails.css">
 </head>
 
 <body>
     <% include ../elements/navbar %>
-    <div style="padding-top:74px; height:auto" class="padding-navbar"></div>
-    <div class="course-content-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 course-left">
-                    <img src="<%= course.image %>" alt="">
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 course-right">
-                    <div class="info">
-                        <h3 class="title">Course info</h3>
-                        <h3 class="name">
-                            <%= course.name %>
-                        </h3>
-                        <h4 class="author"><span>By </span>
-                            <%= course.user_id.username %>
-                        </h4>
-                        <h6 class="price"><span>Price: </span>A$<%= course.price %>
-                        </h6>
-                        <h5 class="update"><span>Update: </span>
-                            <%= course.updatedAt.getDate() %> -
-                            <%= course.updatedAt.getMonth()+1 %> -
-                            <%= course.updatedAt.getFullYear() %> 
-                        </h5>
-                        <p class="description"><span>Description: </span><%= course.shortDescription %></p>
-                        <button course_id="<%= course._id %>" type="button"
-                            class="udlite-btn btn add-to-cart"><% if (isInCart && username) {%>Go to Cart
-                            <%}else { if (!isCheckedOut) {%> Add to Cart <%} if (isCheckedOut){%>Learn now <%}}%></button>
-                        <h6 class="this">This course includes:</h6>
-                        <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
-                        <p><i class='bx bx-file-blank'></i>3 articles</p>
-                        <p><i class='bx bx-download'></i>1 downloadable resource</p>
-                        <p><i class='bx bx-code-curly'></i>52 coding exercises</p>
-                        <p><i class='bx bx-link-alt'></i>Full lifetime access</p>
-                        <p><i class='bx bxs-videos'></i>Access on mobile and TV</p>
-                        <p><i class='bx bx-trophy'></i></i>Certificate of completion</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container course-bottom">
-            <div class="youll-learn">
-                <h3 class="title">What you'll learn</h3>
+        <div style="padding-top:74px; height:auto" class="padding-navbar"></div>
+        <div class="course-content-top">
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <p><i class='bx bx-check'></i>Learn the core Java skills needed to apply for Java developer
-                            positions in just 14 hours.</p>
-                        <p><i class='bx bx-check'></i>Be able to demonstrate your understanding of Java to future
-                            employers.</p>
-                        <p><i class='bx bx-check'></i>Acquire essential java basics for transitioning to the Spring
-                            Framework, Java EE, Android development and more.</p>
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 course-left">
+                        <img src="<%= course.image %>" alt="">
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <p><i class='bx bx-check'></i>Be able to sit for and pass the Oracle Java Certificate exam
-                            if you choose.</p>
-                        <p><i class='bx bx-check'></i>Learn industry "best practices" in Java software development
-                            from a professional Java developer who has worked in the language for 18 years.</p>
-                        <p><i class='bx bx-check'></i>Obtain proficiency in Java 8 and Java 11.</p>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 course-right">
+                        <div class="info">
+                            <h3 class="title">Course info</h3>
+                            <h3 class="name">
+                                <%= course.name %>
+                            </h3>
+                            <h4 class="author"><span>By </span>
+                                <%= course.user_id.username %>
+                            </h4>
+                            <h6 class="price"><span>Price: </span>A$<%= course.price %>
+                            </h6>
+                            <h5 class="update"><span>Update: </span>
+                                <%= course.updatedAt.getDate() %> -
+                                    <%= course.updatedAt.getMonth()+1 %> -
+                                        <%= course.updatedAt.getFullYear() %>
+                            </h5>
+                            <p class="description"><span>Description: </span>
+                                <%= course.shortDescription %>
+                            </p>
+                            <button course_id="<%= course._id %>" type="button" class="udlite-btn btn add-to-cart">
+                                <% if (isInCart && username) {%>Go to Cart
+                                    <%}else { if (!isCheckedOut) {%> Add to Cart <%} if (isCheckedOut){%>Learn now
+                                            <%}}%>
+                            </button>
+                            <h6 class="this">This course includes:</h6>
+                            <p><i class='bx bxs-videos'></i>80 hours on-demand video</p>
+                            <p><i class='bx bx-file-blank'></i>3 articles</p>
+                            <p><i class='bx bx-download'></i>1 downloadable resource</p>
+                            <p><i class='bx bx-code-curly'></i>52 coding exercises</p>
+                            <p><i class='bx bx-link-alt'></i>Full lifetime access</p>
+                            <p><i class='bx bxs-videos'></i>Access on mobile and TV</p>
+                            <p><i class='bx bx-trophy'></i></i>Certificate of completion</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="companies">
-                <h3 class="title">Top companies offer this course to their employees</h3>
-                <p>This course was selected for our collection of top-rated courses trusted by businesses worldwide.
-                    <a href="#">Learn more</a>
-                </p>
-                <img src="/assets/images/courseDetails-companies1.svg" alt="">
-                <img src="/assets/images/courseDetails-companies2.svg" alt="">
-                <img src="/assets/images/courseDetails-companies3.svg" alt="">
-                <img src="/assets/images/courseDetails-companies4.svg" alt="">
-                <img src="/assets/images/courseDetails-companies5.svg" alt="">
-            </div>
-            <div class="requirements">
-                <h3 class="title">Requirements</h3>
-                <p><i class='bx bxs-circle'></i>A computer with either Windows, Mac or Linux to install all the free
-                    software and tools needed to build your new apps (I provide specific videos on installations for
-                    each platform).</p>
-                <p><i class='bx bxs-circle'></i>A strong work ethic, willingness to learn, and plenty of excitement
-                    about the awesome new programs you’re about to build.</p>
-                <p><i class='bx bxs-circle'></i>Nothing else! It’s just you, your computer and your hunger to get
-                    started today.</p>
-            </div>
-            <div class="who-this-course">
-                <h3 class="title">Who this course is for:</h3>
-                <p><i class='bx bxs-circle'></i>This course is perfect for absolute beginners with no previous
-                    coding experience, to intermediates looking to sharpen their skills to the expert level.</p>
-                <p><i class='bx bxs-circle'></i>Those looking to build creative and advanced Java apps for either
-                    personal use or for high-paying clients as a self-employed contractor.</p>
-                <p><i class='bx bxs-circle'></i>Those who love letting their own creative genius shine, whilst
-                    getting paid handsome amounts to do so.</p>
-            </div>
-            <div class="bought">
-                <h3 class="title">Students also bought</h3>
-                <a href="" class="course">
-                    <img src="http://img.youtube.com/vi/x0fSBAgBrOQ/sddefault.jpg" alt="">
-                    <div class="title">
-                        <h6>Learn Python Programming Masterclass</h6>
-                        <p><span>65 total hours</span> | Update 12/2021</p>
-                        <div class="price">A$21.99</div>
+            <div class="container course-bottom">
+                <div class="youll-learn">
+                    <h3 class="title">What you'll learn</h3>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <p><i class='bx bx-check'></i>Learn the core Java skills needed to apply for Java developer
+                                positions in just 14 hours.</p>
+                            <p><i class='bx bx-check'></i>Be able to demonstrate your understanding of Java to future
+                                employers.</p>
+                            <p><i class='bx bx-check'></i>Acquire essential java basics for transitioning to the Spring
+                                Framework, Java EE, Android development and more.</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <p><i class='bx bx-check'></i>Be able to sit for and pass the Oracle Java Certificate exam
+                                if you choose.</p>
+                            <p><i class='bx bx-check'></i>Learn industry "best practices" in Java software development
+                                from a professional Java developer who has worked in the language for 18 years.</p>
+                            <p><i class='bx bx-check'></i>Obtain proficiency in Java 8 and Java 11.</p>
+                        </div>
                     </div>
-                </a>
-                <a href="" class="course">
-                    <img src="http://img.youtube.com/vi/x0fSBAgBrOQ/sddefault.jpg" alt="">
-                    <div class="title">
-                        <h6>Learn Python Programming Masterclass</h6>
-                        <p><span>65 total hours</span> | Update 12/2021</p>
-                        <div class="price">A$21.99</div>
-                    </div>
-                </a>
-            </div>
-            <div class="reviews">
-                <h3 class="title">Reviews</h3>
-              <% commentUser.forEach(function(comment) { %>   
-                <div class="user">
-                    <img src="/assets/images/review-test.jpg" alt="">
-                    <h5><%= comment.user_id.username %> </h5>
-                    <h6>
-                        <%= comment.createdAt.getDate() %>/
-                        <%= comment.createdAt.getMonth()+1 %>/
-                        <%= comment.createdAt.getFullYear() %> 
-                    </h6>
-                    <p><%= comment.commentContent  %> 
+                </div>
+                <div class="companies">
+                    <h3 class="title">Top companies offer this course to their employees</h3>
+                    <p>This course was selected for our collection of top-rated courses trusted by businesses worldwide.
+                        <a href="#">Learn more</a>
                     </p>
-                    <a href="#">Report</a>
+                    <img src="/assets/images/courseDetails-companies1.svg" alt="">
+                    <img src="/assets/images/courseDetails-companies2.svg" alt="">
+                    <img src="/assets/images/courseDetails-companies3.svg" alt="">
+                    <img src="/assets/images/courseDetails-companies4.svg" alt="">
+                    <img src="/assets/images/courseDetails-companies5.svg" alt="">
                 </div>
-                <% }); %>
-               
+                <div class="requirements">
+                    <h3 class="title">Requirements</h3>
+                    <p><i class='bx bxs-circle'></i>A computer with either Windows, Mac or Linux to install all the free
+                        software and tools needed to build your new apps (I provide specific videos on installations for
+                        each platform).</p>
+                    <p><i class='bx bxs-circle'></i>A strong work ethic, willingness to learn, and plenty of excitement
+                        about the awesome new programs you’re about to build.</p>
+                    <p><i class='bx bxs-circle'></i>Nothing else! It’s just you, your computer and your hunger to get
+                        started today.</p>
+                </div>
+                <div class="who-this-course">
+                    <h3 class="title">Who this course is for:</h3>
+                    <p><i class='bx bxs-circle'></i>This course is perfect for absolute beginners with no previous
+                        coding experience, to intermediates looking to sharpen their skills to the expert level.</p>
+                    <p><i class='bx bxs-circle'></i>Those looking to build creative and advanced Java apps for either
+                        personal use or for high-paying clients as a self-employed contractor.</p>
+                    <p><i class='bx bxs-circle'></i>Those who love letting their own creative genius shine, whilst
+                        getting paid handsome amounts to do so.</p>
+                </div>
+                <div class="bought">
+                    <h3 class="title">Students also bought</h3>
+                    <a href="" class="course">
+                        <img src="http://img.youtube.com/vi/x0fSBAgBrOQ/sddefault.jpg" alt="">
+                        <div class="title">
+                            <h6>Learn Python Programming Masterclass</h6>
+                            <p><span>65 total hours</span> | Update 12/2021</p>
+                            <div class="price">A$21.99</div>
+                        </div>
+                    </a>
+                    <a href="" class="course">
+                        <img src="http://img.youtube.com/vi/x0fSBAgBrOQ/sddefault.jpg" alt="">
+                        <div class="title">
+                            <h6>Learn Python Programming Masterclass</h6>
+                            <p><span>65 total hours</span> | Update 12/2021</p>
+                            <div class="price">A$21.99</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="reviews">
+                    <h3 class="title">Reviews</h3>
+                    <% commentUser.forEach(function(comment) { %>
+                        <div class="user">
+                            <img src="/assets/images/review-test.jpg" alt="">
+                            <h5>
+                                <%= comment.user_id.username %>
+                            </h5>
+                            <h6>
+                                <%= comment.createdAt.getDate() %>/
+                                    <%= comment.createdAt.getMonth()+1 %>/
+                                        <%= comment.createdAt.getFullYear() %>
+                            </h6>
+                            <p>
+                                <%= comment.commentContent %>
+                            </p>
+                            <a href="#">Report</a>
+                        </div>
+                        <% }); %>
+
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-        function addToCartLocal() {
-            var cart = JSON.parse(localStorage.getItem('cart'));
-            if (cart == null) cart = [];
-            cart = new Set(cart)
-            cart.add('<%=course._id.toString()%>')
-            cart = Array.from(cart)
-            localStorage.setItem('cart', JSON.stringify(cart))
-            window.location.href = "/cart"
-        }
-        async function addToUserCart() {
-            if (<%= !isInCart %> && <%= !isCheckedOut %>) {
-                const result = await fetch('/cart', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        course_id: '<%=course._id.toString()%>'
-                    })
-                }).then((res) => res.json());
+        <script>
+            function addToCartLocal() {
+                var cart = JSON.parse(localStorage.getItem('cart'));
+                if (cart == null) cart = [];
+                cart = new Set(cart)
+                cart.add('<%=course._id.toString()%>')
+                cart = Array.from(cart)
+                localStorage.setItem('cart', JSON.stringify(cart))
+                window.location.href = "/cart"
             }
-            else { 
-                 if (<%=isCheckedOut %>)return window.location.href = "/learning"}
-            // console.log(result);
-            window.location.href = "/cart"
-        }
-        var addToCartButton = document.querySelector('.add-to-cart');
+            async function addToUserCart() {
+                if (<%= !isInCart %> && <%= !isCheckedOut %>) {
+                    const result = await fetch('/cart', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            course_id: '<%=course._id.toString()%>'
+                        })
+                    }).then((res) => res.json());
+                }
+            else {
+                    if (<%= isCheckedOut %>) return window.location.href = "/learning"
+                }
+                // console.log(result);
+                window.location.href = "/cart"
+            }
+            var addToCartButton = document.querySelector('.add-to-cart');
 
-    </script>
-                            <% if (!username) { %>
-                            <script>
-                                addToCartButton.addEventListener('click', addToCartLocal)
-                            </script>
-                            <%} else {%>
-                            <script>
-                                addToCartButton.addEventListener('click', addToUserCart)
-                            </script>
-                            <%}%>    
-        <% include ../elements/footer %>
+        </script>
+        <% if (!username) { %>
+            <script>
+                addToCartButton.addEventListener('click', addToCartLocal)
+            </script>
+            <%} else {%>
+                <script>
+                    addToCartButton.addEventListener('click', addToUserCart)
+                </script>
+                <%}%>
+                    <% include ../elements/footer %>
 
-                            <% include ../elements/script %>
+                        <% include ../elements/script %>
                             <script>
                                 async function checkUserCart() {
                                     const result = await fetch('/usercart', {

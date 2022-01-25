@@ -3,41 +3,48 @@
         <h1 class="cart__title">Shopping Cart</h1>
         <div class="cart__shopping">
             <div class="cart__list">
-                <p class="my-3"><%= courses.length %> Courses in Cart</p>
-                <% var sum = 0; %>
-                <% courses.forEach((course)=> { %>
-                    <% sum += parseFloat(course.price) %>
-                    <section class="card" data-aos="zoom-out-right" data-aos-duration="1000">
-                        <div class="card-container">
-                            <div class="card-image">
-                                <img src="<%=course.image%>" alt="photo" />
-                            </div>
-                            <div class="card-info">
-                                <h6><a style="color: white;" href="/courses/<%=course.slug%>"><%=course.name%></a></h6>
-                                <p>By <%= course.author %></p>
-                                <p class="card-rating">
-                                    4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                    <span>(1000 rating)</span>
-                                </p>
-                                <p>14 heures au total - Beginner</p>
-                            </div>
-                            <div class="card-button">
-                                <button class="btn btn-link btn-remove" id="<%=course._id%>">Remove</button>
-                                <button class="btn btn-link">Save for Later</button>
-                                <button class="btn btn-link">Move to Wishlist</button>
-                            </div>
-                            <div class="card-price">
-                                <h5 class="card-text">$<%=course.price%><i class="fas fa-tag mx-2"></i></h5>
-                                <h6><del>$<%=course.price%></del></h6>
-                            </div>
-                        </div>
-                    </section>
-                <%})%>           
+                <p class="my-3">
+                    <%= courses.length %> Courses in Cart
+                </p>
+                <% var sum=0; %>
+                    <% courses.forEach((course)=> { %>
+                        <% sum +=parseFloat(course.price) %>
+                            <section class="card" data-aos="zoom-out-right" data-aos-duration="1000">
+                                <div class="card-container">
+                                    <div class="card-image">
+                                        <img src="<%=course.image%>" alt="photo" />
+                                    </div>
+                                    <div class="card-info">
+                                        <h6><a style="color: white;" href="/courses/<%=course.slug%>">
+                                                <%=course.name%>
+                                            </a></h6>
+                                        <p>By <%= course.author %>
+                                        </p>
+                                        <p class="card-rating">
+                                            4.5<i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                class="fas fa-star"></i>
+                                            <span>(1000 rating)</span>
+                                        </p>
+                                        <p>14 heures au total - Beginner</p>
+                                    </div>
+                                    <div class="card-button">
+                                        <button class="btn btn-link btn-remove" id="<%=course._id%>">Remove</button>
+                                        <button class="btn btn-link">Save for Later</button>
+                                        <button class="btn btn-link">Move to Wishlist</button>
+                                    </div>
+                                    <div class="card-price">
+                                        <h5 class="card-text">$<%=course.price%><i class="fas fa-tag mx-2"></i></h5>
+                                        <h6><del>$<%=course.price%></del></h6>
+                                    </div>
+                                </div>
+                            </section>
+                            <%})%>
             </div>
             <div class="cart__total" data-aos="zoom-out-left" data-aos-duration="1000">
                 <p>Total:</p>
-                <h1 class="total_price">$<%=sum%></h1>
+                <h1 class="total_price">$<%=sum%>
+                </h1>
                 <p><del class="total_price">$<%=sum%></del></p>
                 <p>0% off</p>
                 <button onclick="location.href='/cart/checkout'" class="btn-pink">Checkout</button>

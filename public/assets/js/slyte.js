@@ -1,9 +1,9 @@
 
 //panigation
 $(document).ready(function () {
-  $('#sidebarCollapse').on('click', function () {
-      $('#sidebar').toggleClass('active');
-  });
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
 });
 
 
@@ -11,37 +11,37 @@ $(document).ready(function () {
 // Start filter course
 // Fetch API method Post and
 async function postData(url = "", data = {}) {
-  // Default options are marked with *
-  const response = await fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
 }
 
-var valueSlug,slug;
+var valueSlug, slug;
 const courseCategory = "/category";
 const renderCourse = document.querySelectorAll(".renderCourse");
 // Fetch api method get to get courses which filter by category
 const getCourses = async (data) => {
     await fetch(courseCategory)
-    .then(res => res.json())
-    .then(data);
+        .then(res => res.json())
+        .then(data);
 }
 // Get slug from button on click to know which category want to filter course
-const getSlug = (value) =>{
+const getSlug = (value) => {
     return value;
 }
 // Render course data
 const renderCourses = (courses) => {
     courses = courses.filter((item) => {
-      return item.isValidated === 1;
+        return item.isValidated === 1;
     });
 
     var htmls = courses.map(function (course) {
@@ -55,19 +55,19 @@ const renderCourses = (courses) => {
 
         `;
     });
-    Array.prototype.map.call(renderCourse, function(render){render.innerHTML = htmls.join('')});
+    Array.prototype.map.call(renderCourse, function (render) { render.innerHTML = htmls.join('') });
 
 }
 const filterCourse = async () => {
     getCourses((courses) => {
-      renderCourses(courses);
+        renderCourses(courses);
     });
 }
 
 const courseTitle = document.querySelector(".course-title");
 const form = document.getElementById('btn-categories')
 
-if (courseTitle !=null) courseTitle.addEventListener("click", async function (x) {
+if (courseTitle != null) courseTitle.addEventListener("click", async function (x) {
     if (x.target.classList.contains("course-button")) {
         const Target = x.target.getAttribute("data-title");
         valueSlug = await Target.slice(1);

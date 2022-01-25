@@ -7,7 +7,6 @@ class ApiController {
     // [GET] Full List Note
     async getNote(req, res, next) {
         const k = await Note.find();
-        console.log(Note);
         res.json(k);
     }
     // [Post] Create new Note
