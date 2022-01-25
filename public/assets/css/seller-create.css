@@ -29,7 +29,6 @@
     border-color: var(--main-background4-color);
 }
 .course-container {
-    width: 100%;
     margin: 15px;
     border: 1px solid rgb(158, 158, 158);
     border-radius: 5px;
@@ -43,20 +42,6 @@
 .course-container a.edit, .course-container a.delete {
     text-align: center;
     margin-top: 30px;
-}
-.course-container button.up-down {
-    background-color: transparent;
-    border: none;
-    color: var(--main-color);
-    cursor: pointer;
-    font-size: 25px;
-    display: block;
-    text-align: center;
-    margin-top: 8px;
-    padding: 0;
-}
-.course-container button.up-down:disabled {
-    visibility: hidden;
 }
 .progress-bar {
     background-color: rgb(238, 31, 176);
