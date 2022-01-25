@@ -10,15 +10,22 @@ class ApiController {
         console.log(Note);
         res.json(k);
     }
+    // [GET] Note by lesson
+    async getNoteByLesson(req, res, next) {
+        let userInfor = authMiddleware.userInfor(req);
+        const lessonId = req.params.lesson_id;
+        const k = await Note.find({user_id: userInfor.id, lesson_id: lessonId});
+        res.json(k);
+    }
     // [Post] Create new Note
     async postNote(req, res, next) {
-        const { lesson_id, comment, course_id, second } = req.body;
+        const { lesson_id, noteContent, course_id, second } = req.body;
         let userInfor = authMiddleware.userInfor(req);
         try {
             const note = new Note({
                 user_id: userInfor.id,
                 lesson_id: parseInt(lesson_id),
-                comment,
+                noteContent,
                 second
             });
             await note.save();
@@ -30,8 +37,9 @@ class ApiController {
     }
     // [Patch] Edit note
     async editNote(req, res, next) {
-        await Note.updateOne({ _id: req.params.id }, { comment: req.body.comment });
-        res.redirect("back");
+        const kq = await Note.updateOne({ _id: req.params.id }, { noteContent: req.body.noteContent });
+        // res.redirect("back");
+        res.json(kq);
     }
     // [Delete] Delete note
     async deleteNote(req, res, next) {
