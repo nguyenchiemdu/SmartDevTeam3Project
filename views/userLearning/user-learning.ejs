@@ -63,12 +63,12 @@
                         <i style="color: rgb(29, 216, 29);" class='bx bxs-check-circle'></i>
                       </div>
                       <% }else{ %>
-                        <div class="check">
+                        <div class="check" value = <%- lesson._id%>>
                           <i style="color: none;" class='bx bxs-check-circle'></i>
                         </div>
                         <% } %>
                           <div class="ml-2">
-                            <% if(userTracking.lesson_id == lesson._id){ %>
+                            <% if(currentLesson._id == lesson._id){ %>
                               <div style="color: #e40084; font-weight: bold;" class="lesson-name">Lesson
                                 <%=idLesson++ %>: <%=lesson.title %>
                               </div>
@@ -285,7 +285,7 @@
                           src="https://i.imgur.com/RpzrMR2.jpg" width="40">
                         <div class="d-flex flex-column justify-content-start ml-2"><span
                             class="d-block font-weight-bold name">
-                            Ghi chú ở
+                            Ghi chú tại
                             <% if(note.second<60){ %>
                               <%- note.second%> giây
                             <%}else if (note.second>=60 && note.second <3600){%>
@@ -403,12 +403,14 @@
             // console.log(timeSpent);
           }
           timer = setInterval(record, 100);
+          timer2 = setInterval(checkFinish, 1000);
         } 
         else{
           clearInterval(timer);
           clearInterval(timer2);
         }
       }
+      // Convert second to hour/minute/second
       function secondsToTime(secs)
       {
           var hours = Math.floor(secs / (60 * 60));
@@ -426,9 +428,74 @@
           };
           return obj;
       }
+      // Check if user have finish learn, it will post or patch item
+      function checkFinish () {
+        let i=0;
+        rawData = [];
+        while (i< timeSpent.length) {
+          if (timeSpent[i]) {
+            let start = i;
+            let end = i;
+            while (timeSpent[i] && i < timeSpent.length) end = i++;
+            rawData.push({
+              start,end
+            })
+          } else i++;
+        }
+        let sumWatchedSecond =0;
+        rawData.forEach(segment=> {
+          sumWatchedSecond = sumWatchedSecond + segment.end - segment.start +1;
+        });
+        // Check if user have done learn above 80%
+        if(sumWatchedSecond/player.getDuration() > 0.8){
+          // If have data rawData in database, i will edit 
+          if(serverData.length>0){
+            const editRaw = async () =>{
+              await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>', {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  rawData,
+                })
+              })
+            }
+            // Check if done the check will color green
+            const updateUI = async() =>{
+              await editRaw();
+              getCheckFinish();
+            }
+            updateUI();
+          }
+          // Else dont have i will post create new rawData
+          else if (serverData.length==0){
+            const postRaw = async () =>{
+              await fetch('/learning/<%= course._id %>/<%= currentLesson._id%>', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                progress: (player.getCurrentTime() / player.getDuration() * 100),
+                duration : player.getDuration(),
+                rawData,
+              })
+            })
+            }
+            // Check if done the check will color green
+            const updateUI = async() =>{
+              await postRaw();
+              getCheckFinish();
+            }
+            updateUI();
+          }
+        }
+      }
       function record() {
         timeSpent[parseInt(player.getCurrentTime())] = true;
         showPercentage();
+        // Render time when you create note
         currentTime.value = Math.floor(player.getCurrentTime());
         var convertTime = secondsToTime(currentTime.value)
         if(convertTime.m <1){
@@ -498,6 +565,7 @@
 
     </script>
     <script>
+      // Task render styop time when focus on note text area
       const formNote = document.getElementById('form-note');
       const btnNote = document.getElementById('btn-note');
       var commentNote = document.getElementById('commentNote');
@@ -544,11 +612,13 @@
     </script> -->
 
     <script>
+      // Task edit and delete note
       const editNoteBtn = document.querySelectorAll('.editNoteBtn');
       const editNoteForm = document.getElementById('editNote-form');
       const allFormDelete = document.querySelectorAll('.deleteNote-form');
       const noteText = document.querySelectorAll('.note-text');
       const containerNote = document.querySelectorAll('.container-note');
+      // Edit note show new text area and patch new text area to edit note
       containerNote.forEach( e => {
         e.children[0].children[2].children[0].addEventListener('click', event =>{
           event.preventDefault();
@@ -563,12 +633,32 @@
         })
 
       })
+      // Delete note when click icon delete
       allFormDelete.forEach(e => {
         e.addEventListener('click',(event)=>{
           event.preventDefault();
           e.submit();
         })
       })
+    </script>
+    <script>
+      // Task check if finish lesson check icon will change color green
+      const check = document.querySelectorAll('.check');
+      const checkActive = document.querySelector('#check-active');
+      const getCheckFinish = async () =>{
+        const response = await fetch('/api/check-finish/<%= course._id %>/<%= currentLesson._id%>');
+        const kq = await response.json();
+        if(kq.kq === "Thanh cong"){
+          const b = <%- currentLesson._id %>
+          for(let i=0; i<check.length; i++){
+            var a = parseInt(check[i].getAttribute('value'));
+            if(a === b){
+              check[i].style.color = 'rgb(29, 216, 29)';
+              break;
+            }
+          }
+        }
+      }
     </script>
 </body>
 

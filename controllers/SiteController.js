@@ -466,6 +466,7 @@ class SiteController {
       if ( sumWatchedSecond/req.body.duration > 0.8) doc.isFinish = true;
       // else doc.isFinish = false;
       await doc.save();
+      res.json({kq: "Thanh cong"});
     } catch (e) {
       console.log(e);
       next(e);
