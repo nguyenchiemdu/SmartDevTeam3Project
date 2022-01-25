@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var siteController = require("../controllers/SiteController");
 var courseController = require("../controllers/CourseController");
-/* GET home page. */
+
 router.get("/", siteController.home);
 
 router.get("/category", siteController.getCategory);
@@ -18,9 +18,6 @@ router.get("/success",siteController.success)
 router.get("/courses/:slug", courseController.show);
 
 router.get("/courses", siteController.courses);
-
-// chưa đăng nhập chưa thể vào trang đổi pass
-router.get("/password", siteController.password);
 
 router.get("/cart", siteController.cart);
 
@@ -55,8 +52,6 @@ router.get("/learning/:id/question", siteController.question);
 router.post("/learning/:id/question", siteController.postQuestion);
 
 router.post("/learning/:courseId/:lessonid", siteController.trackUser);
-
-// router.get("/certification", siteController.certification);
 
 router.get("/search", siteController.search);
 

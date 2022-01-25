@@ -69,15 +69,11 @@ const getYoutubeVideoDuration = async (videoId) => {
       `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyDR5YdTOMZJ43q47od7XVSGLfjQCRNwegA`
     )
     .then((response) => {
-      // handle success
       var youtubeTime = response.data.items[0].contentDetails.duration;
-      // console.log(youtubeTime);
       var duration = ytDurationFormat(youtubeTime);
-      // console.log(duration);
       return duration;
     })
     .catch(function (error) {
-      // handle error
       console.log(error);
     });
   return result;
@@ -86,7 +82,6 @@ const getYoutubeVideoDuration = async (videoId) => {
 class SiteController {
   // GET /
   async home(req, res, next) {
-    //////////
     try {
       var data = await Promise.all([
         Course.find({ isValidated: 1 }),
@@ -203,26 +198,12 @@ class SiteController {
           return newCourse;
         })
       );
-
-      //Code cua Tu
-      // let result = await pagination(req,UserCourse,pageSize,'course_id').then(res => res)
-      //   console.log(result.docs);
-      //   let userCourses = result.docs.map(doc => doc.course_id);
-      // res.render("learning.ejs", {
-      //   ...authMiddleware.userInfor(req),
-      //   courses : userCourses, // sản phẩm trên một paga
-      //   current: result.page, // page hiện tại
-      //   pages: result.pages
-
-      // console.log(userCourses);
       res.render("learning.ejs", {
         ...authMiddleware.userInfor(req),
         courses: userCourses,
       });
     } catch (e) {
       next(e);
-      // console.log(e);
-      // res.json(e);
     }
   }
   async userLearning(req, res, next) {
@@ -235,10 +216,10 @@ class SiteController {
 
       // kiem tra xem user da mua khoa nay chua
       let usercourse = await UserCourse.findOne({
-        user_id : userInfor.id,
-        course_id : courseId
+        user_id: userInfor.id,
+        course_id: courseId
       });
-      if (usercourse== null) throw { message: "Bạn chưa mua khoá học này", status: 403 }
+      if (usercourse == null) throw { message: "Bạn chưa mua khoá học này", status: 403 }
       let videoId = req.query.videos;
       if (videoId == null) {
         var lesson = await Lesson.findOne({ course_id: courseId });
@@ -260,10 +241,6 @@ class SiteController {
         return lessons.some((lesson) => user.lesson_id == lesson._id);
       });
 
-      //tim tat ca cac lesson cua course
-      // const countLesson = lessons.filter(
-      //   (countLes) => countLes.isFinish == true || countLes.isFinish == false
-      // );
       const sumCountLesson = lessons.length;
 
       const countCheckLesson = filterLesson.filter(
@@ -275,8 +252,6 @@ class SiteController {
         (userLes) => userLes.isFinish == true
       );
       const sumFinish = countFinish.length;
-      // console.log("countCheckLesson");
-      // console.log(countCheckLesson);
       let mapIsFisnish = {};
       countCheckLesson.forEach((userlesson) => {
         mapIsFisnish[userlesson.lesson_id] = userlesson.isFinish;
@@ -290,30 +265,28 @@ class SiteController {
         percentFinish = (sumFinish / sumCountLesson) * 100;
       }
 
-      // console.log(countCheckLesson);
-
       // kiem tra da xem hêt bai hoc hay chua?
       const findAllCourseNotFinished = countFinish.filter(
         (userLes) => userLes.isFinish
       );
 
-      let hasAllFinished =(findAllCourseNotFinished.length === sumCountLesson) ? true :false
+      let hasAllFinished = (findAllCourseNotFinished.length === sumCountLesson) ? true : false
       var doc = await UserCourse.findOne({
         user_id: userInfor.id,
         course_id: courseId,
-        isCompleted : 1,
+        isCompleted: 1,
       })
-      let isTested = (doc !==null) ? true : false
+      let isTested = (doc !== null) ? true : false
 
       let currentLesson;
       let current = 0;
-      for (let i=0;i< lessons.length;i++) {
+      for (let i = 0; i < lessons.length; i++) {
         if (lessons[i]._id == videoId) {
           current = i;
         }
       };
       currentLesson = lessons[current];
-      if ( current >0 && mapIsFisnish[lessons[current-1]._id] != true ) throw { message: "Bạn chưa được phép học bài này", status: 403 };
+      if (current > 0 && mapIsFisnish[lessons[current - 1]._id] != true) throw { message: "Bạn chưa được phép học bài này", status: 403 };
       var userTracking = await UserLesson.findOne({
         user_id: userInfor.id,
         lesson_id: currentLesson._id,
@@ -326,10 +299,10 @@ class SiteController {
           return commentUser;
         });
       // Note
-      const notes = await Note.find({lesson_id: currentLesson._id, user_id: userInfor.id}).populate("lesson_id");
+      const notes = await Note.find({ lesson_id: currentLesson._id, user_id: userInfor.id }).populate("lesson_id");
       res.render("userLearning/user-learning.ejs", {
         progress: userTracking.progress == null ? 0 : userTracking.progress,
-        rawData : userTracking.rawData == null ? [] : userTracking.rawData,
+        rawData: userTracking.rawData == null ? [] : userTracking.rawData,
         lessons,
         courseId,
         currentLesson,
@@ -361,15 +334,16 @@ class SiteController {
     try {
       let courseId = req.params.id;
       console.log(courseId);
-      let questions = await Question.find({course_id:courseId});
+      let questions = await Question.find({ course_id: courseId });
       console.log(questions);
       console.log();
 
       res.render("question.ejs",
-      {...authMiddleware.userInfor(req),
-        questions,
-        courseId
-      });
+        {
+          ...authMiddleware.userInfor(req),
+          questions,
+          courseId
+        });
     } catch (e) {
       console.log(e)
       next(e)
@@ -380,21 +354,18 @@ class SiteController {
     try {
       const formData = req.body;
 
-       const userInfor = authMiddleware.userInfor(req);
+      const userInfor = authMiddleware.userInfor(req);
       let courseId = req.params.id;
       let countListTrueAnswers = 0;
-      let questions = await Question.find({course_id:courseId});
-      // let listTrueAnswers = questions.map(question =>{
-      //   return question._id.toString() + question.trueAnswer.toString();
-      // })
+      let questions = await Question.find({ course_id: courseId });
       console.log(formData);
-      questions.forEach(question =>{
-        if(formData[question._id] == question.trueAnswer){
+      questions.forEach(question => {
+        if (formData[question._id] == question.trueAnswer) {
           countListTrueAnswers++;
         }
       });
-      let isPassed = countListTrueAnswers/questions.length >= 0.8 ? true: false;
-      if(isPassed){
+      let isPassed = countListTrueAnswers / questions.length >= 0.8 ? true : false;
+      if (isPassed) {
         var CourseCompleted = await UserCourse.findOne({
           user_id: userInfor.id,
           course_id: courseId,
@@ -404,10 +375,11 @@ class SiteController {
       }
 
       res.render("question-success.ejs",
-      {...authMiddleware.userInfor(req),
-       isPassed,
-      
-      });
+        {
+          ...authMiddleware.userInfor(req),
+          isPassed,
+
+        });
     } catch (e) {
       console.log(e)
       next(e)
@@ -444,8 +416,6 @@ class SiteController {
       var userInfor = authMiddleware.userInfor(req);
       if (userInfor.id == null)
         throw { message: "Bạn phải đăng nhập trước", status: 401 };
-      // console.log(typeof req.params.lessonid);
-      // console.log(req.body);
       var doc = await UserLesson.findOne({
         user_id: userInfor.id,
         lesson_id: req.params.lessonid,
@@ -457,15 +427,15 @@ class SiteController {
         });
       doc.progress = req.body.progress;
       doc.rawData = req.body.rawData;
-      let sumWatchedSecond =0;
-      doc.rawData.forEach(segment=> {
-        sumWatchedSecond = sumWatchedSecond + segment.end - segment.start +1;
+      let sumWatchedSecond = 0;
+      doc.rawData.forEach(segment => {
+        sumWatchedSecond = sumWatchedSecond + segment.end - segment.start + 1;
       });
 
-      if ( sumWatchedSecond/req.body.duration > 0.8) doc.isFinish = true;
+      if (sumWatchedSecond / req.body.duration > 0.8) doc.isFinish = true;
       // else doc.isFinish = false;
       await doc.save();
-      res.json({kq: "Thanh cong"});
+      res.json({ kq: "Thanh cong" });
     } catch (e) {
       console.log(e);
       next(e);
@@ -535,13 +505,13 @@ class SiteController {
         userInfor.username == null
           ? []
           : await UserCart.find({ user_id: userInfor.id })
-              .populate("course_id")
-              .exec()
-              .then((userCart) => {
-                let courses = userCart.map((course) => course.course_id);
-                return courses;
-              })
-              .catch((e) => console.log(e));
+            .populate("course_id")
+            .exec()
+            .then((userCart) => {
+              let courses = userCart.map((course) => course.course_id);
+              return courses;
+            })
+            .catch((e) => console.log(e));
       res.render("shopping-cart", {
         title: "Cart",
         ...userInfor,
@@ -554,35 +524,35 @@ class SiteController {
   }
   async checkout(req, res, next) {
     const userInfor = authMiddleware.userInfor(req);
-    const getEmail = await User.findOne({_id: userInfor.id});
+    const getEmail = await User.findOne({ _id: userInfor.id });
     try {
-      if(userInfor.id == null) throw {message: "Bạn phải đăng nhập trước", status: 401}
+      if (userInfor.id == null) throw { message: "Bạn phải đăng nhập trước", status: 401 }
       var infoCheckout =
         userInfor.username == null
           ? null
           : await UserCart.find({ user_id: userInfor.id })
-              .populate("course_id")
-              .exec()
-              .then((userCart) => {
-                let sum = 0;
-                var courses = userCart.map((course) => course.course_id);
-                userCart.forEach(
-                  (item) => (sum += parseFloat(item.course_id.price))
-                );
-                return { sum, courses };
-              })
-              .catch((e) => console.log(e));
-      if(getEmail.email == '') throw {message: "Bạn phải cập nhật thông tin trong profile trước", status: 403};
+            .populate("course_id")
+            .exec()
+            .then((userCart) => {
+              let sum = 0;
+              var courses = userCart.map((course) => course.course_id);
+              userCart.forEach(
+                (item) => (sum += parseFloat(item.course_id.price))
+              );
+              return { sum, courses };
+            })
+            .catch((e) => console.log(e));
+      if (getEmail.email == '') throw { message: "Bạn phải cập nhật thông tin trong profile trước", status: 403 };
       if (infoCheckout != null) {
-        if (infoCheckout.sum !=0)
-        return res.render("checkout", {
-          courses: infoCheckout.courses,
-          sumPrice: infoCheckout.sum,
-          email: getEmail.email,
-          title: "Check Out",
-          ...authMiddleware.userInfor(req),
-        })
-        else throw  {message: "Bạn chưa có khoá học nào trong giỏ hàng!", status: 404};
+        if (infoCheckout.sum != 0)
+          return res.render("checkout", {
+            courses: infoCheckout.courses,
+            sumPrice: infoCheckout.sum,
+            email: getEmail.email,
+            title: "Check Out",
+            ...authMiddleware.userInfor(req),
+          })
+        else throw { message: "Bạn chưa có khoá học nào trong giỏ hàng!", status: 404 };
 
       }
       throw { message: "Bạn phải đăng nhập trước", status: 401 };
@@ -601,16 +571,16 @@ class SiteController {
       userInfor.username == null
         ? null
         : await UserCart.find({ user_id: userInfor.id })
-            .populate("course_id")
-            .exec()
-            .then((userCart) => {
-              let sum = 0;
-              userCart.forEach(
-                (item) => (sum += parseFloat(item.course_id.price))
-              );
-              return sum;
-            })
-            .catch((e) => console.log(e));
+          .populate("course_id")
+          .exec()
+          .then((userCart) => {
+            let sum = 0;
+            userCart.forEach(
+              (item) => (sum += parseFloat(item.course_id.price))
+            );
+            return sum;
+          })
+          .catch((e) => console.log(e));
     try {
       // Create token check valid card
       const token = await stripe.tokens.create({
@@ -686,16 +656,16 @@ class SiteController {
       userInfor.username == null
         ? null
         : await UserCart.find({ user_id: userInfor.id })
-            .populate("course_id")
-            .exec()
-            .then((userCart) => {
-              let sum = 0;
-              userCart.forEach(
-                (item) => (sum += parseFloat(item.course_id.price))
-              );
-              return sum;
-            })
-            .catch((e) => console.log(e));
+          .populate("course_id")
+          .exec()
+          .then((userCart) => {
+            let sum = 0;
+            userCart.forEach(
+              (item) => (sum += parseFloat(item.course_id.price))
+            );
+            return sum;
+          })
+          .catch((e) => console.log(e));
     const sum = sumPrice.toString() + ".00";
     totalSumCart = sumPrice.toString() + ".00";
     // Add course in Mylearning and invoices
@@ -755,18 +725,8 @@ class SiteController {
     }
   }
 
-  //GET /password
-  password(req, res, next) {
-    res.render("password", {
-      title: "Password Page",
-      ...authMiddleware.userInfor(req),
-    });
-  }
   //POST /coursesid
   async getCoursesFromId(req, res, next) {
-    // console.log(req.body.cart[0]);
-    // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
-    // res.json('ok')
     try {
       var courses = await Course.find({
         _id: {
@@ -801,19 +761,14 @@ class SiteController {
     const userInfor = authMiddleware.userInfor(req);
     if (!userInfor.username) return res.sendStatus(401);
 
-    // const itemData = new UserCart({
-    //   user_id: userInfor.id,
-    //   course_id: req.body.course_id,
-    // });
-    
     try {
-      var itemData = await  UserCart.findOne({
+      var itemData = await UserCart.findOne({
         user_id: userInfor.id,
         course_id: req.body.course_id,
       })
-      if (itemData==null) itemData = new UserCart({
-          user_id: userInfor.id,
-          course_id: req.body.course_id,
+      if (itemData == null) itemData = new UserCart({
+        user_id: userInfor.id,
+        course_id: req.body.course_id,
       });
       await itemData.save();
       res.json({
@@ -823,7 +778,6 @@ class SiteController {
       next(e);
       console.log(e);
     }
-    // res.json(req.body.course_id)
   }
   //DELETE /cart
   async deleteCourseToUserCart(req, res, next) {
@@ -845,17 +799,6 @@ class SiteController {
     }
   }
 
-  
-
-    
-
-  // checkout(req, res, next) {
-  //   res.render("checkout", {
-  //     title: "Check Out",
-  //     ...authMiddleware.userInfor(req),
-  //   });
-  // }
-  // [PUT] /seller/course/create/2/:id
   payment_success(req, res, next) {
     res.render("payment_success", {
       title: "Payment Success",
@@ -927,15 +870,12 @@ class SiteController {
               .catch(function (error) {
                 console.log(error); // Failure
               });
-            // console.log(JSON.stringify(payment));
             res.render("payment_success", {
               title: "Payment Success",
             });
           }
         } catch (error) {
-          // resultPayment = err.raw.message;
           next(error);
-          // res.redirect("/error");
         }
       }
     );

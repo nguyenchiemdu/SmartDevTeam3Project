@@ -15,15 +15,15 @@ const listTable = {
   users: User,
   courses: Course,
   categories: Category,
-  usercarts : UserCart,
-  usercourses : UserCourse,
-  lessons : Lesson,
-  comments : Comment,
-  invoices : Invoice,
-  roles : Role,
-  transactions : Transaction,
-  userlessons : UserLesson,
-  questions : Question,
+  usercarts: UserCart,
+  usercourses: UserCourse,
+  lessons: Lesson,
+  comments: Comment,
+  invoices: Invoice,
+  roles: Role,
+  transactions: Transaction,
+  userlessons: UserLesson,
+  questions: Question,
 };
 var authMiddleware = require("../middlerwares/auth.middleware")
 const {
@@ -37,7 +37,7 @@ class TableController {
       var targetTable = listTable[req.params.table];
       var tableData = await targetTable.find({});
       tableData = tableData.map(item => JSON.parse(JSON.stringify(item)));
-      res.render("admin/table-show", { tableData: tableData, tableName : req.params.table, ...authMiddleware.userInfor(req) });
+      res.render("admin/table-show", { tableData: tableData, tableName: req.params.table, ...authMiddleware.userInfor(req) });
     } catch (e) {
       console.log(e);
       next(e);
@@ -48,13 +48,13 @@ class TableController {
     try {
       var targetTable = listTable[req.params.table];
       var itemData = await targetTable.findOne({});
-      itemData =  JSON.parse(JSON.stringify(itemData));
+      itemData = JSON.parse(JSON.stringify(itemData));
       for (var key in itemData) itemData[key] = ''
       // delete itemData._id;
       res.render("admin/item-create", {
         itemData: (itemData),
-        tableName : req.params.table,
-        notification : ''
+        tableName: req.params.table,
+        notification: ''
       });
     } catch (e) {
       console.log(e);
@@ -84,11 +84,11 @@ class TableController {
       // var course = await Course.findById(req.params.id);
       var targetTable = listTable[req.params.table];
       var itemData = await targetTable.findById(req.params.id);
-      itemData =  JSON.parse(JSON.stringify(itemData));
+      itemData = JSON.parse(JSON.stringify(itemData));
       res.render("admin/item-edit", {
         itemData: (itemData),
-        tableName : req.params.table,
-        notification : ''
+        tableName: req.params.table,
+        notification: ''
       });
     } catch (e) {
       console.log(e);
@@ -101,7 +101,7 @@ class TableController {
     try {
       var targetTable = listTable[req.params.table];
       await targetTable.updateOne({ _id: req.params.id }, req.body);
-      res.redirect("/admin/"+req.params.table+'/');
+      res.redirect("/admin/" + req.params.table + '/');
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -114,7 +114,7 @@ class TableController {
       console.log(req)
       var targetTable = listTable[req.params.table];
       await targetTable.deleteOne({ _id: req.params.id });
-      res.redirect('/admin/'+req.params.table+'/');
+      res.redirect('/admin/' + req.params.table + '/');
     } catch (e) {
       console.log(e);
       res.json(e);

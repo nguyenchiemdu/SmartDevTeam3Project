@@ -12,8 +12,8 @@ function redirect(req,res,next) {
 }
 
 function route(app) {
-  app.use("/", siteRouter);
-  app.use("/auth", authRouter);
+  app.use("/", siteRouter); 
+  app.use("/auth", authRouter); //Authen Server
   app.use("/admin",redirect, adminRouter);
   app.use("/seller", sellerRouter);
   app.use("/user", userRouter);

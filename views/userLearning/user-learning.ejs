@@ -84,25 +84,6 @@
                   </a>
 
                   <% }) %>
-
-                    <!-- <div class="d-flex align-items-center lesson-description">
-                <div class="check">
-                  <i class="fas fa-check"></i>
-                </div>
-                <div class="ml-2">
-                  <p class="lesson-name">2. Tên bài học</p>
-                  <p class="lesson-time">08:04</p>
-                </div>
-              </div>
-              <div class="d-flex align-items-center lesson-description lock-lesson">
-                <div class="lock">
-                  <i class="fas fa-lock"></i>
-                </div>
-                <div class="ml-2">
-                  <p class="lesson-name">3. Tên bài học</p>
-                  <p class="lesson-time">08:04</p>
-                </div>
-              </div>-->
             </div>
           </div>
 
@@ -373,7 +354,6 @@
       var highestPercent = 0;
       var rawData = [];
       var serverData = <%- JSON.stringify(rawData) %>;
-      // console.log(serverData);
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
               events: {
@@ -492,11 +472,14 @@
           }
         }
       }
+      // Mark current second is watched
       function record() {
         timeSpent[parseInt(player.getCurrentTime())] = true;
-        showPercentage();
+        // showPercentage();
         // Render time when you create note
         currentTime.value = Math.floor(player.getCurrentTime());
+
+        // show time in note 
         var convertTime = secondsToTime(currentTime.value)
         if(convertTime.m <1){
           var notifyNote = `Tạo ghi chú tại ${convertTime.s} giây` ;
@@ -525,7 +508,7 @@
         // }
         // console.log(rawData);
       // }
-      function showPercentage() {
+      // function showPercentage() {
         // var percent = 0;
         // for (var i = 0, l = timeSpent.length; i < l; i++) {
         //   if (timeSpent[i]) percent++;
@@ -534,7 +517,8 @@
         // highestPercent = Math.max(highestPercent, (player.getCurrentTime() / player.getDuration() * 100));
 
         // display.innerHTML = (player.getCurrentTime() / player.getDuration() * 100) + "%";
-      }
+      // }
+      // submit data to server when user leave page
       window.addEventListener('beforeunload', async function () {
         let i=0;
         rawData = [];

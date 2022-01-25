@@ -17,8 +17,8 @@ class AdminController {
   //User disable
   async userDisable(req, res, next) {
     try {
-      const users = await User.find({isActive: true});
-      res.render("admin/userdisable",{ ...authMiddleware.userInfor(req), users});
+      const users = await User.find({ isActive: true });
+      res.render("admin/userdisable", { ...authMiddleware.userInfor(req), users });
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -28,8 +28,8 @@ class AdminController {
   //User active
   async userActive(req, res, next) {
     try {
-      const users = await User.find({isActive: false});
-      res.render("admin/useractive",{ ...authMiddleware.userInfor(req), users});
+      const users = await User.find({ isActive: false });
+      res.render("admin/useractive", { ...authMiddleware.userInfor(req), users });
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -37,19 +37,19 @@ class AdminController {
   }
 
   async kiemduyet(req, res, next) {
-    const courseIsNotValidate = await Course.find({isValidated: 0}).populate('user_id')
+    const courseIsNotValidate = await Course.find({ isValidated: 0 }).populate('user_id')
     // console.log(courseIsNotValidate);
     try {
-      res.render("admin/kiemduyet",{ ...authMiddleware.userInfor(req), courseIsNotValidate});
+      res.render("admin/kiemduyet", { ...authMiddleware.userInfor(req), courseIsNotValidate });
     } catch (e) {
       console.log(e);
       res.json(e);
     }
   }
   async viewDetail(req, res, next) {
-    const courseSlug = await Course.findOne({slug: req.params.slug}).populate("user_id");
+    const courseSlug = await Course.findOne({ slug: req.params.slug }).populate("user_id");
     try {
-      res.render("admin/viewdetail",{ ...authMiddleware.userInfor(req), course: courseSlug});
+      res.render("admin/viewdetail", { ...authMiddleware.userInfor(req), course: courseSlug });
     } catch (e) {
       console.log(e);
       res.json(e);
@@ -59,7 +59,7 @@ class AdminController {
   // :PATCH disable user
   async disable(req, res, next) {
     try {
-      await User.updateOne({_id: req.params.id},{isActive: false});
+      await User.updateOne({ _id: req.params.id }, { isActive: false });
       res.redirect("/admin/userdisable");
     } catch (e) {
       console.log(e);
@@ -70,7 +70,7 @@ class AdminController {
   // :PATCH active user
   async active(req, res, next) {
     try {
-      await User.updateOne({_id: req.params.id},{isActive: true});
+      await User.updateOne({ _id: req.params.id }, { isActive: true });
       res.redirect("/admin/useractive");
     } catch (e) {
       console.log(e);
@@ -80,7 +80,7 @@ class AdminController {
 
   async confirm(req, res, next) {
     try {
-      await Course.updateOne({_id: req.params.id},{isValidated: 1});
+      await Course.updateOne({ _id: req.params.id }, { isValidated: 1 });
       res.redirect("/admin/kiemduyet");
     } catch (e) {
       console.log(e);

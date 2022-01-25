@@ -11,7 +11,4 @@ router.patch("/password", authController.changePassWord);
 
 router.get("/signout",authController.signout);
 
-// show info user, update info, show my courses
-// router.get("/",controller)
-
 module.exports = router;

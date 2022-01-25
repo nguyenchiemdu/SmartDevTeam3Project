@@ -13,7 +13,7 @@ class CourseController {
     try {
       var userInfor = authMiddleware.userInfor(req);
       var courses = await Course.findOne({ slug: req.params.slug }).populate('user_id');
-      var myCourse = await UserCourse.findOne({course_id : courses._id, user_id : userInfor.id});
+      var myCourse = await UserCourse.findOne({ course_id: courses._id, user_id: userInfor.id });
       const isCheckedOut = myCourse ? true : false;
       var coursesInCart = await UserCart.findOne({
         course_id: courses._id.toString(),

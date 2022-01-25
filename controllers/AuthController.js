@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 const UserCart = require('../models/UserCart');
 const UserCourse = require('../models/UserCourse');
 const { resolveInclude } = require('ejs');
-var authMiddleware = require("../middlerwares/auth.middleware")
+var authMiddleware = require("../middlerwares/auth.middleware");
+
+
+
 class UserController {
   // [POST] /users/password
   async password(req, res) {
@@ -47,32 +50,32 @@ class UserController {
     try {
       // Authentication 
       const user = await User.findOne({ username: req.body.username })
-      if (!user) return res.json({error: "Invalid username or password", status: 'failed' })
-      if (! await bcrypt.compare(req.body.password, user.password)) return res.json({error: "Invalid username or password", status: 'failed' })
-      if (user.isActive != true)  {
+      if (!user) return res.json({ error: "Invalid username or password", status: 'failed' })
+      if (! await bcrypt.compare(req.body.password, user.password)) return res.json({ error: "Invalid username or password", status: 'failed' })
+      if (user.isActive != true) {
         return res.json({
           error: "Bạn đã bị admin khóa tài khoản",
-          status : "failed"
+          status: "failed"
         });
       }
       //add local Cart to user Cart
       const cart = req.body.cart;
       if (cart != null)
-      cart.forEach(async course_id => {
-        try {
-          const userCourse = await UserCourse.findOne({user_id: user._id,course_id : course_id})
-          const  isBought = userCourse  ? true : false;
-          if (isBought) return;
-          const result = await UserCart.findOne({ user_id: user._id, course_id: course_id });
-          const isExisted = result ? true : false;
-          if (!isExisted) {
-            const itemData = new UserCart({ user_id: user._id, course_id: course_id });
-            await itemData.save();
+        cart.forEach(async course_id => {
+          try {
+            const userCourse = await UserCourse.findOne({ user_id: user._id, course_id: course_id })
+            const isBought = userCourse ? true : false;
+            if (isBought) return;
+            const result = await UserCart.findOne({ user_id: user._id, course_id: course_id });
+            const isExisted = result ? true : false;
+            if (!isExisted) {
+              const itemData = new UserCart({ user_id: user._id, course_id: course_id });
+              await itemData.save();
+            }
+          } catch (e) {
+            console.log(e);
           }
-        } catch (e) {
-          console.log(e);
-        }
-      });
+        });
 
       //Create JWT
       const accessToken = jwt.sign(
@@ -131,19 +134,19 @@ class UserController {
 
     res.json({ status: "ok" });
   }
-  async changePassWord(req,res,next) {
+  async changePassWord(req, res, next) {
     try {
       const { currentPass, newPass, confirmPass } = req.body;
       const userInfor = authMiddleware.userInfor(req);
-      if (userInfor.id ==null) return res.json({error : 'Bạn chưa đăng nhập!', status : 'failed'});
-      const user = await  User.findOne({_id : userInfor.id});
-      if (user.isActive != true)  {
+      if (userInfor.id == null) return res.json({ error: 'Bạn chưa đăng nhập!', status: 'failed' });
+      const user = await User.findOne({ _id: userInfor.id });
+      if (user.isActive != true) {
         return res.json({
           error: "Bạn đã bị admin khóa tài khoản",
-          status : "failed"
+          status: "failed"
         });
       }
-      if (! await bcrypt.compare(currentPass, user.password)) return res.json({error: "Invalid username or password", status: 'failed' });
+      if (! await bcrypt.compare(currentPass, user.password)) return res.json({ error: "Invalid username or password", status: 'failed' });
       if (newPass.length < 5) {
         return res.json({
           status: "error",

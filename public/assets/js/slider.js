@@ -74,14 +74,14 @@ var swiper = new Swiper(".review-slider", {
     //   resistanceRatio: 0,
     // },
     breakpoints: {
-      640: {
-        slidesPerView: 1,
-      },
-      768: {
-        slidesPerView: 2,
-      },
-      1024: {
-        slidesPerView: 5,
-      },
+        640: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 5,
+        },
     },
-  });
+});

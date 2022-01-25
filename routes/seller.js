@@ -5,10 +5,7 @@ var sellerMiddleware = require("../middlerwares/seller.middleware")
 const sellerController = require("../controllers/SellerController");
 const tableController = require("../controllers/TableController");
 
-// sellerController.index
 router.get("/", sellerController.home_seller);
-
-// router.get("/courses", sellerController.show);
 
 router.get("/courses/:courseid",sellerMiddleware.authenSellerCourse, sellerController.billCourses);
 
