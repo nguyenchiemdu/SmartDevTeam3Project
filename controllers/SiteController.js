@@ -21,7 +21,7 @@ const Comment = require("../models/Comment");
 const Question = require("../models/Question");
 var url = require("url");
 const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
-var findCourseBySlug, resultPayment, totalSumCart, userNow;
+var resultPayment, totalSumCart, userNow;
 const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 const axios = require("axios").default;
@@ -116,31 +116,6 @@ class SiteController {
             next(e);
         }
     }
-
-    // [Post] localhost:8080/category
-    // Post slug to find ID Category
-    async category(req, res, next) {
-        findCourseBySlug = req.body.slug;
-        res.json(findCourseBySlug);
-    }
-    // [Get] localhost:8080/category
-    // Get course filter by categories
-    async getCategory(req, res, next) {
-        const findCourse = async () => {
-            const k = await Category.findOne({ slug: findCourseBySlug });
-            if (k !== null) {
-                Course.find({ categories_id: k._id })
-                    .populate({
-                        path: "categories_id",
-                    })
-                    .exec((err, course) => {
-                        res.json(course);
-                    });
-            }
-        };
-        findCourse();
-    }
-
     async learning(req, res, next) {
         try {
             let pageSize = 4;
