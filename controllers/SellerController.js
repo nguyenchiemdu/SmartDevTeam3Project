@@ -39,12 +39,15 @@ class SellerController {
                         userCoursePrices.push(0);
                     }
                 }
+                const priceZero = userCoursePrices.filter((price) => price === 0)
+                var isAllCourseNoSold = (priceZero.length === userCoursesName.length) ? true : false
             }
             res.render("seller/home.ejs", {
                 ...authMiddleware.userInfor(req),
                 courses: courses,
                 userCoursesName,
                 userCoursePrices,
+                isAllCourseNoSold,
             });
         } catch (e) {
             console.log(e);
@@ -181,9 +184,7 @@ class SellerController {
     async addCourses2(req, res, next) {
         try {
             var course = await Course.find({ _id: req.params.courseid });
-            // console.log(course);
             var lessons = await Lesson.find({ course_id: req.params.courseid });
-            // console.log(lessons);
             res.render("seller/create2", {
                 ...authMiddleware.userInfor(req),
                 lessons: lessons,
@@ -262,11 +263,11 @@ class SellerController {
             // res.json(newLessons);
             await newQuestions.save();
             Question.find({}, (err, data) => {
-                if (!err && formData?.isEdit) {
-                    res.redirect(`/seller/courses/create/3/${req.params.courseid}`);
-                }
-                if (!formData?.isEdit) {
+                if (!err && req.query.edit == 'true') {
                     res.redirect(`/seller/courses/${req.params.courseid}/edit`);
+                }
+                if (req.query.edit != 'true') {
+                    res.redirect(`/seller/courses/create/3/${req.params.courseid}`);
                 }
             });
         } catch (e) {
@@ -329,30 +330,32 @@ class SellerController {
         }
     }
     // [GET] /seller/courses/create/2/:id/edit
-    async editVideo(req, res, next) {
+    async getPageEditLesson(req, res, next) {
         try {
             var lessons = await Lesson.find({ _id: req.params.lessonid });
+            console.log(req.query);
             res.render("seller/edit2.ejs", {
                 ...authMiddleware.userInfor(req),
                 lessons: lessons,
+                edit : req.query.edit =='true' ? true : false
             });
         } catch (e) {
             console.log(e);
             next(e);
         }
     }
-
-    async updateVideo(req, res, next) {
+    async updateLesson(req, res, next) {
         try {
             const lessons = await Lesson.find({ _id: req.params.lessonid });
             const { title, urlVideo } = req.body;
+            console.log(req.body);
             await Lesson.findOneAndUpdate(
                 { _id: Number(req.params.lessonid) },
                 { urlVideo, title, isFinish: false }
             );
             lessons.map((les) => {
                 const courseId = les.course_id;
-                if (req.body.isEdit) {
+                if (req.query.edit == 'true') {
                     res.redirect(`/seller/courses/${courseId}/edit`);
                 } else {
                     res.redirect(`/seller/courses/create/2/${courseId}`);
@@ -363,13 +366,12 @@ class SellerController {
             next(e);
         }
     }
-
-    // [DELETE] /seller/courses/create/2/:id
-    async destroy(req, res, next) {
+    // [DELETE] /courses/:courseid/lessons/:lessonid/
+    async destroyLesson(req, res, next) {
         try {
             const lessons = await Lesson.find({ _id: req.params.lessonid });
             await Lesson.findByIdAndDelete({ _id: req.params.lessonid });
-            if (req.query.edit) {
+            if (!req.query.delete) {
                 lessons.map((les) => {
                     const id = les.course_id;
                     res.redirect(`/seller/courses/${id}/edit`);
@@ -393,6 +395,7 @@ class SellerController {
             res.render("seller/edit3.ejs", {
                 ...authMiddleware.userInfor(req),
                 questions: questions,
+                edit : req.query.edit =='true' ? true : false
             });
         } catch (e) {
             console.log(e);
@@ -411,7 +414,7 @@ class SellerController {
             );
             questions.map((ques) => {
                 const id = ques.course_id;
-                if (req.body.isQuestionEdit) {
+                if (req.query.edit == 'true') {
                     res.redirect(`/seller/courses/${id}/edit`);
                 } else {
                     res.redirect(`/seller/courses/create/3/${id}`);
@@ -429,7 +432,7 @@ class SellerController {
             const questions = await Question.find({ _id: req.params.questionid });
             await Question.findByIdAndDelete({ _id: req.params.questionid });
             // console.log(questions);
-            if (req.query.edit) {
+            if (req.query.edit == 'true') {
                 questions.map((ques) => {
                     const id = ques.course_id;
                     res.redirect(`/seller/courses/${id}/edit`);

@@ -1,7 +1,7 @@
 <div class="add-course add-question">
     <div style="padding-top: 100px; padding-bottom: 74px" class="container mt-5">
         <% course.forEach(cou=> { %>
-            <form method="POST" action="/seller/courses/create/3/<%= cou._id %>">
+            
                 <div class="row">
                     <h2 class="ml-3 mt-5">Add Question</h2>
                     <% questions.forEach(function(question) { %>
@@ -15,15 +15,17 @@
                                 <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
                                     <a href="/seller/courses/<%= question.course_id %>/questions/<%= question._id %>/edit" id="editBtn" type="edit"
                                         class="btn btn-info edit">Edit</a>
-                                        <a href="/seller/courses/<%= question.course_id %>/questions/<%= question._id %>/delete" type="delete"
-                                        class="btn btn-danger delete">
-                                        Delete
-                                    </a>
+                                        <form method="POST" action="/seller/courses/<%= question.course_id %>/questions/<%= question._id %>?_method=DELETE">
+                                            <button class="btn btn-danger delete">
+                                                Delete
+                                            </button>
+                                        </form>
                                 </div>
                             </div>
                         </div>
                     <% }); %>
                 </div>
+                <form method="POST" action="/seller/courses/create/3/<%= cou._id %>">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">
                         <div class="row">
@@ -61,8 +63,13 @@
                                 <input type="checkbox" name="isQuestionEdit" checked>Is Question Edit</input>
                                 <!-- kiem tra xem co phai dang edit khong? -->
                             </div>
-                            <div style="text-align: right" class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3 ml-auto">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="d-flex justify-content-between">
+                                <div style="text-align: right" class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3 ml-auto">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                <div style="text-align: right" class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3 ml-auto">
+                                    <a href="/seller" class="btn btn-info">Finish</a>
+                                </div>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <button type="button" onclick="location.href='/seller/courses/create/2/<%= cou._id %>'"
