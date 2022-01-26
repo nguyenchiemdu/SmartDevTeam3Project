@@ -64,6 +64,7 @@ class SellerController {
             next(e);
         }
     }
+
     // bill Course demo
     async billCourses(req, res, next) {
         try {
@@ -128,6 +129,7 @@ class SellerController {
             next(e);
         }
     }
+
     // add Course demo
     async addCourses1(req, res, next) {
         try {
@@ -142,6 +144,7 @@ class SellerController {
             next(e);
         }
     }
+
     // create courses of seller
     // [POST] seller/courses/create1
     async sellerCreate1(req, res, next) {
@@ -173,6 +176,7 @@ class SellerController {
             next(e);
         }
     }
+
     // add Video Course
     async addCourses2(req, res, next) {
         try {
@@ -191,6 +195,7 @@ class SellerController {
             next(e);
         }
     }
+
     // [POST] seller/courses/create2
     async sellerCreate2(req, res, next) {
         const formData = req.body;
@@ -217,6 +222,7 @@ class SellerController {
             next(e);
         }
     }
+
     // add Question Course
     async addCourses3(req, res, next) {
         try {
@@ -236,6 +242,7 @@ class SellerController {
             next(e);
         }
     }
+
     // [POST] seller/courses/create3
     async sellerCreate3(req, res, next) {
         const formData = req.body;
@@ -267,6 +274,7 @@ class SellerController {
             next(e);
         }
     }
+
     // edit Course demo
     async editCourses(req, res, next) {
         let CourseId = req.params.courseid;
@@ -306,6 +314,7 @@ class SellerController {
             next(e);
         }
     }
+
     async updateCoursesOfSeller(req, res, next) {
         const formData = req.body;
         const userInfor = authMiddleware.userInfor(req);
@@ -332,6 +341,7 @@ class SellerController {
             next(e);
         }
     }
+
     async updateVideo(req, res, next) {
         try {
             const lessons = await Lesson.find({ _id: req.params.lessonid });
@@ -353,6 +363,7 @@ class SellerController {
             next(e);
         }
     }
+
     // [DELETE] /seller/courses/create/2/:id
     async destroy(req, res, next) {
         try {
@@ -374,6 +385,7 @@ class SellerController {
             next(e);
         }
     }
+
     // [GET] /seller/courses/create/3/:id/edit
     async editQuestion(req, res, next) {
         try {
@@ -387,6 +399,7 @@ class SellerController {
             next(e);
         }
     }
+
     // [PUT] /seller/courses/create/3/:id
     async updateQuestion(req, res, next) {
         try {
@@ -409,6 +422,7 @@ class SellerController {
             next(e);
         }
     }
+    
     // [DELETE] /seller/courses/create/3/:id
     async destroyQuestion(req, res, next) {
         try {
