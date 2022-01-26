@@ -25,16 +25,16 @@ router.get("/courses/:courseid/edit",sellerMiddleware.authenSellerCourse, seller
 
 router.patch("/courses/:courseid",sellerMiddleware.authenSellerCourse, sellerController.updateCoursesOfSeller);
 
-router.get("/courses/:courseid/lessons/:lessonid/edit",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerLesson, sellerController.editVideo);
+router.get("/courses/:courseid/lessons/:lessonid/edit",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerLesson, sellerController.getPageEditLesson);
 
-router.put("/courses/:courseid/lessons/:lessonid/edit",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerLesson, sellerController.updateVideo);
+router.put("/courses/:courseid/lessons/:lessonid/edit",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerLesson, sellerController.updateLesson);
 
-router.get("/courses/:courseid/lessons/:lessonid/delete",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerLesson, sellerController.destroy);
+router.delete("/courses/:courseid/lessons/:lessonid",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerLesson, sellerController.destroyLesson);
 
 router.get("/courses/:courseid/questions/:questionid/edit",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerQuestion, sellerController.editQuestion);
 
 router.put("/courses/:courseid/questions/:questionid/edit",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerQuestion, sellerController.updateQuestion);
 
-router.get("/courses/:courseid/questions/:questionid/delete",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerQuestion, sellerController.destroyQuestion);
+router.delete("/courses/:courseid/questions/:questionid/",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerQuestion, sellerController.destroyQuestion);
 
 module.exports = router;

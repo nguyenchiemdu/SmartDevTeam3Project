@@ -39,12 +39,15 @@ class SellerController {
                         userCoursePrices.push(0);
                     }
                 }
+                const priceZero = userCoursePrices.filter((price) => price === 0)
+                var isAllCourseNoSold = (priceZero.length === userCoursesName.length) ? true : false
             }
             res.render("seller/home.ejs", {
                 ...authMiddleware.userInfor(req),
                 courses: courses,
                 userCoursesName,
                 userCoursePrices,
+                isAllCourseNoSold,
             });
         } catch (e) {
             console.log(e);
@@ -177,9 +180,7 @@ class SellerController {
     async addCourses2(req, res, next) {
         try {
             var course = await Course.find({ _id: req.params.courseid });
-            // console.log(course);
             var lessons = await Lesson.find({ course_id: req.params.courseid });
-            // console.log(lessons);
             res.render("seller/create2", {
                 ...authMiddleware.userInfor(req),
                 lessons: lessons,
@@ -320,7 +321,7 @@ class SellerController {
         }
     }
     // [GET] /seller/courses/create/2/:id/edit
-    async editVideo(req, res, next) {
+    async getPageEditLesson(req, res, next) {
         try {
             var lessons = await Lesson.find({ _id: req.params.lessonid });
             res.render("seller/edit2.ejs", {
@@ -332,7 +333,7 @@ class SellerController {
             next(e);
         }
     }
-    async updateVideo(req, res, next) {
+    async updateLesson(req, res, next) {
         try {
             const lessons = await Lesson.find({ _id: req.params.lessonid });
             const { title, urlVideo } = req.body;
@@ -342,10 +343,10 @@ class SellerController {
             );
             lessons.map((les) => {
                 const courseId = les.course_id;
-                if (req.body.isEdit) {
-                    res.redirect(`/seller/courses/${courseId}/edit`);
-                } else {
+                if (req.params.edit === true) {
                     res.redirect(`/seller/courses/create/2/${courseId}`);
+                } else {
+                    res.redirect(`/seller/courses/${courseId}/edit`);
                 }
             });
         } catch (e) {
@@ -353,12 +354,12 @@ class SellerController {
             next(e);
         }
     }
-    // [DELETE] /seller/courses/create/2/:id
-    async destroy(req, res, next) {
+    // [DELETE] /courses/:courseid/lessons/:lessonid/
+    async destroyLesson(req, res, next) {
         try {
             const lessons = await Lesson.find({ _id: req.params.lessonid });
             await Lesson.findByIdAndDelete({ _id: req.params.lessonid });
-            if (req.query.edit) {
+            if (!req.query.delete) {
                 lessons.map((les) => {
                     const id = les.course_id;
                     res.redirect(`/seller/courses/${id}/edit`);
@@ -415,7 +416,7 @@ class SellerController {
             const questions = await Question.find({ _id: req.params.questionid });
             await Question.findByIdAndDelete({ _id: req.params.questionid });
             // console.log(questions);
-            if (req.query.edit) {
+            if (req.query) {
                 questions.map((ques) => {
                     const id = ques.course_id;
                     res.redirect(`/seller/courses/${id}/edit`);
