@@ -5,10 +5,6 @@ var courseController = require("../controllers/CourseController");
 /* GET home page. */
 router.get("/", siteController.home);
 
-router.get("/category", siteController.getCategory);
-
-router.post("/category", siteController.category);
-
 router.get("/login", siteController.login);
 
 router.get("/register", siteController.register);

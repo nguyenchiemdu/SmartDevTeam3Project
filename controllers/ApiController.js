@@ -1,7 +1,9 @@
 const Note = require('../models/Note');
 var authMiddleware = require("../middlerwares/auth.middleware");
 const UserLesson = require("../models/UserLesson");
-
+const Category = require("../models/Category");
+const Course = require("../models/Course");
+var findCourseBySlug;
 class ApiController {
     // Note APi
     // [GET] Full List Note
@@ -14,7 +16,7 @@ class ApiController {
     async getNoteByLesson(req, res, next) {
         let userInfor = authMiddleware.userInfor(req);
         const lessonId = req.params.lesson_id;
-        const k = await Note.find({user_id: userInfor.id, lesson_id: lessonId});
+        const k = await Note.find({ user_id: userInfor.id, lesson_id: lessonId });
         res.json(k);
     }
     // [Post] Create new Note
@@ -88,6 +90,31 @@ class ApiController {
             res.json({ kq: "That bai" });
         }
     }
+
+    // [Post] localhost:8080/api/category
+    // Post slug to find ID Category
+    async category(req, res, next) {
+        findCourseBySlug = req.body.slug;
+        res.json(findCourseBySlug);
+    }
+    // [Get] localhost:8080/api/category
+    // Get course filter by categories
+    async getCategory(req, res, next) {
+        const findCourse = async () => {
+            const k = await Category.findOne({ slug: findCourseBySlug });
+            if (k !== null) {
+                Course.find({ categories_id: k._id })
+                    .populate({
+                        path: "categories_id",
+                    })
+                    .exec((err, course) => {
+                        res.json(course);
+                    });
+            }
+        };
+        findCourse();
+    }
+
 }
 
 module.exports = new ApiController();

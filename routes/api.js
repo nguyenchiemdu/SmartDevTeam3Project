@@ -3,6 +3,10 @@ var router = express.Router();
 
 const apiController = require("../controllers/ApiController");
 
+router.get("/category", apiController.getCategory);
+
+router.post("/category", apiController.category);
+
 router.get("/check-finish/:courseId/:lessonid", apiController.getFinish);
 
 router.patch("/check-finish/:courseId/:lessonid", apiController.editFinish);
