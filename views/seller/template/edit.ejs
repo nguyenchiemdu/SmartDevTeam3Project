@@ -71,7 +71,7 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/courses/<%= course._id %>/lessons/<%= lesson._id %>/edit" id="editVideoBtn" type="edit"
+                                <a href="/seller/courses/<%= course._id %>/lessons/<%= lesson._id %>/edit?edit=true" id="editVideoBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
                                     <form method="POST" action="/seller/courses/<%= course._id%>/lessons/<%= lesson._id %>?_method=DELETE">
                                         <button type="submit" class="btn btn-danger">
@@ -115,9 +115,9 @@
                                 </h3>
                             </div>
                             <div class="col-lg-2 col-md-10 col-sm-6 col-xs-6">
-                                <a href="/seller/courses/<%= course._id %>/questions/<%= question._id %>/edit" id="editQuestionBtn" type="edit"
+                                <a href="/seller/courses/<%= course._id %>/questions/<%= question._id %>/edit?edit=true" id="editQuestionBtn" type="edit"
                                     class="btn btn-info edit">Edit</a>
-                                <form method="POST" action="/seller/courses/<%= course._id %>/questions/<%= question._id %>?_method=DELETE">
+                                <form method="POST" action="/seller/courses/<%= course._id %>/questions/<%= question._id %>?_method=DELETE&edit=true">
                                     <button class="btn btn-danger delete">
                                         Delete
                                     </button>
@@ -127,7 +127,7 @@
                     </div>
                 <% }); %>
             </div>
-        <form method="POST" action="/seller/courses/create/3/<%= course._id %>">
+        <form method="POST" action="/seller/courses/create/3/<%= course._id %>?edit=true">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 input-container">
                     <div class="row">

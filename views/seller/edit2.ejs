@@ -11,15 +11,6 @@
     <% include template/footer %>
     <% include ../elements/script %>
     <script>
-        window.onload = () => {
-            const isEditFromSeller = localStorage.getItem("isEditFromSeller") || "";
-            document.getElementById("submitFormEditLesson").onclick = () => {
-            localStorage.removeItem('isEditFromSeller');
-          };
-          if (isEditFromSeller) {
-              document.getElementById('isEditLesson').innerHTML = "<input type='checkbox' name='isEdit' checked>Is Edit</input>"
-          }
-        }
     </script>
 </body>
 
